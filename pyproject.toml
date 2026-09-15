@@ -1,0 +1,99 @@
+[project]
+name = "knowledge-extractor"
+version = "1.0.0"
+description = "Knowledge Extraction Pipeline — converts PDF, CSV, DOCX, XLSX (and more) to structured JSON and Markdown."
+requires-python = ">=3.11"
+license = "MIT"
+
+dependencies = [
+    "pymupdf==1.28.0",
+    "pdfplumber==0.11.10",
+    "python-docx==1.2.0",
+    "openpyxl==3.1.5",
+    "charset-normalizer==3.4.7",
+    "ftfy>=6.1,<7",
+    "defusedxml>=0.7,<1",
+    "beautifulsoup4>=4.12,<5",
+    "python-pptx>=1.0,<2",
+    "pillow>=10.0",
+]
+
+[project.optional-dependencies]
+ocr = [
+    "onnxruntime>=1.20,<2",
+    "opencv-python-headless>=4.10",
+    "pyclipper>=1.3,<2",
+    "numpy>=1.26",
+]
+# Only needed to re-download the model weights; the weights ship with the repo.
+ocr-hf = ["huggingface-hub>=0.24,<1"]
+# Apple Silicon only. The weights are pulled from Hugging Face on first use.
+vlm = ["mlx-vlm>=0.6,<1"]
+dev = [
+    "pytest>=9.1,<10",
+    "pytest-cov>=6.0,<7",
+    "ruff>=0.11,<1",
+]
+
+[tool.setuptools.packages.find]
+include = ["extractor*"]
+
+[tool.setuptools.package-data]
+"extractor.ocr" = ["ppocrv6_dict.txt"]
+
+[project.scripts]
+extract = "main:main"
+
+# ---------------------------------------------------------------------------
+# Ruff
+# ---------------------------------------------------------------------------
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = [".", "extractor", "tests"]
+exclude = [".venv"]  # virtual environment
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "BLE",  # flake8-blind-except (already used in noqa comments)
+    "SIM",  # flake8-simplify
+    "RUF",  # ruff-specific rules
+]
+ignore = [
+    "E501",   # line length handled by formatter
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["extractor"]
+
+# ---------------------------------------------------------------------------
+# Pytest
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Put the repo root on sys.path so a bare `pytest` works without an editable
+# install; without it, collection fails on every module importing `extractor`.
+pythonpath = ["."]
+addopts = "--strict-markers -q"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+]
+
+# ---------------------------------------------------------------------------
+# Coverage
+# ---------------------------------------------------------------------------
+[tool.coverage.run]
+source = ["extractor"]
+omit = ["tests/*", ".venv/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+precision = 1

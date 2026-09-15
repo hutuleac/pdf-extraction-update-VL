@@ -1,0 +1,528 @@
+{
+  "single_column.pdf": {
+    "document": {
+      "filename": "single_column.pdf",
+      "source_type": "pdf",
+      "pages": 3,
+      "author": "",
+      "title": "",
+      "has_images": false,
+      "image_count": 0,
+      "schema_version": "2.0"
+    },
+    "pages": [
+      {
+        "unit": 1,
+        "unit_type": "page",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "text",
+            "content": "Pagina 1: Continut text simplu pe o singura coloana.\nLinia a doua pe pagina 1 cu detalii unice.\nInformatii specifice paginii numarul 1."
+          }
+        ],
+        "page_class": "native-text"
+      },
+      {
+        "unit": 2,
+        "unit_type": "page",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "text",
+            "content": "Pagina 2: Continut text simplu pe o singura coloana.\nLinia a doua pe pagina 2 cu detalii unice.\nInformatii specifice paginii numarul 2."
+          }
+        ],
+        "page_class": "native-text"
+      },
+      {
+        "unit": 3,
+        "unit_type": "page",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "text",
+            "content": "Pagina 3: Continut text simplu pe o singura coloana.\nLinia a doua pe pagina 3 cu detalii unice.\nInformatii specifice paginii numarul 3."
+          }
+        ],
+        "page_class": "native-text"
+      }
+    ]
+  },
+  "two_column.pdf": {
+    "document": {
+      "filename": "two_column.pdf",
+      "source_type": "pdf",
+      "pages": 3,
+      "author": "",
+      "title": "",
+      "has_images": false,
+      "image_count": 0,
+      "schema_version": "2.0",
+      "warnings": [
+        {
+          "code": "HEADER_FOOTER_DETECTED"
+        },
+        {
+          "code": "POSSIBLE_TWO_COLUMN_ORDER",
+          "page": 1
+        },
+        {
+          "code": "POSSIBLE_TWO_COLUMN_ORDER",
+          "page": 2
+        },
+        {
+          "code": "POSSIBLE_TWO_COLUMN_ORDER",
+          "page": 3
+        }
+      ]
+    },
+    "pages": [
+      {
+        "unit": 1,
+        "unit_type": "page",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "header",
+            "content": "Stanga pagina 1 linia 3."
+          },
+          {
+            "type": "header",
+            "content": "Dreapta pagina 1 linia 3."
+          },
+          {
+            "type": "text",
+            "content": "Stanga pagina 1 linia 1.\nStanga pagina 1 linia 2.\nDreapta pagina 1 linia 1.\nDreapta pagina 1 linia 2."
+          }
+        ],
+        "page_class": "native-text"
+      },
+      {
+        "unit": 2,
+        "unit_type": "page",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "header",
+            "content": "Stanga pagina 2 linia 3."
+          },
+          {
+            "type": "header",
+            "content": "Dreapta pagina 2 linia 3."
+          },
+          {
+            "type": "text",
+            "content": "Stanga pagina 2 linia 1.\nStanga pagina 2 linia 2.\nDreapta pagina 2 linia 1.\nDreapta pagina 2 linia 2."
+          }
+        ],
+        "page_class": "native-text"
+      },
+      {
+        "unit": 3,
+        "unit_type": "page",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "header",
+            "content": "Stanga pagina 3 linia 3."
+          },
+          {
+            "type": "header",
+            "content": "Dreapta pagina 3 linia 3."
+          },
+          {
+            "type": "text",
+            "content": "Stanga pagina 3 linia 1.\nStanga pagina 3 linia 2.\nDreapta pagina 3 linia 1.\nDreapta pagina 3 linia 2."
+          }
+        ],
+        "page_class": "native-text"
+      }
+    ]
+  },
+  "repeated_header.pdf": {
+    "document": {
+      "filename": "repeated_header.pdf",
+      "source_type": "pdf",
+      "pages": 6,
+      "author": "",
+      "title": "",
+      "has_images": false,
+      "image_count": 0,
+      "schema_version": "2.0",
+      "warnings": [
+        {
+          "code": "HEADER_FOOTER_DETECTED"
+        }
+      ]
+    },
+    "pages": [
+      {
+        "unit": 1,
+        "unit_type": "page",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "text",
+            "content": "Continut pagina 1.\nDetalii importante pe pagina 1.\nSectiune unica pentru pagina 1 cu date specifice."
+          },
+          {
+            "type": "footer",
+            "content": "Confidential | Page 1"
+          }
+        ],
+        "page_class": "native-text"
+      },
+      {
+        "unit": 2,
+        "unit_type": "page",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "text",
+            "content": "Continut pagina 2.\nDetalii importante pe pagina 2.\nSectiune unica pentru pagina 2 cu date specifice."
+          },
+          {
+            "type": "footer",
+            "content": "Confidential | Page 2"
+          }
+        ],
+        "page_class": "native-text"
+      },
+      {
+        "unit": 3,
+        "unit_type": "page",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "text",
+            "content": "Continut pagina 3.\nDetalii importante pe pagina 3.\nSectiune unica pentru pagina 3 cu date specifice."
+          },
+          {
+            "type": "footer",
+            "content": "Confidential | Page 3"
+          }
+        ],
+        "page_class": "native-text"
+      },
+      {
+        "unit": 4,
+        "unit_type": "page",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "text",
+            "content": "Continut pagina 4.\nDetalii importante pe pagina 4.\nSectiune unica pentru pagina 4 cu date specifice."
+          },
+          {
+            "type": "footer",
+            "content": "Confidential | Page 4"
+          }
+        ],
+        "page_class": "native-text"
+      },
+      {
+        "unit": 5,
+        "unit_type": "page",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "text",
+            "content": "Continut pagina 5.\nDetalii importante pe pagina 5.\nSectiune unica pentru pagina 5 cu date specifice."
+          },
+          {
+            "type": "footer",
+            "content": "Confidential | Page 5"
+          }
+        ],
+        "page_class": "native-text"
+      },
+      {
+        "unit": 6,
+        "unit_type": "page",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "text",
+            "content": "Continut pagina 6.\nDetalii importante pe pagina 6.\nSectiune unica pentru pagina 6 cu date specifice."
+          },
+          {
+            "type": "footer",
+            "content": "Confidential | Page 6"
+          }
+        ],
+        "page_class": "native-text"
+      }
+    ]
+  },
+  "unicode_test.pdf": {
+    "document": {
+      "filename": "unicode_test.pdf",
+      "source_type": "pdf",
+      "pages": 2,
+      "author": "",
+      "title": "",
+      "has_images": false,
+      "image_count": 0,
+      "schema_version": "2.0"
+    },
+    "pages": [
+      {
+        "unit": 1,
+        "unit_type": "page",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "text",
+            "content": "Înregistrarea cererii de concediu.\nManagerul aprob· solicitarea.\nDepartamentul HR verific· disponibilitatea."
+          }
+        ],
+        "page_class": "native-text"
+      },
+      {
+        "unit": 2,
+        "unit_type": "page",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "text",
+            "content": "Not·: To·i angaja·ii trebuie s· completeze formularul.\nValabil începând cu 1 ianuarie 2026."
+          }
+        ],
+        "page_class": "native-text"
+      }
+    ]
+  },
+  "nested_list.docx": {
+    "document": {
+      "filename": "nested_list.docx",
+      "source_type": "docx",
+      "pages": 1,
+      "author": "python-docx",
+      "title": "",
+      "has_images": false,
+      "image_count": 0,
+      "schema_version": "2.0"
+    },
+    "pages": [
+      {
+        "unit": 1,
+        "unit_type": "section",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "text",
+            "content": "Introducere document.\nPunct 1\nPunct 2\nSub-punct 2a\nPunct 3\nConcluzie document."
+          }
+        ]
+      }
+    ]
+  },
+  "table_between.docx": {
+    "document": {
+      "filename": "table_between.docx",
+      "source_type": "docx",
+      "pages": 1,
+      "author": "python-docx",
+      "title": "",
+      "has_images": false,
+      "image_count": 0,
+      "schema_version": "2.0"
+    },
+    "pages": [
+      {
+        "unit": 1,
+        "unit_type": "section",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "text",
+            "content": "Text inainte de tabel."
+          },
+          {
+            "type": "table",
+            "content": [
+              [
+                "Nume",
+                "Departament"
+              ],
+              [
+                "Ion Popescu",
+                "IT"
+              ],
+              [
+                "Maria Ionescu",
+                "HR"
+              ]
+            ]
+          },
+          {
+            "type": "text",
+            "content": "Text dupa tabel.\nParagraf final."
+          }
+        ]
+      }
+    ]
+  },
+  "merged_cells.xlsx": {
+    "document": {
+      "filename": "merged_cells.xlsx",
+      "source_type": "xlsx",
+      "pages": 1,
+      "author": "",
+      "title": "",
+      "has_images": false,
+      "image_count": 0,
+      "schema_version": "2.0"
+    },
+    "pages": [
+      {
+        "unit": 1,
+        "unit_type": "sheet",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "table",
+            "content": [
+              [
+                "Header Combinat",
+                "",
+                ""
+              ],
+              [
+                "Val1",
+                "Val2",
+                "Val3"
+              ],
+              [
+                "Data1",
+                "Data2",
+                "Data3"
+              ]
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "hidden_sheet.xlsx": {
+    "document": {
+      "filename": "hidden_sheet.xlsx",
+      "source_type": "xlsx",
+      "pages": 2,
+      "author": "",
+      "title": "",
+      "has_images": false,
+      "image_count": 0,
+      "schema_version": "2.0"
+    },
+    "pages": [
+      {
+        "unit": 1,
+        "unit_type": "sheet",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "table",
+            "content": [
+              [
+                "Col1",
+                "Col2"
+              ],
+              [
+                "A",
+                "B"
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "unit": 2,
+        "unit_type": "sheet",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "table",
+            "content": [
+              [
+                "Secret",
+                "Data"
+              ],
+              [
+                "X",
+                "Y"
+              ]
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "dates_currency.xlsx": {
+    "document": {
+      "filename": "dates_currency.xlsx",
+      "source_type": "xlsx",
+      "pages": 1,
+      "author": "",
+      "title": "",
+      "has_images": false,
+      "image_count": 0,
+      "schema_version": "2.0"
+    },
+    "pages": [
+      {
+        "unit": 1,
+        "unit_type": "sheet",
+        "has_images": false,
+        "image_count": 0,
+        "content": [
+          {
+            "type": "table",
+            "content": [
+              [
+                "Date",
+                "Amount",
+                "Currency"
+              ],
+              [
+                "2026-01-15 00:00:00",
+                "1500.5",
+                "EUR"
+              ],
+              [
+                "2026-02-28 00:00:00",
+                "2300.75",
+                "RON"
+              ],
+              [
+                "2026-03-10 00:00:00",
+                "890",
+                "USD"
+              ]
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

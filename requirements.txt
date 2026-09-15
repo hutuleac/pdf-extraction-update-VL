@@ -1,0 +1,5 @@
+# Runtime + dev dependencies are declared in pyproject.toml.
+# Install with:  pip install -e ".[dev]"
+#
+# This file keeps the legacy `pip install -r requirements.txt` path working.
+-e .[dev]
