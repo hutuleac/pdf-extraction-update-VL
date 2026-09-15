@@ -40,6 +40,15 @@ _TEMPLATES = {
     # Carries a reason (truncated / low-yield / empty / error) in describe().
     "VLM_OUTPUT_REJECTED": "the visual model's reading of this page was discarded",
     "VLM_UNAVAILABLE": "the visual model could not run",
+    # Aggregated per document: a line per described page would be most of the
+    # document on an illustrated one, and says nothing the count does not.
+    "VLM_FIGURES_DESCRIBED": "figures were described in prose",
+    "VLM_DESCRIBE_FAILED": "some figure pages could not be described",
+    # Kept rather than discarded — a description cut short still describes what
+    # it reached — but said out loud, because prose that stopped and prose that
+    # ended look identical.
+    "VLM_DESCRIBE_TRUNCATED": "some figure descriptions ran out of tokens and stop mid-sentence",
+    "VLM_DESCRIBE_UNAVAILABLE": "the describing model could not run",
     # An equation the model returned unbalanced is never published as math: a
     # wrong formula that renders is worse than a missing one.
     "FORMULA_REVIEW_REQUIRED": "a formula on this page was dropped as malformed — check the source",
@@ -85,6 +94,11 @@ def describe(warning: dict) -> str:
             notes.append("its prose repeated the page text and was dropped")
         if notes:
             text = f"{text} ({'; '.join(notes)})"
+
+    if code in (
+        "VLM_FIGURES_DESCRIBED", "VLM_DESCRIBE_FAILED", "VLM_DESCRIBE_TRUNCATED",
+    ) and warning.get("pages"):
+        text = f"{text} ({warning['pages']} page(s))"
 
     if code == "VLM_OUTPUT_REJECTED":
         if warning.get("pages"):

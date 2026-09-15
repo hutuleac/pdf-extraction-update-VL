@@ -56,7 +56,7 @@ def prose_novelty(vlm_text: str, native_text: str) -> float:
     return len(produced - _words(native_text)) / len(produced)
 
 
-def _cache_path(png_bytes: bytes) -> Path:
+def _cache_path(png_bytes: bytes, model: str, max_tokens: int, penalty: float) -> Path:
     """Where this page's inference is cached.
 
     Keyed on the rendered image rather than the source file, so DPI and any
@@ -64,19 +64,22 @@ def _cache_path(png_bytes: bytes) -> Path:
     repetition penalty are added because they change the output for identical
     pixels — without the penalty in the key, a page cached as a repetition loop
     would be served back forever after the penalty that fixes it is turned on.
+    The model is what keeps the describing pass off the reading pass's entries:
+    both see the same pixels and answer entirely different questions.
     """
     config = get_config()
     root = Path(config.cache_dir) if config.cache_dir else DEFAULT_CACHE_DIR
     digest = hashlib.sha256(
-        png_bytes
-        + f"|{config.model}|{config.max_tokens}|{config.repetition_penalty}".encode()
+        png_bytes + f"|{model}|{max_tokens}|{penalty}".encode()
     ).hexdigest()
     return root / f"{digest}.json"
 
 
-def _infer(engine, png_bytes: bytes) -> tuple[str, bool]:
+def _infer(
+    engine, png_bytes: bytes, *, model: str, max_tokens: int, penalty: float,
+) -> tuple[str, bool]:
     """Return ``(raw output, hit the token cap)``, from cache when possible."""
-    path = _cache_path(png_bytes)
+    path = _cache_path(png_bytes, model, max_tokens, penalty)
     if path.exists():
         try:
             entry = json.loads(path.read_text(encoding="utf-8"))
@@ -86,11 +89,8 @@ def _infer(engine, png_bytes: bytes) -> tuple[str, bool]:
         except (OSError, ValueError, KeyError):  # a damaged entry is not fatal
             logger.debug("Ignoring unreadable VLM cache entry: %s", path)
 
-    config = get_config()
     raw, capped = engine.convert(
-        png_bytes,
-        max_tokens=config.max_tokens,
-        repetition_penalty=config.repetition_penalty,
+        png_bytes, max_tokens=max_tokens, repetition_penalty=penalty,
     )
 
     try:
@@ -119,6 +119,7 @@ def _judge(
 
 def vlm_pages(
     path: Path, page_classes: list[str], native_texts: list[str],
+    native_table_pages: frozenset[int] = frozenset(),
 ) -> tuple[dict[int, ParsedPage], list[dict]]:
     """Read every page of *path* with the visual model.
 
@@ -127,6 +128,13 @@ def vlm_pages(
     — the model reads formulas and figure structure the native path never
     sees — and the merge rules in ``pdf_reader`` decide where its output may
     displace native content and where it is only added.
+
+    *native_table_pages* is the one merge rule this function has to know about.
+    ``pdf_reader`` keeps the model's tables only where pdfplumber found none,
+    so on a page that has native tables a redundant-prose reading kept "for its
+    tables" contributes nothing at all — and without this it would still be
+    reported as ``VLM_APPLIED`` and stay out of the duplicate tally. On a
+    table-heavy document that is the common case, not an edge.
     """
     if not get_config().enabled:
         return {}, []
@@ -158,7 +166,12 @@ def vlm_pages(
             page_number = index + 1
             replacing = page_class in REPLACE_CLASSES
             try:
-                raw, capped = _infer(engine, render_page(doc[index], dpi=dpi))
+                raw, capped = _infer(
+                    engine, render_page(doc[index], dpi=dpi),
+                    model=get_config().model,
+                    max_tokens=get_config().max_tokens,
+                    penalty=get_config().repetition_penalty,
+                )
                 parsed = parser.parse(raw)
                 # The cap is evidence the answer was cut off; the parser's own
                 # check is whatever extra its format can prove.
@@ -191,7 +204,8 @@ def vlm_pages(
                 # keeps the one thing the text layer does not hold.
                 parsed.text = "\n\n".join(f"$$\n{f}\n$$" for f in parsed.formulas)
                 applied["prose"] = "redundant"
-                if not parsed.text and not parsed.tables:
+                kept_tables = parsed.tables and page_number not in native_table_pages
+                if not parsed.text and not kept_tables:
                     duplicates += 1
                     continue
 

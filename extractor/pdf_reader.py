@@ -29,6 +29,7 @@ from extractor.reading_order import reorder_words
 from extractor.rotated_text import drop_skewed_words, skewed_words_and_text
 from extractor.table_reader import extract_tables
 from extractor.vlm.apply import vlm_pages
+from extractor.vlm.describe import describe_pages
 
 logger = logging.getLogger(__name__)
 
@@ -388,6 +389,9 @@ def extract_pdf(path: Path | str, *, images_dir: Path | str | None = None) -> di
         path,
         reader_data["page_classes"],
         reader_data["page_texts"],
+        # Pages that map to an empty list are pages pdfplumber found nothing
+        # on, where the model's tables are still taken.
+        frozenset(page for page, entries in tables.items() if entries),
     )
     # Only a reading that actually carries text displaces OCR. A page accepted
     # for its tables alone replaces nothing, and skipping OCR there would leave
@@ -397,6 +401,11 @@ def extract_pdf(path: Path | str, *, images_dir: Path | str | None = None) -> di
         if reader_data["page_classes"][page - 1] in FULL_PAGE_OCR_CLASSES
         and parsed.text.strip()
     }
+    # Independent of the reading pass: a different model answering a different
+    # question, on the figure-bearing pages the reading pass has no answer for.
+    figure_by_page, describe_warnings = describe_pages(
+        path, reader_data["page_classes"], reader_data["page_image_counts"],
+    )
     ocr_by_page = _ocr_pages(
         path,
         reader_data["page_classes"],
@@ -407,7 +416,7 @@ def extract_pdf(path: Path | str, *, images_dir: Path | str | None = None) -> di
 
     total_images = sum(reader_data["page_image_counts"])
     units: list[dict] = []
-    doc_warnings: list[dict] = list(vlm_warnings)
+    doc_warnings: list[dict] = list(vlm_warnings) + describe_warnings
 
     rotated_warning = _rotated_text_warning(reader_data["page_rotated_text"])
     if rotated_warning:
@@ -496,6 +505,14 @@ def extract_pdf(path: Path | str, *, images_dir: Path | str | None = None) -> di
             blocks.append(ocr_block)
         if vlm_block:
             blocks.append(vlm_block)
+        # After the page's own text, because it describes what the page shows
+        # rather than what it says — a reader (or a chunker) wants the source
+        # first and the commentary on it second.
+        figure_block = make_vlm_text_block(
+            figure_by_page.get(page_number, ""), source="vlm-figure",
+        )
+        if figure_block:
+            blocks.append(figure_block)
 
         native_tables = tables.get(page_number, [])
         for table in native_tables:

@@ -19,8 +19,13 @@ from extractor.json_writer import write_json
 from extractor.limits import MAX_FILE_MB, FileTooLargeError, check_file_size
 from extractor.markdown_writer import write_markdown
 from extractor.ocr.config import DEFAULT_DPI, DEFAULT_MIN_CONFIDENCE, configure
+from extractor.vlm.config import (
+    DEFAULT_DESCRIBE_MODEL,
+    DEFAULT_MAX_TOKENS,
+    DEFAULT_MODEL,
+    DEFAULT_REPETITION_PENALTY,
+)
 from extractor.vlm.config import DEFAULT_DPI as VLM_DEFAULT_DPI
-from extractor.vlm.config import DEFAULT_MAX_TOKENS, DEFAULT_MODEL, DEFAULT_REPETITION_PENALTY
 from extractor.vlm.config import configure as configure_vlm
 from extractor.vlm.models import SPECS as VLM_SPECS
 from extractor.warning_text import describe
@@ -129,6 +134,23 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
     vlm_group.add_argument(
+        "--vlm-describe-figures", dest="vlm_describe", action="store_true",
+        help=(
+            "Also describe what each figure SHOWS, in prose, on pages classed "
+            "mixed or layout-complex. Loads a second, larger model beside the "
+            "reading one and costs roughly 45 s per figure page, so it is off "
+            "by default. Requires --vlm"
+        ),
+    )
+    vlm_group.add_argument(
+        "--vlm-describe-model", dest="vlm_describe_model",
+        default=DEFAULT_DESCRIBE_MODEL,
+        help=(
+            "Model used by --vlm-describe-figures. A general instruct model, "
+            f"not a document-conversion one. Default: {DEFAULT_DESCRIBE_MODEL}"
+        ),
+    )
+    vlm_group.add_argument(
         "--vlm-cache-dir", dest="vlm_cache_dir", default=None,
         help=(
             "Where per-page inferences are cached, so an interrupted run does "
@@ -228,6 +250,9 @@ def file_stats(model: dict) -> dict:
         "ocr_pages": sum(1 for w in warnings if w["code"] == "OCR_APPLIED"),
         "vlm_pages": sum(1 for w in warnings if w["code"] == "VLM_APPLIED"),
         "vlm_formulas": sum(w.get("formulas", 0) for w in warnings if w["code"] == "VLM_APPLIED"),
+        "vlm_figures": sum(
+            w.get("pages", 0) for w in warnings if w["code"] == "VLM_FIGURES_DESCRIBED"
+        ),
         "unreadable_pages": sum(1 for w in warnings if w["code"] in _UNREADABLE_CODES),
         "warnings": warnings,
         "ok": True,
@@ -268,8 +293,9 @@ def _warning_rollup(succeeded: list[dict]) -> list[str]:
     """Report what could not be extracted, and name the fix exactly once."""
     ocr_pages = sum(r.get("ocr_pages", 0) for r in succeeded)
     vlm_pages = sum(r.get("vlm_pages", 0) for r in succeeded)
+    vlm_figures = sum(r.get("vlm_figures", 0) for r in succeeded)
     unreadable = sum(r.get("unreadable_pages", 0) for r in succeeded)
-    if not ocr_pages and not vlm_pages and not unreadable:
+    if not ocr_pages and not vlm_pages and not vlm_figures and not unreadable:
         return []
 
     lines: list[str] = []
@@ -280,6 +306,8 @@ def _warning_rollup(succeeded: list[dict]) -> list[str]:
         lines.append(
             f"The visual model read {vlm_pages} page(s), recovering {formulas} formula(s)."
         )
+    if vlm_figures:
+        lines.append(f"Figures were described on {vlm_figures} page(s).")
     if not unreadable:
         return lines
 
@@ -340,6 +368,8 @@ def main(argv: list[str] | None = None) -> int:
         dpi=args.vlm_dpi,
         max_tokens=args.vlm_max_tokens,
         repetition_penalty=args.vlm_repetition_penalty,
+        describe=args.vlm_describe,
+        describe_model=args.vlm_describe_model,
         cache_dir=args.vlm_cache_dir,
     )
 

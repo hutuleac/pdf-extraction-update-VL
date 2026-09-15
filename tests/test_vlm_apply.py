@@ -203,6 +203,26 @@ def test_rejected_formulas_raise_a_review_warning(two_page_pdf, monkeypatch, tmp
     assert review == [{"code": "FORMULA_REVIEW_REQUIRED", "page": 1, "count": 1}]
 
 
+def test_tables_dropped_by_the_reader_do_not_count_as_applied(
+    monkeypatch, tmp_path, two_page_pdf,
+):
+    """A redundant page kept "for its tables" contributes nothing where the
+    reader already has native ones — so it is a duplicate, not an application."""
+    # Prose the native text already holds, plus a table: without the reader's
+    # merge rule this page reads as an application on both pages.
+    prose = "alpha beta gamma delta"
+    table = f"<doctag><text>{prose}</text><otsl><ched>a<fcel>1</otsl></doctag>"
+    _install(monkeypatch, StubEngine([table, table]), tmp_path)
+
+    _, warnings = apply.vlm_pages(
+        two_page_pdf, ["native-text", "native-text"], [prose, prose],
+        frozenset({1}),
+    )
+    codes = [w["code"] for w in warnings]
+    assert codes.count("VLM_APPLIED") == 1
+    assert {"code": "VLM_OUTPUT_REJECTED", "reason": "duplicate", "pages": 1} in warnings
+
+
 def test_one_page_failing_does_not_lose_the_others(two_page_pdf, monkeypatch, tmp_path):
     class Exploding(StubEngine):
         def convert(self, png_bytes, *, max_tokens, repetition_penalty=None):

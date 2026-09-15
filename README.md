@@ -262,6 +262,68 @@ flows into Markdown, metrics and phase 2 like any other text.
 `--vlm` and the probe fails with a typed reason, the run reports
 `VLM_UNAVAILABLE`, and the output is exactly what it would have been.
 
+### Describing figures (`--vlm-describe-figures`)
+
+Everything above reads what a page *says*. Nothing in the pipeline says what a
+chart *shows* — the text layer holds its axis labels and nothing else, OCR under
+`--ocr-figures` returns those same labels as fragments, and granite emits
+`<picture>` and moves on. A paragraph describing the figure is what Phase 2
+wants to embed, and this is the only path that produces one.
+
+```bash
+python main.py --vlm --vlm-describe-figures
+```
+
+It loads a second model beside the reading one —
+`mlx-community/Qwen3-VL-8B-Instruct-4bit` by default, override with
+`--vlm-describe-model` — and sends every page that is classed `mixed` /
+`layout-complex` **or** carries an embedded image. Output is a `text` block with
+`"source": "vlm-figure"`, placed after the page's own text: it is commentary on
+the page, and a reader (or a chunker) wants the source first.
+
+A real page of the reference course comes back as:
+
+> A map of Romania illustrates the distribution of peak ground acceleration
+> (a_g) for seismic events, with contour lines indicating acceleration values in
+> units of g (gravity). The map, sourced from UTCB, 2012, and scaled at
+> 1:3,000,000, shows regions with varying seismic intensity, ranging from 0.10g
+> to 0.40g...
+
+**A figureless page is refused by the model, not by a heuristic.** Asked for the
+graphics on a page that has none, it answers `NONE` and that page is skipped.
+This is the cheapest gate available — there is no region signal to threshold,
+because there are no regions (see below) — but it is a prompt instruction rather
+than a guarantee, so it was measured rather than trusted. Across 26 pages spread
+through the 388-page course: 8 refusals, all of them the bare sentinel, 18
+descriptions (median 1,420 characters), and **zero refusals phrased as prose**
+("there are no figures on this page"), which is the form that would slip past
+the check and publish as a figure block saying nothing. None hit the 512-token
+cap either.
+
+**Why the whole page and not each figure.** Cropping to each figure was the
+obvious design and the corpus killed it: `raster.page_image_regions` finds zero
+regions on 16 of 17 pages of the reference deck, whose figures are vector art
+with no embedded raster, and granite's own `<picture>` boxes on those pages are
+logos — 12x11 units — and absent entirely on two pages that do have figures.
+
+**Three costs to know before turning it on.** Roughly 45 s per page sent,
+against granite's 5–14 s. A second set of weights resident alongside the first
+(measured peak 7.4 GB for both, granite + the 4-bit Qwen). And — the one that
+actually bites — *most of an illustrated document qualifies*: on the 388-page
+reference course the gate sends **330 pages**, about four hours. The per-page
+figure is the harmless half of that number; budget from the page count. Point
+`--input` at the subset you want rather than a whole library, and note that
+inferences are cached like every other, keyed on the model, so an interrupted
+run resumes and the describing pass never collides with the reading pass over
+the same pixels.
+
+**It will not describe a page whose "figures" are boxes and rules.** On the
+17-page reference deck — 10 pages of which classify as `layout-complex` — the
+model answered `NONE` on every one, correctly: its diagrams are text in styled
+containers, and the table on page 15 is a table, which the table path already
+handles. The gain is on documents with real graphics: charts, maps, photographs,
+schematics.
+
 ## Setup
 
 ```bash
@@ -431,6 +493,10 @@ Fatal extraction categories are reported separately from warnings:
 | `VLM_APPLIED` | The visual model's reading of this page was kept — carries the formula count, and says when its prose was dropped as a repeat of the page text |
 | `VLM_OUTPUT_REJECTED` | Its reading was discarded — per-page with `reason` `truncated`, `low-yield`, `empty` or `error`; `duplicate` is aggregated once per document instead, with a `pages` count |
 | `VLM_UNAVAILABLE` | The visual model was requested but cannot run — `detail` names the reason |
+| `VLM_FIGURES_DESCRIBED` | `--vlm-describe-figures` produced a description — aggregated once per document with a `pages` count |
+| `VLM_DESCRIBE_TRUNCATED` | Some descriptions hit the token cap and stop mid-sentence — they are kept, since a description cut after two figures still describes two, but the cut is reported because prose that stopped looks like prose that ended |
+| `VLM_DESCRIBE_FAILED` | Some figure pages raised during description and were skipped; the rest are unaffected |
+| `VLM_DESCRIBE_UNAVAILABLE` | The describing model could not be loaded — `detail` names the reason, and the run is otherwise unchanged |
 | `FORMULA_REVIEW_REQUIRED` | A formula came back with unmatched `\left`/`\right` and was dropped rather than published wrong — check the source page |
 
 Warnings appear in the JSON output (`document.warnings`), in an
