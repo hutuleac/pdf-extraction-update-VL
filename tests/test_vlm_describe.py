@@ -106,6 +106,11 @@ def test_describe_model_does_not_share_the_reading_cache(tmp_path):
 
     config.configure(cache_dir=str(tmp_path))
     png = b"identical pixels"
-    reading = _cache_path(png, "granite-docling", 4096, 1.05)
-    describing = _cache_path(png, "Qwen3-VL-8B-Instruct-4bit", 512, 1.0)
+    reading = _cache_path(png, "granite-docling", 4096, 1.05, "convert this page")
+    describing = _cache_path(png, "Qwen3-VL-8B-Instruct-4bit", 512, 1.0, "describe")
     assert reading != describing
+    # The prompt is the question. Editing one to fix bad output has to re-read
+    # the page, or the fix is invisible behind the entry it was meant to replace.
+    assert describing != _cache_path(
+        png, "Qwen3-VL-8B-Instruct-4bit", 512, 1.0, "describe, but differently",
+    )

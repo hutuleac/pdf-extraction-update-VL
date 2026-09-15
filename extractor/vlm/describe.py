@@ -51,11 +51,21 @@ FIGURE_CLASSES = ("mixed", "layout-complex")
 # half. Without it the model returns the page's prose back — the same
 # duplication MIN_PROSE_NOVELTY exists to catch on the reading path, and here
 # there would be no novelty check to catch it.
+#
+# The absence clause earns its place too: listing the kinds of graphic invites
+# the model to report on the ones that are missing, and a real description of a
+# product drawing closed with "No axes, charts, maps, or photographs are
+# present." That sentence is the prompt's own vocabulary echoed back as a
+# finding — harmless to read and pure noise to embed. The prompt is part of the
+# inference cache key, so editing it re-reads the pages rather than serving the
+# old answer back.
 PROMPT = (
     "Describe each figure, chart, diagram, map or photograph on this page: "
     "what it depicts, the quantities on its axes, its labelled parts, and "
     "the relationship or process it conveys. Write short prose. Describe "
     "only the graphics, not the page's body text. "
+    "Describe only what is present — never state that a kind of graphic is "
+    "absent. "
     "If the page has no graphics at all, reply with the single word NONE."
 )
 

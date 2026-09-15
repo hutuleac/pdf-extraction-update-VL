@@ -56,7 +56,9 @@ def prose_novelty(vlm_text: str, native_text: str) -> float:
     return len(produced - _words(native_text)) / len(produced)
 
 
-def _cache_path(png_bytes: bytes, model: str, max_tokens: int, penalty: float) -> Path:
+def _cache_path(
+    png_bytes: bytes, model: str, max_tokens: int, penalty: float, prompt: str = "",
+) -> Path:
     """Where this page's inference is cached.
 
     Keyed on the rendered image rather than the source file, so DPI and any
@@ -65,12 +67,15 @@ def _cache_path(png_bytes: bytes, model: str, max_tokens: int, penalty: float) -
     pixels — without the penalty in the key, a page cached as a repetition loop
     would be served back forever after the penalty that fixes it is turned on.
     The model is what keeps the describing pass off the reading pass's entries:
-    both see the same pixels and answer entirely different questions.
+    both see the same pixels and answer entirely different questions. The prompt
+    is in the key for the same reason one step down — it *is* the question, so
+    editing one to fix bad output would otherwise serve the bad output back
+    forever, exactly as an unkeyed repetition penalty once would have.
     """
     config = get_config()
     root = Path(config.cache_dir) if config.cache_dir else DEFAULT_CACHE_DIR
     digest = hashlib.sha256(
-        png_bytes + f"|{model}|{max_tokens}|{penalty}".encode()
+        png_bytes + f"|{model}|{max_tokens}|{penalty}|{prompt}".encode()
     ).hexdigest()
     return root / f"{digest}.json"
 
@@ -79,7 +84,12 @@ def _infer(
     engine, png_bytes: bytes, *, model: str, max_tokens: int, penalty: float,
 ) -> tuple[str, bool]:
     """Return ``(raw output, hit the token cap)``, from cache when possible."""
-    path = _cache_path(png_bytes, model, max_tokens, penalty)
+    # From the engine rather than a parameter: every engine carries the prompt
+    # it was built with, so both passes are keyed correctly without either
+    # caller remembering to pass it.
+    path = _cache_path(
+        png_bytes, model, max_tokens, penalty, getattr(engine, "prompt", ""),
+    )
     if path.exists():
         try:
             entry = json.loads(path.read_text(encoding="utf-8"))

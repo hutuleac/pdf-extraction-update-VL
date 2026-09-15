@@ -78,11 +78,28 @@ always should have been.
 
 ## What this does not answer
 
-The corpus has no *borderless* tables — the one case where pdfplumber fails
+The corpus had no *borderless* tables — the one case where pdfplumber fails
 structurally, since it reads ruling lines. Geo 187 and 322 are both ruled. So the
-claim is "no table gap on these documents", not "models cannot beat pdfplumber".
-If a borderless-table document turns up, this measurement must be rerun before
-its conclusion is reused.
+claim was "no table gap on these documents", not "models cannot beat pdfplumber".
+
+**A borderless-table document turned up, and it reverses finding 3 for that
+case.** A full-stack run on an 18-page Uponor thermostat manual (2026-09-15,
+same day): pdfplumber found 9 tables on 5 pages; granite supplied **15 more on 6
+pages where pdfplumber found none** — settings-menu tables, key/icon legends,
+value/description pairs, all with correct headers and no ruling lines anywhere
+in the document. So:
+
+- finding 3 ("granite never recovered a table pdfplumber missed") holds for
+  *ruled* tables and is false for borderless ones;
+- the `native_tables`-win rule at `pdf_reader.py:505` is still right — it only
+  suppresses where pdfplumber actually found something, so it never blocked
+  these;
+- the value of the visual model on a document like this is tables, not prose:
+  all 6 accepted pages were `prose: redundant` and contributed tables alone.
+
+The remaining untested case is a document with *both* ruled and borderless
+tables on the same page, where the suppression is per-page rather than
+per-table and would drop the borderless ones.
 
 Only three pages (Geo 187, Geo 79, ARMS 15) are unambiguously tabular with high
 native fill; the course's other ~320 `find_tables()` hits are slide layout frames
