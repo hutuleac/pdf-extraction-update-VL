@@ -140,6 +140,16 @@ glue means no reader talks to the OCR engine directly:
   the unit gets `OCR_FAILED` (nothing was read, counted as unreadable in
   `main._UNREADABLE_CODES`); if only some fail, the unit gets `OCR_IMAGE_FAILED`
   alongside its recovered text (not in `_UNREADABLE_CODES`, since text exists).
+  Recognized lines are reordered before they are pooled: `_in_reading_order`
+  hands each line to `reading_order.reorder_words` as its own block, with pixel
+  coordinates scaled to `NOMINAL_PAGE_WIDTH` so the point-tuned column
+  thresholds serve both paths. The detector's own top-to-bottom sort interleaves
+  a two-column scan line by line, which a chunker then splits and reglues. It is
+  column clustering, not layout analysis, and the ceiling is measured: on a 2x2
+  panel infographic (148 lines, 4 panels) the engine switched panel 57 times,
+  this switches 34, perfect grouping would switch 3. `OCR_MULTI_COLUMN` fires
+  where columns run concurrently, because that is exactly where the order is
+  improved and still not guaranteed.
 - `config.py` — run-wide `OcrConfig` (dpi, min-confidence, model dir), set
   once from the CLI and read by everyone else; readers take only a path, so
   options travel through this module instead of every function signature.
@@ -298,6 +308,15 @@ alone: the course's seismic-zoning page — a full-page contoured map of Romania
 the most describable page measured — classifies `native-text`, so gating on
 class alone silently skipped it. The image count is the signal `_ocr_pages`
 already uses for its figure pass.
+
+`describe_image` is the same pass for a standalone image file, called from
+`image_reader`. It is additive only and has no reading model beside it: an
+image's text comes from OCR, which is *trusted*, unlike a `scanned` page's
+native text that the model may replace — so pairing a conversion model with it
+would bet verified text against an unmeasured reading and would duplicate
+`pdf_reader`'s merge rule in a second place. It also skips `registry`
+deliberately: that probe is for the reading model, and consulting it here would
+load granite's weights only to decide whether a different model can run.
 
 A figureless page is refused by the model (`NONE`), not by an output heuristic —
 there is no region signal to threshold. That is a prompt instruction, so it was

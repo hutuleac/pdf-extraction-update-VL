@@ -181,6 +181,23 @@ What OCR does, by page type:
 | `garbled` | Read, and the OCR text replaces the damaged text when confidence >= `--ocr-min-confidence` |
 | `mixed`, `layout-complex` | Native text is left alone and figures are exported as images. Their figures are read only under `--ocr-figures` |
 
+**Recognized lines are put back in reading order, not left in the engine's.**
+The detector sorts its boxes top-to-bottom, which is right on one column and
+wrong on anything side by side: a two-column scan comes back with the columns
+woven together line by line, so a chunker downstream splits neighbours and glues
+strangers. Each line goes through the same column clustering that serves the PDF
+text path (`reading_order.py`), with its pixel coordinates scaled to a nominal
+page width so one set of thresholds covers both.
+
+It is column clustering, not layout analysis, and the difference is measured. On
+a 2x2 panel infographic — 148 lines across four panels — the engine's own order
+switched panel 57 times, this switches 34, and perfect grouping would switch 3.
+A strict improvement on every layout, a complete answer only on columns; a grid
+of panels needs region segmentation, which is a much larger tool. Where the
+clustering finds columns running side by side, the page reports
+`OCR_MULTI_COLUMN` — precisely because that is the case where the order is
+better than before and still not guaranteed right.
+
 OCR text is a normal `text` block with its origin recorded, so it flows into
 Markdown, metrics and phase 2 like any other text:
 
@@ -273,6 +290,14 @@ wants to embed, and this is the only path that produces one.
 ```bash
 python main.py --vlm --vlm-describe-figures
 ```
+
+It works on image files too — a screenshot or a reference card is exactly the
+case where the glyphs are only half the content. There it is **additive only**,
+with no reading model beside it: an image's text comes from OCR, which is
+*trusted* output, unlike the native text of a `scanned` PDF page that the model
+is allowed to replace. Handing the same picture to a conversion model would bet
+verified text against an unmeasured reading, and would put the "who wins here"
+rule in a second place besides `pdf_reader`.
 
 It loads a second model beside the reading one —
 `mlx-community/Qwen3-VL-8B-Instruct-4bit` by default, override with
@@ -474,6 +499,7 @@ potential quality issues:
 | `OCR_REJECTED_LOW_CONFIDENCE` | A garbled page was OCR'd but the reading scored below `--ocr-min-confidence`, so it was discarded — the page holds no recovered text |
 | `OCR_MIXED_CONFIDENCE` | Page mean passes, but some lines are below the threshold — carries how many, and the worst |
 | `OCR_NOISE_FILTERED` | Unreadable 1–3 character fragments were discarded — carries how many, and quotes a sample |
+| `OCR_MULTI_COLUMN` | The page was read as multiple side-by-side columns, so the recognized lines were reordered — check the order, since a panel grid is only partly untangled |
 | `OCR_UNAVAILABLE` | OCR was needed but cannot run — `detail` names the reason |
 | `OCR_SKIPPED_DISABLED` | OCR was needed but `--no-ocr` was given |
 | `OCR_MODEL_INCOMPATIBLE` | Model class count does not match the dictionary — decoding refused |

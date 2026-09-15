@@ -100,6 +100,44 @@ def test_off_by_default(monkeypatch, tmp_path, three_page_pdf):
     assert engine.calls == 0
 
 
+# --- image files -----------------------------------------------------------
+
+def test_describe_image_needs_no_reading_model(monkeypatch, tmp_path):
+    """The registry probe is for the reading model, which this path has none of.
+
+    Consulting it would load granite's weights purely to decide whether a
+    different model can run.
+    """
+    engine = StubEngine(["a supervisor agent branching to four sub-agents"])
+    monkeypatch.setattr(describe, "_get_engine", lambda: engine)
+
+    def explode():
+        raise AssertionError("the reading model must not be probed here")
+
+    monkeypatch.setattr(registry, "is_available", explode)
+    config.configure(enabled=True, describe=True, cache_dir=str(tmp_path))
+    monkeypatch.setattr(describe, "_get_engine", lambda: engine)
+
+    text, warnings = describe.describe_image(b"fake png bytes")
+    assert text == "a supervisor agent branching to four sub-agents"
+    assert warnings == [{"code": "VLM_FIGURES_DESCRIBED", "pages": 1}]
+
+
+def test_describe_image_publishes_nothing_for_none(monkeypatch, tmp_path):
+    engine = StubEngine(["NONE"])
+    config.configure(enabled=True, describe=True, cache_dir=str(tmp_path))
+    monkeypatch.setattr(describe, "_get_engine", lambda: engine)
+    assert describe.describe_image(b"png") == (None, [])
+
+
+def test_describe_image_off_by_default(monkeypatch):
+    engine = StubEngine(["a chart"])
+    monkeypatch.setattr(describe, "_get_engine", lambda: engine)
+    config.configure(enabled=True)  # --vlm without --vlm-describe-figures
+    assert describe.describe_image(b"png") == (None, [])
+    assert engine.calls == 0
+
+
 def test_describe_model_does_not_share_the_reading_cache(tmp_path):
     """Both passes see identical pixels and answer different questions."""
     from extractor.vlm.apply import _cache_path

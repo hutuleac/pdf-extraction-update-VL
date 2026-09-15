@@ -36,6 +36,10 @@ _TEMPLATES = {
     # Quotes the discarded text in describe(): a filter that removes content has
     # to show its work, or a document it misjudges fails silently.
     "OCR_NOISE_FILTERED": "unreadable OCR fragments were discarded",
+    # Column clustering gets the common two-column scan right and only partly
+    # untangles a grid of panels, so where this fires the order is better than
+    # the engine's own and not guaranteed correct.
+    "OCR_MULTI_COLUMN": "this page was read as multiple columns — check the order of the OCR text",
     "VLM_APPLIED": "the visual model read this page",
     # Carries a reason (truncated / low-yield / empty / error) in describe().
     "VLM_OUTPUT_REJECTED": "the visual model's reading of this page was discarded",

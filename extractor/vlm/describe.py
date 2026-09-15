@@ -103,6 +103,57 @@ def _get_engine():
     return _engine
 
 
+def _describe(engine, png_bytes: bytes) -> tuple[str | None, bool]:
+    """Return ``(description or None for no figures, hit the token cap)``."""
+    config = get_config()
+    raw, capped = _infer(
+        engine, png_bytes,
+        model=config.describe_model,
+        max_tokens=config.describe_max_tokens,
+        # Prose, not a tag stream: the loops the penalty exists for are a
+        # conversion-model failure, and penalizing repeated tokens in a
+        # paragraph costs more than it saves.
+        penalty=1.0,
+    )
+    text = raw.strip()
+    if not text or text.upper().rstrip(".") == NO_FIGURES:
+        return None, capped
+    return text, capped
+
+
+def describe_image(png_bytes: bytes) -> tuple[str | None, list[dict]]:
+    """Describe the figures in a standalone image file.
+
+    Additive only, and deliberately not accompanied by a reading pass. An image
+    file's text comes from OCR, which is *trusted* output — unlike the native
+    text of a `scanned` PDF page, which is why that path lets the model replace
+    it. Handing the same image to a conversion model would be betting verified
+    text against an unmeasured reading, and would put the "who wins here" rule
+    in a second place besides ``pdf_reader``.
+
+    It also does not consult ``registry``: that probe is for the *reading*
+    model, and on this path there is none. Asking it would load granite's
+    weights purely to decide whether a different model can run.
+    """
+    config = get_config()
+    if not (config.enabled and config.describe):
+        return None, []
+    try:
+        engine = _get_engine()
+    except VlmUnavailable as exc:
+        return None, [{
+            "code": "VLM_DESCRIBE_UNAVAILABLE", "detail": exc.reason.describe(), "pages": 1,
+        }]
+    try:
+        text, _capped = _describe(engine, png_bytes)
+    except Exception as exc:  # noqa: BLE001 - a failed description is not a failed file
+        logger.warning("Figure description failed on image: %s", exc)
+        return None, [{"code": "VLM_DESCRIBE_FAILED", "pages": 1}]
+    if text is None:
+        return None, []
+    return text, [{"code": "VLM_FIGURES_DESCRIBED", "pages": 1}]
+
+
 def describe_pages(
     path: Path, page_classes: list[str], page_image_counts: list[int],
 ) -> tuple[dict[int, str], list[dict]]:
@@ -151,21 +202,14 @@ def describe_pages(
         for index in candidates:
             page_number = index + 1
             try:
-                raw, capped = _infer(
+                text, capped = _describe(
                     engine, render_page(doc[index], dpi=config.dpi),
-                    model=config.describe_model,
-                    max_tokens=config.describe_max_tokens,
-                    # Prose, not a tag stream: the loops the penalty exists for
-                    # are a conversion-model failure, and penalizing repeated
-                    # tokens in a paragraph costs more than it saves.
-                    penalty=1.0,
                 )
             except Exception as exc:  # noqa: BLE001 - isolate one page's failure
                 logger.warning("Figure description failed on page %d: %s", page_number, exc)
                 failures += 1
                 continue
-            text = raw.strip()
-            if text and text.upper().rstrip(".") != NO_FIGURES:
+            if text is not None:
                 results[page_number] = text
                 # Kept, not rejected: a description cut off after two figures
                 # still describes two figures, where a formula cut in half is
