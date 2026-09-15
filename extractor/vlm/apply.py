@@ -60,13 +60,16 @@ def _cache_path(png_bytes: bytes) -> Path:
     """Where this page's inference is cached.
 
     Keyed on the rendered image rather than the source file, so DPI and any
-    future render change are already part of the identity; model and token cap
-    are added because they change the output for identical pixels.
+    future render change are already part of the identity; model, token cap and
+    repetition penalty are added because they change the output for identical
+    pixels — without the penalty in the key, a page cached as a repetition loop
+    would be served back forever after the penalty that fixes it is turned on.
     """
     config = get_config()
     root = Path(config.cache_dir) if config.cache_dir else DEFAULT_CACHE_DIR
     digest = hashlib.sha256(
-        png_bytes + f"|{config.model}|{config.max_tokens}".encode()
+        png_bytes
+        + f"|{config.model}|{config.max_tokens}|{config.repetition_penalty}".encode()
     ).hexdigest()
     return root / f"{digest}.json"
 
@@ -83,7 +86,12 @@ def _infer(engine, png_bytes: bytes) -> tuple[str, bool]:
         except (OSError, ValueError, KeyError):  # a damaged entry is not fatal
             logger.debug("Ignoring unreadable VLM cache entry: %s", path)
 
-    raw, capped = engine.convert(png_bytes, max_tokens=get_config().max_tokens)
+    config = get_config()
+    raw, capped = engine.convert(
+        png_bytes,
+        max_tokens=config.max_tokens,
+        repetition_penalty=config.repetition_penalty,
+    )
 
     try:
         path.parent.mkdir(parents=True, exist_ok=True)

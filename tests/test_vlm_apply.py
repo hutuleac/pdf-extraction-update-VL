@@ -39,7 +39,7 @@ class StubEngine:
         self.outputs = list(outputs)
         self.calls = 0
 
-    def convert(self, png_bytes, *, max_tokens):
+    def convert(self, png_bytes, *, max_tokens, repetition_penalty=None):
         self.calls += 1
         output = self.outputs.pop(0)
         return output if isinstance(output, tuple) else (output, False)
@@ -205,7 +205,7 @@ def test_rejected_formulas_raise_a_review_warning(two_page_pdf, monkeypatch, tmp
 
 def test_one_page_failing_does_not_lose_the_others(two_page_pdf, monkeypatch, tmp_path):
     class Exploding(StubEngine):
-        def convert(self, png_bytes, *, max_tokens):
+        def convert(self, png_bytes, *, max_tokens, repetition_penalty=None):
             self.calls += 1
             if self.calls == 1:
                 raise RuntimeError("out of memory")
@@ -230,6 +230,39 @@ def test_second_run_reuses_the_cache(two_page_pdf, monkeypatch, tmp_path):
 
     assert engine.calls == 2, "the second run must not re-infer"
     assert first[1].text == second[1].text
+
+
+def test_changing_the_repetition_penalty_invalidates_the_cache(
+    two_page_pdf, monkeypatch, tmp_path,
+):
+    """Otherwise a page cached as a repetition loop is served back forever.
+
+    The penalty changes the output for identical pixels, so it belongs in the
+    key exactly as the model and the token cap do.
+    """
+    engine = StubEngine([GOOD] * 4)
+    _install(monkeypatch, engine, tmp_path)
+    apply.vlm_pages(two_page_pdf, ["native-text"] * 2, [NATIVE] * 2)
+    assert engine.calls == 2
+
+    config.configure(repetition_penalty=1.2)
+    apply.vlm_pages(two_page_pdf, ["native-text"] * 2, [NATIVE] * 2)
+    assert engine.calls == 4
+
+
+def test_the_penalty_reaches_the_engine(two_page_pdf, monkeypatch, tmp_path):
+    """The knob is useless if the run-wide setting never arrives at generate()."""
+    seen = []
+
+    class Recording(StubEngine):
+        def convert(self, png_bytes, *, max_tokens, repetition_penalty=None):
+            seen.append(repetition_penalty)
+            return super().convert(png_bytes, max_tokens=max_tokens)
+
+    _install(monkeypatch, Recording([GOOD] * 2), tmp_path)
+    config.configure(repetition_penalty=1.15)
+    apply.vlm_pages(two_page_pdf, ["native-text"] * 2, [NATIVE] * 2)
+    assert seen == [1.15, 1.15]
 
 
 def test_changing_max_tokens_invalidates_the_cache(two_page_pdf, monkeypatch, tmp_path):

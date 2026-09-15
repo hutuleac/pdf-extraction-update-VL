@@ -306,6 +306,7 @@ pytest-cov, ruff). Tested on Python 3.14 (Windows).
 | `--vlm` | off | Also read every page with a visual model (Apple Silicon only) |
 | `--vlm-model` | `ibm-granite/granite-docling-258M-mlx` | Model to load; the name must contain `granite-docling` or `paddleocr-vl` |
 | `--vlm-dpi` | 144 | Resolution used to render pages for the model |
+| `--vlm-repetition-penalty` | `1.05` | Penalty on repeated tokens; stops the repetition loops both models fall into on damaged pages. `1.0` disables it |
 | `--vlm-max-tokens` | 4096 | Token budget per page |
 | `--vlm-cache-dir` | `~/.cache/knowledge-extractor/vlm` | Where per-page inferences are cached |
 

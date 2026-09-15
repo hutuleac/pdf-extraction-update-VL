@@ -20,7 +20,7 @@ from extractor.limits import MAX_FILE_MB, FileTooLargeError, check_file_size
 from extractor.markdown_writer import write_markdown
 from extractor.ocr.config import DEFAULT_DPI, DEFAULT_MIN_CONFIDENCE, configure
 from extractor.vlm.config import DEFAULT_DPI as VLM_DEFAULT_DPI
-from extractor.vlm.config import DEFAULT_MAX_TOKENS, DEFAULT_MODEL
+from extractor.vlm.config import DEFAULT_MAX_TOKENS, DEFAULT_MODEL, DEFAULT_REPETITION_PENALTY
 from extractor.vlm.config import configure as configure_vlm
 from extractor.vlm.models import SPECS as VLM_SPECS
 from extractor.warning_text import describe
@@ -117,6 +117,16 @@ def build_parser() -> argparse.ArgumentParser:
     vlm_group.add_argument(
         "--vlm-max-tokens", dest="vlm_max_tokens", type=int, default=DEFAULT_MAX_TOKENS,
         help=f"Token budget per page. Default: {DEFAULT_MAX_TOKENS}",
+    )
+    vlm_group.add_argument(
+        "--vlm-repetition-penalty", dest="vlm_repetition_penalty", type=float,
+        default=DEFAULT_REPETITION_PENALTY,
+        help=(
+            "Penalty on repeated tokens, which stops the repetition loops both "
+            "models fall into on damaged pages. 1.0 disables it — try that if a "
+            "table's repeated headers or numeric cells come back mangled. "
+            f"Default: {DEFAULT_REPETITION_PENALTY}"
+        ),
     )
     vlm_group.add_argument(
         "--vlm-cache-dir", dest="vlm_cache_dir", default=None,
@@ -329,6 +339,7 @@ def main(argv: list[str] | None = None) -> int:
         model=args.vlm_model,
         dpi=args.vlm_dpi,
         max_tokens=args.vlm_max_tokens,
+        repetition_penalty=args.vlm_repetition_penalty,
         cache_dir=args.vlm_cache_dir,
     )
 

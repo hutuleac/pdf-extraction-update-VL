@@ -13,7 +13,7 @@ import logging
 
 import pymupdf
 
-from extractor.vlm.config import DEFAULT_MAX_TOKENS
+from extractor.vlm.config import DEFAULT_MAX_TOKENS, DEFAULT_REPETITION_PENALTY
 
 logger = logging.getLogger(__name__)
 
@@ -42,6 +42,7 @@ class MlxVlmEngine:
 
     def convert(
         self, png_bytes: bytes, *, max_tokens: int = DEFAULT_MAX_TOKENS,
+        repetition_penalty: float = DEFAULT_REPETITION_PENALTY,
     ) -> tuple[str, bool]:
         """Return ``(raw output, hit the token cap)`` for one page.
 
@@ -66,6 +67,7 @@ class MlxVlmEngine:
             result = generate(
                 self._model, self._processor, formatted, [str(image_path)],
                 max_tokens=max_tokens, verbose=False,
+                repetition_penalty=repetition_penalty,
             )
 
         text = result.text if hasattr(result, "text") else str(result)

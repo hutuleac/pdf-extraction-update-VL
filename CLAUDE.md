@@ -235,9 +235,21 @@ README's visual-model section.
 `finish_reason == "length"`. That is the only truncation evidence Markdown
 offers — prose cut mid-sentence looks exactly like prose that ended there, which
 is why `markdown_doc.is_truncated` returns False and defers to the cap.
-`doctag.is_truncated` adds its tag-balance check on top. The cap is what catches
-the repetition loops both models fall into on damaged pages; a rejected page
-keeps its native text.
+`doctag.is_truncated` adds its tag-balance check on top. A rejected page keeps
+its native text.
+
+That cap is now the backstop, not the primary defence. `--vlm-repetition-penalty`
+(default 1.05) stops the loops at the sampler instead of paying for them and
+discarding the result: a garbled page that repeated one fragment 51 times ran to
+the full 4096-token cap in 39 s unpenalized, and stopped on its own after 1382
+tokens in 12 s with usable content once penalized. 1.05, 1.1 and 1.2 all fixed it
+identically, so the default is the gentlest — the penalty falls on legitimately
+repeated tokens too, and a table's repeated headers and numeric cells are exactly
+that, which is why 1.0 disables it. The penalty is part of the inference cache
+key: without it a page cached as a loop would be served back forever after the
+setting that fixes it was turned on. Lowering `--vlm-max-tokens` was considered
+and rejected — healthy pages cost 1475 tokens on average against the 4096 cap, so
+the cap never binds on the normal path and only unused budget would be cut.
 
 The whole document is read, and that is the expensive half of a decision the
 cheap half of which is *keeping almost none of it*. On a healthy page the model
