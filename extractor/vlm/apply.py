@@ -16,8 +16,9 @@ import pymupdf
 
 from extractor.vlm import registry
 from extractor.vlm.config import get_config
-from extractor.vlm.doctag import ParsedPage, parse
+from extractor.vlm.doctag import ParsedPage
 from extractor.vlm.engine import render_page
+from extractor.vlm.models import parser_for
 
 logger = logging.getLogger(__name__)
 
@@ -70,23 +71,26 @@ def _cache_path(png_bytes: bytes) -> Path:
     return root / f"{digest}.json"
 
 
-def _infer(engine, png_bytes: bytes) -> str:
-    """Return raw doctag for one page, from cache when possible."""
+def _infer(engine, png_bytes: bytes) -> tuple[str, bool]:
+    """Return ``(raw output, hit the token cap)``, from cache when possible."""
     path = _cache_path(png_bytes)
     if path.exists():
         try:
-            return json.loads(path.read_text(encoding="utf-8"))["raw"]
+            entry = json.loads(path.read_text(encoding="utf-8"))
+            # Entries written before the cap was recorded default to False, so
+            # an old cache stays usable and only loses the extra signal.
+            return entry["raw"], entry.get("capped", False)
         except (OSError, ValueError, KeyError):  # a damaged entry is not fatal
             logger.debug("Ignoring unreadable VLM cache entry: %s", path)
 
-    raw = engine.convert(png_bytes, max_tokens=get_config().max_tokens)
+    raw, capped = engine.convert(png_bytes, max_tokens=get_config().max_tokens)
 
     try:
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps({"raw": raw}), encoding="utf-8")
+        path.write_text(json.dumps({"raw": raw, "capped": capped}), encoding="utf-8")
     except OSError:  # a read-only cache must not fail the run
         logger.debug("Could not write VLM cache entry: %s", path)
-    return raw
+    return raw, capped
 
 
 def _judge(
@@ -127,7 +131,9 @@ def vlm_pages(
             "pages": len(page_classes),
         }]
 
-    from extractor.vlm.doctag import is_truncated
+    # One parser for the run: the model cannot change between pages, and
+    # choosing it here keeps the per-page loop free of format knowledge.
+    parser = parser_for(get_config().model)
 
     engine = registry.get_engine()
     dpi = get_config().dpi
@@ -144,9 +150,11 @@ def vlm_pages(
             page_number = index + 1
             replacing = page_class in REPLACE_CLASSES
             try:
-                raw = _infer(engine, render_page(doc[index], dpi=dpi))
-                parsed = parse(raw)
-                truncated = is_truncated(raw)
+                raw, capped = _infer(engine, render_page(doc[index], dpi=dpi))
+                parsed = parser.parse(raw)
+                # The cap is evidence the answer was cut off; the parser's own
+                # check is whatever extra its format can prove.
+                truncated = capped or parser.is_truncated(raw)
             except Exception as exc:  # noqa: BLE001 - isolate one page's failure
                 logger.warning("Visual fallback failed on page %d: %s", page_number, exc)
                 warnings.append({

@@ -10,6 +10,7 @@ import platform
 
 from extractor.vlm.base import UnavailableReason, VlmUnavailable
 from extractor.vlm.config import get_config
+from extractor.vlm.models import for_model
 
 logger = logging.getLogger(__name__)
 
@@ -53,9 +54,13 @@ def _build_engine():
     if missing:
         raise VlmUnavailable(UnavailableReason.MISSING_DEPS, ", ".join(missing))
 
-    from extractor.vlm.engine import GraniteDoclingEngine
+    # Refuses an unreadable model name before the weights are loaded, so a
+    # typo costs a clear reason rather than a minute and an empty document.
+    spec = for_model(config.model)
 
-    return GraniteDoclingEngine(config.model)
+    from extractor.vlm.engine import MlxVlmEngine
+
+    return MlxVlmEngine(config.model, spec.prompt)
 
 
 def _probe() -> None:

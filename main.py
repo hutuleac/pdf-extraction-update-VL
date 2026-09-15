@@ -22,6 +22,7 @@ from extractor.ocr.config import DEFAULT_DPI, DEFAULT_MIN_CONFIDENCE, configure
 from extractor.vlm.config import DEFAULT_DPI as VLM_DEFAULT_DPI
 from extractor.vlm.config import DEFAULT_MAX_TOKENS, DEFAULT_MODEL
 from extractor.vlm.config import configure as configure_vlm
+from extractor.vlm.models import SPECS as VLM_SPECS
 from extractor.warning_text import describe
 
 logger = logging.getLogger(__name__)
@@ -103,7 +104,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     vlm_group.add_argument(
         "--vlm-model", dest="vlm_model", default=DEFAULT_MODEL,
-        help=f"Model to load. Default: {DEFAULT_MODEL}",
+        help=(
+            "Model to load. The name selects the output format too, so it must "
+            f"contain one of: {', '.join(sorted(VLM_SPECS))}. "
+            f"Default: {DEFAULT_MODEL}"
+        ),
     )
     vlm_group.add_argument(
         "--vlm-dpi", dest="vlm_dpi", type=int, default=VLM_DEFAULT_DPI,

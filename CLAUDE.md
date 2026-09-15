@@ -216,10 +216,28 @@ valid output, just without that text.
 **The visual layer (`extractor/vlm/`) is the second optional reader, glued in
 by its own `apply.py` exactly as OCR is.** Same shape throughout: `config.py`
 (run-wide settings), `registry.py` (one-time cached probe with typed reasons),
-`engine.py` (granite-docling-258M on mlx — thin on purpose), `doctag.py` (the
-whole translation from the model's tag stream, and the only place its output is
-judged), `apply.py` (infer, cache, judge). Off unless `--vlm`; unavailable
-downgrades to `VLM_UNAVAILABLE` and the run is unchanged.
+`engine.py` (one mlx-vlm wrapper for every supported model — thin on purpose),
+`apply.py` (infer, cache, judge). Off unless `--vlm`; unavailable downgrades to
+`VLM_UNAVAILABLE` and the run is unchanged.
+
+**Two models, two output languages, one table.** `--vlm-model` selects the
+prompt that makes a model emit its format *and* the parser that reads it back —
+one choice, so it lives in one place: `models.py`. granite-docling emits a
+`<doctag>` stream (`doctag.py`); PaddleOCR-VL emits Markdown (`markdown_doc.py`).
+Both produce the same `ParsedPage`. An unrecognized name raises
+`VlmUnavailable(UNKNOWN_MODEL)` rather than falling through to the wrong parser,
+which fails invisibly: an empty page and `VLM_OUTPUT_REJECTED: empty` for every
+page, with no hint why. granite is the default on measured evidence — see the
+README's visual-model section.
+
+**Truncation is proved by the token cap, not inferred from the text.**
+`engine.convert` returns `(raw, capped)` from the model's own
+`finish_reason == "length"`. That is the only truncation evidence Markdown
+offers — prose cut mid-sentence looks exactly like prose that ended there, which
+is why `markdown_doc.is_truncated` returns False and defers to the cap.
+`doctag.is_truncated` adds its tag-balance check on top. The cap is what catches
+the repetition loops both models fall into on damaged pages; a rejected page
+keeps its native text.
 
 The whole document is read, and that is the expensive half of a decision the
 cheap half of which is *keeping almost none of it*. On a healthy page the model

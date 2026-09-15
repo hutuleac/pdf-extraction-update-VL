@@ -16,6 +16,7 @@ class UnavailableReason(StrEnum):
     MISSING_DEPS = "missing-deps"
     UNSUPPORTED_PLATFORM = "unsupported-platform"
     MODEL_LOAD_FAILED = "model-load-failed"
+    UNKNOWN_MODEL = "unknown-model"
 
     def describe(self) -> str:
         """Return a plain-language explanation of this reason."""
@@ -31,6 +32,9 @@ _REASON_TEXT: dict[UnavailableReason, str] = {
         "the visual model runs on Apple Silicon only (mlx)"
     ),
     UnavailableReason.MODEL_LOAD_FAILED: "the visual model could not be loaded",
+    UnavailableReason.UNKNOWN_MODEL: (
+        "--vlm-model names a model whose output format this pipeline cannot read"
+    ),
 }
 
 

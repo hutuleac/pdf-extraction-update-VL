@@ -28,7 +28,11 @@ def two_page_pdf(tmp_path):
 
 
 class StubEngine:
-    """Returns a canned doctag per call and records what it was asked to do."""
+    """Returns a canned doctag per call and records what it was asked to do.
+
+    An output may be a bare string or a ``(raw, capped)`` pair, matching the
+    real engine's second return value — whether generation hit the token cap.
+    """
 
     def __init__(self, outputs):
         self.name = "stub"
@@ -37,7 +41,8 @@ class StubEngine:
 
     def convert(self, png_bytes, *, max_tokens):
         self.calls += 1
-        return self.outputs.pop(0)
+        output = self.outputs.pop(0)
+        return output if isinstance(output, tuple) else (output, False)
 
 
 def _install(monkeypatch, engine, tmp_path):
@@ -116,6 +121,20 @@ def test_truncated_output_is_rejected(two_page_pdf, monkeypatch, tmp_path):
     assert rejected[0]["reason"] == "truncated"
 
 
+def test_hitting_the_token_cap_is_rejected_as_truncated(
+    two_page_pdf, monkeypatch, tmp_path,
+):
+    """The format-agnostic guard: a tidy-looking answer that ran out of budget.
+
+    GOOD closes every tag, so the doctag check clears it. Only the engine's
+    report that generation stopped on the cap catches it — which is what makes
+    the Markdown parser, with no tag evidence of its own, safe to use.
+    """
+    _install(monkeypatch, StubEngine([(GOOD, True), EMPTY]), tmp_path)
+    _, warnings = apply.vlm_pages(two_page_pdf, ["native-text"] * 2, [NATIVE] * 2)
+    assert {"code": "VLM_OUTPUT_REJECTED", "page": 1, "reason": "truncated"} in warnings
+
+
 def test_empty_output_is_rejected(two_page_pdf, monkeypatch, tmp_path):
     _install(monkeypatch, StubEngine([EMPTY, EMPTY]), tmp_path)
 
@@ -190,7 +209,7 @@ def test_one_page_failing_does_not_lose_the_others(two_page_pdf, monkeypatch, tm
             self.calls += 1
             if self.calls == 1:
                 raise RuntimeError("out of memory")
-            return GOOD
+            return GOOD, False
 
     _install(monkeypatch, Exploding([]), tmp_path)
 

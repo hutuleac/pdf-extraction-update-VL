@@ -144,7 +144,7 @@ flowchart TD
     CONF -->|yes| OCRTEXT["source: ocr" text block]
     CONF -->|no, garbled page| REJECT[OCR_REJECTED_LOW_CONFIDENCE<br/>native damaged text kept instead]
 
-    CLS -.->|every page, only if --vlm| VLM[Visual model: granite-docling-258M<br/>off by default]
+    CLS -.->|every page, only if --vlm| VLM[Visual model: granite-docling / PaddleOCR-VL<br/>off by default]
     VLM --> KIND{Page type?}
     KIND -->|scanned / garbled| REPLACE{Reading contains text?}
     REPLACE -->|yes| WIN["source: vlm" text replaces native/OCR<br/>text; OCR skipped for this page]
@@ -207,17 +207,37 @@ Model search order: `--ocr-model-dir` -> `$KE_OCR_MODEL_DIR` -> `models/ocr/` ->
 directory explicitly disables the fallbacks, so a wrong path is reported rather
 than silently replaced by a different model.
 
-## Visual model (granite-docling)
+## Visual model (granite-docling, PaddleOCR-VL)
 
 OCR reads glyphs. It cannot tell an equation from a caption, and it returns a
 figure's axis labels as a bag of words. `--vlm` adds a second reader for that:
-`granite-docling-258M`, a 258M-parameter document vision model, run locally on
-Apple Silicon through `mlx`.
+a document vision model run locally on Apple Silicon through `mlx`.
 
 ```bash
 pip install -e ".[vlm]"           # mlx-vlm; the weights download on first use
 python main.py --vlm
+python main.py --vlm --vlm-model mlx-community/PaddleOCR-VL-1.6-4bit
 ```
+
+Two models are supported, and the name selects the output format with it:
+
+| `--vlm-model` contains | Model | Emits | Parser |
+|---|---|---|---|
+| `granite-docling` | `ibm-granite/granite-docling-258M-mlx` (default) | `<doctag>` stream | `doctag.py` |
+| `paddleocr-vl` | `mlx-community/PaddleOCR-VL-1.6-4bit` (0.68 GB, 958M params) | Markdown | `markdown_doc.py` |
+
+Any other name is refused with `VLM_UNAVAILABLE` naming the two it knows,
+rather than parsed with the wrong reader and reported as an empty document.
+
+**granite-docling is the default because it measured better where it counts.**
+On 10 garbled pages of a 388-page course PDF, granite had 9 accepted and
+recovered 33 formulas; PaddleOCR-VL had 1 accepted and recovered none. It emits
+no LaTeX at all under whole-page prompting — its upstream pipeline detects
+formula regions with a separate layout model first, and this pipeline gives it
+whole pages. It also fell into repetition loops on 6 of those 10, against
+granite's 1. PaddleOCR-VL remains available for documents where plain
+transcription is the goal; it is not the better choice for formulas or for
+recovering damaged pages.
 
 Off by default, and slow — roughly 5–14 s per page, so a 400-page book is most
 of an hour. Every inference is cached under
@@ -283,8 +303,8 @@ pytest-cov, ruff). Tested on Python 3.14 (Windows).
 | `--ocr-dpi` | 300 | Resolution used to rasterize scanned pages |
 | `--ocr-min-confidence` | 0.60 | Below this, OCR text is flagged uncertain and never replaces damaged native text. Applied to the page average and to each line individually |
 | OCR raster budget | 25 MP | Hard limit per rasterized image/page. Larger inputs fail as `resource_limit`; adaptive resizing is planned but not enabled |
-| `--vlm` | off | Also read every page with granite-docling (Apple Silicon only) |
-| `--vlm-model` | `ibm-granite/granite-docling-258M-mlx` | Model to load |
+| `--vlm` | off | Also read every page with a visual model (Apple Silicon only) |
+| `--vlm-model` | `ibm-granite/granite-docling-258M-mlx` | Model to load; the name must contain `granite-docling` or `paddleocr-vl` |
 | `--vlm-dpi` | 144 | Resolution used to render pages for the model |
 | `--vlm-max-tokens` | 4096 | Token budget per page |
 | `--vlm-cache-dir` | `~/.cache/knowledge-extractor/vlm` | Where per-page inferences are cached |

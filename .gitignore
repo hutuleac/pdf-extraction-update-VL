@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.coverage
+.ruff_cache/
+
+# macOS
+.DS_Store
+
+# Run directories: the documents fed in and the files written out are working
+# data, not source. main.py defaults to input/ -> output/ with logs/.
+input/
+output/
+logs/
+
+# Hugging Face cache the model fetch script writes beside the real weights.
+models/ocr/.locks/
+models/ocr/CACHEDIR.TAG
+models/ocr/models--*/

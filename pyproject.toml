@@ -28,7 +28,7 @@ ocr = [
 # Only needed to re-download the model weights; the weights ship with the repo.
 ocr-hf = ["huggingface-hub>=0.24,<1"]
 # Apple Silicon only. The weights are pulled from Hugging Face on first use.
-vlm = ["mlx-vlm>=0.6,<1"]
+vlm = ["mlx-vlm>=0.7,<1"]
 dev = [
     "pytest>=9.1,<10",
     "pytest-cov>=6.0,<7",
