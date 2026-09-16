@@ -475,6 +475,34 @@ remains beside it.
   them and zero reach the JSON or Markdown. Checked during this audit; recorded
   so it is not re-investigated.
 
+### 6. `--vlm` fails silently on a clean install — two bugs, both measured 2026-09-16
+
+A fresh venv with `pip install -e ".[vlm]"` runs `--vlm --vlm-describe-figures`
+to completion, prints "N succeeded, 0 failed", and produces output identical to
+a non-VLM run — no crash, no visible warning. Two independent causes, found by
+diffing `~/.cache/knowledge-extractor/vlm` mtimes against the run window (zero
+new entries is the tell):
+
+- **Missing dependency in the `vlm` extra.** `pyproject.toml`'s
+  `vlm = ["mlx-vlm>=0.7,<1"]` does not pull in `torchvision`, which
+  granite-docling's default image processor needs to construct
+  (`Idefics3ImageProcessor` / `Idefics3ImageProcessorPil`). The engine build
+  raises `MODEL_LOAD_FAILED` and the whole reading pass returns `{}` before a
+  single page is inferred. Fix: add `torchvision` to the `vlm` extra, or
+  document it as a manual step if it's meant to stay optional weight.
+- **The failure is invisible.** `registry._probe()` catches the exception and
+  logs it at `logger.debug` — silent unless run with `--verbose`. The resulting
+  `VLM_UNAVAILABLE` warning lands in `document.warnings` but is absent from
+  `main._UNREADABLE_CODES` (main.py:36), so it never reaches the console
+  summary either. A user has to open a JSON file and read the warnings array to
+  learn the flag they passed did nothing. Fix: add `VLM_UNAVAILABLE` (and
+  `VLM_DESCRIBE_UNAVAILABLE`) to `_UNREADABLE_CODES`, or give `--vlm` its own
+  summary line the way OCR and VLM success already get one, so the reason
+  prints even without `--verbose`.
+
+Cheap to fix, high value: this is the difference between a run silently doing
+nothing and one that fails loud enough to notice in the same minute.
+
 ### Re-run notes
 
 The VLM inference cache (`~/.cache/knowledge-extractor/vlm`) holds both models'

@@ -171,6 +171,22 @@ def test_cli_summary_stays_quiet_for_clean_documents(sample_pdf, no_ocr):
     assert "could not be extracted" not in summary
 
 
+def test_cli_summary_names_vlm_unavailable_and_the_fix():
+    stats = {
+        "ok": True, "filename": "doc.pdf", "source_type": "pdf",
+        "units": 1, "text_blocks": 1, "table_blocks": 0, "image_count": 0,
+        "warnings": [{
+            "code": "VLM_UNAVAILABLE",
+            "detail": "the visual model could not be loaded (missing torchvision)",
+            "pages": 1,
+        }],
+    }
+    summary = "\n".join(format_summary([stats]))
+    assert "--vlm was requested but the visual model is unavailable" in summary
+    assert "missing torchvision" in summary
+    assert 'pip install -e ".[vlm]"' in summary
+
+
 # ---------------------------------------------------------------------------
 # Nothing changes for documents that never needed OCR
 # ---------------------------------------------------------------------------

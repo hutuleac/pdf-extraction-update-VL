@@ -295,7 +295,13 @@ def _warning_rollup(succeeded: list[dict]) -> list[str]:
     vlm_pages = sum(r.get("vlm_pages", 0) for r in succeeded)
     vlm_figures = sum(r.get("vlm_figures", 0) for r in succeeded)
     unreadable = sum(r.get("unreadable_pages", 0) for r in succeeded)
-    if not ocr_pages and not vlm_pages and not vlm_figures and not unreadable:
+    vlm_unavailable = {
+        warning.get("detail", "")
+        for result in succeeded
+        for warning in result.get("warnings", [])
+        if warning["code"] in ("VLM_UNAVAILABLE", "VLM_DESCRIBE_UNAVAILABLE")
+    }
+    if not ocr_pages and not vlm_pages and not vlm_figures and not unreadable and not vlm_unavailable:
         return []
 
     lines: list[str] = []
@@ -308,6 +314,17 @@ def _warning_rollup(succeeded: list[dict]) -> list[str]:
         )
     if vlm_figures:
         lines.append(f"Figures were described on {vlm_figures} page(s).")
+
+    if vlm_unavailable:
+        lines.append(
+            "--vlm was requested but the visual model is unavailable: "
+            + "; ".join(sorted(d for d in vlm_unavailable if d))
+        )
+        lines.append(
+            '  Fix: install the extra with  pip install -e ".[vlm]"  '
+            "(Apple Silicon only)."
+        )
+
     if not unreadable:
         return lines
 

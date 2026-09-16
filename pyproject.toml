@@ -6,11 +6,11 @@ requires-python = ">=3.11"
 license = "MIT"
 
 dependencies = [
-    "pymupdf==1.28.0",
+    "pymupdf==1.28.2",
     "pdfplumber==0.11.10",
     "python-docx==1.2.0",
     "openpyxl==3.1.5",
-    "charset-normalizer==3.4.7",
+    "charset-normalizer==3.5.1",
     "ftfy>=6.1,<7",
     "defusedxml>=0.7,<1",
     "beautifulsoup4>=4.12,<5",
@@ -28,10 +28,13 @@ ocr = [
 # Only needed to re-download the model weights; the weights ship with the repo.
 ocr-hf = ["huggingface-hub>=0.24,<1"]
 # Apple Silicon only. The weights are pulled from Hugging Face on first use.
-vlm = ["mlx-vlm>=0.7,<1"]
+# torchvision is required by granite-docling's default image processor
+# (Idefics3ImageProcessor); without it the engine fails to load and --vlm
+# silently does nothing.
+vlm = ["mlx-vlm>=0.7,<1", "torchvision"]
 dev = [
     "pytest>=9.1,<10",
-    "pytest-cov>=6.0,<7",
+    "pytest-cov>=6.0,<8",
     "ruff>=0.11,<1",
 ]
 
