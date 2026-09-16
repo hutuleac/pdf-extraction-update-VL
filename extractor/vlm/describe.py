@@ -134,6 +134,16 @@ def describe_image(png_bytes: bytes) -> tuple[str | None, list[dict]]:
     It also does not consult ``registry``: that probe is for the *reading*
     model, and on this path there is none. Asking it would load granite's
     weights purely to decide whether a different model can run.
+
+    Pairing granite with it was measured rather than left as an argument, on
+    the reference card whose borderless panels were the case for it: granite
+    emitted **zero** ``<otsl>`` tables there — 77 ``<text>`` elements and two
+    ``<picture>`` boxes — so the one thing it was wanted for does not happen.
+    It also read half the image: 72 lines against OCR's 146, dropping whole
+    entries (``claude update``, ``claude -c``, ``claude -r``) and returning
+    ``"Gren"`` for ``Grep``, at 1% novel vocabulary against the OCR text. A
+    second resident model for a strictly worse read is not a trade; re-measure
+    before proposing it again.
     """
     config = get_config()
     if not (config.enabled and config.describe):
