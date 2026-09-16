@@ -550,6 +550,7 @@ potential quality issues:
 | `SCANNED_PAGE_NO_TEXT` | Image area ratio high, text chars below threshold |
 | `MIXED_CONTENT_PAGE` | Meaningful text plus large image coverage |
 | `GARBLED_TEXT` | Replacement/non-printable ratio above threshold |
+| `MISMAPPED_GLYPHS` | A symbol font on this page decoded to unrelated alphabets — its formulas and special characters are unreliable; `scripts` names them |
 | `POSSIBLE_TWO_COLUMN_ORDER` | More than one column cluster detected |
 | `LAYOUT_COMPLEX` | Many ruling lines or many font variants |
 | `HEADER_FOOTER_DETECTED` | Repeated signature found (document-level) |

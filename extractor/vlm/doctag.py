@@ -87,14 +87,71 @@ def is_truncated(raw: str) -> bool:
     )
 
 
-def formula_is_balanced(latex: str) -> bool:
-    r"""True when every ``\left`` has a matching ``\right``.
+def _braces_balanced(latex: str) -> bool:
+    r"""True when every ``{`` closes, and none closes early.
 
-    6 of 127 formulas in the spike were unbalanced. This is deliberately not a
-    full LaTeX parse: it catches the observed failure (a truncated or looping
-    formula) with no renderer, no Node, and no new dependency.
+    An escaped ``\{`` is a literal brace and is skipped. Depth going negative
+    is checked as well as the final total, because ``a } b {`` ends at zero and
+    is still broken.
     """
-    return latex.count(r"\left") == latex.count(r"\right")
+    depth = 0
+    for index, char in enumerate(latex):
+        if char in "{}" and index and latex[index - 1] == "\\":
+            continue
+        if char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth < 0:
+                return False
+    return depth == 0
+
+
+def formula_is_balanced(latex: str) -> bool:
+    r"""True when every ``\left`` has a matching ``\right``, and braces close.
+
+    6 of 127 formulas in the spike were unbalanced this way. This is
+    deliberately not a full LaTeX parse: it catches the observed failures (a
+    truncated or looping formula, and a stray brace) with no renderer, no Node,
+    and no new dependency.
+
+    The brace half was added after a stray ``}`` shipped inside an otherwise
+    valid ``array`` — ``S _ { K r u m b e i n } = } & \sqrt{...}`` — which
+    renders as nothing at all and which the ``\left``/``\right`` count cannot
+    see. It costs almost nothing to check: 1 of 479 formulas on the 388-page
+    reference course fails it, and that one is the bug.
+    """
+    return (
+        latex.count(r"\left") == latex.count(r"\right")
+        and _braces_balanced(latex)
+    )
+
+
+# An environment already opened by the model — wrapping inside it would nest a
+# second alignment and break what already renders.
+_HAS_ENV = re.compile(r"\\begin\s*\{")
+
+
+def as_display_math(latex: str) -> str:
+    r"""Wrap *latex* for ``$$`` display, adding ``aligned`` when it needs one.
+
+    Both models emit multi-line equations as a bare *alignment body* — the
+    inside of an ``align`` environment, with ``&`` marking the alignment column
+    and ``\\`` ending each row — and neither emits the environment around it.
+    ``$$ V _ 1 & = ... \\ & + ... $$`` is a KaTeX parse error ("Expected 'EOF',
+    got '&'"), so the equation does not render at all for the reader.
+
+    This is a rendering fix, not an acceptance one: ``formula_is_balanced``
+    passes these already, and they shipped. It is also language-independent —
+    an alignment body looks the same in any document, which is why it lives
+    here rather than in either parser.
+    """
+    body = latex.strip()
+    if ("&" in body or "\\\\" in body) and not _HAS_ENV.search(body):
+        # A trailing row separator would render an empty final row.
+        body = re.sub(r"\\\\\s*$", "", body).rstrip()
+        body = f"\\begin{{aligned}}\n{body}\n\\end{{aligned}}"
+    return f"$$\n{body}\n$$"
 
 
 def _parse_otsl(body: str) -> list[list[str]]:
@@ -142,7 +199,7 @@ def parse(raw: str) -> ParsedPage:
             if formula_is_balanced(content):
                 result.formula_count += 1
                 result.formulas.append(content)
-                pieces.append(f"$$\n{content}\n$$")
+                pieces.append(as_display_math(content))
             else:
                 # Dropped, not emitted broken: a wrong equation that renders is
                 # worse than a missing one, because nothing flags it. The caller

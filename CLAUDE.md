@@ -106,6 +106,25 @@ Each page is classified (`page_class`: `native-text` / `scanned` / `mixed` /
 `garbled` / `layout-complex`) from those signals, and the classification
 decides whether/how OCR touches that page (see OCR below).
 
+`garbled` is decided by replacement and non-printable ratios, which are blind to
+the commonest form of PDF text damage: a **symbol font whose ToUnicode CMap maps
+glyph IDs into arbitrary Unicode blocks**, so `τ_f = (σ − u)·tg φ'` extracts as
+`௙ൌ ߪ െ ݑ · ݐ݃ ∅ᇱ`. Those are printable letters from real scripts, so every
+ratio scores clean. `_unexpected_scripts` catches it on a different signal:
+**how many distinct scripts a page mixes**. A document quoting a foreign phrase
+uses one; a broken CMap scatters glyphs across NKO, Malayalam, Syriac and
+Ethiopic at once, which no real document does. Two distinct unexpected scripts
+is the threshold (`MISMAPPED_SCRIPT_COUNT`), counting letters and combining
+marks only — including punctuation made it fire on ordinary pages.
+
+It raises `MISMAPPED_GLYPHS` and **does not reclassify the page**. That is the
+whole design: on the 388-page course it fires on 24 pages that are otherwise
+sound prose — page 41 is 1,374 characters of which 7 are damaged. Marking them
+`garbled` would route them down the replace path and bet 1,367 good characters
+against a model reading, to recover 7 bad ones. The damage is real but it is
+concentrated in formulas and symbols, so the honest output is intact text plus a
+warning naming the scripts, not a silent substitution.
+
 **pdfplumber and PyMuPDF do not share a coordinate space.** `extract_tables`
 returns pdfplumber bboxes that the text pass tests against PyMuPDF word
 coordinates. The two agree only on an upright page whose MediaBox starts at
@@ -239,6 +258,18 @@ Both produce the same `ParsedPage`. An unrecognized name raises
 which fails invisibly: an empty page and `VLM_OUTPUT_REJECTED: empty` for every
 page, with no hint why. granite is the default on measured evidence — see the
 README's visual-model section.
+
+**A formula is wrapped for display by `doctag.as_display_math`, not by the
+caller.** Both models write multi-line equations as a bare *alignment body* —
+`V_1 & = ... \\ & + ...`, the inside of an `align` environment — and neither
+emits the environment around it. In bare `$$` that is a KaTeX parse error
+(`Expected 'EOF', got '&'`) and the equation renders as nothing. The wrap lives
+beside `formula_is_balanced` because all three emission sites (`doctag.parse`,
+`markdown_doc.parse`, `apply.py`'s redundant-page rebuild) need it and patching
+one leaves the other two broken. `formula_is_balanced` also counts braces, not
+just `\left`/`\right`: a stray `}` inside a valid `array` renders as nothing
+and the delimiter count cannot see it — 1 of 479 formulas on the reference
+course, and that one was the bug.
 
 **Truncation is proved by the token cap, not inferred from the text.**
 `engine.convert` returns `(raw, capped)` from the model's own

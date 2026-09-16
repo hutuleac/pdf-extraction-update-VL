@@ -16,7 +16,7 @@ import pymupdf
 
 from extractor.vlm import registry
 from extractor.vlm.config import get_config
-from extractor.vlm.doctag import ParsedPage
+from extractor.vlm.doctag import ParsedPage, as_display_math
 from extractor.vlm.engine import render_page
 from extractor.vlm.models import parser_for
 
@@ -212,7 +212,9 @@ def vlm_pages(
                 # The model re-read text the document already carries. Keeping
                 # it would print the page twice; keeping only the equations
                 # keeps the one thing the text layer does not hold.
-                parsed.text = "\n\n".join(f"$$\n{f}\n$$" for f in parsed.formulas)
+                parsed.text = "\n\n".join(
+                    as_display_math(f) for f in parsed.formulas
+                )
                 applied["prose"] = "redundant"
                 kept_tables = parsed.tables and page_number not in native_table_pages
                 if not parsed.text and not kept_tables:

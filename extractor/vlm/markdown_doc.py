@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import re
 
-from extractor.vlm.doctag import ParsedPage, formula_is_balanced
+from extractor.vlm.doctag import ParsedPage, as_display_math, formula_is_balanced
 
 # Display math only. Inline ``$x$`` inside a sentence is part of that sentence
 # and is left in the prose, where it already reads correctly.
@@ -162,6 +162,6 @@ def parse(raw: str) -> ParsedPage:
 
     text = "\n".join(pieces)
     for index, latex in enumerate(result.formulas):
-        text = text.replace(f"\x00{index}\x00", f"$$\n{latex}\n$$")
+        text = text.replace(f"\x00{index}\x00", as_display_math(latex))
     result.text = text
     return result

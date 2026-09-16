@@ -11,6 +11,10 @@ _TEMPLATES = {
     "SCANNED_PAGE_NO_TEXT": "scanned page — the file itself carries no text layer",
     "MIXED_CONTENT_PAGE": "page mixes text and large images",
     "GARBLED_TEXT": "text on this page is damaged or unreadable",
+    "MISMAPPED_GLYPHS": (
+        "a symbol font on this page decoded to unrelated alphabets — its "
+        "formulas and special characters are unreliable"
+    ),
     "LAYOUT_COMPLEX": "complex layout — reading order may be imperfect",
     "HEADER_FOOTER_DETECTED": "repeated headers or footers were removed from the text",
     "POSSIBLE_TWO_COLUMN_ORDER": "two-column layout — reading order may be imperfect",
