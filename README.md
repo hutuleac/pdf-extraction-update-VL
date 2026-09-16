@@ -144,7 +144,7 @@ flowchart TD
     CONF -->|yes| OCRTEXT["source: ocr" text block]
     CONF -->|no, garbled page| REJECT[OCR_REJECTED_LOW_CONFIDENCE<br/>native damaged text kept instead]
 
-    CLS -.->|every page, only if --vlm| VLM[Visual model: granite-docling / PaddleOCR-VL<br/>off by default]
+    CLS -.->|every page, unless --no-vlm| VLM[Visual model: granite-docling / PaddleOCR-VL<br/>on by default]
     VLM --> KIND{Page type?}
     KIND -->|scanned / garbled| REPLACE{Reading contains text?}
     REPLACE -->|yes| WIN["source: vlm" text replaces native/OCR<br/>text; OCR skipped for this page]
@@ -154,10 +154,14 @@ flowchart TD
 ```
 
 **Defaults matter here**: OCR is *on* by default and only ever runs on
-`scanned`/`garbled` pages. The visual model is *off* by default (`--vlm` turns
-it on) and, once on, reads *every* page — but keeps almost nothing from most
-of them (see below). On a default run with no flags, PP-OCRv6 is the only
-model touching your documents.
+`scanned`/`garbled` pages. The visual model is also *on* by default
+(`--no-vlm` turns it off) and reads *every* page — but keeps almost nothing
+from most of them (see below). Both run locally with no per-call cost, so a
+default run reads with PP-OCRv6, granite-docling and (Apple Silicon only)
+attempts the visual model, downgrading with a visible warning where it isn't
+available. Figure description (`--vlm-describe-figures`) stays opt-in — it is
+the one step whose runtime cost is worth pausing over (roughly 45 s/page; see
+below), not because it costs money.
 
 ## OCR
 
@@ -207,7 +211,7 @@ Markdown, metrics and phase 2 like any other text:
 
 **Without OCR nothing breaks.** If the extra is not installed or the model files
 are missing, every affected page produces a warning naming the reason and the
-fix — in the JSON, in an `## Extraction Notes` section at the end of the
+fix — in the JSON, in a `<stem>.notes.md` sidecar next to the document's own
 Markdown, and in the console summary. You get the same files, minus that text,
 and you are told exactly what is missing. Never a crash, never a silently empty
 page.
@@ -231,9 +235,10 @@ figure's axis labels as a bag of words. `--vlm` adds a second reader for that:
 a document vision model run locally on Apple Silicon through `mlx`.
 
 ```bash
-pip install -e ".[vlm]"           # mlx-vlm; the weights download on first use
-python main.py --vlm
-python main.py --vlm --vlm-model mlx-community/PaddleOCR-VL-1.6-4bit
+pip install -e ".[vlm]"           # mlx-vlm + torchvision; weights download on first use
+python main.py                    # --vlm is on by default
+python main.py --no-vlm           # native text + OCR only, no visual model
+python main.py --vlm-model mlx-community/PaddleOCR-VL-1.6-4bit
 ```
 
 Two models are supported, and the name selects the output format with it:
@@ -340,9 +345,10 @@ Native tables always win: pdfplumber reads the ruling lines, the model infers
 them. Accepted text is a normal `text` block with `"source": "vlm"`, so it
 flows into Markdown, metrics and phase 2 like any other text.
 
-**Without it nothing breaks.** No `mlx-vlm`, a non-Apple-Silicon host, or no
-`--vlm` and the probe fails with a typed reason, the run reports
-`VLM_UNAVAILABLE`, and the output is exactly what it would have been.
+**Without it nothing breaks.** No `mlx-vlm`/`torchvision`, a non-Apple-Silicon
+host, or `--no-vlm`, and the probe fails with a typed reason — visibly, in the
+console summary as well as the JSON — and the output is exactly what it would
+have been otherwise.
 
 ### Describing figures (`--vlm-describe-figures`)
 
@@ -353,8 +359,13 @@ chart *shows* — the text layer holds its axis labels and nothing else, OCR und
 wants to embed, and this is the only path that produces one.
 
 ```bash
-python main.py --vlm --vlm-describe-figures
+python main.py --vlm-describe-figures
 ```
+
+The prompt asks for the description **in the same language as the page's own
+text**, so a Romanian document gets a Romanian description, not an English one
+by default — the model is multilingual and follows the page rather than
+defaulting to English.
 
 It works on image files too — a screenshot or a reference card is exactly the
 case where the glyphs are only half the content. There it is **additive only**,
@@ -455,12 +466,14 @@ pytest-cov, ruff). Tested on Python 3.14 (Windows).
 | `--ocr-dpi` | 300 | Resolution used to rasterize scanned pages |
 | `--ocr-min-confidence` | 0.60 | Below this, OCR text is flagged uncertain and never replaces damaged native text. Applied to the page average and to each line individually |
 | OCR raster budget | 25 MP | Hard limit per rasterized image/page. Larger inputs fail as `resource_limit`; adaptive resizing is planned but not enabled |
-| `--vlm` | off | Also read every page with a visual model (Apple Silicon only) |
+| `--vlm` / `--no-vlm` | on | Read every page with a visual model too (Apple Silicon only; downgrades with a visible warning elsewhere) |
 | `--vlm-model` | `ibm-granite/granite-docling-258M-mlx` | Model to load; the name must contain `granite-docling` or `paddleocr-vl` |
 | `--vlm-dpi` | 144 | Resolution used to render pages for the model |
 | `--vlm-repetition-penalty` | `1.05` | Penalty on repeated tokens; stops the repetition loops both models fall into on damaged pages. `1.0` disables it |
 | `--vlm-max-tokens` | 4096 | Token budget per page |
 | `--vlm-cache-dir` | `~/.cache/knowledge-extractor/vlm` | Where per-page inferences are cached |
+| `--vlm-describe-figures` | off | Also describe what each figure *shows*, in the page's own language. Loads a second model; ~45 s/page, so it stays opt-in |
+| `--vlm-describe-model` | `mlx-community/Qwen3-VL-8B-Instruct-4bit` | Model used for figure description |
 
 Oversized files are skipped with a structured fatal category and counted as
 failures in the summary — the batch continues. Fatal categories are
@@ -591,9 +604,11 @@ Fatal extraction categories are reported separately from warnings:
 | `VLM_DESCRIBE_UNAVAILABLE` | The describing model could not be loaded — `detail` names the reason, and the run is otherwise unchanged |
 | `FORMULA_REVIEW_REQUIRED` | A formula came back with unmatched `\left`/`\right` and was dropped rather than published wrong — check the source page |
 
-Warnings appear in the JSON output (`document.warnings`), in an
-`## Extraction Notes` section at the end of the Markdown, and in the console
-summary — the same information in all three places, in plain language.
+Warnings appear in the JSON output (`document.warnings`), in a `<stem>.notes.md`
+sidecar next to the document's own Markdown (kept out of the document itself so
+a future Phase 2 chunker never ingests "OCR confidence 81%" as document prose),
+and in the console summary — the same information in all three places, in
+plain language.
 
 ## Output Shape
 
@@ -700,9 +715,12 @@ dispatcher.extract_document(path)
 
 ### Visual model — optional extra `[vlm]`
 
-`mlx-vlm` (which pulls `mlx`, `transformers` and `torchvision`). Apple Silicon
-only. The weights are fetched from Hugging Face the first time `--vlm` runs and
-cached locally after that.
+`mlx-vlm` (which pulls `mlx` and `transformers`) plus `torchvision`, declared
+explicitly — granite-docling's default image processor
+(`Idefics3ImageProcessor`) needs it and `mlx-vlm` does not pull it in on its
+own; without it the engine fails to load and `--vlm` silently produces no
+visual-model output. Apple Silicon only. The weights are fetched from Hugging
+Face the first time the visual model runs and cached locally after that.
 
 ### OCR model refresh — optional extra `[ocr-hf]`
 

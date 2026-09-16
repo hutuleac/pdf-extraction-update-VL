@@ -66,6 +66,8 @@ PROMPT = (
     "only the graphics, not the page's body text. "
     "Describe only what is present — never state that a kind of graphic is "
     "absent. "
+    "Write the description in the same language as the page's own text — "
+    "match the document, not a default language. "
     "If the page has no graphics at all, reply with the single word NONE."
 )
 

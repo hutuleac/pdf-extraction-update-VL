@@ -131,7 +131,8 @@ def test_image_file_without_ocr_still_writes_both_outputs(scanned_image, no_ocr,
     md_path = write_markdown(model, tmp_path / "md")
 
     assert json.loads(json_path.read_text(encoding="utf-8"))["document"]["source_type"] == "image"
-    assert "Extraction Notes" in md_path.read_text(encoding="utf-8")
+    notes_path = md_path.parent / f"{md_path.stem}.notes.md"
+    assert "Extraction Notes" in notes_path.read_text(encoding="utf-8")
 
 
 def test_unreadable_image_is_a_warning_not_a_crash(tmp_path):
@@ -146,14 +147,19 @@ def test_unreadable_image_is_a_warning_not_a_crash(tmp_path):
 # ---------------------------------------------------------------------------
 
 def test_markdown_notes_explain_the_gap_in_plain_language(scanned_pdf, no_ocr, tmp_path):
-    text = write_markdown(extract_document(scanned_pdf), tmp_path).read_text(encoding="utf-8")
-    assert "## Extraction Notes" in text
-    assert "Page 1: no text extracted — no OCR model directory was found" in text
+    md_path = write_markdown(extract_document(scanned_pdf), tmp_path)
+    assert "Extraction Notes" not in md_path.read_text(encoding="utf-8")
+    notes_path = md_path.parent / f"{md_path.stem}.notes.md"
+    notes_text = notes_path.read_text(encoding="utf-8")
+    assert "# Extraction Notes" in notes_text
+    assert "Page 1: no text extracted — no OCR model directory was found" in notes_text
 
 
 def test_clean_documents_get_no_extraction_notes(sample_pdf, no_ocr, tmp_path):
-    text = write_markdown(extract_document(sample_pdf), tmp_path).read_text(encoding="utf-8")
-    assert "Extraction Notes" not in text
+    md_path = write_markdown(extract_document(sample_pdf), tmp_path)
+    assert "Extraction Notes" not in md_path.read_text(encoding="utf-8")
+    notes_path = md_path.parent / f"{md_path.stem}.notes.md"
+    assert not notes_path.exists()
 
 
 def test_cli_summary_counts_unreadable_pages_and_names_the_fix(scanned_pdf, no_ocr):

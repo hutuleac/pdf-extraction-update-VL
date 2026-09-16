@@ -115,6 +115,22 @@ def reset_ocr_state():
     config.reset()
 
 
+@pytest.fixture(autouse=True)
+def reset_vlm_state():
+    """Keep each test's VLM configuration and cached probe to itself.
+
+    ``--vlm`` now defaults to on at the CLI, so any test that goes through
+    main.py's argument parsing calls ``configure(enabled=True, ...)`` —
+    without this reset that leaks into every test after it, since
+    ``extractor.vlm.config`` is a module-level singleton.
+    """
+    from extractor.vlm import config
+
+    config.reset()
+    yield
+    config.reset()
+
+
 @pytest.fixture
 def sample_pdf(tmp_path: Path) -> Path:
     """A 2-page text PDF with predictable content."""

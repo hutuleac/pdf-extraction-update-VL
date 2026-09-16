@@ -41,14 +41,18 @@ def _render_table(rows: list[list[str]]) -> str:
 
 
 def _extraction_notes(warnings: list[dict]) -> list[str]:
-    """Render the closing 'Extraction Notes' section, or nothing when clean.
+    """Render the '# Extraction Notes' sidecar body, or nothing when clean.
 
-    This is what tells a reader which content could not be extracted, in the
-    same file as the content itself.
+    Kept out of the document's own .md on purpose: Phase 2 normalizes every
+    format into the same internal model so chunking/embedding stays
+    format-agnostic, and a warning like "OCR confidence 81%" embedded next to
+    real prose would be ingested as if it were document content. The notes
+    live in a sidecar file next to it instead — still human-readable, no
+    longer inside the thing a future chunker reads.
     """
     if not warnings:
         return []
-    lines = ["", "---", "", "## Extraction Notes", ""]
+    lines = ["# Extraction Notes", ""]
     seen: set[str] = set()
     for warning in warnings:
         note = describe(warning)
@@ -104,8 +108,16 @@ def write_markdown(model: dict, out_dir, *, stem: str | None = None) -> Path:
             parts.append("---")
             parts.append("")
 
-    parts.extend(_extraction_notes(model["document"].get("warnings", [])))
-
     out_path = out_dir / f"{stem}.md"
     out_path.write_text("\n".join(parts).rstrip() + "\n", encoding="utf-8")
+
+    notes = _extraction_notes(model["document"].get("warnings", []))
+    notes_path = out_dir / f"{stem}.notes.md"
+    if notes:
+        notes_path.write_text("\n".join(notes).rstrip() + "\n", encoding="utf-8")
+    elif notes_path.exists():
+        # A re-run that cleaned up a previously-warned document must not leave
+        # a stale sidecar claiming issues that no longer exist.
+        notes_path.unlink()
+
     return out_path

@@ -100,11 +100,14 @@ def build_parser() -> argparse.ArgumentParser:
     )
     vlm_group = parser.add_argument_group("Visual model")
     vlm_group.add_argument(
-        "--vlm", dest="vlm", action="store_true",
+        "--vlm", dest="vlm", action=argparse.BooleanOptionalAction, default=True,
         help=(
             "Read every page with granite-docling as well, recovering formulas "
             "and structure the text layer does not carry. Apple Silicon only, "
-            "and slow — roughly 14 s per page"
+            "and slow — roughly 14 s per page. On by default (local inference, "
+            "no per-call cost); pass --no-vlm to skip it. Downgrades gracefully, "
+            "with a visible warning in the run summary, where the visual model "
+            "isn't available."
         ),
     )
     vlm_group.add_argument(
