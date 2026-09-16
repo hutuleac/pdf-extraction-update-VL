@@ -57,6 +57,12 @@ def test_mismapped_symbol_font_is_reported_without_reclassifying():
     assert "GARBLED_TEXT" not in codes
 
 
+def test_latin_1_characters_are_not_scripts():
+    # `\u00ba` is MASCULINE ORDINAL INDICATOR and `\u00b5` MICRO SIGN — the
+    # name prefix looks like a script and is not one.
+    assert _unexpected_scripts("1\u00ba C, 5 \u00b5m, 30\u00b0") == ()
+
+
 def test_a_single_quoted_script_is_not_mismapped():
     # An English document quoting one foreign phrase must stay silent.
     assert len(_unexpected_scripts("The kanji 日本語 means Japanese.")) < 2

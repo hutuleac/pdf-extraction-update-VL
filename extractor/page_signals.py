@@ -73,7 +73,12 @@ def _unexpected_scripts(text: str) -> tuple[str, ...]:
     """
     found = set()
     for char in text:
-        if unicodedata.category(char)[0] not in "LM":
+        # Below U+0370 there is no script but Latin — Latin-1, the Latin
+        # extensions, IPA and the combining diacriticals. The name prefix is
+        # not a script there and reading it as one is wrong: `º` is
+        # MASCULINE ORDINAL INDICATOR, an ordinary Romanian and Spanish
+        # character, and `µ` is MICRO SIGN.
+        if ord(char) < 0x0370 or unicodedata.category(char)[0] not in "LM":
             continue
         try:
             script = unicodedata.name(char).split()[0]
