@@ -256,6 +256,28 @@ granite's 1. PaddleOCR-VL remains available for documents where plain
 transcription is the goal; it is not the better choice for formulas or for
 recovering damaged pages.
 
+The whole of that course has since been run through both, and the gap holds at
+scale for one measurable reason — **PaddleOCR-VL runs out of tokens**. Same
+document, same 4096-token cap, same 279 described pages:
+
+| | granite-docling | PaddleOCR-VL |
+|---|---|---|
+| Pages kept (`VLM_APPLIED`) | 170 | 102 |
+| Formulas recovered | 478 | 57 |
+| Rejected as truncated | 12 | 143 |
+| Pages falling through to OCR | 2 | 24 |
+
+Markdown costs far more tokens than a doctag stream on a dense page, so the cap
+binds on 58% of PaddleOCR-VL's attempted pages against granite's 5%, and a
+truncated page is rejected back to its native text. The OCR column is the same
+cause downstream: a rejected page never suppresses the OCR pass. Whether raising
+`--vlm-max-tokens` closes the gap is untested — the comparison above is of the
+shipped defaults, and the default stands on those.
+
+Neither model should be trusted on URLs: on that run granite invented 11 of the
+13 URLs in its kept text and PaddleOCR-VL 8 of 9, in well-formed and entirely
+plausible form. See CLAUDE.md's merge-rule section.
+
 Off by default, and slow — roughly 5–14 s per page, so a 400-page book is most
 of an hour. Every inference is cached under
 `~/.cache/knowledge-extractor/vlm`, keyed on the rendered page, so an

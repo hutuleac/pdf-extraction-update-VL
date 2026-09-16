@@ -261,6 +261,22 @@ setting that fixes it was turned on. Lowering `--vlm-max-tokens` was considered
 and rejected — healthy pages cost 1475 tokens on average against the 4096 cap, so
 the cap never binds on the normal path and only unused budget would be cut.
 
+**That average is granite's, and it does not carry to the other model.** On the
+388-page geotechnics course PaddleOCR-VL hit the cap on **143 of the 245 pages it
+attempted, against granite's 12** — 58% against 5%. Markdown spends far more
+tokens than a doctag stream on the same dense page of equations and tables, so
+the cap that never binds for granite binds for most of PaddleOCR-VL's run. A
+capped page is rejected and keeps its native text, which is the whole of the gap
+between the two models at this scale: granite read 170 pages recovering 478
+formulas, PaddleOCR-VL read 102 recovering 57.
+
+The truncation *cascades*, which is the non-obvious part. A rejected page never
+sets the `skip=` that tells `_ocr_pages` the visual model already handled it, so
+its garbled prose falls through to OCR: 24 OCR'd pages on the PaddleOCR-VL run
+against 2 on granite's, from identical input and an identical 35-page
+`GARBLED_TEXT` count. Read an OCR-page count difference between two visual
+models as a truncation symptom before reading it as an OCR one.
+
 The whole document is read, and that is the expensive half of a decision the
 cheap half of which is *keeping almost none of it*. On a healthy page the model
 returns the native text back 92-100% word for word (measured across 22 pages of
@@ -278,6 +294,19 @@ same page twice. That skip only fires when the model's reading actually
 carries text: a page kept for its tables alone replaces nothing, so OCR still
 gets a shot at the garbled prose standing beside them. Native tables always win
 over the model's: pdfplumber reads ruling lines, the model infers them.
+
+**Both reading models fabricate URLs, and nothing in the pipeline catches it.**
+Measured on the 388-page course: of the URLs appearing in the model's kept text,
+granite invented 11 of 13 and PaddleOCR-VL 8 of 9. They are not garbled — they
+are plausible, well-formed and wrong: `jrbengineering.com` came back as
+`thiborgineering.com`, `pilingindustrycanada.com` as `sgcengincovering.com`.
+These shipped into the Markdown. It is the `formula_is_balanced` problem in a
+form no balance check sees — a wrong equation that renders is worse than a
+missing one, and a wrong URL is worse still, because it looks like a citation
+and Phase 2 will embed it as one. That it appears in both models at the same
+rate makes it a property of the reading path, not a reason to prefer one model.
+No gate exists for this yet; a page carrying model-read URLs is worth
+distrusting by hand until one does.
 
 `MIN_YIELD_RATIO` guards only the replacing case. Applied to an additive page
 it would reject a reading that returned one clean formula plus a paragraph,
