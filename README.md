@@ -263,9 +263,20 @@ document, same 4096-token cap, same 279 described pages:
 | | granite-docling | PaddleOCR-VL |
 |---|---|---|
 | Pages kept (`VLM_APPLIED`) | 170 | 102 |
-| Formulas recovered | 478 | 57 |
+| Formulas *counted* | 478 | 57 |
+| Formulas actually emitted | ~480 | ~547 |
 | Rejected as truncated | 12 | 143 |
 | Pages falling through to OCR | 2 | 24 |
+
+**The formula count is not a recovery measure — it is a notation measure.**
+`markdown_doc._FORMULA` matches `$$…$$` and `\[…\]`, both *display*
+delimiters. PaddleOCR-VL writes most of its maths inline as `\(…\)`, which
+that pattern never matches: 490 such formulas on this run were left raw in the
+prose, uncounted, and — because the count and the validation are the same pass —
+never checked by `formula_is_balanced` either. So PaddleOCR-VL's "57 recovered,
+0 rejected" means "57 written in display form", and its real total is higher
+than granite's. Any comparison resting on `formulas` is comparing delimiter
+style until that pattern covers inline maths.
 
 Markdown costs far more tokens than a doctag stream on a dense page, so the cap
 binds on 58% of PaddleOCR-VL's attempted pages against granite's 5%, and a
@@ -277,6 +288,35 @@ shipped defaults, and the default stands on those.
 Neither model should be trusted on URLs: on that run granite invented 11 of the
 13 URLs in its kept text and PaddleOCR-VL 8 of 9, in well-formed and entirely
 plausible form. See CLAUDE.md's merge-rule section.
+
+A page-level diff of the two runs refines the picture further, and not in
+granite's favour on quality:
+
+- **They read different pages, not more and fewer of the same ones.** Of the
+  221 pages one model or the other kept, only 50 were kept by both — 119 are
+  granite-only, 52 PaddleOCR-VL-only. Granite's extra pages are real content
+  (98,746 chars, median novelty 1.00 against their own native text, 333 formula
+  blocks), so its coverage advantage is genuine. But PaddleOCR-VL reads 52 pages
+  granite drops entirely.
+- **On the pages both read, PaddleOCR-VL is the more accurate transcriber.** It
+  kept more text there (66,029 chars against 53,504) and the two agree on only
+  9 of 50 pages. On page 315 granite collapsed one equation into scrambled
+  tokens (`10, 4046 25 0, 6 1 a p K q K`) and dropped a factor from the next —
+  writing `γ₁·H₁ + q·K_a1` for arithmetic that computes `γ₁·H₁·K_a1 + q·K_a1`.
+  That formula is *balanced*, so `formula_is_balanced` passes it: a silently
+  wrong equation, which is the failure this pipeline treats as worse than a
+  missing one. PaddleOCR-VL rendered both correctly.
+- **granite damages Romanian text; PaddleOCR-VL does not.** It splits words
+  around diacritics — `Exist ă ș i instala ț ii` — 848 times across 28 pages,
+  against PaddleOCR-VL's zero. This also defeats the redundancy gate, whose
+  `_words` drops tokens of 3 characters or fewer: the split fragments score as
+  novel, so ~21,700 chars of duplicated prose shipped on 10 of 136 additive
+  pages.
+
+granite remains the default: coverage is the larger effect, and the truncation
+that costs PaddleOCR-VL 143 pages is a property of the shipped cap. But on a
+diacritic-heavy or formula-critical document, check PaddleOCR-VL before assuming
+the default is better — on the pages both models read, it was.
 
 Off by default, and slow — roughly 5–14 s per page, so a 400-page book is most
 of an hour. Every inference is cached under
