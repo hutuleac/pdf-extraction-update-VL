@@ -386,3 +386,94 @@ Treat these warnings as review locations, not as measured error rates. Confirm w
 - OCR text matches the source images for sampled titles, lists, labels, and table-like regions.
 - No meaningful figure text is silently lost.
 - Intentional quality changes are covered by focused regression tests and baseline/golden review.
+
+---
+
+## TODO — Next, from the 388-page course run (2026-09-16)
+
+Ordered by value per hour of work. Every item below is a measured gap, not a
+speculative improvement; the measurement is named so it can be re-checked
+rather than trusted.
+
+### 1. Count inline formulas — `markdown_doc._FORMULA`
+
+`_FORMULA` matches `$$...$$` and `\[...\]`, both *display* delimiters.
+PaddleOCR-VL writes most of its maths inline as `\(...\)`: 490 such formulas
+on the course run were left raw in the prose, uncounted, and — because counting
+and validation are the same pass — never checked by `formula_is_balanced`.
+
+Effect: the `formulas` metric compares delimiter style, not recovery, and any
+model comparison resting on it is wrong. It also means PaddleOCR-VL's formulas
+skip the balance gate entirely.
+
+Size: one regex plus a test. **Do this first** — it is the cheapest item here
+and it invalidates a metric currently quoted in the README.
+
+### 2. A gate for fabricated URLs
+
+Both models invent URLs at a high rate — granite 11 of 13, PaddleOCR-VL 8 of 9
+— in well-formed, plausible, wrong form (`jrbengineering.com` arrived as
+`thiborgineering.com`). They shipped into the Markdown, and Phase 2 will embed
+them as citations.
+
+This is the `formula_is_balanced` problem in a form no balance check sees: a
+wrong URL renders perfectly. The obvious shape is to drop or flag a
+model-produced URL absent from the page's native text, mirroring the "a wrong
+equation that renders is worse than a missing one" rule already in the code.
+
+Open question worth settling before building: drop, or flag and keep? A
+`scanned` page has no native text to check against, so a drop rule would be
+silent there.
+
+### 3. Re-run PaddleOCR-VL with a raised `--vlm-max-tokens`
+
+Its 143 truncated pages are the entire gap to granite, and on the pages both
+models read it was the *more accurate* transcriber. So the default may rest on
+a cost artifact rather than a capability one — the two are currently confounded,
+and "granite wins" is established only for the shipped 4096-token cap.
+
+Expected outcomes, both one-sentence doc changes: truncation collapses and
+formulas climb toward granite's → the default is right for a cost reason;
+truncation stays high at 8192 → right for the reason already documented.
+
+Cost: ~2h. The describing pass is cached, so only the reading pass re-runs.
+
+### 4. Native formula debris on formula-heavy pages
+
+PyMuPDF returns some equations' glyphs in spatial disorder — page 115 carries
+`∂ ⋅ + ∂ ∂ ∂ + + ⋅` as prose. There is no delimiter or marker distinguishing it
+from text, so no rule short of "drop native text where the model produced a
+formula" catches it. That is a replace rule and a much larger decision than the
+rendering fixes; it needs its own measurement before it is built.
+
+Partially mitigated already: such pages classify `layout-complex`, so `--vlm`
+reads them, and the model's `$$` version now renders correctly. The debris
+remains beside it.
+
+### 5. Known ceilings — measured, deliberately not fixed
+
+- **The redundancy gate leaks on split diacritics.** granite emits
+  `Exist ă ș i`; `apply._words` drops tokens of 3 characters or fewer, so the
+  fragments score as novel and the page passes `MIN_PROSE_NOVELTY`. ~21,700
+  chars of duplicate prose shipped on 10 of 136 additive pages. The gate works
+  on the other 93% (median novelty 1.00), so this is a tail, not a failure.
+- **`MISMAPPED_GLYPHS` misses a single stray glyph.** Its threshold is two
+  distinct unexpected scripts, which is what keeps an English document quoting
+  one foreign word silent. One page in 388 (p117) carries a single Syriac
+  character and is not flagged. Lowering the threshold would trade that page
+  for false positives on ordinary English input.
+- **Private Use Area glyphs need no work.** 291 of 388 pages carry them
+  (Symbol/Wingdings bullets and operators), but `normalizer.py` already strips
+  them and zero reach the JSON or Markdown. Checked during this audit; recorded
+  so it is not re-investigated.
+
+### Re-run notes
+
+The VLM inference cache (`~/.cache/knowledge-extractor/vlm`) holds both models'
+readings of the course and the 279 figure descriptions, keyed on the rendered
+page, the model, the prompt and the repetition penalty. A re-run that changes
+only parsing or warning code costs no inference. Changing a prompt or the
+penalty invalidates those entries by design.
+
+The course is 62 MB and needs `--max-file-mb 100`; the 50 MB default silently
+skips it.

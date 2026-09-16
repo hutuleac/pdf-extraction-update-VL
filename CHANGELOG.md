@@ -1,5 +1,59 @@
 # Changelog — Knowledge Extraction Pipeline
 
+## Unreleased — rendering fixes and the 388-page model comparison
+
+### Fixed
+
+- **Multi-line equations now render.** Both visual models emit a bare
+  *alignment body* (`V_1 & = ... \\ & + ...`) with no environment around it;
+  wrapped in bare `$$` that is a KaTeX parse error and the equation displays as
+  nothing. `doctag.as_display_math` adds `\begin{aligned}` when a body needs
+  one, and all three emission sites (`doctag.parse`, `markdown_doc.parse`,
+  `apply.py`'s redundant-page rebuild) route through it. 58 formulas across 43
+  pages of the reference course were affected.
+- **`formula_is_balanced` now counts braces**, not only `\left`/`\right`. A
+  stray `}` inside an otherwise valid `array` renders as nothing and the
+  delimiter count cannot see it. 1 of 479 formulas on the course fails the new
+  check, and that one was the bug.
+
+### Added
+
+- **`MISMAPPED_GLYPHS`** warning for pages whose symbol font decoded through a
+  broken ToUnicode CMap — `τ_f = (σ − u)·tg φ'` extracted as
+  `௙ൌ ߪ െ ݑ · ݐ݃ ∅ᇱ`. Those are printable letters from real scripts, so every
+  existing garble ratio scores them clean. The discriminator is how many
+  *distinct* scripts a page mixes: a quotation uses one, a broken CMap scatters
+  glyphs across NKO, Malayalam and Syriac at once. Fires on 21 of 388 pages;
+  314 of 334 text pages score zero, so the signal is a split, not a gradient.
+
+  It deliberately **does not reclassify** the page. Page 41 is 1,374 sound
+  characters of which 7 are damaged; calling it `garbled` would route it down
+  the replace path and bet the 1,367 against a model reading.
+
+### Measured
+
+- **Full 388-page course run through both reading models.** granite kept 170
+  pages against PaddleOCR-VL's 102, and the whole gap is the token cap:
+  PaddleOCR-VL truncated on 143 of 245 attempted pages against granite's 12,
+  because Markdown costs more tokens than a doctag stream on a dense page. The
+  truncation cascades — a rejected page never sets `skip=`, so its garbled prose
+  falls through to OCR (24 pages against 2).
+- **The formula count measures notation, not recovery.** `markdown_doc._FORMULA`
+  matches display delimiters only, so PaddleOCR-VL's 490 inline `\(...\)`
+  formulas were never counted and never validated. Its real total (~547)
+  exceeds granite's (~480). Not yet fixed.
+- **Both models fabricate URLs** — granite 11 of 13, PaddleOCR-VL 8 of 9 — in
+  well-formed, plausible, wrong form (`jrbengineering.com` →
+  `thiborgineering.com`). These shipped into the Markdown. No gate exists.
+- **A page diff refined the model choice.** The two read largely *different*
+  pages (50 of 221 shared). On the shared ones PaddleOCR-VL is the more accurate
+  transcriber: granite scrambled one equation and dropped a factor from another
+  while staying balanced, and splits Romanian words around diacritics 848 times
+  against PaddleOCR-VL's zero. granite stays the default on coverage.
+- **Pairing a conversion model with OCR on standalone images was measured and
+  rejected**: zero tables emitted on the reference card, 72 lines read against
+  OCR's 146, 1% novel vocabulary.
+
 ## Unreleased — extraction safety and diagnostics
 
 ### Added
