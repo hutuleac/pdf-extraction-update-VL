@@ -18,9 +18,21 @@ import re
 
 from extractor.vlm.doctag import ParsedPage, as_display_math, formula_is_balanced
 
-# Display math only. Inline ``$x$`` inside a sentence is part of that sentence
-# and is left in the prose, where it already reads correctly.
+# Display math — lifted out of the prose and re-wrapped on the way back in.
 _FORMULA = re.compile(r"\$\$(.+?)\$\$|\\\[(.+?)\\\]", re.DOTALL)
+
+# Inline math, which is where this model puts most of its equations: 486 of
+# them on the 388-page reference course against 57 in display form. They are
+# counted and balance-checked like display formulas, but deliberately **left
+# where they are** — 338 of those 486 sit inside a sentence ("...for z = 0,
+# \(p_a = q K_a = 10,15\) kN/m²"), and lifting one out to a display block
+# would cut the sentence in half around it.
+#
+# Without this the count was a measure of *delimiter style* rather than of
+# recovery: this model's maths was invisible to `formula_count`, and — because
+# counting and validating are the same pass — skipped `formula_is_balanced`
+# entirely.
+_INLINE_FORMULA = re.compile(r"\\\((.+?)\\\)", re.DOTALL)
 
 _HTML_TABLE = re.compile(r"<table[^>]*>(.*?)</table>", re.DOTALL | re.IGNORECASE)
 _HTML_ROW = re.compile(r"<tr[^>]*>(.*?)</tr>", re.DOTALL | re.IGNORECASE)
@@ -149,6 +161,23 @@ def parse(raw: str) -> ParsedPage:
         return f"\x00{len(result.formulas) - 1}\x00"
 
     body = _FORMULA.sub(take_formula, body)
+
+    # After the display pass, so a `\(` inside a lifted display formula is not
+    # scanned twice. Nothing is substituted: the prose keeps its own delimiters.
+    for match in _INLINE_FORMULA.finditer(body):
+        latex = match.group(1).strip()
+        if not latex:
+            continue
+        if formula_is_balanced(latex):
+            result.formula_count += 1
+            result.formulas.append(latex)
+        else:
+            # Counted, but not cut out. A broken display formula is deleted
+            # because it stands alone; a broken inline one is inside a
+            # sentence, and removing it leaves a hole that changes what the
+            # sentence says. Raw LaTeX left visible announces itself, and the
+            # caller turns this count into FORMULA_REVIEW_REQUIRED.
+            result.rejected_formulas += 1
 
     html_tables, body = _take_html_tables(body)
     pipe_tables, body = _take_pipe_tables(body)

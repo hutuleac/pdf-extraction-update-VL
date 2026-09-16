@@ -123,3 +123,33 @@ def test_an_unknown_model_is_refused_rather_than_guessed_at():
         models.for_model("some/unknown-vlm")
     assert caught.value.reason is UnavailableReason.UNKNOWN_MODEL
     assert "paddleocr-vl" in str(caught.value)
+
+
+def test_inline_formulas_are_counted():
+    # This model writes most of its maths inline: 486 against 57 display
+    # formulas on the reference course. They were invisible to the count.
+    parsed = markdown_doc.parse(r"for z = 0, \( p_a = q \cdot K_a = 10,15 \) kN/m squared.")
+    assert parsed.formula_count == 1
+    assert parsed.formulas == [r"p_a = q \cdot K_a = 10,15"]
+
+
+def test_inline_formulas_stay_inside_their_sentence():
+    # Lifting one out to a display block would cut the sentence in half: the
+    # unit that follows it belongs to the same clause.
+    raw = r"for z = 0, \( p_a = 10,15 \) kN/m squared."
+    assert markdown_doc.parse(raw).text == raw
+
+
+def test_unbalanced_inline_formula_is_counted_but_not_cut_out():
+    # Unlike a display formula, which stands alone and is deleted, removing
+    # this would leave a hole that changes what the sentence says.
+    raw = r"Given \( a = { b \) we conclude."
+    parsed = markdown_doc.parse(raw)
+    assert parsed.rejected_formulas == 1
+    assert parsed.formula_count == 0
+    assert parsed.text == raw
+
+
+def test_inline_delimiters_inside_a_display_formula_are_not_double_counted():
+    parsed = markdown_doc.parse(r"$$ x = \left( a \right) \(y\) $$")
+    assert parsed.formula_count == 1

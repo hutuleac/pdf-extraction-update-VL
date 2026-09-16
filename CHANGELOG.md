@@ -38,10 +38,16 @@
   because Markdown costs more tokens than a doctag stream on a dense page. The
   truncation cascades — a rejected page never sets `skip=`, so its garbled prose
   falls through to OCR (24 pages against 2).
-- **The formula count measures notation, not recovery.** `markdown_doc._FORMULA`
-  matches display delimiters only, so PaddleOCR-VL's 490 inline `\(...\)`
-  formulas were never counted and never validated. Its real total (~547)
-  exceeds granite's (~480). Not yet fixed.
+- **The formula count measured notation, not recovery** — now fixed.
+  `markdown_doc._FORMULA` matched display delimiters only, so PaddleOCR-VL's
+  486 inline `\(...\)` formulas were never counted and never validated. With
+  inline maths counted, the model reports **827 formulas against granite's
+  478**, reversing that half of the comparison, and 29 pages previously
+  discarded as duplicates are kept because their equations now register.
+  Inline formulas are counted in place rather than promoted to display: 338 of
+  the 486 sit inside a sentence, and lifting one out would cut it in half. An
+  unbalanced inline formula is counted as rejected but left visible, where a
+  display one is deleted — removing it would leave a hole in the sentence.
 - **Both models fabricate URLs** — granite 11 of 13, PaddleOCR-VL 8 of 9 — in
   well-formed, plausible, wrong form (`jrbengineering.com` →
   `thiborgineering.com`). These shipped into the Markdown. No gate exists.

@@ -395,7 +395,15 @@ Ordered by value per hour of work. Every item below is a measured gap, not a
 speculative improvement; the measurement is named so it can be re-checked
 rather than trusted.
 
-### 1. Count inline formulas — `markdown_doc._FORMULA`
+### 1. Count inline formulas — `markdown_doc._FORMULA` — DONE 2026-09-16
+
+Outcome: PaddleOCR-VL reports **827 formulas against granite's 478**, reversing
+that half of the model comparison, and 29 pages previously discarded as
+duplicates are kept because their equations now register. Inline formulas are
+counted in place, not promoted to display — 338 of 486 sit inside a sentence.
+README and CHANGELOG updated. Original entry below.
+
+### ~~1. Count inline formulas — `markdown_doc._FORMULA`~~
 
 `_FORMULA` matches `$$...$$` and `\[...\]`, both *display* delimiters.
 PaddleOCR-VL writes most of its maths inline as `\(...\)`: 490 such formulas

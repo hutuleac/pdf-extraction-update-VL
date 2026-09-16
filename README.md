@@ -262,21 +262,24 @@ document, same 4096-token cap, same 279 described pages:
 
 | | granite-docling | PaddleOCR-VL |
 |---|---|---|
-| Pages kept (`VLM_APPLIED`) | 170 | 102 |
-| Formulas *counted* | 478 | 57 |
-| Formulas actually emitted | ~480 | ~547 |
+| Pages kept (`VLM_APPLIED`) | 170 | 131 |
+| Formulas recovered | 478 | **827** |
 | Rejected as truncated | 12 | 143 |
 | Pages falling through to OCR | 2 | 24 |
 
-**The formula count is not a recovery measure — it is a notation measure.**
-`markdown_doc._FORMULA` matches `$$…$$` and `\[…\]`, both *display*
-delimiters. PaddleOCR-VL writes most of its maths inline as `\(…\)`, which
-that pattern never matches: 490 such formulas on this run were left raw in the
-prose, uncounted, and — because the count and the validation are the same pass —
-never checked by `formula_is_balanced` either. So PaddleOCR-VL's "57 recovered,
-0 rejected" means "57 written in display form", and its real total is higher
-than granite's. Any comparison resting on `formulas` is comparing delimiter
-style until that pattern covers inline maths.
+**PaddleOCR-VL recovers more formulas than granite, on fewer pages.** That
+reverses this table's earlier reading, which counted 57 against 478 and was
+wrong: `markdown_doc._FORMULA` matched `$$…$$` and `\[…\]` only, and this
+model writes most of its maths *inline* as `\(…\)`. 486 formulas per run were
+invisible to the count and — because counting and validating are one pass —
+skipped `formula_is_balanced` entirely. Counting them also stopped 29 pages
+being discarded as duplicates that had contributed nothing but their equations,
+which is why the page count rose from 102.
+
+Inline formulas are counted where they stand, not promoted to display blocks:
+338 of the 486 sit inside a sentence (`…for z = 0, \(p_a = q K_a = 10,15\)
+kN/m²`), and lifting one out would cut its sentence in half. granite emits no
+inline maths at all, so the comparison above is like-for-like.
 
 Markdown costs far more tokens than a doctag stream on a dense page, so the cap
 binds on 58% of PaddleOCR-VL's attempted pages against granite's 5%, and a
