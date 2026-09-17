@@ -131,11 +131,33 @@ Do these in order. Each one has a stop condition. Nothing ships until step
   for the course. Passing all three is the case for replacing the PDF
   path; it is a rewrite, plan it separately.
 
-## Cuts that need no experiment
+## Parked
 
-- Remove PaddleOCR-VL from `models.py` and delete `markdown_doc.py`. It
-  truncated on 58% of attempted pages against granite's 5% and has no
-  measured win. One parser less to keep the balanced-formula fix in sync.
-- Keep `--vlm-describe-figures` off and documented as a four-hour option.
-  It is the largest budget in the pipeline and its output cannot be
-  verified. Do not spend effort optimizing it before formulas are solved.
+- `--vlm-describe-figures` stays off and untouched until formulas are
+  solved. It is the largest budget in the pipeline (~45 s/page, 330 of 388
+  pages on the course) and its output cannot be verified. No optimization
+  work on it before step 4 above ships.
+
+## Decision pending: PaddleOCR-VL
+
+An earlier draft of this file listed removing PaddleOCR-VL and
+`markdown_doc.py` as a cut needing no experiment. That was written from
+CLAUDE.md's stale count (57 formulas) and is wrong. The README's later
+page-level diff of the full course run says:
+
+- PaddleOCR-VL recovered 827 formulas against granite's 478, on fewer
+  pages (131 kept against 170), once inline `\(...\)` maths was counted.
+- On the 50 pages both models kept, PaddleOCR-VL is the more accurate
+  transcriber; granite shipped a balanced but wrong equation on page 315.
+- granite splits Romanian words around diacritics 848 times across 28
+  pages; PaddleOCR-VL zero times.
+- PaddleOCR-VL loses on coverage only because the 4096-token cap binds on
+  58% of its pages. Raising `--vlm-max-tokens` for it is untested.
+
+So it is the better transcriber and the worse coverage, and the coverage
+loss has an untested one-flag fix. Before deleting it, run the course once
+with `--vlm-model mlx-community/PaddleOCR-VL-1.6-4bit --vlm-max-tokens 8192`
+and compare kept pages and truncations to the table in the README. If the
+truncation count collapses, it is the better default, not a cut. If it
+does not, cut it then. CLAUDE.md's model section still carries the stale
+57 count and should be corrected either way.

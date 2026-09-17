@@ -309,9 +309,14 @@ the cap never binds on the normal path and only unused budget would be cut.
 attempted, against granite's 12** — 58% against 5%. Markdown spends far more
 tokens than a doctag stream on the same dense page of equations and tables, so
 the cap that never binds for granite binds for most of PaddleOCR-VL's run. A
-capped page is rejected and keeps its native text, which is the whole of the gap
-between the two models at this scale: granite read 170 pages recovering 478
-formulas, PaddleOCR-VL read 102 recovering 57.
+capped page is rejected and keeps its native text, which is the whole of the
+*coverage* gap between the two models at this scale: granite kept 170 pages,
+PaddleOCR-VL 131. It is not a quality gap: once inline `\(...\)` maths was
+counted, PaddleOCR-VL recovered 827 formulas to granite's 478, transcribed the
+50 shared pages more accurately, and never split Romanian words around
+diacritics where granite did so 848 times. See the README's visual-model
+section for the page-level diff and `docs/backlog-formulas-and-models.md` for
+the pending decision on which model should be the default.
 
 The truncation *cascades*, which is the non-obvious part. A rejected page never
 sets the `skip=` that tells `_ocr_pages` the visual model already handled it, so
