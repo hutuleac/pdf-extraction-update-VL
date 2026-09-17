@@ -35,6 +35,9 @@ logger = logging.getLogger(__name__)
 # Codes that mean content exists but was not extracted — worth an actionable hint.
 _UNREADABLE_CODES = ("OCR_UNAVAILABLE", "OCR_SKIPPED_DISABLED", "OCR_MODEL_INCOMPATIBLE",
                      "OCR_FAILED", "OCR_REJECTED_LOW_CONFIDENCE")
+# The subset the "install OCR" fix actually addresses. A page OCR read and
+# rejected, or failed on, is not fixed by installing what is already installed.
+_OCR_INSTALL_CODES = ("OCR_UNAVAILABLE", "OCR_MODEL_INCOMPATIBLE")
 
 
 # ---------------------------------------------------------------------------
@@ -100,14 +103,21 @@ def build_parser() -> argparse.ArgumentParser:
     )
     vlm_group = parser.add_argument_group("Visual model")
     vlm_group.add_argument(
-        "--vlm", dest="vlm", action=argparse.BooleanOptionalAction, default=True,
+        "--vlm", dest="vlm", action=argparse.BooleanOptionalAction, default=False,
         help=(
-            "Read every page with granite-docling as well, recovering formulas "
-            "and structure the text layer does not carry. Apple Silicon only, "
-            "and slow — roughly 14 s per page. On by default (local inference, "
-            "no per-call cost); pass --no-vlm to skip it. Downgrades gracefully, "
-            "with a visible warning in the run summary, where the visual model "
-            "isn't available."
+            "Also read pages with granite-docling. Apple Silicon only, roughly "
+            "14 s per page, so it is off by default and the Windows run stays "
+            "quiet. With --vlm-pages auto (the default) only scanned, garbled "
+            "and symbol-damaged pages are sent; unavailable downgrades to a "
+            "visible warning in the run summary."
+        ),
+    )
+    vlm_group.add_argument(
+        "--vlm-pages", dest="vlm_pages", choices=("auto", "all"), default="auto",
+        help=(
+            "auto: only pages whose text layer is missing or damaged. all: every "
+            "page, which also recovers formulas and borderless tables on healthy "
+            "pages at the full per-page cost. Default: auto"
         ),
     )
     vlm_group.add_argument(
@@ -333,19 +343,22 @@ def _warning_rollup(succeeded: list[dict]) -> list[str]:
 
     lines.append(f"{unreadable} page(s) could not be extracted:")
     seen: set[str] = set()
+    needs_install = False
     for result in succeeded:
         for warning in result.get("warnings", []):
             if warning["code"] not in _UNREADABLE_CODES:
                 continue
+            needs_install = needs_install or warning["code"] in _OCR_INSTALL_CODES
             note = f"  - {result['filename']}: {describe(warning)}"
             if note not in seen:
                 seen.add(note)
                 lines.append(note)
-    lines.append(
-        '  Fix: install OCR with  pip install -e ".[ocr]"  and put the PP-OCRv6 '
-        "detection and recognition .onnx files in models/ocr/ "
-        "(or point --ocr-model-dir at them)."
-    )
+    if needs_install:
+        lines.append(
+            '  Fix: install OCR with  pip install -e ".[ocr]"  and put the PP-OCRv6 '
+            "detection and recognition .onnx files in models/ocr/ "
+            "(or point --ocr-model-dir at them)."
+        )
     return lines
 
 
@@ -384,6 +397,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     configure_vlm(
         enabled=args.vlm,
+        pages=args.vlm_pages,
         model=args.vlm_model,
         dpi=args.vlm_dpi,
         max_tokens=args.vlm_max_tokens,

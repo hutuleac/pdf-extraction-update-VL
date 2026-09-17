@@ -7,7 +7,7 @@ Order of operations in normalize():
   4. Drop zero-width characters, fold Unicode spaces to ASCII space
   5. Fix hyphenation breaks
   6. Collapse runs of spaces/tabs
-  7. Remove empty lines and trim
+  7. Trim each line; collapse runs of blank lines to one (a paragraph break)
 """
 import re
 from dataclasses import dataclass, field
@@ -52,6 +52,9 @@ _ZERO_WIDTH = re.compile(r"[​-‍﻿]")
 # line structure survives for the hyphen rejoin and the line stripping below.
 _UNICODE_SPACE = re.compile(r"[^\S\n\r]")
 _MULTISPACE = re.compile(r"[ \t]{2,}")
+# A blank line is a paragraph break and the one structural signal a chunker
+# can rely on; runs of them carry nothing more than one does.
+_BLANK_RUN = re.compile(r"\n{3,}")
 
 
 @dataclass
@@ -63,20 +66,25 @@ class NormalizeResult:
     warnings: list[dict] = field(default_factory=list)
 
 
-def normalize(text: str) -> str:
+def normalize(text: str, *, preserve_layout: bool = False) -> str:
     """Apply normalization rules in order. Returns cleaned text.
 
     This is the original interface — callers that don't need repair metadata
     can keep using it unchanged.
     """
-    return normalize_with_report(text).text
+    return normalize_with_report(text, preserve_layout=preserve_layout).text
 
 
-def normalize_with_report(text: str) -> NormalizeResult:
+def normalize_with_report(text: str, *, preserve_layout: bool = False) -> NormalizeResult:
     """Apply normalization rules and report whether ftfy changed the text.
 
     Returns a NormalizeResult with the cleaned text and a flag/warning if
     Unicode repair was performed.
+
+    *preserve_layout* keeps indentation and internal spacing (steps 6-7 only
+    trim line ends and blank-line runs). Authored Markdown needs it: nested
+    lists and fenced code are whitespace, and collapsing it rewrites the
+    document.
     """
     if not text:
         return NormalizeResult(text="")
@@ -95,12 +103,16 @@ def normalize_with_report(text: str) -> NormalizeResult:
     text = _UNICODE_SPACE.sub(" ", text)
     # 5. Fix hyphenation: "procedu-\nra" -> "procedura"
     text = _HYPHEN_BREAK.sub("", text)
-    # 6. Collapse runs of spaces/tabs to a single space
-    text = _MULTISPACE.sub(" ", text)
-    # 7. Remove empty lines and trim each line's edges
-    lines = [line.strip() for line in text.splitlines()]
-    lines = [line for line in lines if line]
-    text = "\n".join(lines)
+    if preserve_layout:
+        lines = [line.rstrip() for line in text.splitlines()]
+    else:
+        # 6. Collapse runs of spaces/tabs to a single space
+        text = _MULTISPACE.sub(" ", text)
+        lines = [line.strip() for line in text.splitlines()]
+    # 7. Blank lines stay as paragraph breaks, one per run. Dropping them all
+    # turned a page into one block of hard-wrapped lines with no boundary a
+    # chunker could split on.
+    text = _BLANK_RUN.sub("\n\n", "\n".join(lines))
     # 8. Trim overall
     text = text.strip()
 

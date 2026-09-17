@@ -45,13 +45,15 @@ python -m venv .venv
 ```
 
 OCR needs the optional extra: `pip install -e ".[ocr]"` (onnxruntime, opencv,
-pyclipper, numpy). The two PP-OCRv6 model files ship in `models/ocr/` via
-git-lfs (`git lfs pull` if a clone skipped large files) — nothing is
+pyclipper, numpy). The two PP-OCRv6 model files (~31 MB) are committed to
+`models/ocr/` as plain binaries — not git-lfs, which was configured on no
+machine and left 132-byte pointer files in every clone — so nothing is
 downloaded to run OCR. `pip install -e ".[ocr-hf]"` + `python -m
 extractor.ocr.fetch_models` only re-downloads weights; the pipeline itself
-never imports `huggingface-hub`. Never copy `models/` in from another clone
-without running `git lfs ls-files` afterwards: a clone that skipped `git lfs
-pull` carries 132-byte pointer files that silently replace the real ~31 MB.
+never imports `huggingface-hub`.
+
+Development runs on the system Python 3.14 (`python3`), which holds the core,
+OCR and VLM extras; the `.venv` in the tree is stale and has none of them.
 
 The VLM extra (`--vlm`, `extractor/vlm/`) is mlx-based and therefore
 Apple-Silicon only. On every other platform `vlm/registry.py` reports
@@ -248,6 +250,16 @@ by its own `apply.py` exactly as OCR is.** Same shape throughout: `config.py`
 `engine.py` (one mlx-vlm wrapper for every supported model — thin on purpose),
 `apply.py` (infer, cache, judge). Off unless `--vlm`; unavailable downgrades to
 `VLM_UNAVAILABLE` and the run is unchanged.
+
+**`--vlm-pages auto` (default) sends only the pages the reading can repair**:
+`scanned`, `garbled`, and pages carrying `MISMAPPED_GLYPHS`
+(`pdf_reader._vlm_candidates`). With no candidate the model is never loaded, so
+`--vlm` on a healthy document costs nothing — the whole-document read that
+`all` restores kept almost nothing from healthy pages at ~14 s each. The
+describing pass asks `registry.host_failure()` (platform + deps, no weights)
+rather than the reading probe, for the same reason: under `auto` there may be
+no reading engine to consult, and loading granite to decide whether Qwen can
+run would be the cost `auto` exists to avoid.
 
 **Two models, two output languages, one table.** `--vlm-model` selects the
 prompt that makes a model emit its format *and* the parser that reads it back —

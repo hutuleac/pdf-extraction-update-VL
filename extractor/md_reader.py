@@ -16,7 +16,9 @@ def extract_md(path: Path | str) -> dict:
     load_result = load_text_file(path)
 
     blocks: list[dict] = []
-    text_block = make_text_block(load_result.text)
+    # Layout is the structure here: indentation nests lists, blank lines end
+    # paragraphs, fences hold code. The default normalization rewrote all of it.
+    text_block = make_text_block(load_result.text, preserve_layout=True)
     if text_block:
         blocks.append(text_block)
 

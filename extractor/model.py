@@ -11,12 +11,30 @@ from extractor.normalizer import normalize
 SCHEMA_VERSION = "2.0"
 
 
-def make_text_block(raw_text: str) -> dict | None:
-    """Normalize raw text into a text block, or None if empty after cleaning."""
-    normalized = normalize(raw_text)
+def make_text_block(raw_text: str, *, preserve_layout: bool = False) -> dict | None:
+    """Normalize raw text into a text block, or None if empty after cleaning.
+
+    *preserve_layout* is for authored Markdown, where indentation is
+    structure — see ``normalizer.normalize``.
+    """
+    normalized = normalize(raw_text, preserve_layout=preserve_layout)
     if not normalized:
         return None
     return {"type": "text", "content": normalized}
+
+
+def make_heading_block(raw_text: str, level: int) -> dict | None:
+    """A section heading the source marks as one (a Word heading style).
+
+    Its own block type rather than a ``#`` prefix inside a text block, so the
+    JSON stays structural and the Markdown writer decides the rendering.
+    *level* is the source's own level, 1-based; the writer nests it under the
+    unit heading.
+    """
+    normalized = normalize(raw_text)
+    if not normalized:
+        return None
+    return {"type": "heading", "level": max(1, int(level)), "content": normalized}
 
 
 def make_ocr_text_block(raw_text: str, confidence: float) -> dict | None:
@@ -108,12 +126,15 @@ def make_image_block(path: str, *, width: int, height: int) -> dict:
 
 
 def make_unit(number: int, unit_type: str, blocks: list[dict],
-              image_count: int = 0, *, page_class: str | None = None) -> dict:
+              image_count: int = 0, *, page_class: str | None = None,
+              title: str | None = None) -> dict:
     """Build one logical unit (page / section / sheet) from its content blocks.
 
     The optional *page_class* (e.g. 'native-text', 'scanned', 'mixed',
     'garbled', 'layout-complex') is included only when provided, keeping
-    existing callers unchanged.
+    existing callers unchanged. *title* is the unit's own name where the
+    source has one (a worksheet tab); the Markdown writer puts it in the
+    unit heading, because "Sheet 2" says nothing and "Sheet 2: Budget" does.
     """
     unit: dict = {
         "unit": number,
@@ -124,6 +145,8 @@ def make_unit(number: int, unit_type: str, blocks: list[dict],
     }
     if page_class is not None:
         unit["page_class"] = page_class
+    if title:
+        unit["title"] = title
     return unit
 
 

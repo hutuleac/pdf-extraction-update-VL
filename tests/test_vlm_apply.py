@@ -45,8 +45,8 @@ class StubEngine:
         return output if isinstance(output, tuple) else (output, False)
 
 
-def _install(monkeypatch, engine, tmp_path):
-    config.configure(enabled=True, cache_dir=str(tmp_path / "cache"))
+def _install(monkeypatch, engine, tmp_path, pages="all"):
+    config.configure(enabled=True, pages=pages, cache_dir=str(tmp_path / "cache"))
     monkeypatch.setattr(registry, "is_available", lambda: True)
     monkeypatch.setattr(registry, "get_engine", lambda: engine)
 
@@ -66,8 +66,8 @@ NATIVE = "z"
 
 # --- routing ---------------------------------------------------------------
 
-def test_every_page_is_read(two_page_pdf, monkeypatch, tmp_path):
-    """Whole-document scope: the model sees healthy pages too, because the
+def test_every_page_is_read_under_all(two_page_pdf, monkeypatch, tmp_path):
+    """--vlm-pages all: the model sees healthy pages too, because the
     formulas and table structure it recovers are invisible to the native path."""
     engine = StubEngine([GOOD, GOOD])
     _install(monkeypatch, engine, tmp_path)
@@ -76,6 +76,31 @@ def test_every_page_is_read(two_page_pdf, monkeypatch, tmp_path):
 
     assert engine.calls == 2
     assert set(pages) == {1, 2}
+
+
+def test_auto_reads_only_the_candidates(two_page_pdf, monkeypatch, tmp_path):
+    """--vlm-pages auto (the default): only the pages the caller named are
+    sent, so a healthy business PDF costs no inference at all."""
+    engine = StubEngine([GOOD])
+    _install(monkeypatch, engine, tmp_path, pages="auto")
+
+    pages, warnings = apply.vlm_pages(
+        two_page_pdf, ["native-text", "garbled"], [NATIVE * 900, NATIVE * 10],
+        candidates=frozenset({2}),
+    )
+
+    assert engine.calls == 1
+    assert set(pages) == {2}
+    assert [w["code"] for w in warnings] == ["VLM_APPLIED"]
+
+
+def test_auto_with_no_candidates_never_probes_the_model(two_page_pdf, monkeypatch):
+    """No damaged page means no reason to load weights, and no warning: the
+    run is unchanged, which is what a Windows box needs from --vlm."""
+    config.configure(enabled=True, pages="auto")
+    monkeypatch.setattr(registry, "is_available", lambda: pytest.fail("probed"))
+
+    assert apply.vlm_pages(two_page_pdf, ["native-text"] * 2, [NATIVE] * 2) == ({}, [])
 
 
 def test_disabled_reads_nothing(two_page_pdf):
@@ -88,7 +113,7 @@ def test_disabled_reads_nothing(two_page_pdf):
 # --- unavailability --------------------------------------------------------
 
 def test_unavailable_warns_once_and_does_not_crash(two_page_pdf, monkeypatch):
-    config.configure(enabled=True)
+    config.configure(enabled=True, pages="all")
     monkeypatch.setattr(registry, "is_available", lambda: False)
     monkeypatch.setattr(registry, "unavailable_reason", lambda: None)
 

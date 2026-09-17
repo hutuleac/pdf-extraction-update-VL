@@ -179,21 +179,30 @@ def test_get_engine_downgrades_a_load_failure_to_vlm_unavailable(monkeypatch):
 
 # --- describe_pages: the early-outs and the unavailable path ----------------
 
-def test_describe_pages_returns_nothing_when_registry_unavailable(
+def test_describe_pages_reports_a_host_that_cannot_run_mlx(
     monkeypatch, three_page_pdf,
 ):
+    """The host check, not the reading model's probe: under --vlm-pages auto
+    the reading pass may have loaded nothing, so this pass has to say for
+    itself why it cannot run — and must not load granite to find out."""
+    from extractor.vlm.base import UnavailableReason, VlmUnavailable
+
     engine = StubEngine(["a chart"])
     monkeypatch.setattr(describe, "_get_engine", lambda: engine)
-    monkeypatch.setattr(registry, "is_available", lambda: False)
+    monkeypatch.setattr(registry, "is_available", lambda: pytest.fail("reading probe ran"))
+    monkeypatch.setattr(
+        registry, "host_failure",
+        lambda: VlmUnavailable(UnavailableReason.UNSUPPORTED_PLATFORM, "Windows/AMD64"),
+    )
     config.configure(enabled=True, describe=True)
 
     results, warnings = describe.describe_pages(
         three_page_pdf, ["mixed", "mixed", "mixed"], [0, 0, 0],
     )
 
-    # The reading path already reports VLM_UNAVAILABLE; repeating it here
-    # would print the same failure twice.
-    assert (results, warnings) == ({}, [])
+    assert results == {}
+    assert [w["code"] for w in warnings] == ["VLM_DESCRIBE_UNAVAILABLE"]
+    assert warnings[0]["pages"] == 3
     assert engine.calls == 0
 
 

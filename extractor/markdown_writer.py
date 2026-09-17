@@ -7,9 +7,21 @@ _UNIT_LABELS = {"page": "Page", "section": "Section", "sheet": "Sheet", "slide":
 
 
 def _unit_heading(unit: dict) -> str:
-    """Return the '## Label N' heading for a unit based on its unit_type."""
+    """Return the '## Label N' heading for a unit, with its title when it has one."""
     label = _UNIT_LABELS.get(unit["unit_type"], unit["unit_type"].capitalize())
-    return f"## {label} {unit['unit']}"
+    heading = f"## {label} {unit['unit']}"
+    title = unit.get("title")
+    return f"{heading}: {title}" if title else heading
+
+
+# Source headings nest under the '## Unit N' heading, so level 1 becomes '###'.
+_HEADING_OFFSET = 2
+
+_SOURCE_LABELS = {
+    "ocr": None,  # rendered with its confidence below
+    "vlm": "> Read from the page image by the visual model",
+    "vlm-figure": "> Figure description by the visual model",
+}
 
 
 def _cell(value: str) -> str:
@@ -85,14 +97,21 @@ def write_markdown(model: dict, out_dir, *, stem: str | None = None) -> Path:
             # Header/footer blocks are preserved in JSON but excluded from Markdown.
             if block["type"] in ("header", "footer"):
                 continue
-            if block["type"] == "text":
+            if block["type"] == "heading":
+                level = min(6, block.get("level", 1) + _HEADING_OFFSET)
+                parts.append(f"{'#' * level} {block['content']}")
+                parts.append("")
+            elif block["type"] == "text":
                 if block["content"]:
-                    if block.get("source") == "ocr":
+                    source = block.get("source")
+                    if source == "ocr":
                         confidence = round(block.get("confidence", 0.0) * 100)
                         parts.append(f"> Text recovered by OCR (confidence {confidence}%)")
                         parts.append("")
-                    elif block.get("source") == "vlm":
-                        parts.append("> Read from the page image by the visual model")
+                    elif _SOURCE_LABELS.get(source):
+                        # Labelled so a model's description of a chart is
+                        # never mistaken for something the document states.
+                        parts.append(_SOURCE_LABELS[source])
                         parts.append("")
                     parts.append(block["content"])
                     parts.append("")

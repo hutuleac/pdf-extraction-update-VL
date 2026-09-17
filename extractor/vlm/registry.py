@@ -36,23 +36,34 @@ def _missing_modules() -> list[str]:
     return [name for name in REQUIRED_MODULES if importlib.util.find_spec(name) is None]
 
 
+def host_failure() -> VlmUnavailable | None:
+    """Why this host cannot run any mlx model, or None. No weights are loaded.
+
+    Shared by the describing pass, which has its own engine and must not load
+    the reading model's weights just to learn that the host is a Windows box.
+    """
+    # mlx is Apple-Silicon only. Checked before the import so a Windows box
+    # gets the useful reason rather than "module not found".
+    if platform.system() != "Darwin" or platform.machine() != "arm64":
+        return VlmUnavailable(
+            UnavailableReason.UNSUPPORTED_PLATFORM,
+            f"{platform.system()}/{platform.machine()}",
+        )
+    missing = _missing_modules()
+    if missing:
+        return VlmUnavailable(UnavailableReason.MISSING_DEPS, ", ".join(missing))
+    return None
+
+
 def _build_engine():
     """Construct the engine or raise VlmUnavailable with a typed reason."""
     config = get_config()
     if not config.enabled:
         raise VlmUnavailable(UnavailableReason.DISABLED)
 
-    # mlx is Apple-Silicon only. Checked before the import so a Windows box
-    # gets the useful reason rather than "module not found".
-    if platform.system() != "Darwin" or platform.machine() != "arm64":
-        raise VlmUnavailable(
-            UnavailableReason.UNSUPPORTED_PLATFORM,
-            f"{platform.system()}/{platform.machine()}",
-        )
-
-    missing = _missing_modules()
-    if missing:
-        raise VlmUnavailable(UnavailableReason.MISSING_DEPS, ", ".join(missing))
+    failure = host_failure()
+    if failure:
+        raise failure
 
     # Refuses an unreadable model name before the weights are loaded, so a
     # typo costs a clear reason rather than a minute and an empty document.

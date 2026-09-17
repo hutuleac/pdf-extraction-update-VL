@@ -35,6 +35,12 @@ class VlmConfig:
     """User-facing visual-fallback options for one run."""
 
     enabled: bool = False
+    # Which pages the reading model sees. "auto" sends only the pages whose
+    # text layer is missing or damaged (scanned, garbled, mismapped glyphs) —
+    # the pages where the reading replaces or repairs something. "all" sends
+    # every page to fish for formulas and borderless tables on healthy pages
+    # too; measured on business PDFs that keeps almost nothing at ~14 s/page.
+    pages: str = "auto"
     model: str = DEFAULT_MODEL
     dpi: int = DEFAULT_DPI
     max_tokens: int = DEFAULT_MAX_TOKENS

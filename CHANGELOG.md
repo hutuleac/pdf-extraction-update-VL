@@ -1,5 +1,55 @@
 # Changelog — Knowledge Extraction Pipeline
 
+## Unreleased — Markdown fit for chunking, cheaper defaults, figure regions
+
+### Output shape
+
+- **Paragraphs survive.** `normalizer` dropped every blank line and
+  `pdf_reader` joined lines and blocks with the same `\n`, so a page came out
+  as one run of hard-wrapped lines with nothing a chunker could split on.
+  Blocks are now separated by a blank line, runs of blank lines collapse to
+  one, and DOCX paragraphs are joined the same way. `tests/baseline/snapshot.json`
+  regenerated for the new layout (an intentional change; see `generate.py`).
+- **Headings are a block type.** `make_heading_block` (`type: heading`,
+  `level`); the Markdown writer nests them under the unit heading (`###` for
+  level 1). DOCX emits them from `Heading N`/`Title` styles and prefixes list
+  paragraphs with `- ` / `1. `. PDF headings are a separate spike.
+- **Excel sheet names are kept** (`unit.title`, rendered as `## Sheet 2: Budget`).
+- **DOCX merged cells** no longer repeat their text once per spanned column.
+- **Markdown input is passed through with its layout** (`preserve_layout`):
+  indentation and internal spacing were being collapsed, breaking nested
+  lists and fenced code.
+- **Figure descriptions are labelled** in Markdown (`> Figure description by
+  the visual model`); they read as the document's own prose before.
+
+### Defaults
+
+- **`--vlm` is off by default** and a new `--vlm-pages auto|all` (default
+  `auto`) sends only scanned, garbled and `MISMAPPED_GLYPHS` pages to the
+  reading model, loading nothing when there are none. The previous
+  every-page default cost ~14 s/page and kept almost nothing on business
+  PDFs, and printed an unfixable "install the extra" hint on every Windows run.
+  The describing pass now checks the host itself (`registry.host_failure`)
+  instead of the reading probe.
+- The "install OCR" hint in the run summary only prints for codes it fixes,
+  not for `OCR_FAILED` / `OCR_REJECTED_LOW_CONFIDENCE`.
+
+### Fixes
+
+- **`formula_is_balanced` read `\rightarrow` as `\right`** and rejected
+  balanced formulas with arrows — 3 of the 13 rejections among 620 distinct
+  formulas cached from the reference course.
+- **Figure regions** (`ocr/raster.py`): placements under 24 pt are dropped
+  (glyph slivers, 34 on one course page); render density is capped at 300 DPI
+  (a headshot rendered at 4980 DPI as a 25 MP frame); a merged region the size
+  of the page under body text is treated as background (a decorative pattern
+  made the Key Takeaways page one full-page "figure"); and **vector figures
+  are found** via `page.cluster_drawings` with a path-count and text-density
+  gate — the Uponor manual went from 0 to 43 regions on 14 pages, the ARMS
+  guide's callout boxes stayed at 0.
+- OCR model weights are committed as plain binaries. git-lfs was configured
+  on no machine and HEAD held 132-byte pointer files.
+
 ## Unreleased — test coverage for the two incident-causing modules
 
 ### Tests

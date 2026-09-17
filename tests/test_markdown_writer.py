@@ -94,3 +94,39 @@ def test_write_markdown_unit_type_headings(tmp_path):
     }
     text = write_markdown(model, tmp_path).read_text(encoding="utf-8")
     assert "## Sheet 1" in text
+
+
+def _one_unit(*blocks, **unit_extra):
+    return {
+        "document": {"filename": "d.pdf", "source_type": "pdf", "pages": 1,
+                     "author": "", "title": "",
+                     "has_images": False, "image_count": 0},
+        "pages": [{"unit": 1, "unit_type": "page", "has_images": False,
+                   "image_count": 0, "content": list(blocks), **unit_extra}],
+    }
+
+
+def test_unit_title_goes_into_the_heading(tmp_path):
+    model = _one_unit({"type": "text", "content": "x"}, title="Budget 2026")
+    model["pages"][0]["unit_type"] = "sheet"
+    text = write_markdown(model, tmp_path).read_text(encoding="utf-8")
+    assert "## Sheet 1: Budget 2026" in text
+
+
+def test_heading_block_nests_under_the_unit_heading(tmp_path):
+    model = _one_unit(
+        {"type": "heading", "level": 1, "content": "Intro"},
+        {"type": "heading", "level": 2, "content": "Scope"},
+        {"type": "heading", "level": 9, "content": "Deep"},
+    )
+    text = write_markdown(model, tmp_path).read_text(encoding="utf-8")
+    assert "\n### Intro\n" in text
+    assert "\n#### Scope\n" in text
+    assert "\n###### Deep\n" in text  # Markdown stops at six
+
+
+def test_figure_description_is_labelled(tmp_path):
+    """A model's account of a chart must never read as the document's own claim."""
+    model = _one_unit({"type": "text", "content": "A bar chart of X", "source": "vlm-figure"})
+    text = write_markdown(model, tmp_path).read_text(encoding="utf-8")
+    assert "> Figure description by the visual model\n\nA bar chart of X" in text

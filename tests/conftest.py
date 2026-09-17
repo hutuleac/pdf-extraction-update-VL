@@ -76,7 +76,9 @@ def layout_complex_pdf(tmp_path: Path) -> Path:
     picture_page = picture.new_page()
     for index, line in enumerate(SCANNED_LINES):
         picture_page.insert_text((10, 30 + index * 40), line, fontsize=16)
-    page.insert_image(pymupdf.Rect(400, 400, 470, 430), pixmap=picture_page.get_pixmap(dpi=150))
+    # Tall enough to be placed wider than raster.MIN_PLACED_POINTS once the
+    # portrait aspect ratio is kept (a 21 pt wide placement is a sliver).
+    page.insert_image(pymupdf.Rect(400, 400, 470, 500), pixmap=picture_page.get_pixmap(dpi=150))
     picture.close()
 
     out = tmp_path / "layout_complex_test.pdf"
@@ -98,6 +100,10 @@ def layout_complex_pdf_no_image(tmp_path: Path) -> Path:
         shape.draw_line((50, 100 + index * 5), (500, 100 + index * 5))
     shape.finish(color=(0, 0, 0), width=0.5)
     shape.commit()
+    # Prose over the rules: a ruled, text-dense area is a form or a table, not
+    # a vector figure (see raster.MAX_VECTOR_TEXT_DENSITY), so this page has
+    # no picture of any kind.
+    page.insert_textbox(pymupdf.Rect(50, 100, 500, 280), "ruled text " * 150, fontsize=9)
 
     out = tmp_path / "layout_complex_no_image_test.pdf"
     doc.save(out)

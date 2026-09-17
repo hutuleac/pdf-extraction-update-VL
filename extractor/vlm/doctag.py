@@ -122,9 +122,17 @@ def formula_is_balanced(latex: str) -> bool:
     reference course fails it, and that one is the bug.
     """
     return (
-        latex.count(r"\left") == latex.count(r"\right")
+        len(_LEFT.findall(latex)) == len(_RIGHT.findall(latex))
         and _braces_balanced(latex)
     )
+
+
+# Whole commands only: a plain substring count read ``\rightarrow`` as a
+# ``\right`` and ``\leftarrow`` as a ``\left``, and rejected every balanced
+# formula with an arrow in it — 3 of the 13 rejections among the 620 distinct
+# formulas cached from the reference course; the other 10 are genuinely broken.
+_LEFT = re.compile(r"\\left(?![A-Za-z])")
+_RIGHT = re.compile(r"\\right(?![A-Za-z])")
 
 
 # An environment already opened by the model — wrapping inside it would nest a

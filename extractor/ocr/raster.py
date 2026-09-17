@@ -36,6 +36,33 @@ IMAGE_REGION_SPAN_FRACTION = 0.8
 # on its placement, because a detailed picture scaled down to a thumbnail still
 # holds the pixels OCR needs.
 MIN_IMAGE_PIXELS = 50
+# ...but a placement this narrow (points) is a glyph sliver or a bullet however
+# large the stored image is: a 388-page course placed 3x23 pt strips of a
+# single letter at 1206 DPI, 34 of them on one page.
+MIN_PLACED_POINTS = 24
+# The native density of a headshot placed at 97x63 pt came to 4980 DPI and a
+# 25 MP frame. Nothing OCR or a visual model reads needs more than this.
+MAX_REGION_DPI = 300
+# A merged region covering this much of a page that also carries body text is
+# a decorative background (hairline patterns, tinted panels), not a figure.
+# A real full-page picture has no text layer and is kept.
+BACKGROUND_AREA_FRACTION = 0.85
+BACKGROUND_TEXT_CHARS = 200
+
+# Vector figures — schematics, charts, diagrams drawn as paths — have no
+# stored image at all: on the reference deck 16 of 17 figure pages had zero
+# embedded rasters. `page.cluster_drawings` groups the paths; these thresholds
+# separate a figure from a text box, measured on four documents: a callout box
+# is 3-5 paths around 6-9 chars per 1000 pt², a schematic is 15-3900 paths
+# with under 1 char per 1000 pt². Tables are ruled but text-dense, so the
+# density test rejects them too.
+# ponytail: a chart with dense axis labels can cross the density line and be
+# missed; lower MAX_VECTOR_TEXT_DENSITY if that shows up, and re-measure the
+# text-box side before doing so.
+MIN_VECTOR_PATHS = 15
+MAX_VECTOR_TEXT_DENSITY = 2.0  # chars per 1000 pt²
+MIN_VECTOR_POINTS = 60
+VECTOR_REGION_DPI = 200
 
 
 def effective_dpi(page_rect, requested_dpi: int, max_pixels: int) -> int:
@@ -139,7 +166,8 @@ def page_image_regions(
 
     Images stored smaller than *min_pixels* on either edge are icons and
     bullets; xrefs in *skip_xrefs* are page furniture (see
-    ``repeated_image_xrefs``).
+    ``repeated_image_xrefs``). Vector figures are added from the page's
+    drawings (see ``_vector_regions``).
     """
     skip = skip_xrefs or frozenset()
     placed: list[tuple[pymupdf.Rect, float]] = []
@@ -155,11 +183,13 @@ def page_image_regions(
             rect = pymupdf.Rect(rect)
             if rect.is_empty or rect.is_infinite:
                 continue
+            if rect.width < MIN_PLACED_POINTS or rect.height < MIN_PLACED_POINTS:
+                continue
             density = max(
                 width * 72.0 / rect.width if rect.width else 0.0,
                 height * 72.0 / rect.height if rect.height else 0.0,
             )
-            placed.append((rect, density))
+            placed.append((rect, min(density, MAX_REGION_DPI)))
 
     merged: list[list] = []
     for rect, density in sorted(placed, key=lambda item: (item[0].y0, item[0].x0)):
@@ -178,7 +208,44 @@ def page_image_regions(
                 if joined:
                     break
 
-    return [ImageRegion(rect, max(MIN_DPI, int(density))) for rect, density in merged]
+    regions = [ImageRegion(rect, max(MIN_DPI, int(density))) for rect, density in merged]
+    page_area = page.rect.get_area()
+    if page_area > 0 and any(
+        r.rect.get_area() >= BACKGROUND_AREA_FRACTION * page_area for r in regions
+    ) and len(page.get_text("text")) >= BACKGROUND_TEXT_CHARS:
+        # Eight decorative strips merged into "a figure" the size of the page,
+        # over a page of prose — that is the page's background, not a picture.
+        regions = [
+            r for r in regions if r.rect.get_area() < BACKGROUND_AREA_FRACTION * page_area
+        ]
+    return regions + _vector_regions(page, [r.rect for r in regions])
+
+
+def _vector_regions(page, taken: list[pymupdf.Rect]) -> list[ImageRegion]:
+    """Figures drawn as vector paths, as regions; see the thresholds above."""
+    try:
+        drawings = page.get_drawings()
+        clusters = page.cluster_drawings(drawings=drawings) if drawings else []
+    except Exception:  # noqa: BLE001 - a page whose paths cannot be read has no vector figures
+        return []
+    page_area = page.rect.get_area()
+    regions: list[ImageRegion] = []
+    for rect in clusters:
+        rect = pymupdf.Rect(rect)
+        if rect.width < MIN_VECTOR_POINTS or rect.height < MIN_VECTOR_POINTS:
+            continue
+        if page_area and rect.get_area() >= BACKGROUND_AREA_FRACTION * page_area:
+            continue  # a page-sized frame or background fill
+        if any(rect.intersects(t) for t in taken):
+            continue  # the paths are the callouts drawn over a raster figure
+        paths = sum(1 for d in drawings if rect.intersects(d["rect"]))
+        if paths < MIN_VECTOR_PATHS:
+            continue
+        chars = len(page.get_text("text", clip=rect).strip())
+        if chars / (rect.get_area() / 1000.0) > MAX_VECTOR_TEXT_DENSITY:
+            continue
+        regions.append(ImageRegion(rect, VECTOR_REGION_DPI))
+    return regions
 
 
 def region_pixmap(page, region: ImageRegion, *, max_pixels: int):

@@ -52,8 +52,23 @@ def test_collapse_multiple_spaces():
     assert normalize("Manager     aproba") == "Manager aproba"
 
 
-def test_remove_empty_lines():
-    assert normalize("Paragraf\n\n\nParagraf") == "Paragraf\nParagraf"
+def test_blank_line_runs_collapse_to_one_paragraph_break():
+    assert normalize("Paragraf\n\n\nParagraf") == "Paragraf\n\nParagraf"
+
+
+def test_single_newlines_are_kept_as_line_breaks():
+    assert normalize("linia 1\nlinia 2") == "linia 1\nlinia 2"
+
+
+def test_whitespace_only_lines_count_as_blank():
+    assert normalize("a\n   \n\t\nb") == "a\n\nb"
+
+
+def test_preserve_layout_keeps_indentation_and_spacing():
+    source = "# T\n\n- a\n    - b\n\n```\nx    =  1\n```\n\n\n\nend  "
+    assert normalize(source, preserve_layout=True) == (
+        "# T\n\n- a\n    - b\n\n```\nx    =  1\n```\n\nend"
+    )
 
 
 def test_trim_whitespace():
@@ -62,4 +77,4 @@ def test_trim_whitespace():
 
 def test_combined():
     raw = "  Managerul   aproba\n\n\ncere-\nrea de concediu.  "
-    assert normalize(raw) == "Managerul aproba\ncererea de concediu."
+    assert normalize(raw) == "Managerul aproba\n\ncererea de concediu."

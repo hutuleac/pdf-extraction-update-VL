@@ -79,7 +79,7 @@ def extract_xlsx(path: Path | str) -> dict:
             if _is_empty(rows):
                 continue
             blocks = [make_table_block(rows)]
-            units.append(make_unit(len(units) + 1, "sheet", blocks))
+            units.append(make_unit(len(units) + 1, "sheet", blocks, title=worksheet.title))
     finally:
         workbook.close()
 

@@ -89,13 +89,16 @@ def _text_excluding_regions(page, regions, skewed_boxes=()) -> tuple[str, int, b
         words, regions_to_exclude=_to_word_space(page, regions),
     )
 
-    # Reassemble: newline between lines/blocks, space within a line.
+    # Reassemble: space within a line, newline between lines, blank line
+    # between blocks. A PyMuPDF block is the closest thing the text layer has
+    # to a paragraph, and the blank line is what a chunker splits on; joining
+    # blocks with a bare newline made a page one run of hard-wrapped lines.
     parts: list[str] = []
     prev_key = None
     for word, block_no, line_no in ordered:
         key = (block_no, line_no)
         if prev_key is not None and key != prev_key:
-            parts.append("\n")
+            parts.append("\n" if block_no == prev_key[0] else "\n\n")
         elif parts:
             parts.append(" ")
         parts.append(word)
@@ -278,6 +281,18 @@ def _extract_images(path: Path, images_dir: Path | None) -> dict[int, list[dict]
     return blocks_by_page
 
 
+def _vlm_candidates(page_classes: list[str], page_warnings: list[list[dict]]) -> frozenset[int]:
+    """Pages whose text layer the visual model can repair: missing (scanned),
+    untrusted (garbled), or sound prose with symbol-font damage in its formulas
+    (MISMAPPED_GLYPHS). Everywhere else the native text is already correct."""
+    return frozenset(
+        index + 1
+        for index, (cls, warnings) in enumerate(zip(page_classes, page_warnings, strict=True))
+        if cls in FULL_PAGE_OCR_CLASSES
+        or any(w["code"] == "MISMAPPED_GLYPHS" for w in warnings)
+    )
+
+
 def _ocr_pages(
     path: Path,
     page_classes: list[str],
@@ -393,6 +408,7 @@ def extract_pdf(path: Path | str, *, images_dir: Path | str | None = None) -> di
         # Pages that map to an empty list are pages pdfplumber found nothing
         # on, where the model's tables are still taken.
         frozenset(page for page, entries in tables.items() if entries),
+        candidates=_vlm_candidates(reader_data["page_classes"], reader_data["page_warnings"]),
     )
     # Only a reading that actually carries text displaces OCR. A page accepted
     # for its tables alone replaces nothing, and skipping OCR there would leave

@@ -12,6 +12,7 @@ def test_extract_xlsx_shape_skips_empty(sample_xlsx):
     unit = model["pages"][0]
     assert unit["unit"] == 1
     assert unit["unit_type"] == "sheet"
+    assert unit["title"] == "Date"  # the tab name is the sheet's only label
 
 
 def test_extract_xlsx_values(sample_xlsx):

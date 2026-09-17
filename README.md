@@ -154,25 +154,26 @@ flowchart TD
 ```
 
 **Defaults matter here**: OCR is *on* by default and only ever runs on
-`scanned`/`garbled` pages. The visual model is also *on* by default
-(`--no-vlm` turns it off) and reads *every* page — but keeps almost nothing
-from most of them (see below). Both run locally with no per-call cost, so a
-default run reads with PP-OCRv6, granite-docling and (Apple Silicon only)
-attempts the visual model, downgrading with a visible warning where it isn't
-available. Figure description (`--vlm-describe-figures`) stays opt-in — it is
-the one step whose runtime cost is worth pausing over (roughly 45 s/page; see
-below), not because it costs money.
+`scanned`/`garbled` pages. The visual model is *off* by default (`--vlm`
+turns it on; Apple Silicon only, ~14 s/page) and, with `--vlm-pages auto`
+(the default), reads only the pages whose text layer is missing or damaged —
+`scanned`, `garbled`, and pages flagged `MISMAPPED_GLYPHS`. A healthy business
+PDF then costs no inference at all, and the model is not even loaded.
+`--vlm-pages all` restores the whole-document read, which also recovers
+formulas and borderless tables on healthy pages but keeps almost nothing from
+most of them (see below). Figure description (`--vlm-describe-figures`) is a
+separate opt-in on top — roughly 45 s/page.
 
 ## OCR
 
 Scanned pages and image files hold pictures of text, not text. OCR reads them
 locally — nothing is uploaded and nothing is downloaded at run time.
 
-**It works out of the box.** The two PP-OCRv6 model files live in `models/ocr/`
-and ship with the repository through git-lfs, so a fresh clone needs only:
+**It works out of the box.** The two PP-OCRv6 model files (~31 MB) live in
+`models/ocr/` and are committed to the repository as plain binaries, so a
+fresh clone needs only:
 
 ```bash
-git lfs pull                      # if your clone skipped large files
 pip install -e ".[ocr]"           # onnxruntime, opencv, pyclipper, numpy
 ```
 
@@ -466,7 +467,8 @@ pytest-cov, ruff). Tested on Python 3.14 (Windows).
 | `--ocr-dpi` | 300 | Resolution used to rasterize scanned pages |
 | `--ocr-min-confidence` | 0.60 | Below this, OCR text is flagged uncertain and never replaces damaged native text. Applied to the page average and to each line individually |
 | OCR raster budget | 25 MP | Hard limit per rasterized image/page. Larger inputs fail as `resource_limit`; adaptive resizing is planned but not enabled |
-| `--vlm` / `--no-vlm` | on | Read every page with a visual model too (Apple Silicon only; downgrades with a visible warning elsewhere) |
+| `--vlm` / `--no-vlm` | off | Read pages with a visual model too (Apple Silicon only; downgrades with a visible warning elsewhere) |
+| `--vlm-pages` | `auto` | `auto`: only scanned, garbled and symbol-damaged pages. `all`: every page, which also recovers formulas on healthy pages at ~14 s/page |
 | `--vlm-model` | `ibm-granite/granite-docling-258M-mlx` | Model to load; the name must contain `granite-docling` or `paddleocr-vl` |
 | `--vlm-dpi` | 144 | Resolution used to render pages for the model |
 | `--vlm-repetition-penalty` | `1.05` | Penalty on repeated tokens; stops the repetition loops both models fall into on damaged pages. `1.0` disables it |

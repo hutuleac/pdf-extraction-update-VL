@@ -130,14 +130,17 @@ def _judge(
 def vlm_pages(
     path: Path, page_classes: list[str], native_texts: list[str],
     native_table_pages: frozenset[int] = frozenset(),
+    candidates: frozenset[int] | None = None,
 ) -> tuple[dict[int, ParsedPage], list[dict]]:
-    """Read every page of *path* with the visual model.
+    """Read the pages of *path* the visual model is wanted on.
 
     Returns ``({page_number: ParsedPage}, warnings)``. Pages absent from the
-    mapping were rejected; the warnings say why. The whole document is routed
-    — the model reads formulas and figure structure the native path never
-    sees — and the merge rules in ``pdf_reader`` decide where its output may
-    displace native content and where it is only added.
+    mapping were rejected; the warnings say why. Under ``VlmConfig.pages ==
+    "all"`` the whole document is routed — the model reads formulas and figure
+    structure the native path never sees. Under ``"auto"`` only *candidates*
+    (1-based, chosen by the caller from the page signals) are sent; with none,
+    the model is not even loaded. The merge rules in ``pdf_reader`` decide
+    where its output may displace native content and where it is only added.
 
     *native_table_pages* is the one merge rule this function has to know about.
     ``pdf_reader`` keeps the model's tables only where pdfplumber found none,
@@ -149,12 +152,18 @@ def vlm_pages(
     if not get_config().enabled:
         return {}, []
 
+    targets = list(range(1, len(page_classes) + 1))
+    if get_config().pages != "all":
+        targets = [page for page in targets if page in (candidates or frozenset())]
+    if not targets:
+        return {}, []
+
     if not registry.is_available():
         reason = registry.unavailable_reason()
         return {}, [{
             "code": "VLM_UNAVAILABLE",
             "detail": reason.reason.describe() if reason else "",
-            "pages": len(page_classes),
+            "pages": len(targets),
         }]
 
     # One parser for the run: the model cannot change between pages, and
@@ -172,9 +181,9 @@ def vlm_pages(
     duplicates = 0
 
     with pymupdf.open(path) as doc:
-        for index, page_class in enumerate(page_classes):
-            page_number = index + 1
-            replacing = page_class in REPLACE_CLASSES
+        for page_number in targets:
+            index = page_number - 1
+            replacing = page_classes[index] in REPLACE_CLASSES
             try:
                 raw, capped = _infer(
                     engine, render_page(doc[index], dpi=dpi),

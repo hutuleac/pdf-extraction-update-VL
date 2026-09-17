@@ -126,9 +126,69 @@ def test_icon_sized_image_is_skipped():
 def test_detailed_image_scaled_down_to_a_thumbnail_is_kept():
     # The pixels OCR needs are in the stored image, whatever size the page
     # places it at, so the filter measures the image and not its placement.
-    doc = _pdf_with_rects([pymupdf.Rect(100, 100, 121, 130)], pixels=400)
+    doc = _pdf_with_rects([pymupdf.Rect(100, 100, 140, 140)], pixels=400)
 
     assert len(page_image_regions(doc[0])) == 1
+
+
+def test_a_sliver_placement_is_dropped_whatever_its_stored_size():
+    # A 3x23 pt strip is one glyph of a sliced word, not a figure — a course
+    # placed 34 of them on one page, each at 1206 DPI.
+    doc = _pdf_with_rects([pymupdf.Rect(100, 100, 104, 123)], pixels=400)
+
+    assert page_image_regions(doc[0]) == []
+
+
+def test_render_density_is_capped():
+    # 400 px over 40 pt is 720 DPI; nothing that reads the crop needs it, and
+    # a headshot at its native 4980 DPI was a 25 MP frame.
+    doc = _pdf_with_rects([pymupdf.Rect(100, 100, 140, 140)], pixels=400)
+
+    assert page_image_regions(doc[0])[0].dpi == 300
+
+
+def test_page_sized_image_under_body_text_is_background():
+    doc = _pdf_with_rects([pymupdf.Rect(0, 0, 612, 792)])
+    page = doc[0]
+    page.insert_textbox(pymupdf.Rect(72, 72, 540, 700), "prose " * 100, fontsize=10)
+
+    assert page_image_regions(page) == []
+
+
+def test_page_sized_image_with_no_text_is_a_scan():
+    doc = _pdf_with_rects([pymupdf.Rect(0, 0, 612, 792)])
+
+    assert len(page_image_regions(doc[0])) == 1
+
+
+def _draw_paths(page, rect: pymupdf.Rect, count: int) -> None:
+    """Nested rectangles two points apart: many paths, all within
+    cluster_drawings' neighbourhood tolerance, as a drawn schematic is."""
+    for i in range(count):
+        page.draw_rect(pymupdf.Rect(rect.x0 + 2 * i, rect.y0 + 2 * i, rect.x1 - 2 * i, rect.y1 - 2 * i))
+
+
+def test_vector_drawing_with_many_paths_and_no_text_is_a_figure():
+    # A schematic drawn as paths has no stored image at all; on the reference
+    # deck 16 of 17 figure pages were like this and yielded no region.
+    doc = pymupdf.open()
+    page = doc.new_page()
+    _draw_paths(page, pymupdf.Rect(100, 100, 300, 300), 20)
+
+    regions = page_image_regions(page)
+
+    assert len(regions) == 1
+    assert regions[0].rect.round() == pymupdf.Rect(100, 100, 300, 300).round()
+
+
+def test_text_box_outline_is_not_a_figure():
+    # A callout box is a few paths around a paragraph — text-dense, path-poor.
+    doc = pymupdf.open()
+    page = doc.new_page()
+    page.draw_rect(pymupdf.Rect(100, 100, 400, 200))
+    page.insert_textbox(pymupdf.Rect(105, 105, 395, 195), "word " * 80, fontsize=9)
+
+    assert page_image_regions(page) == []
 
 
 def test_region_is_rendered_at_the_image_native_density():

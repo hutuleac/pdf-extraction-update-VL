@@ -79,6 +79,14 @@ def test_formula_balance_ignores_formulas_without_delimiters():
     assert formula_is_balanced("a = b + c") is True
 
 
+def test_formula_balance_does_not_read_arrows_as_delimiters():
+    """``\\rightarrow`` starts with ``\\right``: a substring count rejected
+    balanced formulas with an arrow in them (3 of 13 rejections on the course)."""
+    assert formula_is_balanced(r"\sigma = u \rightarrow \tau _ { f } = 0") is True
+    assert formula_is_balanced(r"a \leftarrow \left( b \right)") is True
+    assert formula_is_balanced(r"a \leftarrow \left( b") is False
+
+
 def test_parse_joins_prose_in_reading_order():
     result = parse(PAGE_046)
 

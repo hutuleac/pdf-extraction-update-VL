@@ -230,7 +230,7 @@ class TestNormalizerEdgeCases:
         assert "\x00" not in normalize("before\x00after")
 
     def test_blank_lines_collapse(self):
-        assert normalize("a\n\n\n\nb") == "a\nb"
+        assert normalize("a\n\n\n\nb") == "a\n\nb"
 
 
 # ---------------------------------------------------------------------------

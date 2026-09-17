@@ -15,6 +15,13 @@ class TestBuildParser:
         assert args.log_file == "logs/extraction.log"
         assert args.max_file_mb == 50
         assert args.verbose is False
+        # Off by default: Apple-Silicon only, and ~14 s/page. A Windows run
+        # must not warn about a model it was never going to have.
+        assert args.vlm is False
+        assert args.vlm_pages == "auto"
+
+    def test_vlm_pages_accepts_all(self):
+        assert build_parser().parse_args(["--vlm", "--vlm-pages", "all"]).vlm_pages == "all"
 
     def test_custom_input_output(self):
         parser = build_parser()

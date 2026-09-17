@@ -39,7 +39,7 @@ class TestNormalizeWithReport:
     # word wrapped across a line — rejoining it would invent "procedura".
     ("procedu- ra", "procedu- ra"),
     ("Manager     aproba", "Manager aproba"),
-    ("Paragraf\n\n\nParagraf", "Paragraf\nParagraf"),
+    ("Paragraf\n\n\nParagraf", "Paragraf\n\nParagraf"),
     ("   text   ", "text"),
 ], ids=[
     "hyphenation-newline",

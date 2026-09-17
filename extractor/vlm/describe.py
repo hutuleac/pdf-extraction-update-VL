@@ -184,13 +184,6 @@ def describe_pages(
     if not (config.enabled and config.describe):
         return {}, []
 
-    from extractor.vlm import registry
-
-    if not registry.is_available():
-        # The reading path already reports VLM_UNAVAILABLE with the reason;
-        # repeating it here would print the same failure twice.
-        return {}, []
-
     candidates = [
         index for index, cls in enumerate(page_classes)
         if cls in FIGURE_CLASSES or page_image_counts[index] > 0
@@ -198,7 +191,15 @@ def describe_pages(
     if not candidates:
         return {}, []
 
+    from extractor.vlm import registry
+
     try:
+        # The host check, not the reading model's probe: under "auto" the
+        # reading pass may have loaded nothing, and consulting its probe here
+        # would load granite's weights only to decide whether Qwen can run.
+        failure = registry.host_failure()
+        if failure:
+            raise failure
         engine = _get_engine()
     except VlmUnavailable as exc:
         return {}, [{

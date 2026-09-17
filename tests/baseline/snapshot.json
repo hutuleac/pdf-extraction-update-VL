@@ -19,7 +19,7 @@
         "content": [
           {
             "type": "text",
-            "content": "Pagina 1: Continut text simplu pe o singura coloana.\nLinia a doua pe pagina 1 cu detalii unice.\nInformatii specifice paginii numarul 1."
+            "content": "Pagina 1: Continut text simplu pe o singura coloana.\n\nLinia a doua pe pagina 1 cu detalii unice.\n\nInformatii specifice paginii numarul 1."
           }
         ],
         "page_class": "native-text"
@@ -32,7 +32,7 @@
         "content": [
           {
             "type": "text",
-            "content": "Pagina 2: Continut text simplu pe o singura coloana.\nLinia a doua pe pagina 2 cu detalii unice.\nInformatii specifice paginii numarul 2."
+            "content": "Pagina 2: Continut text simplu pe o singura coloana.\n\nLinia a doua pe pagina 2 cu detalii unice.\n\nInformatii specifice paginii numarul 2."
           }
         ],
         "page_class": "native-text"
@@ -45,7 +45,7 @@
         "content": [
           {
             "type": "text",
-            "content": "Pagina 3: Continut text simplu pe o singura coloana.\nLinia a doua pe pagina 3 cu detalii unice.\nInformatii specifice paginii numarul 3."
+            "content": "Pagina 3: Continut text simplu pe o singura coloana.\n\nLinia a doua pe pagina 3 cu detalii unice.\n\nInformatii specifice paginii numarul 3."
           }
         ],
         "page_class": "native-text"
@@ -97,7 +97,7 @@
           },
           {
             "type": "text",
-            "content": "Stanga pagina 1 linia 1.\nStanga pagina 1 linia 2.\nDreapta pagina 1 linia 1.\nDreapta pagina 1 linia 2."
+            "content": "Stanga pagina 1 linia 1.\n\nStanga pagina 1 linia 2.\n\nDreapta pagina 1 linia 1.\n\nDreapta pagina 1 linia 2."
           }
         ],
         "page_class": "native-text"
@@ -118,7 +118,7 @@
           },
           {
             "type": "text",
-            "content": "Stanga pagina 2 linia 1.\nStanga pagina 2 linia 2.\nDreapta pagina 2 linia 1.\nDreapta pagina 2 linia 2."
+            "content": "Stanga pagina 2 linia 1.\n\nStanga pagina 2 linia 2.\n\nDreapta pagina 2 linia 1.\n\nDreapta pagina 2 linia 2."
           }
         ],
         "page_class": "native-text"
@@ -139,7 +139,7 @@
           },
           {
             "type": "text",
-            "content": "Stanga pagina 3 linia 1.\nStanga pagina 3 linia 2.\nDreapta pagina 3 linia 1.\nDreapta pagina 3 linia 2."
+            "content": "Stanga pagina 3 linia 1.\n\nStanga pagina 3 linia 2.\n\nDreapta pagina 3 linia 1.\n\nDreapta pagina 3 linia 2."
           }
         ],
         "page_class": "native-text"
@@ -171,7 +171,7 @@
         "content": [
           {
             "type": "text",
-            "content": "Continut pagina 1.\nDetalii importante pe pagina 1.\nSectiune unica pentru pagina 1 cu date specifice."
+            "content": "Continut pagina 1.\n\nDetalii importante pe pagina 1.\n\nSectiune unica pentru pagina 1 cu date specifice."
           },
           {
             "type": "footer",
@@ -188,7 +188,7 @@
         "content": [
           {
             "type": "text",
-            "content": "Continut pagina 2.\nDetalii importante pe pagina 2.\nSectiune unica pentru pagina 2 cu date specifice."
+            "content": "Continut pagina 2.\n\nDetalii importante pe pagina 2.\n\nSectiune unica pentru pagina 2 cu date specifice."
           },
           {
             "type": "footer",
@@ -205,7 +205,7 @@
         "content": [
           {
             "type": "text",
-            "content": "Continut pagina 3.\nDetalii importante pe pagina 3.\nSectiune unica pentru pagina 3 cu date specifice."
+            "content": "Continut pagina 3.\n\nDetalii importante pe pagina 3.\n\nSectiune unica pentru pagina 3 cu date specifice."
           },
           {
             "type": "footer",
@@ -222,7 +222,7 @@
         "content": [
           {
             "type": "text",
-            "content": "Continut pagina 4.\nDetalii importante pe pagina 4.\nSectiune unica pentru pagina 4 cu date specifice."
+            "content": "Continut pagina 4.\n\nDetalii importante pe pagina 4.\n\nSectiune unica pentru pagina 4 cu date specifice."
           },
           {
             "type": "footer",
@@ -239,7 +239,7 @@
         "content": [
           {
             "type": "text",
-            "content": "Continut pagina 5.\nDetalii importante pe pagina 5.\nSectiune unica pentru pagina 5 cu date specifice."
+            "content": "Continut pagina 5.\n\nDetalii importante pe pagina 5.\n\nSectiune unica pentru pagina 5 cu date specifice."
           },
           {
             "type": "footer",
@@ -256,7 +256,7 @@
         "content": [
           {
             "type": "text",
-            "content": "Continut pagina 6.\nDetalii importante pe pagina 6.\nSectiune unica pentru pagina 6 cu date specifice."
+            "content": "Continut pagina 6.\n\nDetalii importante pe pagina 6.\n\nSectiune unica pentru pagina 6 cu date specifice."
           },
           {
             "type": "footer",
@@ -287,7 +287,7 @@
         "content": [
           {
             "type": "text",
-            "content": "Înregistrarea cererii de concediu.\nManagerul aprob· solicitarea.\nDepartamentul HR verific· disponibilitatea."
+            "content": "Înregistrarea cererii de concediu.\n\nManagerul aprob· solicitarea.\n\nDepartamentul HR verific· disponibilitatea."
           }
         ],
         "page_class": "native-text"
@@ -300,7 +300,7 @@
         "content": [
           {
             "type": "text",
-            "content": "Not·: To·i angaja·ii trebuie s· completeze formularul.\nValabil începând cu 1 ianuarie 2026."
+            "content": "Not·: To·i angaja·ii trebuie s· completeze formularul.\n\nValabil începând cu 1 ianuarie 2026."
           }
         ],
         "page_class": "native-text"
@@ -327,7 +327,7 @@
         "content": [
           {
             "type": "text",
-            "content": "Introducere document.\nPunct 1\nPunct 2\nSub-punct 2a\nPunct 3\nConcluzie document."
+            "content": "Introducere document.\n\n- Punct 1\n- Punct 2\n- Sub-punct 2a\n- Punct 3\n\nConcluzie document."
           }
         ]
       }
@@ -374,7 +374,7 @@
           },
           {
             "type": "text",
-            "content": "Text dupa tabel.\nParagraf final."
+            "content": "Text dupa tabel.\n\nParagraf final."
           }
         ]
       }
@@ -418,7 +418,8 @@
               ]
             ]
           }
-        ]
+        ],
+        "title": "Merged"
       }
     ]
   },
@@ -453,7 +454,8 @@
               ]
             ]
           }
-        ]
+        ],
+        "title": "Visible"
       },
       {
         "unit": 2,
@@ -474,7 +476,8 @@
               ]
             ]
           }
-        ]
+        ],
+        "title": "Hidden"
       }
     ]
   },
@@ -521,7 +524,8 @@
               ]
             ]
           }
-        ]
+        ],
+        "title": "Financial"
       }
     ]
   }
