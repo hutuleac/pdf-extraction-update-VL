@@ -480,6 +480,14 @@ understates it.
   recognition input preparation with a stub engine / stub ONNX session, so
   they need no model weights. Prefer that pattern over adding to the `slow`
   integration file when the behaviour under test is not the model itself.
+- `test_vlm_registry.py` / `test_ocr_registry.py` test the availability probes
+  directly — dependency check, platform check, unknown-model check, probe
+  caching, `reset()` — rather than monkeypatching `is_available()` past them.
+  Both probes have caused real production incidents (a missing dependency
+  going unreported, an order-of-operations bug hiding the unavailability
+  warning); a test that stubs the boolean instead of the logic behind it
+  cannot catch a regression in that logic. Apply the same pattern to any new
+  probe/registry module.
 
 ## Debugging OCR quality
 

@@ -530,12 +530,20 @@ tests/
 │   ├── conftest.py             # Edge-case corpus fixtures (PDF, DOCX, XLSX)
 │   └── test_golden.py          # Semantic metric threshold assertions
 ├── metrics.py                  # Quality measurement functions
+├── test_baseline_snapshot.py   # Output unchanged vs the pre-OCR baseline
 ├── test_cli.py                 # CLI argparse + integration tests
 ├── test_csv_reader.py          # CSV reader unit tests
 ├── test_dispatcher.py          # Extension routing, unsupported type
+├── test_docx_quality.py        # DOCX quality edge cases (tracked changes, etc.)
 ├── test_docx_reader.py         # DOCX reader unit tests
+├── test_edge_cases.py          # Output-correctness probes, incl. confirmed-defect xfails
 ├── test_end_to_end.py          # Full pipeline integration
+├── test_errors.py              # Fatal error classification/categories
+├── test_format_detection.py    # PDF/RTF/OOXML strong-signature validation
+├── test_formula_rendering.py   # doctag/markdown formula-wrapping regressions
 ├── test_geometry.py            # Bounding-box overlap (parametrized)
+├── test_headers_footers.py     # Side-margin label + repeated-line detection
+├── test_image_limits.py        # Raster pixel-cap enforcement
 ├── test_json_writer.py         # JSON output writer
 ├── test_limits.py              # File size guard + FileTooLargeError
 ├── test_markdown_writer.py     # Markdown output writer
@@ -543,14 +551,30 @@ tests/
 ├── test_new_readers.py         # txt, md, html, pptx, json, xml readers
 ├── test_normalizer.py          # Core normalize() rules
 ├── test_normalizer_extended.py # normalize_with_report + ftfy (parametrized)
-├── test_baseline_snapshot.py   # Output unchanged vs the pre-OCR baseline
+├── test_ocr_apply.py           # OCR reader/engine glue, fake engine
+├── test_ocr_config_limits.py   # OcrConfig pixel-cap defaults
 ├── test_ocr_core.py            # CTC decode, dictionary, path resolution
 ├── test_ocr_dbnet.py           # Detection post-processing on a synthetic map
-├── test_ocr_pipeline.py        # Behaviour with no OCR available (runs everywhere)
+├── test_ocr_engine.py          # Recognition-input prep, stub ONNX session
 ├── test_ocr_integration.py     # Real model round trip (slow, auto-skipped)
+├── test_ocr_pipeline.py        # Behaviour with/without OCR available
+├── test_ocr_raster.py          # Page/figure/image rasterization
+├── test_ocr_registry.py        # OCR probe: every unavailability path, never raises
 ├── test_pdf_reader.py          # PDF reader + deduplication
+├── test_robustness.py          # Malformed-input resilience
+├── test_rotated_text.py        # Vertical-text extraction and its wiring
+├── test_secondary_findings.py  # Regressions for the 2026-08-31 code audit
+├── test_table_limits.py        # MAX_TABLE_CELLS enforcement
 ├── test_table_reader.py        # Table detection + filtering
 ├── test_text_loader.py         # Encoding detection (charset-normalizer)
+├── test_vlm_apply.py           # Visual-layer routing/rejection/caching, stub engine
+├── test_vlm_describe.py        # Figure description: page selection, NONE gate
+├── test_vlm_doctag.py          # granite-docling doctag parsing/validation
+├── test_vlm_engine.py          # MlxVlmEngine + render_page, truncation signal
+├── test_vlm_markdown.py        # PaddleOCR-VL Markdown output parsing
+├── test_vlm_pipeline.py        # Visual-layer blocks reaching JSON/Markdown
+├── test_vlm_registry.py        # Visual-model probe: every unavailability path, never raises
+├── test_warning_text.py        # Warning-code -> human-readable sentence rendering
 └── test_xlsx_reader.py         # Excel reader unit tests
 ```
 

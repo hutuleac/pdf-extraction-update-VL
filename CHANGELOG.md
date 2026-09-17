@@ -1,5 +1,57 @@
 # Changelog — Knowledge Extraction Pipeline
 
+## Unreleased — test coverage for the two incident-causing modules
+
+### Tests
+
+- **`extractor/vlm/registry.py` and `extractor/ocr/registry.py`** had no
+  dedicated tests despite being the exact code behind two prior production
+  incidents (a missing `torchvision` dependency going unreported, and an
+  order-of-operations bug that hid the `VLM_UNAVAILABLE` warning). Every
+  existing test stubbed `registry.is_available()` directly, so a regression in
+  the platform check, the dependency check, or the probe's failure-caching
+  would never fail a test. Added `tests/test_vlm_registry.py` and
+  `tests/test_ocr_registry.py` (17 tests): unsupported-platform-before-
+  missing-deps ordering, missing-deps naming, unknown-model fast-fail,
+  unexpected-exception downgrade, probe-once caching, `reset()`, `get_engine()`
+  success/failure. Coverage: `vlm/registry.py` 38.9% -> 92.6%, `ocr/registry.py`
+  90.2% -> 100%.
+- **`extractor/vlm/engine.py`** (`MlxVlmEngine`, `render_page`) had 0%
+  dedicated coverage. `convert()`'s `capped` return value is the only
+  truncation evidence the pipeline has — Markdown gives no other signal, since
+  cut-off prose looks identical to prose that ended there. Added
+  `tests/test_vlm_engine.py` (10 tests, `mlx_vlm.load`/`generate` stubbed):
+  text extraction from both the `.text`-attribute and plain-string result
+  shapes, truncation via `finish_reason`, truncation via the token-count
+  fallback when `finish_reason` is absent, non-truncation, and that
+  `max_tokens`/`repetition_penalty` are actually forwarded. Coverage: 39.3% ->
+  100%.
+- **`extractor/vlm/describe.py`** (Qwen3-VL figure descriptions) was tested
+  only on its happy paths; `_get_engine`'s own probe/cache/failure logic, and
+  `describe_pages`/`describe_image`'s unavailable-engine and truncation-
+  reporting branches, were untested — the same blind spot as the registries
+  above, for the describing model instead of the reading one. Coverage: 76.4%
+  -> 100%.
+- **`extractor/pdf_reader.py`'s `_ocr_pages` dispatch loop** (rasterize ->
+  recognize, full-page vs. figure-page branching, per-page rasterization-
+  failure isolation) was never reached by `tests/test_ocr_pipeline.py`, whose
+  only fixture forces OCR unavailable. Added a `with_ocr` fixture (fake
+  engine, real dispatch) and 6 tests. Coverage: 82.5% -> 89.3%.
+- **`extractor/warning_text.py`** (every warning code's human-readable
+  rendering, read by both the Markdown notes sidecar and the CLI summary) had
+  no dedicated test file. Added `tests/test_warning_text.py` (23 tests)
+  covering every embellishment branch and the module's "never raise on a
+  malformed warning dict" guarantee. Coverage: 75.0% -> 100%.
+- Full suite: 535 tests passing (`-m "not slow"`), overall coverage 89.4% ->
+  93.0%.
+
+### Fixed
+
+- Two outstanding `ruff check` findings: a nested `if` in
+  `extractor/rotated_text.py` collapsed into one condition (SIM102), and a
+  single-element list slice in `tests/test_vlm_apply.py` replaced with `next()`
+  (RUF015).
+
 ## Unreleased — rendering fixes and the 388-page model comparison
 
 ### Fixed
