@@ -155,9 +155,40 @@ page-level diff of the full course run says:
   58% of its pages. Raising `--vlm-max-tokens` for it is untested.
 
 So it is the better transcriber and the worse coverage, and the coverage
-loss has an untested one-flag fix. Before deleting it, run the course once
-with `--vlm-model mlx-community/PaddleOCR-VL-1.6-4bit --vlm-max-tokens 8192`
-and compare kept pages and truncations to the table in the README. If the
-truncation count collapses, it is the better default, not a cut. If it
-does not, cut it then. CLAUDE.md's model section still carries the stale
-57 count and should be corrected either way.
+loss had an untested one-flag fix. That experiment ran on 2026-09-18.
+
+### Result: the 8192-token run (`--vlm-pages auto`, 56 damaged pages)
+
+| | PaddleOCR-VL, 8192 tokens | granite-docling, 4096 |
+|---|---|---|
+| pages kept | 19 | 48 |
+| rejected as truncated | 28 | 3 |
+| display formulas kept | 49 | 185 |
+| inline formulas kept | 215 | 168 |
+| prose chars kept | 31,700 | 74,590 |
+| Romanian words split at a diacritic | 0 | 293 |
+| pages falling through to OCR | 24 | 2 |
+| wall time | 27 min (~29 s/page) | cached; ~14 s/page measured earlier |
+
+Doubling the cap changed nothing: 28 of 56 pages still hit it, and the
+capped outputs run 8k to 24k characters, far beyond what a page holds. Ten
+of the 28 end in a literal loop (`V_p(w=0) +1.1` repeated to the cap); the
+rest are runaway generation of another kind. The cap is a symptom. The
+model is built as the element-recognition stage behind PP-DocLayoutV2 and
+is being fed whole pages, which its own card does not describe. No
+sampler setting fixes that.
+
+What it still does better, on the pages it finishes: cleaner LaTeX
+(`\text{kN/m}`, `\operatorname{tg}`, no per-character spacing) and zero
+diacritic splitting. granite's `p ă mânt` for `pământ` appeared 293 times
+on 48 pages. That is a granite defect, but it is a five-line post-fix in
+`doctag.py`: a lone `ă â î ș ț` between two word characters is never a
+word in Romanian, so it can be joined back.
+
+**Decision: cut PaddleOCR-VL from the mlx path.** Coverage is the larger
+effect by far and its one real advantage is fixable on granite's side. The
+model itself is not the problem; whole-page prompting is. Its correct use,
+the official two-stage `PaddleOCRVL` pipeline in PaddleOCR 3.x (layout +
+element recognition, PyTorch or Paddle, CPU or CUDA, Windows), is the
+candidate for step 5 above, and is the only route by which this model
+comes back.
