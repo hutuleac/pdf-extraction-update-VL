@@ -76,19 +76,28 @@ def make_footer_block(raw_text: str) -> dict | None:
     return {"type": "footer", "content": normalized}
 
 
-def make_table_block(rows: list[list[str]]) -> dict:
+def make_table_block(rows: list[list[str]], *, source: str = "native") -> dict:
     """Wrap table rows (list of lists of cell strings) in a table block.
 
     Cells go through the same normalization as every other text block —
     pdfplumber reads them raw, so without this a table is the one place in
     the document where PUA glyphs, cedilla diacritics, and encoding mojibake
     would reach the output untouched.
+
+    *source* defaults to ``"native"`` (pdfplumber ruling-line extraction, or
+    the equivalent structured read for non-PDF formats). PDF's visual-model
+    fallback passes ``"vlm"`` for tables it inferred on a page pdfplumber
+    found none on — those are a model's guess, not a verified read, and
+    without this field they were indistinguishable from a native table.
     """
     cell_count = sum(len(row) for row in rows)
     if cell_count > MAX_TABLE_CELLS:
         raise ResourceLimitError("table cells", cell_count, MAX_TABLE_CELLS)
     normalized_rows = [[normalize(cell) for cell in row] for row in rows]
-    return {"type": "table", "content": normalized_rows}
+    block = {"type": "table", "content": normalized_rows}
+    if source != "native":
+        block["source"] = source
+    return block
 
 
 def make_image_block(path: str, *, width: int, height: int) -> dict:

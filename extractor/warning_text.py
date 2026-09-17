@@ -60,6 +60,9 @@ _TEMPLATES = {
     # An equation the model returned unbalanced is never published as math: a
     # wrong formula that renders is worse than a missing one.
     "FORMULA_REVIEW_REQUIRED": "a formula on this page was dropped as malformed — check the source",
+    # Carries the URL (and, when close enough to guess at, what the other
+    # source read instead) in describe() — flags disagreement, picks no side.
+    "VLM_URL_UNVERIFIED": "a URL read by the visual model is not confirmed by this page's other text — check it before trusting it",
 }
 
 # Codes whose sentence ends in a percentage, so the raw detail would repeat it.
@@ -123,6 +126,12 @@ def describe(warning: dict) -> str:
     if code == "OCR_NOISE_FILTERED" and warning.get("sample"):
         quoted = ", ".join(repr(fragment) for fragment in warning["sample"])
         text = f"{text} ({warning.get('dropped', len(warning['sample']))}: {quoted})"
+
+    if code == "VLM_URL_UNVERIFIED" and warning.get("model_url"):
+        if warning.get("other_url"):
+            text = f"{text} ({warning['model_url']!r} vs {warning['other_url']!r})"
+        else:
+            text = f"{text} ({warning['model_url']!r})"
 
     detail = warning.get("detail")
     if detail and code not in _CONFIDENCE_CODES:

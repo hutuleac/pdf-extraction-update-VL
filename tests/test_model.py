@@ -33,6 +33,17 @@ def test_make_table_block_normalizes_cells():
     }
 
 
+def test_make_table_block_vlm_source_is_tagged():
+    # A table pdfplumber found no ruling lines for is the model's guess, not
+    # a verified read — it must be distinguishable from a native table.
+    rows = [["A", "B"]]
+    assert make_table_block(rows, source="vlm") == {
+        "type": "table",
+        "content": rows,
+        "source": "vlm",
+    }
+
+
 def test_make_image_block_shape():
     block = make_image_block("stem_images/p001_i01.png", width=200, height=150)
     assert block == {

@@ -28,6 +28,7 @@ from extractor.page_signals import classify_page, compute_signals, warnings_for_
 from extractor.reading_order import reorder_words
 from extractor.rotated_text import drop_skewed_words, skewed_words_and_text
 from extractor.table_reader import extract_tables
+from extractor.url_check import check_page_urls
 from extractor.vlm.apply import vlm_pages
 from extractor.vlm.describe import describe_pages
 
@@ -514,6 +515,8 @@ def extract_pdf(path: Path | str, *, images_dir: Path | str | None = None) -> di
         if figure_block:
             blocks.append(figure_block)
 
+        doc_warnings.extend(check_page_urls(blocks, page_number))
+
         native_tables = tables.get(page_number, [])
         for table in native_tables:
             blocks.append(make_table_block(table["cells"]))
@@ -521,7 +524,7 @@ def extract_pdf(path: Path | str, *, images_dir: Path | str | None = None) -> di
         # the model infers them. Its tables are only taken where there are none.
         if parsed and not native_tables:
             for rows in parsed.tables:
-                blocks.append(make_table_block(rows))
+                blocks.append(make_table_block(rows, source="vlm"))
 
         # ponytail: appended after text/tables rather than interleaved at
         # their true position on the page — upgrade to position-based

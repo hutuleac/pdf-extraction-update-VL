@@ -627,6 +627,7 @@ Fatal extraction categories are reported separately from warnings:
 | `VLM_DESCRIBE_FAILED` | Some figure pages raised during description and were skipped; the rest are unaffected |
 | `VLM_DESCRIBE_UNAVAILABLE` | The describing model could not be loaded — `detail` names the reason, and the run is otherwise unchanged |
 | `FORMULA_REVIEW_REQUIRED` | A formula came back with unmatched `\left`/`\right` and was dropped rather than published wrong — check the source page |
+| `VLM_URL_UNVERIFIED` | A URL in the visual model's text is not confirmed by native text or OCR on the same page — carries the URL, and the closest one from another source when there is one close enough to guess it's the same link misread |
 
 Warnings appear in the JSON output (`document.warnings`), in a `<stem>.notes.md`
 sidecar next to the document's own Markdown (kept out of the document itself so
