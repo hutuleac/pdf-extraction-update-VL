@@ -177,10 +177,9 @@ def _vertical_words(page) -> list[tuple[tuple, str]]:
     last_x = None
     for char in chars:
         x = round(char["x0"], 1)
-        if char["text"].isspace() or (current and x != last_x):
-            if current:
-                words.append(current)
-                current = []
+        if (char["text"].isspace() or (current and x != last_x)) and current:
+            words.append(current)
+            current = []
         if not char["text"].isspace():
             current.append(char)
             last_x = x

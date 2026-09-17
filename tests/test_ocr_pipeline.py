@@ -10,8 +10,8 @@ import pytest
 from extractor.dispatcher import extract_document
 from extractor.json_writer import write_json
 from extractor.markdown_writer import write_markdown
-from extractor.ocr import registry
-from extractor.ocr.base import OcrUnavailable, UnavailableReason
+from extractor.ocr import config, registry
+from extractor.ocr.base import OcrLine, OcrResult, OcrUnavailable, UnavailableReason
 from main import file_stats, format_summary
 
 
@@ -22,6 +22,32 @@ def no_ocr(monkeypatch):
     monkeypatch.setattr(registry, "is_available", lambda: False)
     monkeypatch.setattr(registry, "unavailable_reason", lambda: failure)
     return failure
+
+
+class _FakeEngine:
+    """Returns one fixed line of text for every image it is given."""
+
+    name = "fake"
+
+    def __init__(self, text: str = "recognized text", confidence: float = 0.95) -> None:
+        self._text, self._confidence = text, confidence
+
+    def recognize(self, image) -> OcrResult:
+        return OcrResult([OcrLine(self._text, self._confidence, (0, 0, 1, 1))], self.name)
+
+
+@pytest.fixture
+def with_ocr(monkeypatch):
+    """Install a fake engine so the real `_ocr_pages` dispatch loop runs —
+    rasterization, per-class branching, and per-page failure isolation — none
+    of which the `no_ocr` tests above ever reach, since they stop at the
+    'registry unavailable' short-circuit.
+    """
+    engine = _FakeEngine()
+    monkeypatch.setattr(registry, "is_available", lambda: True)
+    monkeypatch.setattr(registry, "get_engine", lambda: engine)
+    yield engine
+    config.reset()
 
 
 def _codes(model: dict) -> list[str]:
@@ -201,3 +227,78 @@ def test_text_pdf_is_untouched_by_the_ocr_path(sample_pdf, no_ocr):
     model = extract_document(sample_pdf)
     assert not any(code.startswith("OCR_") for code in _codes(model))
     assert all("source" not in b for unit in model["pages"] for b in unit["content"])
+
+
+# ---------------------------------------------------------------------------
+# With OCR actually available — exercises the `_ocr_pages` dispatch loop
+# itself (rasterization, per-class branching, per-page failure isolation),
+# which every test above stops short of because `no_ocr` short-circuits it.
+# ---------------------------------------------------------------------------
+
+def test_scanned_page_is_read_when_ocr_is_available(scanned_pdf, with_ocr):
+    model = extract_document(scanned_pdf)
+
+    assert "OCR_APPLIED" in _codes(model)
+    text_blocks = [b for b in model["pages"][0]["content"] if b["type"] == "text"]
+    assert any(b.get("source") == "ocr" for b in text_blocks)
+
+
+def test_ocr_figures_flag_reads_the_picture_when_ocr_is_available(
+    layout_complex_pdf, with_ocr,
+):
+    config.configure(figures=True)
+    model = extract_document(layout_complex_pdf)
+
+    assert "OCR_APPLIED" in _codes(model)
+    assert any(
+        b.get("source") == "ocr"
+        for b in model["pages"][0]["content"] if b["type"] == "text"
+    )
+
+
+def test_layout_complex_page_still_keeps_its_native_text_with_ocr_available(
+    layout_complex_pdf, with_ocr,
+):
+    """The figure-OCR path is additive — it must never displace the page's
+    own native text, whether or not an engine is actually present to run."""
+    config.configure(figures=True)
+    model = extract_document(layout_complex_pdf)
+
+    text = " ".join(
+        b["content"] for b in model["pages"][0]["content"]
+        if b["type"] == "text" and b.get("source") != "ocr"
+    )
+    assert "Layout complex slide" in text
+
+
+def test_rasterization_failure_is_isolated_as_a_warning_not_a_crash(
+    scanned_pdf, with_ocr, monkeypatch,
+):
+    """One page's rasterization blowing up must not take the run down —
+    see the `# noqa: BLE001 - isolate one page` handler in `_ocr_pages`."""
+    from extractor.ocr import raster
+
+    monkeypatch.setattr(
+        raster, "page_to_array",
+        lambda *a, **k: (_ for _ in ()).throw(RuntimeError("corrupt page stream")),
+    )
+
+    model = extract_document(scanned_pdf)
+
+    assert "OCR_FAILED" in _codes(model)
+    warning = next(w for w in model["document"]["warnings"] if w["code"] == "OCR_FAILED")
+    assert "corrupt page stream" in warning["detail"]
+    # The run itself must still complete and produce valid output.
+    assert model["pages"][0]["page_class"] == "scanned"
+
+
+def test_ocr_min_confidence_below_threshold_is_reported(scanned_pdf, monkeypatch):
+    """A low-confidence read is kept but flagged, not silently trusted."""
+    engine = _FakeEngine(text="blurry recovered text", confidence=0.10)
+    monkeypatch.setattr(registry, "is_available", lambda: True)
+    monkeypatch.setattr(registry, "get_engine", lambda: engine)
+
+    model = extract_document(scanned_pdf)
+
+    assert "OCR_LOW_CONFIDENCE" in _codes(model)
+    config.reset()

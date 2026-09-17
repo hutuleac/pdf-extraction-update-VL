@@ -154,7 +154,7 @@ def test_prose_that_repeats_the_page_text_is_dropped(two_page_pdf, monkeypatch, 
     pages, warnings = apply.vlm_pages(two_page_pdf, ["native-text", "garbled"], [native, native])
 
     assert pages[1].text == "$$\na = \\frac { b } { c }\n$$"
-    assert [w for w in warnings if w["page"] == 1][0]["prose"] == "redundant"
+    assert next(w for w in warnings if w["page"] == 1)["prose"] == "redundant"
     # The garbled page is replacing the text, so its prose is what is wanted.
     assert "Recovered prose" in pages[2].text
 

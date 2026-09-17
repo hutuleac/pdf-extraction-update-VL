@@ -138,6 +138,154 @@ def test_describe_image_off_by_default(monkeypatch):
     assert engine.calls == 0
 
 
+# --- _get_engine's own probe, never exercised by the tests above -----------
+# (every test so far monkeypatches `describe._get_engine` wholesale, the same
+# gap test_vlm_registry.py existed to close for the reading model's probe)
+
+def test_get_engine_builds_and_caches_the_describing_engine(monkeypatch):
+    calls = []
+
+    class _Engine:
+        def __init__(self, model_name, prompt):
+            calls.append((model_name, prompt))
+
+    monkeypatch.setattr("extractor.vlm.engine.MlxVlmEngine", _Engine)
+
+    first = describe._get_engine()
+    second = describe._get_engine()
+
+    assert first is second
+    assert len(calls) == 1
+    assert calls[0][0] == config.get_config().describe_model
+
+
+def test_get_engine_downgrades_a_load_failure_to_vlm_unavailable(monkeypatch):
+    from extractor.vlm.base import UnavailableReason, VlmUnavailable
+
+    monkeypatch.setattr(
+        "extractor.vlm.engine.MlxVlmEngine",
+        lambda *a: (_ for _ in ()).throw(RuntimeError("weights corrupt")),
+    )
+
+    with pytest.raises(VlmUnavailable) as exc:
+        describe._get_engine()
+    assert exc.value.reason == UnavailableReason.MODEL_LOAD_FAILED
+    assert "weights corrupt" in exc.value.detail
+
+    # And the failure is cached too — a second call must not reload.
+    with pytest.raises(VlmUnavailable):
+        describe._get_engine()
+
+
+# --- describe_pages: the early-outs and the unavailable path ----------------
+
+def test_describe_pages_returns_nothing_when_registry_unavailable(
+    monkeypatch, three_page_pdf,
+):
+    engine = StubEngine(["a chart"])
+    monkeypatch.setattr(describe, "_get_engine", lambda: engine)
+    monkeypatch.setattr(registry, "is_available", lambda: False)
+    config.configure(enabled=True, describe=True)
+
+    results, warnings = describe.describe_pages(
+        three_page_pdf, ["mixed", "mixed", "mixed"], [0, 0, 0],
+    )
+
+    # The reading path already reports VLM_UNAVAILABLE; repeating it here
+    # would print the same failure twice.
+    assert (results, warnings) == ({}, [])
+    assert engine.calls == 0
+
+
+def test_describe_pages_returns_nothing_when_no_page_qualifies(
+    monkeypatch, tmp_path, three_page_pdf,
+):
+    engine = _arrange(monkeypatch, tmp_path, ["a chart"])
+    results, warnings = describe.describe_pages(
+        three_page_pdf, ["native-text", "native-text", "native-text"], [0, 0, 0],
+    )
+    assert (results, warnings) == ({}, [])
+    assert engine.calls == 0
+
+
+def test_describe_pages_reports_unavailable_engine(monkeypatch, three_page_pdf):
+    from extractor.vlm.base import UnavailableReason, VlmUnavailable
+
+    monkeypatch.setattr(registry, "is_available", lambda: True)
+    monkeypatch.setattr(
+        describe, "_get_engine",
+        lambda: (_ for _ in ()).throw(VlmUnavailable(UnavailableReason.MODEL_LOAD_FAILED)),
+    )
+    config.configure(enabled=True, describe=True)
+
+    results, warnings = describe.describe_pages(
+        three_page_pdf, ["mixed", "mixed", "mixed"], [0, 0, 0],
+    )
+
+    assert results == {}
+    assert warnings == [{
+        "code": "VLM_DESCRIBE_UNAVAILABLE",
+        "detail": UnavailableReason.MODEL_LOAD_FAILED.describe(),
+        "pages": 3,
+    }]
+
+
+def test_describe_pages_reports_truncation(monkeypatch, tmp_path, three_page_pdf):
+    """A description cut off is still kept (unlike a formula), but flagged —
+    the reader cannot otherwise tell prose that stopped from prose that ended.
+    """
+    class _CappedEngine:
+        name = "stub-capped"
+
+        def convert(self, png_bytes, *, max_tokens=512, repetition_penalty=1.0):
+            return "a chart that got cut off mid", True
+
+    monkeypatch.setattr(describe, "_get_engine", lambda: _CappedEngine())
+    monkeypatch.setattr(registry, "is_available", lambda: True)
+    config.configure(enabled=True, describe=True, cache_dir=str(tmp_path / "cache"))
+    monkeypatch.setattr(describe, "_get_engine", lambda: _CappedEngine())
+
+    results, warnings = describe.describe_pages(
+        three_page_pdf, ["mixed", "mixed", "mixed"], [0, 0, 0],
+    )
+
+    assert len(results) == 3
+    assert {"code": "VLM_DESCRIBE_TRUNCATED", "pages": 3} in warnings
+
+
+# --- describe_image's failure paths, untested above -------------------------
+
+def test_describe_image_reports_unavailable_engine(monkeypatch):
+    from extractor.vlm.base import UnavailableReason, VlmUnavailable
+
+    monkeypatch.setattr(
+        describe, "_get_engine",
+        lambda: (_ for _ in ()).throw(VlmUnavailable(UnavailableReason.MISSING_DEPS, "mlx")),
+    )
+    config.configure(enabled=True, describe=True)
+
+    text, warnings = describe.describe_image(b"png")
+
+    assert text is None
+    assert warnings == [{
+        "code": "VLM_DESCRIBE_UNAVAILABLE",
+        "detail": UnavailableReason.MISSING_DEPS.describe(),
+        "pages": 1,
+    }]
+
+
+def test_describe_image_reports_inference_failure(monkeypatch, tmp_path):
+    engine = StubEngine([RuntimeError("model crashed")])
+    monkeypatch.setattr(describe, "_get_engine", lambda: engine)
+    config.configure(enabled=True, describe=True, cache_dir=str(tmp_path))
+    monkeypatch.setattr(describe, "_get_engine", lambda: engine)
+
+    text, warnings = describe.describe_image(b"png")
+
+    assert text is None
+    assert warnings == [{"code": "VLM_DESCRIBE_FAILED", "pages": 1}]
+
+
 def test_describe_model_does_not_share_the_reading_cache(tmp_path):
     """Both passes see identical pixels and answer different questions."""
     from extractor.vlm.apply import _cache_path
