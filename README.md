@@ -117,7 +117,7 @@ the log, and keeps going with the rest.
 | Plain Text | `.txt` | (stdlib) | section | Encoding-aware loading via charset-normalizer. |
 | Markdown | `.md` | (stdlib) | section | Source passed through faithfully; encoding detected. |
 | HTML | `.html`, `.htm` | BeautifulSoup + lxml | section | Headings/paragraphs -> text, tables -> table; scripts stripped. |
-| PowerPoint | `.pptx` | python-pptx + OCR | slide | Text frames + tables + speaker notes per slide; grouped shapes traversed; slide pictures read by OCR. |
+| PowerPoint | `.pptx` | python-pptx + OCR | slide | Text frames + tables + native chart data (as a `source: "chart"` table) + speaker notes per slide; grouped shapes traversed; slide pictures read by OCR. |
 | JSON | `.json` | (stdlib) | section | Flat records -> table; nested -> indented text. |
 | XML | `.xml` | defusedxml | section | Rendered as indented path/text; XXE refused. |
 | Image | `.png`, `.jpg`, `.jpeg`, `.tiff`, `.tif`, `.webp` | Pillow + OCR | section | Read by OCR. Without OCR: valid output, zero text, explicit note. The default raster budget is 25 MP; larger images fail with `resource_limit` until adaptive resizing is enabled. |
@@ -450,7 +450,7 @@ pytest-cov, ruff). Tested on Python 3.14 (Windows).
     --input INPUT_DIR \
     --output OUTPUT_DIR \
     --log-file logs/extraction.log \
-    --max-file-mb 50 \
+    --max-file-mb 100 \
     --verbose
 ```
 
@@ -459,7 +459,7 @@ pytest-cov, ruff). Tested on Python 3.14 (Windows).
 | `--input` | `input` | Directory containing input files |
 | `--output` | `output` | Root output directory (json/ and markdown/ subdirs) |
 | `--log-file` | `logs/extraction.log` | Path to log file |
-| `--max-file-mb` | 50 | Skip files larger than this (MB) |
+| `--max-file-mb` | 100 | Skip files larger than this (MB) |
 | `--verbose` / `-v` | off | Set log level to DEBUG |
 | `--no-ocr` | off | Do not read scanned pages or image files |
 | `--ocr-figures` | off | Also read the pictures on `mixed` / `layout-complex` pages. On chart-heavy documents this returns mostly axis labels; on infographic decks the figure holds the page's only text |
@@ -485,7 +485,7 @@ created.
 
 A workbook that would expand past 500,000 rows or 5,000,000 cells in memory is
 refused the same way. `--max-file-mb` measures the compressed size, and XLSX
-compresses roughly 10:1, so a 40 MB workbook clears a 50 MB cap and can still
+compresses roughly 10:1, so an 80 MB workbook clears a 100 MB cap and can still
 exhaust memory. It is refused rather than truncated: a partial workbook is
 silently wrong, and an out-of-memory failure would end the whole run instead of
 one file.
@@ -596,6 +596,7 @@ potential quality issues:
 | `POSSIBLE_TWO_COLUMN_ORDER` | More than one column cluster detected |
 | `LAYOUT_COMPLEX` | Many ruling lines or many font variants |
 | `HEADER_FOOTER_DETECTED` | Repeated signature found (document-level) |
+| `ROTATED_TEXT_FILTERED` | Diagonal stamp text, and vertical text repeating on 5+ pages (margin tabs, watermarks), removed from text and tables; `sample` shows what was dropped (document-level) |
 | `ENCODING_FALLBACK` | The encoding had to be guessed — a legacy codepage was inferred, or the decode still looks implausible. Plain ASCII/UTF-8 never triggers it |
 | `UNICODE_REPAIRED` | ftfy changed the text |
 | `NESTING_TRUNCATED` | A JSON/XML document nests deeper than the reader renders; the deepest levels were cut rather than failing the file |

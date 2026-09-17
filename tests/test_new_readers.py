@@ -266,6 +266,35 @@ class TestPptxReader:
         codes = [w["code"] for w in model["document"].get("warnings", [])]
         assert "OCR_SKIPPED_DISABLED" in codes
 
+    def test_native_chart_data_becomes_a_table(self, tmp_path):
+        """A chart's own numbers are read directly; no OCR or VLM needed."""
+        from pptx import Presentation
+        from pptx.chart.data import CategoryChartData
+        from pptx.enum.chart import XL_CHART_TYPE
+        from pptx.util import Inches
+
+        prs = Presentation()
+        slide = prs.slides.add_slide(prs.slide_layouts[6])
+        data = CategoryChartData()
+        data.categories = ["Q1", "Q2"]
+        data.add_series("Revenue", (10.0, 12.5))
+        data.add_series("Cost", (4, 5))
+        frame = slide.shapes.add_chart(
+            XL_CHART_TYPE.COLUMN_CLUSTERED, Inches(1), Inches(1), Inches(6), Inches(4), data,
+        )
+        frame.chart.has_title = True
+        frame.chart.chart_title.text_frame.text = "Quarterly"
+        out = tmp_path / "chart.pptx"
+        prs.save(out)
+
+        blocks = extract_pptx(out)["pages"][0]["content"]
+        assert blocks[0]["type"] == "text" and blocks[0]["content"] == "Quarterly"
+        table = blocks[1]
+        assert table["source"] == "chart"
+        assert table["content"] == [
+            ["", "Revenue", "Cost"], ["Q1", "10", "4"], ["Q2", "12.5", "5"],
+        ]
+
     def test_slide_without_pictures_emits_no_ocr_warning(self, sample_pptx):
         """Nothing to read is not a problem worth a warning."""
         model = extract_pptx(sample_pptx)

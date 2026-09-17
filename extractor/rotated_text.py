@@ -78,13 +78,13 @@ def keep_char(obj) -> bool:
     return matrix is None or not is_skewed(matrix[0], matrix[1])
 
 
-def _skewed_lines(page):
-    """Yield the skewed lines of a PyMuPDF page as ``dict`` line objects."""
+def _lines_where(page, predicate):
+    """Yield the lines of a PyMuPDF page whose direction satisfies *predicate*."""
     for block in page.get_text("rawdict")["blocks"]:
         if block.get("type") != 0:  # 0 == text; images have no direction
             continue
         for line in block.get("lines", ()):
-            if is_skewed(*line["dir"]):
+            if predicate(*line["dir"]):
                 yield line
 
 
@@ -108,30 +108,62 @@ def _iou(a, b) -> float:
     return overlap / union if union > 0 else 0.0
 
 
-def skewed_words_and_text(page) -> tuple[list[tuple], str]:
-    """Return the stamp's word boxes and the text they spell.
+def _words_where(page, predicate) -> list[tuple[tuple, str]]:
+    """Group the characters of the lines matching *predicate* into
+    ``(bbox, text)`` words.
 
-    PyMuPDF splits words on whitespace, so grouping the skewed characters the
-    same way reproduces exactly the boxes ``get_text("words")`` reports for the
-    stamp — which is what makes matching them reliable.
+    PyMuPDF splits words on whitespace, so grouping the characters the same
+    way reproduces exactly the boxes ``get_text("words")`` reports — which is
+    what makes matching them reliable.
     """
-    boxes: list[tuple] = []
-    characters: list[str] = []
-    for line in _skewed_lines(page):
+    words: list[tuple[tuple, str]] = []
+    for line in _lines_where(page, predicate):
         current: list[tuple] = []
+        text: list[str] = []
         for span in line.get("spans", ()):
             for char in span.get("chars", ()):
-                characters.append(char["c"])
                 if char["c"].isspace():
                     if current:
-                        boxes.append(_union(current))
-                        current = []
+                        words.append((_union(current), "".join(text)))
+                        current, text = [], []
                 else:
                     current.append(tuple(char["bbox"]))
+                    text.append(char["c"])
         if current:
-            boxes.append(_union(current))
-            current = []
-    return boxes, "".join(characters).strip()
+            words.append((_union(current), "".join(text)))
+    return words
+
+
+def skewed_words_and_text(page) -> tuple[list[tuple], str]:
+    """Return the stamp's word boxes and the text they spell."""
+    words = _words_where(page, is_skewed)
+    return [box for box, _ in words], " ".join(text for _, text in words)
+
+
+def repeated_vertical_words(doc, *, min_pages: int = STAMP_MIN_PAGES) -> dict[int, list[tuple[tuple, str]]]:
+    """PyMuPDF twin of ``repeated_vertical_boxes`` for the text pass.
+
+    Returns ``{page_number: [(bbox, text), ...]}`` for vertical words whose
+    text repeats on at least *min_pages* pages. The table pass has applied
+    this rule since the fourth document above; the text pass did not, so the
+    same margin stamp was kept out of every table and spliced into the prose
+    beside them.
+    """
+    if doc.page_count < min_pages:
+        return {}
+    words_by_page = {
+        index + 1: _words_where(page, is_vertical) for index, page in enumerate(doc)
+    }
+    pages_per_text: dict[str, set[int]] = {}
+    for page_number, words in words_by_page.items():
+        for _, text in words:
+            pages_per_text.setdefault(text.lower(), set()).add(page_number)
+    stamp_keys = {key for key, pages in pages_per_text.items() if len(pages) >= min_pages}
+    return {
+        page_number: stamped
+        for page_number, words in words_by_page.items()
+        if (stamped := [w for w in words if w[1].lower() in stamp_keys])
+    }
 
 
 def drop_skewed_words(words, stamp_boxes) -> list:

@@ -53,10 +53,34 @@ def test_one_off_vertical_label_is_kept_in_table_cells(tmp_path):
     result = extract_tables(path)
 
     cells = result[1][0]["cells"]
-    # Vertical text authored bottom-to-top reads back reversed ("ETON"), same
-    # as the real watermark did — repeated_vertical_boxes only needs it kept,
-    # not correctly oriented.
-    assert "NOTE" in cells[0][0] or "ETON" in cells[0][0]
+    assert "NOTE" in cells[0][0]
+
+
+def test_vertical_header_cell_reads_in_its_own_direction(tmp_path):
+    """pdfplumber orders a sideways cell top-to-bottom, so a header rotated
+    90 deg came back reversed and split: "(TB)\\nBun" for "Bun (TB)"."""
+    doc = pymupdf.open()
+    page = doc.new_page()
+    x0, y0, w, h = 72, 120, 200, 100
+    for y in (y0, y0 + h, y0 + h + 20):
+        page.draw_line((x0, y), (x0 + w, y))
+    for x in (x0, x0 + w / 2, x0 + w):
+        page.draw_line((x, y0), (x, y0 + h + 20))
+    page.insert_text((x0 + 15, y0 + h - 10), "Bun (TB)", fontsize=9, rotate=90)
+    page.insert_text((x0 + w / 2 + 5, y0 + 50), "Valoare", fontsize=9)
+    page.insert_text((x0 + 5, y0 + h + 14), "12", fontsize=9)
+    page.insert_text((x0 + w / 2 + 5, y0 + h + 14), "34", fontsize=9)
+    doc.save(tmp_path / "vertical.pdf")
+
+    cells = extract_tables(tmp_path / "vertical.pdf")[1][0]["cells"]
+    assert cells == [["Bun (TB)", "Valoare"], ["12", "34"]]
+
+
+def test_is_real_table_rejects_nearly_empty_grid():
+    # An equation boxed by ruling lines: a wide grid with a handful of glyphs.
+    cells = [[""] * 10 for _ in range(4)]
+    cells[2][4], cells[2][5] = "φ", "="
+    assert _is_real_table(cells) is False
 
 
 def test_table_entry_shape(table_pdf):

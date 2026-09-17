@@ -26,7 +26,11 @@ from extractor.model import (
 )
 from extractor.page_signals import classify_page, compute_signals, warnings_for_page
 from extractor.reading_order import reorder_words
-from extractor.rotated_text import drop_skewed_words, skewed_words_and_text
+from extractor.rotated_text import (
+    drop_skewed_words,
+    repeated_vertical_words,
+    skewed_words_and_text,
+)
 from extractor.table_reader import extract_tables
 from extractor.url_check import check_page_urls
 from extractor.vlm.apply import vlm_pages
@@ -123,6 +127,9 @@ def read_document(path: Path | str, exclude_regions: dict[int, list] | None = No
         # Resolved once per document, as in _extract_images and _ocr_pages: a
         # logo is not one of the page's pictures on any of them.
         repeated = repeated_image_xrefs(doc)
+        # Same rule for text: a vertical label that repeats across the document
+        # is a margin tab, not content (see rotated_text.repeated_vertical_words).
+        vertical_stamps = repeated_vertical_words(doc)
         page_texts: list[str] = []
         page_image_counts: list[int] = []
         page_classes: list[str] = []
@@ -145,6 +152,9 @@ def read_document(path: Path | str, exclude_regions: dict[int, list] | None = No
             except Exception as exc:  # noqa: BLE001 - never lose a page to this
                 logger.warning("Rotated-text scan failed on page %d: %s", page_number, exc)
                 rotated_boxes, rotated_text = [], ""
+            for box, text in vertical_stamps.get(page_number, ()):
+                rotated_boxes.append(box)
+                rotated_text = f"{rotated_text} {text}".strip()
             page_rotated_text.append(rotated_text)
 
             try:

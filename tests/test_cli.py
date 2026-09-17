@@ -13,7 +13,7 @@ class TestBuildParser:
         assert args.input_dir == "input"
         assert args.output_dir == "output"
         assert args.log_file == "logs/extraction.log"
-        assert args.max_file_mb == 50
+        assert args.max_file_mb == 100
         assert args.verbose is False
         # Off by default: Apple-Silicon only, and ~14 s/page. A Windows run
         # must not warn about a model it was never going to have.

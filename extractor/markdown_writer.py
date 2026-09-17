@@ -21,6 +21,7 @@ _SOURCE_LABELS = {
     "ocr": None,  # rendered with its confidence below
     "vlm": "> Read from the page image by the visual model",
     "vlm-figure": "> Figure description by the visual model",
+    "chart": "> Chart data (native values from the file)",
 }
 
 

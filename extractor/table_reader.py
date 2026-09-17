@@ -9,7 +9,7 @@ from statistics import median
 
 import pdfplumber
 
-from extractor.rotated_text import keep_char, repeated_vertical_boxes
+from extractor.rotated_text import is_vertical, keep_char, repeated_vertical_boxes
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +39,12 @@ _MAX_MEDIAN_CELL_CHARS = 120
 # glued-word fix wrongly splitting a real word.
 _CELL_TEXT_X_TOLERANCE = 1.5
 
+# The ruling lines around a worked equation read as a grid whose cells are
+# nearly all empty (a 7x25 detection 6% filled on the reference course). A
+# real table with merged header cells measured 33-38% filled, so the gate
+# sits well below that.
+_MIN_FILL_RATIO = 0.2
+
 
 def _in_any_box(char, boxes) -> bool:
     """True if a char's center falls inside one of a page's stamp boxes."""
@@ -50,6 +56,50 @@ def _in_any_box(char, boxes) -> bool:
 def _clean_row(row) -> list[str]:
     """Normalize a raw row: None cells -> '', everything cast to str."""
     return ["" if cell is None else str(cell) for cell in row]
+
+
+def _vertical_cell_text(chars) -> str:
+    """Assemble a sideways cell's text in its own reading direction.
+
+    pdfplumber orders every cell top-to-bottom, so a header rotated 90 deg
+    (bottom-to-top, the usual way) comes out reversed: ``)BT( nuB`` for
+    ``Bun (TB)``. Its ``char_dir_rotated`` fixes the characters but the table
+    path still emits the lines in reverse, so the cell is rebuilt here: lines
+    are the distinct x positions, read left-to-right for bottom-to-top text
+    and right-to-left for top-to-bottom, characters along each line follow
+    the same sign, and a gap wider than the cell tolerance is a space.
+    """
+    up = sum(1 for c in chars if c["matrix"][1] > 0) >= len(chars) / 2
+    lines: dict[int, list] = {}
+    for c in chars:
+        lines.setdefault(round(c["x0"]), []).append(c)
+    out: list[str] = []
+    for _, line in sorted(lines.items(), reverse=not up):
+        line.sort(key=lambda c: c["top"], reverse=up)
+        text = ""
+        for prev, c in zip([None, *line], line, strict=False):
+            if prev is not None:
+                gap = prev["top"] - c["bottom"] if up else c["top"] - prev["bottom"]
+                if gap > _CELL_TEXT_X_TOLERANCE:
+                    text += " "
+            text += c["text"]
+        out.append(text.strip())
+    return "\n".join(out)
+
+
+def _fix_vertical_cells(page, table, cells: list[list[str]]) -> None:
+    """Rewrite in place every cell whose characters are mostly vertical."""
+    for row, boxes in zip(cells, table.rows, strict=False):
+        for col, box in enumerate(boxes.cells):
+            if box is None or col >= len(row):
+                continue
+            x0, top, x1, bottom = box
+            inside = [
+                c for c in page.chars
+                if x0 <= (c["x0"] + c["x1"]) / 2 <= x1 and top <= (c["top"] + c["bottom"]) / 2 <= bottom
+            ]
+            if inside and sum(is_vertical(c["matrix"][0], c["matrix"][1]) for c in inside) > len(inside) / 2:
+                row[col] = _vertical_cell_text(inside)
 
 
 # A ruled chart (e.g. a geological time-scale diagram) reads to pdfplumber's
@@ -80,7 +130,7 @@ def _is_real_table(cells: list[list[str]]) -> bool:
     if max_cols < _MIN_COLS:
         return False
     filled = [text for row in cells for cell in row if (text := cell.strip())]
-    if not filled:
+    if len(filled) < _MIN_FILL_RATIO * sum(len(row) for row in cells):
         return False
     if median(len(text) for text in filled) >= _MAX_MEDIAN_CELL_CHARS:
         return False
@@ -123,12 +173,17 @@ def extract_tables(pdf_path) -> dict[int, list[dict]]:
                 logger.warning("Table extraction failed on page %d: %s", page_number, exc)
                 continue
             entries: list[dict] = []
+            has_vertical = found and any(
+                is_vertical(c["matrix"][0], c["matrix"][1]) for c in page.chars
+            )
             for table in found:
                 try:
                     cells = [
                         _clean_row(row)
                         for row in table.extract(x_tolerance=_CELL_TEXT_X_TOLERANCE)
                     ]
+                    if has_vertical:
+                        _fix_vertical_cells(page, table, cells)
                 except Exception as exc:  # noqa: BLE001 - isolate single table
                     logger.warning("Table parse failed on page %d: %s", page_number, exc)
                     continue

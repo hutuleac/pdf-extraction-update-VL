@@ -32,6 +32,39 @@ def _extract_table_from_shape(shape) -> list[list[str]] | None:
     return rows if rows else None
 
 
+def _chart_to_rows(chart) -> list[list[str]] | None:
+    """Flatten a native chart's data into table rows: categories down, series across.
+
+    The values are the deck author's own numbers, so this is the only lossless
+    read of a chart — OCR sees a rendered bar, the VLM guesses at it.
+    """
+    try:
+        plot = chart.plots[0]
+        categories = [str(c) if c is not None else "" for c in plot.categories]
+        series = list(plot.series)
+    except (IndexError, AttributeError, ValueError):
+        return None
+    if not series:
+        return None
+    header = [""] + [s.name or "" for s in series]
+    columns = [list(s.values) for s in series]
+    n_rows = max(len(categories), *(len(col) for col in columns))
+    rows = [header]
+    for i in range(n_rows):
+        label = categories[i] if i < len(categories) else ""
+        cells = [_fmt(col[i]) if i < len(col) else "" for col in columns]
+        rows.append([label, *cells])
+    return rows
+
+
+def _fmt(value) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, float) and value.is_integer():
+        return str(int(value))
+    return str(value)
+
+
 def _iter_shapes(shapes):
     """Yield every shape, descending into groups.
 
@@ -56,6 +89,13 @@ def _extract_slide_text(slide) -> tuple[list[dict], list[bytes]]:
             rows = _extract_table_from_shape(shape)
             if rows:
                 blocks.append(make_table_block(rows))
+        elif getattr(shape, "has_chart", False):
+            chart = shape.chart
+            if chart.has_title and chart.chart_title.text_frame.text.strip():
+                blocks.append(make_text_block(chart.chart_title.text_frame.text))
+            rows = _chart_to_rows(chart)
+            if rows:
+                blocks.append(make_table_block(rows, source="chart"))
         # Text frame shapes (text boxes, titles, etc.)
         elif shape.has_text_frame:
             text = shape.text_frame.text

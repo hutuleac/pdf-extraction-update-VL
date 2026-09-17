@@ -8,10 +8,10 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 # Default (overridable via --max-file-mb)
-MAX_FILE_MB: int = 50
+MAX_FILE_MB: int = 100
 
 # The file cap measures the *compressed* size, and XLSX compresses roughly
-# 10:1 — a 40 MB workbook clears 50 MB and can still expand to millions of
+# 10:1 — an 80 MB workbook clears 100 MB and can still expand to millions of
 # cells in memory. These bound the expansion. They refuse the file rather than
 # truncating it: a partial workbook is silently wrong, whereas a refusal is one
 # failed file the batch reports and steps over. An OOM instead of a refusal is

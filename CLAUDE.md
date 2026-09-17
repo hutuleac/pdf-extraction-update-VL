@@ -445,7 +445,7 @@ JSON and XML refuse depth/container or node breaches, and tables refuse more
 than `MAX_TABLE_CELLS`; none of these limits silently truncate content.
 
 The file-size guard measures the *compressed* size: XLSX compresses roughly
-10:1, so a 40 MB workbook passes the 50 MB cap and can still expand to
+10:1, so an 80 MB workbook passes the 100 MB cap and can still expand to
 millions of cells in memory.
 
 `MAX_WORKBOOK_ROWS` / `MAX_WORKBOOK_CELLS` in `limits.py` bound that expansion.

@@ -13,6 +13,7 @@ from extractor.rotated_text import (
     is_vertical,
     keep_char,
     repeated_vertical_boxes,
+    repeated_vertical_words,
     skewed_words_and_text,
 )
 
@@ -205,6 +206,29 @@ def test_repeated_vertical_boxes_keeps_a_one_off_label(tmp_path):
         boxes = repeated_vertical_boxes(pdf, min_pages=5)
 
     assert boxes == {}
+
+
+def test_repeated_vertical_words_flags_a_repeating_tab(tmp_path):
+    path = _pdf_with_vertical_text(tmp_path / "tab.pdf", 6, ["SECTION TAB"] * 6)
+    with pymupdf.open(path) as doc:
+        stamped = repeated_vertical_words(doc, min_pages=5)
+    assert sorted(stamped) == [1, 2, 3, 4, 5, 6]
+    assert [t for _, t in stamped[1]] == ["SECTION", "TAB"]
+
+
+def test_repeated_vertical_words_keeps_one_off_labels(tmp_path):
+    labels = [f"http://example.org/{n}" for n in range(6)]
+    path = _pdf_with_vertical_text(tmp_path / "credits.pdf", 6, labels)
+    with pymupdf.open(path) as doc:
+        assert repeated_vertical_words(doc, min_pages=5) == {}
+
+
+def test_vertical_stamp_is_absent_from_extracted_text(tmp_path):
+    # The wiring point: the text pass drops it, not only the table pass.
+    path = _pdf_with_vertical_text(tmp_path / "tab.pdf", 6, ["SECTION TAB"] * 6)
+    text = _page_text(extract_pdf(path))
+    assert "Body text" in text
+    assert "SECTION" not in text
 
 
 def test_repeated_vertical_boxes_ignores_short_documents(tmp_path):
