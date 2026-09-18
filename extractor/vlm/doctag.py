@@ -162,6 +162,49 @@ def as_display_math(latex: str) -> str:
     return f"$$\n{body}\n$$"
 
 
+# granite-docling emits a Romanian diacritic as a word of its own, so prose
+# comes back as "p ă mânt" for "pământ": 1,879 splits across the reference
+# course's cached readings. A lone ă/â/î/ș/ț is never a word, so it always
+# belongs to a neighbour; the question is which. "rezisten ţ a" is one word
+# and "fizic ă a" is two, and no rule on the letters tells them apart. The
+# document can: its native text layer holds the vocabulary, and on the course
+# it decided 84% of the splits outright. ș/ț also cover their cedilla forms
+# (ş/ţ), which older Romanian fonts still use.
+_DIACRITICS = "ăâîșțşţĂÂÎȘȚŞŢ"
+_SPLIT_BETWEEN = re.compile(rf"(\w+) ([{_DIACRITICS}]) (\w+)")
+_SPLIT_TAIL = re.compile(rf"(\w+) ([{_DIACRITICS}])(?!\w)")
+_CEDILLA = str.maketrans("şţŞŢ", "șțȘȚ")
+
+
+def _norm(word: str) -> str:
+    return word.lower().translate(_CEDILLA)
+
+
+def vocabulary(texts) -> frozenset[str]:
+    """The words of a document's native text, as ``join_split_diacritics`` needs them."""
+    return frozenset(_norm(w) for text in texts for w in re.findall(r"\w+", text))
+
+
+def join_split_diacritics(text: str, vocab: frozenset[str]) -> str:
+    """Rejoin ``p ă mânt`` into ``pământ``, deciding each split against *vocab*.
+
+    Whole word known: join both sides. Left part known: join left only
+    ("fizică a"). Diacritic-plus-right known: join right only ("Terzaghi și").
+    Unknown: join left, the commonest shape (a feminine ending).
+    """
+    def fix(match: re.Match) -> str:
+        left, mark, right = match.groups()
+        if _norm(left + mark + right) in vocab:
+            return left + mark + right
+        if _norm(left + mark) in vocab:
+            return f"{left}{mark} {right}"
+        if _norm(mark + right) in vocab:
+            return f"{left} {mark}{right}"
+        return f"{left}{mark} {right}"
+
+    return _SPLIT_TAIL.sub(r"\1\2", _SPLIT_BETWEEN.sub(fix, text))
+
+
 def _parse_otsl(body: str) -> list[list[str]]:
     """Turn one OTSL table body into rows of cell strings."""
     rows: list[list[str]] = []

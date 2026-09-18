@@ -7,9 +7,27 @@ docs/spike-2026-09-05-granite-docling.md.
 from extractor.vlm.doctag import (
     formula_is_balanced,
     is_truncated,
+    join_split_diacritics,
     parse,
     strip_locations,
+    vocabulary,
 )
+
+
+def test_split_diacritics_rejoin_by_document_vocabulary():
+    """granite writes "p ă mânt"; which side the letter belongs to is decided by
+    the words the document's native text already holds."""
+    vocab = vocabulary(["pământ rezistența fizică și apă"])
+    cases = {
+        "p ă mânt": "pământ",              # whole word known: both sides
+        "rezisten ţ a": "rezistenţa",      # cedilla form matches the vocab; glyph kept
+        "fizic ă a fost": "fizică a fost",  # left known, right is its own word
+        "Terzaghi ș i": "Terzaghi și",     # right known, left is a name
+        "cauz ă cu": "cauză cu",           # nothing known: left, the common case
+        "de ap ă .": "de apă .",           # a trailing split joins left; spacing is otherwise kept
+    }
+    for raw, expected in cases.items():
+        assert join_split_diacritics(raw, vocab) == expected, raw
 
 PAGE_046 = (
     "<doctag><page_header><loc_49><loc_21><loc_255><loc_28>Stanciu A. • Lungu I."

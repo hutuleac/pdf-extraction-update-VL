@@ -1,10 +1,12 @@
 """Which visual model speaks which format, and how to read it back.
 
-Two models, two output languages: granite-docling emits a ``<doctag>`` tag
-stream, PaddleOCR-VL emits Markdown. The prompt that gets a model to produce
-its format and the parser that reads that format back are one choice, not two,
-so they live in a single table rather than in two places keyed on the same
-string.
+granite-docling emits a ``<doctag>`` tag stream. The prompt that gets a model
+to produce its format and the parser that reads that format back are one
+choice, not two, so they live in a single table rather than in two places
+keyed on the same string. PaddleOCR-VL had an entry here until 2026-09-18; it
+is an element recognizer built to run behind a layout detector, and fed whole
+pages it ran past an 8192-token cap on half of them. See
+docs/backlog-formulas-and-models.md.
 
 An unrecognized name is refused rather than guessed at. Falling through to the
 wrong parser produces an empty ``ParsedPage`` for every page and reports
@@ -31,19 +33,13 @@ class ModelSpec:
 
 
 # Keyed by a substring of the model name, so a quantization or a revision
-# suffix ("PaddleOCR-VL-1.6-4bit") resolves without a new entry.
+# suffix ("granite-docling-258M-mlx-4bit") resolves without a new entry.
 SPECS: dict[str, ModelSpec] = {
     "granite-docling": ModelSpec(
         # Not a knob: a free-form instruction produces prose, not the tag
         # stream doctag.py parses.
         prompt="Convert this page to docling.",
         parser="extractor.vlm.doctag",
-    ),
-    "paddleocr-vl": ModelSpec(
-        # The model card's own measurements: this default scores 1.00 field
-        # accuracy, while an explicit "markdown table" instruction scores 0.88.
-        prompt="Transcribe this document to markdown.",
-        parser="extractor.vlm.markdown_doc",
     ),
 }
 

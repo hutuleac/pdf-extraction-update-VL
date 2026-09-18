@@ -16,7 +16,7 @@ import pymupdf
 
 from extractor.vlm import registry
 from extractor.vlm.config import get_config
-from extractor.vlm.doctag import ParsedPage, as_display_math
+from extractor.vlm.doctag import ParsedPage, as_display_math, join_split_diacritics, vocabulary
 from extractor.vlm.engine import render_page
 from extractor.vlm.models import parser_for
 
@@ -169,6 +169,9 @@ def vlm_pages(
     # One parser for the run: the model cannot change between pages, and
     # choosing it here keeps the per-page loop free of format knowledge.
     parser = parser_for(get_config().model)
+    # The document's own words decide how the model's split diacritics rejoin;
+    # see doctag.join_split_diacritics. Built once: it reads every page.
+    vocab = vocabulary(native_texts)
 
     engine = registry.get_engine()
     dpi = get_config().dpi
@@ -195,6 +198,11 @@ def vlm_pages(
                 # The cap is evidence the answer was cut off; the parser's own
                 # check is whatever extra its format can prove.
                 truncated = capped or parser.is_truncated(raw)
+                parsed.text = join_split_diacritics(parsed.text, vocab)
+                parsed.tables = [
+                    [[join_split_diacritics(cell, vocab) for cell in row] for row in table]
+                    for table in parsed.tables
+                ]
             except Exception as exc:  # noqa: BLE001 - isolate one page's failure
                 logger.warning("Visual fallback failed on page %d: %s", page_number, exc)
                 warnings.append({

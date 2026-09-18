@@ -261,11 +261,13 @@ rather than the reading probe, for the same reason: under `auto` there may be
 no reading engine to consult, and loading granite to decide whether Qwen can
 run would be the cost `auto` exists to avoid.
 
-**Two models, two output languages, one table.** `--vlm-model` selects the
-prompt that makes a model emit its format *and* the parser that reads it back —
-one choice, so it lives in one place: `models.py`. granite-docling emits a
-`<doctag>` stream (`doctag.py`); PaddleOCR-VL emits Markdown (`markdown_doc.py`).
-Both produce the same `ParsedPage`. An unrecognized name raises
+**One model, one table.** `--vlm-model` selects the prompt that makes a model
+emit its format *and* the parser that reads it back — one choice, so it lives
+in one place: `models.py`. granite-docling emits a `<doctag>` stream
+(`doctag.py`) and produces a `ParsedPage`. PaddleOCR-VL had the second entry
+until 2026-09-18 and was removed on measurement (README's visual-model section,
+`docs/backlog-formulas-and-models.md`): built as an element recognizer behind a
+layout detector, fed whole pages it ran past an 8192-token cap on half of them. An unrecognized name raises
 `VlmUnavailable(UNKNOWN_MODEL)` rather than falling through to the wrong parser,
 which fails invisibly: an empty page and `VLM_OUTPUT_REJECTED: empty` for every
 page, with no hint why. granite is the default on measured evidence — see the
@@ -276,20 +278,18 @@ caller.** Both models write multi-line equations as a bare *alignment body* —
 `V_1 & = ... \\ & + ...`, the inside of an `align` environment — and neither
 emits the environment around it. In bare `$$` that is a KaTeX parse error
 (`Expected 'EOF', got '&'`) and the equation renders as nothing. The wrap lives
-beside `formula_is_balanced` because all three emission sites (`doctag.parse`,
-`markdown_doc.parse`, `apply.py`'s redundant-page rebuild) need it and patching
-one leaves the other two broken. `formula_is_balanced` also counts braces, not
+beside `formula_is_balanced` because both emission sites (`doctag.parse` and
+`apply.py`'s redundant-page rebuild) need it and patching one leaves the other
+broken. `formula_is_balanced` also counts braces, not
 just `\left`/`\right`: a stray `}` inside a valid `array` renders as nothing
 and the delimiter count cannot see it — 1 of 479 formulas on the reference
 course, and that one was the bug.
 
 **Truncation is proved by the token cap, not inferred from the text.**
 `engine.convert` returns `(raw, capped)` from the model's own
-`finish_reason == "length"`. That is the only truncation evidence Markdown
-offers — prose cut mid-sentence looks exactly like prose that ended there, which
-is why `markdown_doc.is_truncated` returns False and defers to the cap.
-`doctag.is_truncated` adds its tag-balance check on top. A rejected page keeps
-its native text.
+`finish_reason == "length"`. Prose cut mid-sentence looks exactly like prose
+that ended there, so any parser defers to the cap first; `doctag.is_truncated`
+adds its tag-balance check on top. A rejected page keeps its native text.
 
 That cap is now the backstop, not the primary defence. `--vlm-repetition-penalty`
 (default 1.05) stops the loops at the sampler instead of paying for them and
@@ -304,19 +304,17 @@ setting that fixes it was turned on. Lowering `--vlm-max-tokens` was considered
 and rejected — healthy pages cost 1475 tokens on average against the 4096 cap, so
 the cap never binds on the normal path and only unused budget would be cut.
 
-**That average is granite's, and it does not carry to the other model.** On the
-388-page geotechnics course PaddleOCR-VL hit the cap on **143 of the 245 pages it
-attempted, against granite's 12** — 58% against 5%. Markdown spends far more
-tokens than a doctag stream on the same dense page of equations and tables, so
-the cap that never binds for granite binds for most of PaddleOCR-VL's run. A
-capped page is rejected and keeps its native text, which is the whole of the
-*coverage* gap between the two models at this scale: granite kept 170 pages,
-PaddleOCR-VL 131. It is not a quality gap: once inline `\(...\)` maths was
-counted, PaddleOCR-VL recovered 827 formulas to granite's 478, transcribed the
-50 shared pages more accurately, and never split Romanian words around
-diacritics where granite did so 848 times. See the README's visual-model
-section for the page-level diff and `docs/backlog-formulas-and-models.md` for
-the pending decision on which model should be the default.
+**That average is granite's, and it did not carry to the other model.** On the
+388-page geotechnics course PaddleOCR-VL (removed 2026-09-18) hit the cap on
+**143 of the 245 pages it attempted, against granite's 12** — 58% against 5% —
+and doubling its cap to 8192 changed nothing: 28 of 56 damaged pages still
+capped, ten of them literal repetition loops. Markdown spends far more tokens
+than a doctag stream on a dense page, but the cause is deeper: the model is an
+element recognizer built to run behind a layout detector, and whole pages are
+off-label for it. On the pages it finished it transcribed more cleanly and
+never split Romanian words around diacritics; that advantage is now
+`doctag.join_split_diacritics` on granite's output (README, visual-model
+section). The experiment is in `docs/backlog-formulas-and-models.md`.
 
 The truncation *cascades*, which is the non-obvious part. A rejected page never
 sets the `skip=` that tells `_ocr_pages` the visual model already handled it, so
@@ -343,7 +341,7 @@ carries text: a page kept for its tables alone replaces nothing, so OCR still
 gets a shot at the garbled prose standing beside them. Native tables always win
 over the model's: pdfplumber reads ruling lines, the model infers them.
 
-**Both reading models fabricate URLs, and nothing in the pipeline catches it.**
+**The reading model fabricates URLs, and nothing in the pipeline catches it.**
 Measured on the 388-page course: of the URLs appearing in the model's kept text,
 granite invented 11 of 13 and PaddleOCR-VL 8 of 9. They are not garbled — they
 are plausible, well-formed and wrong: `jrbengineering.com` came back as

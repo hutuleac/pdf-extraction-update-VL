@@ -185,7 +185,7 @@ on 48 pages. That is a granite defect, but it is a five-line post-fix in
 `doctag.py`: a lone `ă â î ș ț` between two word characters is never a
 word in Romanian, so it can be joined back.
 
-**Decision: cut PaddleOCR-VL from the mlx path.** Coverage is the larger
+**Decision, applied 2026-09-18: PaddleOCR-VL removed from the pipeline** (model table entry, `markdown_doc.py`, its tests). Coverage is the larger
 effect by far and its one real advantage is fixable on granite's side. The
 model itself is not the problem; whole-page prompting is. Its correct use,
 the official two-stage `PaddleOCRVL` pipeline in PaddleOCR 3.x (layout +

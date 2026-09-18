@@ -144,7 +144,7 @@ flowchart TD
     CONF -->|yes| OCRTEXT["source: ocr" text block]
     CONF -->|no, garbled page| REJECT[OCR_REJECTED_LOW_CONFIDENCE<br/>native damaged text kept instead]
 
-    CLS -.->|every page, unless --no-vlm| VLM[Visual model: granite-docling / PaddleOCR-VL<br/>on by default]
+    CLS -.->|every page, unless --no-vlm| VLM[Visual model: granite-docling<br/>on by default]
     VLM --> KIND{Page type?}
     KIND -->|scanned / garbled| REPLACE{Reading contains text?}
     REPLACE -->|yes| WIN["source: vlm" text replaces native/OCR<br/>text; OCR skipped for this page]
@@ -229,7 +229,7 @@ Model search order: `--ocr-model-dir` -> `$KE_OCR_MODEL_DIR` -> `models/ocr/` ->
 directory explicitly disables the fallbacks, so a wrong path is reported rather
 than silently replaced by a different model.
 
-## Visual model (granite-docling, PaddleOCR-VL)
+## Visual model (granite-docling)
 
 OCR reads glyphs. It cannot tell an equation from a caption, and it returns a
 figure's axis labels as a bag of words. `--vlm` adds a second reader for that:
@@ -237,95 +237,46 @@ a document vision model run locally on Apple Silicon through `mlx`.
 
 ```bash
 pip install -e ".[vlm]"           # mlx-vlm + torchvision; weights download on first use
-python main.py                    # --vlm is on by default
-python main.py --no-vlm           # native text + OCR only, no visual model
-python main.py --vlm-model mlx-community/PaddleOCR-VL-1.6-4bit
+python main.py --vlm              # read damaged pages with granite-docling
+python main.py --vlm --vlm-pages all
 ```
 
-Two models are supported, and the name selects the output format with it:
+One model is supported, and the name selects the output format with it:
 
 | `--vlm-model` contains | Model | Emits | Parser |
 |---|---|---|---|
 | `granite-docling` | `ibm-granite/granite-docling-258M-mlx` (default) | `<doctag>` stream | `doctag.py` |
-| `paddleocr-vl` | `mlx-community/PaddleOCR-VL-1.6-4bit` (0.68 GB, 958M params) | Markdown | `markdown_doc.py` |
 
-Any other name is refused with `VLM_UNAVAILABLE` naming the two it knows,
+Any other name is refused with `VLM_UNAVAILABLE` naming the one it knows,
 rather than parsed with the wrong reader and reported as an empty document.
 
-**granite-docling is the default because it measured better where it counts.**
-On 10 garbled pages of a 388-page course PDF, granite had 9 accepted and
-recovered 33 formulas; PaddleOCR-VL had 1 accepted and recovered none. It emits
-no LaTeX at all under whole-page prompting — its upstream pipeline detects
-formula regions with a separate layout model first, and this pipeline gives it
-whole pages. It also fell into repetition loops on 6 of those 10, against
-granite's 1. PaddleOCR-VL remains available for documents where plain
-transcription is the goal; it is not the better choice for formulas or for
-recovering damaged pages.
+PaddleOCR-VL (0.9B, Markdown output) was the second model until 2026-09-18
+and was removed on measurement. On the 56 damaged pages of the 388-page
+reference course, with its token cap doubled to 8192, it still ran past the
+cap on 28 pages (ten of them literal repetition loops) and kept 19 pages to
+granite's 48, 49 display formulas to granite's 185. The cap was a symptom:
+the model is built as the element-recognition stage behind a layout detector
+and was being fed whole pages. On the pages it finished it transcribed more
+cleanly and never split Romanian words around diacritics, where granite did
+so 548 times; that one advantage is now fixed on granite's output instead
+(see below). The full experiment is in `docs/backlog-formulas-and-models.md`,
+which also names the model's proper two-stage pipeline as the Windows
+candidate.
 
-The whole of that course has since been run through both, and the gap holds at
-scale for one measurable reason — **PaddleOCR-VL runs out of tokens**. Same
-document, same 4096-token cap, same 279 described pages:
+Neither model could be trusted on URLs: granite invented 11 of the 13 URLs
+in its kept text on that course, in well-formed and entirely plausible form.
+See CLAUDE.md's merge-rule section and the `VLM_URL_UNVERIFIED` warning.
 
-| | granite-docling | PaddleOCR-VL |
-|---|---|---|
-| Pages kept (`VLM_APPLIED`) | 170 | 131 |
-| Formulas recovered | 478 | **827** |
-| Rejected as truncated | 12 | 143 |
-| Pages falling through to OCR | 2 | 24 |
-
-**PaddleOCR-VL recovers more formulas than granite, on fewer pages.** That
-reverses this table's earlier reading, which counted 57 against 478 and was
-wrong: `markdown_doc._FORMULA` matched `$$…$$` and `\[…\]` only, and this
-model writes most of its maths *inline* as `\(…\)`. 486 formulas per run were
-invisible to the count and — because counting and validating are one pass —
-skipped `formula_is_balanced` entirely. Counting them also stopped 29 pages
-being discarded as duplicates that had contributed nothing but their equations,
-which is why the page count rose from 102.
-
-Inline formulas are counted where they stand, not promoted to display blocks:
-338 of the 486 sit inside a sentence (`…for z = 0, \(p_a = q K_a = 10,15\)
-kN/m²`), and lifting one out would cut its sentence in half. granite emits no
-inline maths at all, so the comparison above is like-for-like.
-
-Markdown costs far more tokens than a doctag stream on a dense page, so the cap
-binds on 58% of PaddleOCR-VL's attempted pages against granite's 5%, and a
-truncated page is rejected back to its native text. The OCR column is the same
-cause downstream: a rejected page never suppresses the OCR pass. Whether raising
-`--vlm-max-tokens` closes the gap is untested — the comparison above is of the
-shipped defaults, and the default stands on those.
-
-Neither model should be trusted on URLs: on that run granite invented 11 of the
-13 URLs in its kept text and PaddleOCR-VL 8 of 9, in well-formed and entirely
-plausible form. See CLAUDE.md's merge-rule section.
-
-A page-level diff of the two runs refines the picture further, and not in
-granite's favour on quality:
-
-- **They read different pages, not more and fewer of the same ones.** Of the
-  221 pages one model or the other kept, only 50 were kept by both — 119 are
-  granite-only, 52 PaddleOCR-VL-only. Granite's extra pages are real content
-  (98,746 chars, median novelty 1.00 against their own native text, 333 formula
-  blocks), so its coverage advantage is genuine. But PaddleOCR-VL reads 52 pages
-  granite drops entirely.
-- **On the pages both read, PaddleOCR-VL is the more accurate transcriber.** It
-  kept more text there (66,029 chars against 53,504) and the two agree on only
-  9 of 50 pages. On page 315 granite collapsed one equation into scrambled
-  tokens (`10, 4046 25 0, 6 1 a p K q K`) and dropped a factor from the next —
-  writing `γ₁·H₁ + q·K_a1` for arithmetic that computes `γ₁·H₁·K_a1 + q·K_a1`.
-  That formula is *balanced*, so `formula_is_balanced` passes it: a silently
-  wrong equation, which is the failure this pipeline treats as worse than a
-  missing one. PaddleOCR-VL rendered both correctly.
-- **granite damages Romanian text; PaddleOCR-VL does not.** It splits words
-  around diacritics — `Exist ă ș i instala ț ii` — 848 times across 28 pages,
-  against PaddleOCR-VL's zero. This also defeats the redundancy gate, whose
-  `_words` drops tokens of 3 characters or fewer: the split fragments score as
-  novel, so ~21,700 chars of duplicated prose shipped on 10 of 136 additive
-  pages.
-
-granite remains the default: coverage is the larger effect, and the truncation
-that costs PaddleOCR-VL 143 pages is a property of the shipped cap. But on a
-diacritic-heavy or formula-critical document, check PaddleOCR-VL before assuming
-the default is better — on the pages both models read, it was.
+**Split diacritics are rejoined against the document's own vocabulary.**
+granite emits a Romanian diacritic as a word of its own, so prose came back as
+`p ă mânt` for `pământ`: 1,879 splits across the course's cached readings. A
+lone `ă â î ș ț` is never a word, so it always belongs to a neighbour, but no
+rule on the letters says which: `rezisten ţ a` is one word and `fizic ă a` is
+two. The native text layer of the other pages holds the answer, so
+`doctag.join_split_diacritics` looks each split up there: whole word known,
+join both sides; left part known, join left; diacritic plus right known
+(`Terzaghi ș i`), join right; nothing known, join left, the commonest shape.
+On the course this took the run from 548 splits to 0.
 
 Off by default, and slow — roughly 5–14 s per page, so a 400-page book is most
 of an hour. Every inference is cached under
@@ -469,7 +420,7 @@ pytest-cov, ruff). Tested on Python 3.14 (Windows).
 | OCR raster budget | 25 MP | Hard limit per rasterized image/page. Larger inputs fail as `resource_limit`; adaptive resizing is planned but not enabled |
 | `--vlm` / `--no-vlm` | off | Read pages with a visual model too (Apple Silicon only; downgrades with a visible warning elsewhere) |
 | `--vlm-pages` | `auto` | `auto`: only scanned, garbled and symbol-damaged pages. `all`: every page, which also recovers formulas on healthy pages at ~14 s/page |
-| `--vlm-model` | `ibm-granite/granite-docling-258M-mlx` | Model to load; the name must contain `granite-docling` or `paddleocr-vl` |
+| `--vlm-model` | `ibm-granite/granite-docling-258M-mlx` | Model to load; the name must contain `granite-docling` |
 | `--vlm-dpi` | 144 | Resolution used to render pages for the model |
 | `--vlm-repetition-penalty` | `1.05` | Penalty on repeated tokens; stops the repetition loops both models fall into on damaged pages. `1.0` disables it |
 | `--vlm-max-tokens` | 4096 | Token budget per page |
@@ -573,7 +524,6 @@ tests/
 ├── test_vlm_describe.py        # Figure description: page selection, NONE gate
 ├── test_vlm_doctag.py          # granite-docling doctag parsing/validation
 ├── test_vlm_engine.py          # MlxVlmEngine + render_page, truncation signal
-├── test_vlm_markdown.py        # PaddleOCR-VL Markdown output parsing
 ├── test_vlm_pipeline.py        # Visual-layer blocks reaching JSON/Markdown
 ├── test_vlm_registry.py        # Visual-model probe: every unavailability path, never raises
 ├── test_warning_text.py        # Warning-code -> human-readable sentence rendering
