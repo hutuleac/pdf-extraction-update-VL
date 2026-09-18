@@ -160,7 +160,9 @@ measurement, not a regression guard.
   and `27,2^\circ`, `\tt tg` and `tg`, `_{i}` and `_i`, Romanian glue
   words (`și`, `sau`, `cu`) between two formulas — all folded by
   `score.normalize`. Digits, operators, subscripts and structure are
-  compared exactly. Decimal commas stay commas.
+  compared exactly. A decimal point for the page's decimal comma (`1.85`
+  for `1,85`) is folded too: it is a notation choice the reader survives,
+  where a changed digit is not.
 - **Boxes come from two sources and are not equally good.** 123 boxes
   are granite's own `<loc>` coordinates for the formula it read
   (`bbox_source: granite-loc`); 13 are hand-estimated off a 110-dpi render
@@ -246,6 +248,80 @@ by the plan step 3 runs with PP-DocLayout in front; the cheaper
 alternative worth one more probe is tightening the 6 pt merge and
 requiring a maths-font *or* script signal, not short lines alone, to cut
 the 36% empties.
+
+### Recognizer bake-off on ground-truth crops (step 3, measured 2026-09-18)
+
+Run crops-first, deliberately skipping the region problem: each of the 136
+expected formulas was rendered from its own ground-truth box
+(`render_crops.py`, 200 DPI, box widened to the native words it overlaps,
+6/4 pt padding) and handed to each recognizer one crop at a time. This is
+the recognizers' best case — a perfect region finder, no prose crops — so
+a number here is an upper bound on what the integrated path could do.
+
+Environment: PaddleOCR 3.7.0 / PaddlePaddle 3.3.1 (`FormulaRecognition`
+pipeline, CPU, needed `tokenizers` and `ftfy` on top of the base install)
+and pix2tex 0.1.4 on PyTorch 2.14, both in Python 3.12 venvs; Apple M-series
+CPU. Raw outputs are in `results/`, so the table can be regenerated with
+`score.py` without the venvs.
+
+| | granite-docling (page) | PP-FormulaNet-S | PP-FormulaNet_plus-S | pix2tex |
+|---|---|---|---|---|
+| recovered, mismapped half (47) | 40 | 18 | 13 | 18 |
+| recovered, scattered half (89) | 66 | 16 | 16 | 18 |
+| **recovered, total (136)** | **106 (78%)** | **34 (25%)** | 29 (21%) | 36 (26%) |
+| **wrong-but-balanced** | **18** | **47** | 69 | 74 |
+| unbalanced (gated) | 1 | 54 | 38 | 28 |
+| median s / crop, CPU, uncontended | ~14 s / page | 0.25 | 0.23 | 0.36 |
+| weights | 258M, mlx | ~40 MB | ~224 MB | ~100 MB |
+
+**Stop condition hit.** The best crop recognizer recovers 34 of granite's
+106, 32% of what granite does, against the 60% bar — and does so while
+producing 47 balanced wrong equations to granite's 18. Speed is exactly
+as advertised (a quarter second a crop, so the whole course's formulas in
+about two minutes), and it does not matter, because the output would
+mostly be confident, well-formed, wrong LaTeX.
+
+What the failures look like, from the near-miss list (normalized edit
+similarity above 0.85, so these are the *good* cases):
+
+- **Digits and subscripts corrupted on clean crops**: `d_{00}` for
+  `d_{60}`, `2!,3` for `2,3`, `\partial_z_z`, `x^{^2}`, `\log` dropped,
+  `E_{oed}` losing its interval. These are the same class as granite's
+  worst errors, at four times the rate.
+- **Runaway tokens**: `\!\!\!\!\!…` runs, `\begin{array}` wrappers around a
+  one-line equation, `\stackrel`/`\underset` scaffolding, `\boldsymbol`
+  on every symbol. This is the recognizer signalling it does not
+  recognise the typesetting — the course is Word Equation Editor output
+  with Times italics, not a LaTeX render, and these models are trained on
+  LaTeX renders (UniMER, im2latex).
+- **Romanian words inside the formula** (`și`, `sau` between two
+  equations on one line): every model garbles the word and often the
+  formula either side of it. granite reads them as text.
+
+**The watermark is not the cause.** 105 of 136 crops carry the pink
+"DIDACTIC" band. Per-crop recovery on the 31 clean crops is 26-29% against
+16-21% on the watermarked ones, so the band costs about a third of what
+little the recognizers get, and removing it would leave them at under 30%.
+
+**Wider crops did not help.** The first pass used granite's boxes as-is;
+widening to overlapping native words moved each model by a few formulas
+in either direction (the normalizer was tightened between the two passes,
+so the comparison is rough). The models are not starved of pixels.
+
+**Decision: formula-only crop recognizers are out** for this corpus, both
+PP-FormulaNet variants and pix2tex, and with them the region-finder work
+of step 2 (no recognizer to feed). Two things still stand:
+
+1. granite-docling remains the only measured path to formulas, and it is
+   Mac-only. The Windows gap is now a step-5 question: GOT-OCR2 as a page
+   model on CPU, or Docling's CodeFormula, on these same 20 pages with
+   this same scorer.
+2. granite's own 18 wrong-but-balanced formulas concentrate in worked
+   examples with long numeric fractions (page 209, page 315). A gate for
+   that class — a formula whose numbers do not appear in the page's native
+   text — is cheap to test against this set and would catch most of the
+   18 without a second model. That is the next experiment before any
+   Windows work.
 
 ## Parked
 

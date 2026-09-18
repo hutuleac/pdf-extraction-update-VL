@@ -1,0 +1,218 @@
+{
+ "111": {
+  "formulas": [
+   "\\begin aligned}{{vec\\ {0.}}\\\\ {\\vec{\\}\\ \\ \\ \\{\\=k\\cdot\\vec{i}_{g r.}}}\\\\ \\end{aligned}",
+   "\\vdots\\Rightarrow k_{T_T}=\\frac{V\\cdot L}{T\\cdot A\\cdot h}",
+   "\\Rightarrow k_{t}=2{,}3\\cdot\\cfrac{L}{T}\\cdot\\operatorname{l o g}\\left(\\cfrac{h_{1}}{h_{2}}\\right)",
+   "\\begin{aligned}{o m m m e s}&{{}\\left(0.11000\\ 100\\right\\cdot}\\\\ {\\implies:&{{}k frac{c_{v\\}}{\\cdot}a_{v}{\\cdot}\\gamma_{w}{\\cdot}100}\\\\ {\\ \\ }}&{{}\\frac{}{\\}frac\\end aligned}"
+  ]
+ },
+ "115": {
+  "formulas": [
+   "V_{_1}(\\mathrm{i n t r a r e})=V_{_2}(\\mathrm{i c s i r e})",
+   "\\begin{aligned}{}&{{}\\overline{{V_{_}{1}}}=\\Bigg(\\mathbf{v}_{_x}+\\frac{\\partial\\mathbf{v}_{_x}}{\\partial x}\\cdot\\frac{d x}{2}\\Bigg)d v d z d t+}\\\\ {}&{{}+\\Bigg(\\mathbf{v}_{_y}+\\frac{\\partial\\mathbf{v}_{_y}}{\\partial y}\\cdot\\frac{d y}{2}\\Bigg)\\overline{{d x d z d t}}+\\Bigg(\\mathbf{v}_{_z}+\\frac{\\partial\\mathbf{v}_{_z}}{\\partial z}\\cdot\\frac{d z}{2}\\Bigg)d x d y d t}\\\\ \\end{aligned}",
+   "\\begin{aligned}{}&{{}V_{_2}=\\left(\\mathbf{v}_{_x}-\\frac{\\partial\\mathbf{v}_{_x}}{\\partial x}\\cdot\\frac{d x}{2}\\right)d z d y d t+\\left(\\mathbf{v}_{_y}-\\frac{\\partial\\mathbf{v}_{_y}}{\\partial y}\\cdot\\frac{d y}{2}\\right)d x d z d t+}\\\\ {}&{{}+\\left(\\mathbf{v}_{_z}-\\frac{\\partial\\mathbf{v}_{_z}}{\\partial z}\\cdot\\frac{d z}{2}\\right)d x d y d t}\\\\ \\end{aligned}",
+   "\\begin{array}{c}{\\mathrm{t o e o s o o s t e c e e s e e e}}\\\\ {\\frac{\\partial\\mathrm{v}_{x}}{\\partial x}+\\frac{\\partial\\mathrm{v}_{y}}{\\partial y}+\\frac{\\partial\\mathrm{v}_{z}}{\\partial z}=0}\\\\ \\end{array}",
+   "\\frac{\\partial\\mathrm{v}_{_x}}{\\partial x}+\\frac{\\partial\\mathrm{v}_{_y}}{\\partial y}+\\frac{\\partial\\mathrm{v}_{_z}}{\\partial_{z_z}}=0",
+   "\\frac{\\partial^{2}H}{\\partial x^{^2}}+\\frac{\\partial^{2}H}{\\partial y^{^2}}+\\frac{\\partial^{2}H}{\\partial y^{^2}}=0.",
+   "\\left\\{\\mathrm{v}\\right\\}=\\left[k\\right]\\cdot\\left\\{i_{_r r.}\\right\\}",
+   "\\frac{\\partial^{2}H}{\\partial x^{2}}+\\frac{\\partial^{2}H}{\\partial y^{2}}=0",
+   "\\Delta H=0"
+  ]
+ },
+ "141": {
+  "formulas": [
+   "\\begin{aligned}{o u u u u r u u l}\\\\ {\\varepsilon_{z}=\\frac{\\sigma_{z}}{M}}\\\\ {o d u u l u d d a l}}\\\\\\alignedalignedaligned{{{}}_\\\\{d d u d a d a d e}}\\\\\\aligned aligned{{{}}}\\ \\aligned\\}{aligned{}}\\\\{aligned}{}\\\\ \\end{aligned}",
+   "\\begin aligned}{\\varepsilon_{_z{}=}}&{{{\\}{\\frac{1}{E}}{\\cdot}\\left[\\sigma_{_z}-\\nu\\ \\((\\sigma_{_x}+\\sigma_{_y})\\right)]\\;}\\\\ \\end{aligned}",
+   "\\begin{array}{c c}}{{\\\\ }}&{{\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ ,\\\\ \\\\},,\\\\ {\\frac{\\sigma_{z}^{'}}{\\left{it}frac11}}M={\\frac{1}}{E}\\cdot\\left(\\sigma_{z}-2\\cdot\\nu\\cdot\\sigma_{x}\\right)\\right\\Rightarrow\\ E=M\\cdot\\left(1-2\\cdot\\nu\\cdot\\frac{\\sigma_{x}}{\\sigma_{z}}\\right)}\\\\ {\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ }\\\\ \\ {\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\",
+   "\\implies\\ E=M\\cdot\\left(1-2\\cdot\\nu\\cdot K_{o_}\\right)",
+   "\\varepsilon_{x}=\\varepsilon_{y}=\\frac{1}{E}\\cdot\\left[\\sigma_{x}-v\\cdot\\left(\\sigma_{x}+\\sigma_{y}\\right)\\right]\\Rightarrow\\sigma_{x}-v\\cdot\\sigma_{x}+v\\cdot\\sigma_{y}=0\\Rightarrow K_{0}=\\frac{v}{1-v}"
+  ]
+ },
+ "146": {
+  "formulas": [
+   "\\begin{aligned}{}&{{}\\underset{\\ {begin}{}&{{}\\ d e a l p l i d i t left((boldsymbol),\\text{r e z u l a t}}\\\\ \\end{array}\\right.}{G_{i}=\\underbrace{m_{i}\\cdot\\boldsymbol{g}\\Rightarrow G_{i}=A\\cdot\\sum_{i}^{n}(h_{i}\\cdot\\boldsymbol{\\rho}\\cdot\\boldsymbol{g})}\\Rightarrow}\\\\ {}&{{}\\vdots}\\\\ {}&{{}\\underbrace{G_{i}=\\underbrace{m_{i}\\cdot g\\Rightarrow G_{i}=A\\cdot\\sum_{i}^{n}(h_{i}\\cdot\\boldsymbol{\\rho}\\cdot\\boldsymbol{g})}_{i}}_{=mathbf}}\\\\ \\end{aligned}",
+   "\\boxed{G_{i}=A\\cdot\\gamma\\cdot\\sum_{i}^{n^{\\ 1}}h_{i}}",
+   "\\over{\\ G=\\sum_{1}^{n}G_{i}\\underbrace{\\ g\\times\\sum_{1}^{n}m_{i}}_{\\sub{i i d e d i}}}=\\underbrace{g\\times\\sum_{1}^{n}V_{i}\\times\\rho_{i}}",
+   "\\begin{aligned}{}&{{}\\quad\\text{y r a c e r}}\\\\ {}&{{}\\quad\\sigma_{z,M}=G/A=(A\\cdot\\gamma\\cdot\\sum_{1}^{n}h_{i}\\left.\\right)/A=\\gamma\\cdot H}\\\\ {}&{{}\\quad\\text{s u l l i n d o\\;v a r i a t i e\\\\ l i n i a r\\;a l l a n a i c m e a}.}\\\\ \\end{aligned}",
+   "\\begin{array}{c}{\\ a b e m e e a r e m e m a n e r e n e s e e s e n}\\\\ {\\sigma_{x,M}=\\sigma_{y,M}=K_{0}\\cdot\\sigma_{z,M}}\\\\ \\end{array}",
+   "\\begin{array}{c}{\\ \\ \\ \\_\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ }{{}}\\\\ {\\ "
+  ]
+ },
+ "150": {
+  "formulas": [
+   "e_{_i}=e_{_0}-\\left(\\frac{\\Delta h_{_i}}{h_{_0}}\\right)_{__p}cdotcdot\\left(1+e_{_0}\\right)",
+   "m_{_0}=\\left(1-\\frac{\\rho_{_}}{\\rho_{_s}}\\right)\\cdot100=\\left(1-\\frac{1,13}{2,7}\\right)\\cdot\\overline{{100}}=5,15(\\",
+   "e_{_0}=\\frac{n_{_0}/100}{1-n_{_0}/100}=\\frac{58_15/100}{1-58,15/100}=1,38",
+   "\\overline{{q_{\\nu}}}=\\overline{{\\frac{\\Delta e}{\\Delta p}}}=\\frac{1,3\\ {1,1},19}{300-100}=0,000\\overline{{\\overline{{55}}}}(1/k k a)",
+   "\\overbrace{a_{\\nu}=\\frac{\\Delta e}{\\Delta p}=\\frac{1,25-1,19}{300-200}=0,0006(1/k P a)}^{T\\ T}",
+   "\\widetilde{m_{\\nu}}=\\frac{1}{E_{o_d e_{{00-300}}}}\\ \\ \\frac{1}{4597,701}=0,00022(1\\ k k P a).",
+   "m_{\\nu}=\\overbrace{\\frac{1}{E_{o e d_{200-300}}}}^{1}=\\overbrace{\\frac{1}{5405,405}}^{-1}=0,00018(1/k k a)."
+  ]
+ },
+ "209": {
+  "formulas": [
+   "\\begin{aligned}{(1-delta beta).}\\\\ {\\operatorname{t a n}\\phi}&{{}=\\frac{n\\cdot\\sum\\sigma_{i}\\cdot\\tau_{i}-\\sum\\sigma_{i}\\cdot\\sum\\tau_{i}}{n\\cdot\\sum\\sigma_{i}^{2}-\\left(\\sum\\sigma_{i}\\right)^{2-}}}\\\\ {c=}&{{}\\frac{n\\cdot\\sum\\sigma_{i}^{2}\\cdot\\sum\\tau_{i}-\\sum\\sigma_{i}\\cdot\\sum\\sigma_{i}\\cdot\\sum\\sigma_{i}\\cdot\\tau_{i}}{n\\cdot\\sum\\sigma_{i}^{2}-\\left(\\sum\\sigma_{i}\\right)^{2}}}\\\\ \\end{aligned}",
+   "\\boxed{c_{_{s c}}=10,96k P a}",
+   "\\begin{aligned}{(1-delta beta).}\\\\ {\\operatorname{t a n}\\phi}&{{}=\\frac{n\\cdot\\sum\\sigma_{i}\\cdot\\tau_{i}-\\sum\\sigma_{i}\\cdot\\sum\\tau_{i}}{n\\cdot\\sum\\sigma_{i}^{2}-\\left(\\sum\\sigma_{i}\\right)^{2-}}}\\\\ {c=}&{{}\\frac{n\\cdot\\sum\\sigma_{i}^{2}\\cdot\\sum\\tau_{i}-\\sum\\sigma_{i}\\cdot\\sum\\sigma_{i}\\cdot\\sum\\sigma_{i}\\cdot\\tau_{i}}{n\\cdot\\sum\\sigma_{i}^{2}-\\left(\\sum\\sigma_{i}\\right)^{2}}}\\\\ \\end{aligned}",
+   "\\boxed{\\begin{array}{l}{\\operatorname{t a n}\\phi_{\\mathrm{m a x}}=\\overbrace{{frac{3\\cdot\\left(100\\cdot90+200\\cdot145,83+300\\cdot181\\cdot39\\right)-\\left(100+200+300\\right)\\cdot\\left(90+145,83+181,39\\right)}{3\\cdot\\left(100^{2}+200^{3}+300^{4}\\right)-\\left(100+200+300\\right)^{2}}}}{\\ }\\ }}\\ \\",
+   "\\tan\\phi_{\\mathrm{m a x}}=0,457\\Rightarrow\\phi_{\\mathrm{m a x}}=27,2^{0}",
+   "\\boxed{\\begin{array}{l}{c_{m m}=\\frac{3\\cdot(100^{2}+200^{2}+300^{2})\\cdot(\\over{{00+145,88^{3}+181,39}})\\cdot(600)\\cdot(100\\cdot90+200\\cdot145,83+300\\cdot181,39)}{3\\cdot(100^{3}+200^{2}+300^{2})-(100+200+300)^{2}}\\Rightarrow}\\\\ \\end{array}}",
+   "c_{_{m a x}}=47,68k P a",
+   "\\box[\\begin{array}{c}{\\operatorname{t a n}\\phi_{c}=\\frac{3\\cdot(100\\cdot37,5+200\\cdot58,89+300\\cdot80)-(100\\cdot200+300)\\cdot(37,5+58,89+88)}{3\\cdot(100^{2}+200^{2}+300^{2})-(100+200+300)^cdot}\\ \\ }\\\\ {\\vdots}\\\\ \\end{array}\\Longrightarrow",
+   "\\boxed{\\operatorname{t a n}\\phi_{\\operatorname*{m a x}}=0,253\\Rightarrow\\phi_{\\operatorname*{m a x}}=14,6^{0}}",
+   "\\boxed{\\begin{aligned}{c_{w e}=}&{{}\\frac{3\\cdot(100^{2}+200^{2}+300^{2})\\cdot(37,5+58,89+88)-(600)\\cdot(100\\cdot37,5+200\\cdot58,89+300\\cdot88)}{3\\cdot(100^{2}+200^{2}+300^{2})-(100+200+300)^{2}}\\Longrightarrow}\\\\ {}&{{}\\text{s e a c e i i n}}\\\\ \\end{aligned}}"
+  ]
+ },
+ "315": {
+  "formulas": [
+   "\\begin{aligned}{}&{{}=0\\;(\\mathrm{p u n c t u l}\\;A),\\;p_{_{a d}}=q\\cdot K_{_{a l}}=25\\cdot0,406=15.15\\;N/m^{2}\\;,}\\\\ {}&{{}=\\frac{1}{}\\end{}}",
+   "\\begin{array}{c}{\\ t t r m i n e o t e e r e e e r e r e n n e e n t e n p e r e e r e r r e r}\\\\ {\\underbrace{K_{p}=t g^{2}\\left(45^{\\circ}+\\frac{\\phi_{2}}{2}\\right)=t g^{2}\\left(45^{\\circ}+\\frac{20^{\\circ}}{2}\\left)=2,04\\right.\\right.}_{,,,.,,.,.,.,,,.,,,}}\\\\ \\end{array}",
+   "\\begin{aligned}{}&{{}\\ l\\ e\\ n u d a t i}}\\\\ {}}&{{{}=0\\\\ (p u n c t u l B\\ I),p_{_{P B1}}=2\\cdot c\\cdot\\sqrt{K_{_p}}=2\\cdot10\\cdot\\sqrt{2,04}=28,56\\ k N/m^{2}\\;,}\\\\ \\end{aligned}",
+   "\\ _{p_{C C}}=\\gamma\\cdot H_{2}\\cdot K_{_P}+2\\cdot c\\cdot\\sqrt{K_{_P}}=19\\cdot1,2\\cdot2,04+2\\cdot10\\cdot\\sqrt{2,04}=75,08\\ k N/m^{2}\\;.",
+   "\\left.\\begin{array}{r}{P^{o}o n=1\\ cdots(p2\\ cdots)}\\\\ {P_{a b}^{o p}=\\gamma_{1}\\cdot H_{1}\\cdot K_{a1}+q\\cdot K_{a1}=18,0\\cdot4,3\\cdot0,406+25\\cdot0,406=41,57\\ k N/m^{2}.}\\\\ {\\cdots\\cdots\\cdots\\cdots\\cdots\\cdots\\cdots\\cdots\\cdots\\cdots\\cdots\\cdots}cdots\\\\ end\\{}array right\\]",
+   "\\begin{aligned}{}&{{}\\operatorname{m n e u u l}B;}\\\\ {}&{{}\\quad P_{a1}=\\underbrace{H_{1}\\Big(p_{a B}^{s u p}+p_{a d}\\Big)}_{2}=\\underbrace{4,3\\Big(41,57+10,15\\Big)}_{2}=111,20\\text{k N/m.1}}\\\\ {}&{{}\\quad{~text~text~{~text~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~cdot~~cdot~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ",
+   "\\begin{aligned}{_&{{}_{{s m}}}^{{s u a}}}\\\\ {}&{{}z_{1}=\\frac{2\\cdot p_{_{a d}}+p_{_{a B}}^{_{s u}}}{p_{_{a d}}+p_{_{a B}}^{_{s u}}}\\cdot\\frac{H_{1}}{3}{=}\\frac{2\\cdot10,15+41,57}{10,15+41,57}\\cdot\\frac{4,3}{3}==1,71m.}\\\\ {}&{{}\\quad,\\quad\\ ,quad cdots quad\\cdots,\\quad,\\quad,quad\\ cdots quad\\ cdots\\quad,}\\\\ \\end{aligned}",
+   "\\begin{aligned}{}&{{}\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\\\\\ \\ \\\\\\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ }{\\ }}\\\\ {{}}{}}{\\ \\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ {",
+   "\\begin{aligned}{p e n a e z\\quad H r(p a n c e a l),}\\\\ {p_{a B}^{i n f}=\\left(q+\\gamma_{1}\\cdot H_{1}\\right)\\cdot K_{a2}-2\\cdot c\\cdot\\sqrt{K_{a2}}=}\\\\ {=\\left(25+18\\cdot4,3\\right)0,490-2\\cdot10\\cdot\\sqrt{0,490}=36,18~\\mathrm{k N}m/^^{2}}\\\\}}\\\\ \\end{aligned}",
+   "\\begin{aligned}{}&{{}\\quad\\text{Pecoad_rri}pineeree_\\\\{p\\overline^{nB}}&{{}=\\left(q+\\gamma_{1}\\cdot H_{1}\\right)\\cdot K_{o_{2}}-2\\cdot c\\cdot \\sqrt{K_{o_{2}}}=}\\\\{}&{{}\\quad=\\left(251\\8.,3\\\\right0.,9002--\\11\\cdot 0sqrtcdot\\sqrt{0.490}=36,18\\{N~/m}^{2}\\,,}\\\\{}&{{}\\quad\\text{pennur}u\\cdot H_{2}\\cdot pen=H_{2}\\left(\\text{pumnul}C\\right),}\\\\{}&{{}\\quad\\text{Pec}=\\gamma_{2}\\cdot H_{2}\\cdot K_{o_{2}}+\\left(q+\\gamma_{1}\\cdot H_{1}\\right)\\cdot K_{o_{2}}-2\\cdot c\\cdot \\sqrt{K_{o_{2}}}}\\\\{}&{{}\\quad\\text{19,0,122\\cdot 0,490}+\\left(2S+18\\cdot 4,3\\right)\\cdot 0,490-2\\cdot 10\\cdot \\sqrt{0,490}=47,35\\kN/m^{2}\\.}\\\\\\end{aligned}",
+   "\\begin{aligned}{}&{{}\\text{m e n t l a l}B C:}\\\\ {}&{{}P\\_{a2}=\\underbrace{\\frac{H_{2}\\left(p_{a C}+p_{a B}^{\\operatorname{i n f}}\\right)}{2}}_{2}=\\underbrace{1,2\\left((47,35+36,18\\right)}_{2}=50,12\\mathrm{~k N/m}.}\\\\ {}&{{}\\ \\ \\ underbrace\\cdots\\cdots\\cdots{}{{~:quad:}}cdots{{~~}}\\cdots{{~}}\\ {~~~~}~mathit t~~a~~n~~c~~~~}~~}\\\\ \\end{aligned}",
+   "\\begin{aligned}{z_{2}=}&{{}\\underbrace{\\frac{2\\cdot p_{a B}^{\\text{i n f}}+p_{a C}}{p_{a B}^{\\text{i n f}}+p_{a C}}}_{\\underbrace{p_{a B}^{\\text{i n f}}+p_{a C}}}\\cdot\\underbrace{H_{2}}_{\\underbrace{3\\cdot{36},1\\cdot{8}4\\ {{,3,53}5}}__\\underbrace{3\\ ,18\\cdot{35}}\\cdot\\underbrace{1,2}_{\\underbrace{3\\ }}_3=0,57\\;{m}\\;.}.}\\\\ {z_{2}=}&{{}\\underbrace{\\frac{2\\cdot{_\\ {}}^{\\text{i n f}}+p_{a C}}{3\\ \\underbrace{1\\ {\\cdots{}},{\\ ,}}\\cdots{{,}}}{\\ \\ \\underbrace{1\\ {cdots},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}},}}}\\\\ \\end{aligned}"
+  ]
+ },
+ "329": {
+  "formulas": [
+   "\\operatorname{s i n}\\phi\\ \\ {=}\\frac{\\sigma_{_1}-\\sigma_{_2}}{\\sigma_{_1}+\\sigma_{_2}+2\\cdot c\\cdot c t g\\phi}\\ \\ (a)",
+   "p_{{p_{l}}}=\\\\gamma\\\\cdot\\ B\\cdotp N_{_{1}}+q\\cdotp N\\_{__{2}}+c\\underbracep N_{_{3}}\\quad(h)",
+   "p_{p l}=m_{l_}\\cdot\\left(\\overline{{{\\gamma}}}\\cdot B\\cdot N_{_1}+\\overline{{{q\\cdot N_{_2}+c}}}\\cdot N_{_3}\\right)[left\\mathrm\\{k{P a}}\\right]",
+   "\\overbrace{\\boldsymbol{p}_{p l}=\\boldsymbol{m}_{l}\\cdot(\\over{{\\gamma}}\\cdot\\boldsymbol{B}\\cdot\\boldsymbol{N}_{_1}+\\frac{2\\cdot\\boldsymbol{q}_{_e}+boldsymbol q_{}i}{3}\\cdot\\boldsymbol{N}_{_2}+c\\cdot\\boldsymbol{N}_{_3})\\left[[amathrm{k P a}\\right]}",
+   "\\underbrace{\\cdot\\cdot\\cdot\\cdots\\cdot\\cdot\\cdot\\cdots}_{\\cdot\\cdot\\cdot\\cdot\\cdot\\operatorname\\ s\\theta\\cdot\\operatorname\\ s\\theta-2\\cdot\\cdot(\\gamma\\cdot z+q)\\cdot\\operatorname{s i n}\\phi+2\\cdot\\frac{p-q}{\\pi}\\cdot\\cdot\\cdot\\operatorname{s i n}\\phi+2\\cdot\\cdot\\cdot\\cdot\\operatorname{c o s}\\phi\\quad(b)}",
+   "\\left(-\\frac{p-\\gamma\\cdotp\\boldsymbol{{}D}_{f}}{\\pi\\cdotp\\gamma}\\cdotp\\\\left\\({\\frac{\\operatorname{s i n}\\omega}{\\operatorname{s i n}\\phi}}-\\omega\\right)-\\frac{c}{\\gamma\\cdotp t\\\\ boldsymbol{{}g}phi}-D_{f}\\quad\\ c\\right)",
+   "\\begin{array}{c}{\\operatorname{{i}c\\\\ c{i i l e l u c i c u p c i c\\ p c c i\\left c o d d i l\\ p l a s t c c\\right\\}p c n u u\\;}}\\\\ {\\operatorname{{c i}:\\ \\frac{d\\ {z}}{d\\omega}=0\\underbrace{\\;\\:\\:\\:{\\frac{p}{\\pi}-\\gamma\\cdot{D}_{f}}{\\ \\ }::::::::::::::}:.}::}\\\\ {\\underbrace{\\operatorname{{s i}}\\operatorname{c o s}\\frac{d{}}{d\\omega}=0\\longrightarrow\\quad\\frac{p-\\gamma\\cdot{D}_{f}}{\\pi\\cdot\\:\\ \\ \\ _{}}\\left(\\frac{\\operatorname{c o s}\\omega}{\\operatorname{s i n}\\phi}-1\\right)\\left{\\ \\ {\\ }}\\ .\\ \\ .\\ ..\\ ..\\ ..\\right.}}\\\\ \\end{array}",
+   "\\begin{array}{c}{{d i n c m m e a m a m m m d e e x x x i n d e r e z z n e e o l l l o s i t e i c e o b o l i n e d i n a u u l a r e a d e r c v e v e l.}}\\\\ {\\implies\\operatorname{c o s}\\omega=\\operatorname{s i n}\\phi\\quad\\text{s i}r e s p e c i v\\quad=\\frac{\\pi}{2}-\\phi\\quad\\text{c a r e i n i r o d u s s n}\\quad{(\\varsigma)}\\quad\\implies}\\\\ {\\-\\,-\\,D,\\quad\\text{\\ }quad quad quad left\\ (\\ \\ ,dots\\)right\\\\ \\\\ \\ \\ \\ }\\\\ \\end{array}",
+   "\\implies\\quad z_{\\operatorname*{{m x x}}}=\\\\frac{{p-gamma\\cdot D_{f}}{\\pi\\cdot\\gamma}\\cdot\\left[c t g\\phi-\\left(\\frac{\\pi}{2}-\\phi\\right)\\right]-\\frac{c}{\\gamma}\\cdot\\over{{t g}phi-D}_{f}}\\quad(d)",
+   "(e)\\ p_{l}=c\\cdot\\left[\\frac{\\pi\\ c t g\\phi}{c t g\\phi-\\frac{\\pi}{2}+\\phi}\\right]+\\gamma\\cdot__{D D}\\cdot\\left[1+\\frac{\\pi}{c t g\\phi-\\frac{\\pi}{2}+\\phi}\\right]",
+   "pboldsymbol_{l}=q\\cdot N_{2}+c\\cdot N_{3}\\quad\\mathcal{P}",
+   "\\begin{aligned}{p_{p i}=}&{{}\\gamma\\cdot D_{f}\\cdot\\left[\\underbrace{1+\\frac{\\pi}{c{g g g}\\phi\\-{\\frac{\\pi}{2}}+\\phi}}_{N_{1}}\\right]+\\underbrace{c\\cdot\\left[\\frac{\\pi\\cdot{c g g}\\phi}{\\ c{g g}\\phi-{\\frac{\\pi}{2}}+\\phi}\\right]}_{N_{2}}+\\underbrace{\\gamma\\cdot B\\cdot\\left[\\frac{0,2S\\cdot\\pi}{\\ c{g g}\\phi-{\\frac{\\pi}{2}}+\\phi}\\right]}_{N_{3}}\\quad(g)}\\\\ {11}&{{}}\\\\ \\end{aligned}"
+  ]
+ },
+ "34": {
+  "formulas": [
+   "U_{n}=\\frac{d_{_00}}{d_{_{10}}}",
+   "\\begin{aligned}{}&{{}\\text{s u m s}}\\\\ {}&{{}C_{c}=\\frac{\\left(d_{_{30}}\\right)^{2}}{d_{_{10}}\\cdot d_{_{60}}}}\\\\ \\end{aligned}",
+   "C_{c}=1\\div3",
+   "\\begin{aligned}{}&{{}\\operatorname{R e l d y i n c.}}\\\\ {}&{{}\\quad\\bullet\\quad S_{K r u m b e i n}=\\sqrt[[object Object]]{\\frac{\\var{A}\\cdot\\var{B}\\cdot\\}}}\\\\ \\end{aligned}",
+   "\\bullet\\quad S_{S n e e d-F o l x}=onge_\\_\\sqrt[[object Object]]{\\frac{C^{2}}{A\\cdot B}}.",
+   "\\overline{{V_{c}}}=\\left(\\frac{6\\cdot V}{\\pi\\cdot A^{3}}\\right)",
+   "\\left(C/B\\right)/\\left(B/A\\right)",
+   "d_{e}=\\sqrt[[object Object]]{\\frac{6\\cdot V}{\\pi}}"
+  ]
+ },
+ "381": {
+  "formulas": [
+   "p_{_{P\\gamma}}=\\gamma\\cdot H\\cdot K_{_p p}\\cdot\\frac{\\operatorname{s i n}\\theta}{\\operatorname{c o s}\\delta}\\quad\\underline{{P_{p}}}=\\frac{1}{2}\\cdot\\gamma\\cdot H^{2}\\cdot K_{_p}",
+   "p_{_{P\\gamma}}=\\gamma\\cdot H\\cdot K_{_p p}\\cdot\\frac{\\operatorname{s i n}\\theta}{\\operatorname{c o s}\\delta}\\quad\\underline{{P_{p}}}=\\frac{1}{2}\\cdot\\gamma\\cdot H^{2}\\cdot K_{_p}",
+   "p_{_{a z}}=\\gamma\\cdot z\\cdot K_{_a}+q\\cdot K_{_a}-2\\cdot c\\cdot\\sqrt{K_{_a}}\\quad K_{_a}=t g^{2}\\left(45-\\phi\\ 2\\right)",
+   "p_{_{a z}}=\\gamma\\cdot z\\cdot K_{_a}+q\\cdot K_{_a}-2\\cdot c\\cdot\\sqrt{K_{_a}}\\quad K_{_a}=t g^{2}\\left(45-\\phi\\ 2\\right)",
+   "\\widetilde{p}_{_{P z}}=\\gamma\\cdot\\widetilde{z\\cdot K_{_p}+q\\cdot K_{_p}+2\\cdot c\\cdot\\sqrt{K_{_p}}}\\quad K_{_p}=t g^{2}(45+\\phi\\cdot2)",
+   "\\widetilde{p}_{_{P z}}=\\gamma\\cdot\\widetilde{z\\cdot K_{_p}+q\\cdot K_{_p}+2\\cdot c\\cdot\\sqrt{K_{_p}}}\\quad K_{_p}=t g^{2}(45+\\phi\\cdot2)"
+  ]
+ },
+ "384": {
+  "formulas": [
+   "\\begin{aligned}{}&{{}\\operatorname{R n o r g e e r p e r e a r c e n c e r t e r e e n t e c t e c e e c e e e s e}}\\\\ {}&{{}\\quad\\operatorname{P e n t r u}i\\operatorname{i n c a r c a r e e r c e n t r i c a}:p_{e f}=\\frac{N}{B\\cdot L}}\\\\ {}&{{}\\quad\\operatorname{R n o t r a}i\\operatorname{s n s e r s i c}o n o m o t i c i t e t\\ \\ operatorname d e o l}\\\\ \\end{aligned}",
+   "E_{_d}\\leq C_{_d}\\mathrm{u}}}&{{\\ \\left\\{\\begin{cases}{E_{_d}=\\overline{{\\Delta_{_s}}}\\mathrm{s a u}E_{_d}=\\Delta_{_t}}\\\\ {C_{_d}=\\overline{{\\Delta_{_s}}}\\mathrm{s s u u}C_{_d}=\\overline{{\\Delta_{_t}}}}\\\\ \\end{cases}\\right.}",
+   "\\begin{aligned}{}&{{}\\mathbf{r}\\mathbf{c}\\mathbf{n}\\mathbf{u}\\mathbf{n}\\mathbf{c}\\mathbf{d}\\mathbf{c}\\mathbf{d}\\mathbf{c}\\mathbf{u}\\mathbf{c}\\mathbf{c}\\mathbf{c}\\mathbf{c}\\mathbf{n}\\mathbf{d}\\mathbf{c}\\mathbf{u}\\mathbf{d}\\mathbf{c}\\mathbf{d}\\mathbf{c}}\\\\ {}&{{}\\quad alignedbegin\\}{aligned{}}{{{p p}_{e f.\\operatorname*{m a x}}}&{{}=\\frac{N}{B\\cdot L}}&{\\ \\ \\ \\{C\\cdot M_{y}}\\\\ {}&{{}\\quad{s}mathbf i}}&{\\ \\\\\\ \\ mathbf s mathbf u\\\\{{}}&&{}}{\\\\{&{{p}_{e f.\\operatorname*{m i n}}}}&{{}=\\frac{N}{B\\cdot L}}&{{}-\\frac{6\\cdot M_{y}}{B^{2}\\cdot L}}&{\\ \\ \\ \\ \\ }}\\\\ \\end{aligned}}\\\\ \\end{aligned}",
+   "p_{e f.m\\ n}=\\frac{N}{B\\cdot L L}-\\frac{6\\cdotp M\\_y{}}{B^{2}\\cdot L L}",
+   "\\begin{aligned}{s}\\\\ {p_{e f.\\operatorname*{m a x}}=\\frac{N}{B\\cdot L}\\cdot\\left(1-\\frac{6\\cdotp\\cdot e_{_x}}{B}\\right)}\\\\ {p_{e f.\\operatorname*{m i n}}=\\frac{N}{B\\cdot L}\\cdotp\\left(1-\\frac{6\\cdotp e_{_x}}{B}\\right)}\\\\ \\end{aligned}",
+   "\\begin{aligned}{s}\\\\ {p_{e f.\\operatorname*{m a x}}=\\frac{N}{B\\cdot L}\\cdot\\left(1-\\frac{6\\cdotp\\cdot e_{_x}}{B}\\right)}\\\\ {p_{e f.\\operatorname*{m i n}}=\\frac{N}{B\\cdot L}\\cdotp\\left(1-\\frac{6\\cdotp e_{_x}}{B}\\right)}\\\\ \\end{aligned}",
+   "\\begin{aligned}{}&{{}\\operatorname{m n d n n a c t i a c t u c a a a n n n t i a l e p c d o u d d u v}}\\\\ {}&{{}\\quad p_{e f.m a x}=\\frac{N}{B\\cdot L}+\\frac{6\\cdot M_{y}}{B^{2}\\cdot L}+\\frac{6\\cdot M_{x}}{B\\cdot L^{2}}}\\\\ {}&{{}\\quad\\\\\\ \\ \\\\\\ \\ \\\\\\ \\ \\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\\\ \\\\ \\\\ \\",
+   "\\left{{p}_{e f.m i n}}=\\frac{N}{B\\cdot L}-\\frac{6\\cdot M_{_y}}{B^{2}\\cdot L}-\\frac{6\\cdot M_{_x}}{B\\cdot L^{2}}\\right.",
+   "\\begin{aligned}{}&{{}\\eta_{e f.m\\ x{}}}\\\\ {}&{{}\\eta_{e f.m a x}{}=\\frac{N}{B\\cdot\\{L{}}}+\\frac{6\\cdot\\ {M__y{y}}}{B^{2}\\cdot L}{+}\\frac{6\\cdot\\ M_{x}}{B\\cdot{L}^{2}}}\\\\ \\end{aligned}",
+   "\\overbrace{p_{e f.\\mathrm{m i n}}=^{}}^frac{N N}{B\\cdot L}\\cdot\\left(1--^frac{{6\\cdot}e_{_x}}{B}-\\frac{66\\cdot e_{_y}}{L}\\right)"
+  ]
+ },
+ "41": {
+  "formulas": [
+   "\\eta=\\underbrace{_{{S_{i}}}}{_s_{n}}>\\bar{s}\\quad\\mathrm{s i}\\quad s=s_{i}-s_{n}\\underbrace{\\geq3bar m c}}",
+   "\\eta=\\underbrace{_{{S_{i}}}}{_s_{n}}>\\bar{s}\\quad\\mathrm{s i}\\quad s=s_{i}-s_{n}\\underbrace{\\geq3bar m c}}",
+   "I=\\frac{e_{L}-e}{1+e}",
+   "\\begin{array}{c}{\\ddot{a}\\dot{\\mathrm{f i}}\\dot{\\mathrm{l a}}\\operatorname{l i m i t a}\\dot{\\mathrm{d e}}\\dot{\\mathrm{c}}}\\\\ {e_{L}=\\frac{_{w}\\cdot\\gamma_{s}}{\\gamma_{w}\\cdot100}}\\\\ \\end{array}"
+  ]
+ },
+ "57": {
+  "formulas": [
+   "\\begin{array}{c}{{4}}}{{{\\displaystyle{n\\ int\\phi J=\\left(V_{p}\\left V\\right./right\\ V1\\ 00\\rightarrow n/\\",
+   "\\begin{aligned}{}&{{}P a r c e n a t i o n s o n c e r_{s}a n r a c e n o n n a n e c o p a n n a n,}\\\\ {}&{{}e=V_{p}/V_{s}\\Rightarrow e=\\left(n\\mathcal\\phi\\ /100\\right)/\\left(1-n\\mathcal\\phi/100\\right)}\\\\ {}&{{}e\\ e s\\ n e s s e n a t e n d n s e s n o n n e a n d e n s a n d e n d a n d a n d a n d a n d a n d a n d a n d a n d a n d a}\\\\ \\end{aligned}",
+   "\\begin{array}{c}{\\operatorname{c o r}a m e x e(\\mathbf{n}_{\\mathcal{S}})}\\\\ {\\mathcal{V}=I+e}\\\\ {mathcal P_e e t e r o n r e r}\\\\ \\end{array}",
+   "\\begin{array}{c}{f o r e r e n e p o r e n e n e n e e r o n n e e e s e c t e}\\\\ {\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad\\quad",
+   "\\begin{aligned}{}&{{}(mathrm{f n i e}):}\\\\ {}&{{}\\gamma_{_{s a t}}=(left boldsymbol V{{}}_{s}\\cdot\\boldsymbol{gamma}{}_{s s}+\\boldsymbol V V V_{\\_}\\cdot\\boldsymbol{\\gamma}{}_{w}\\right)/V\\Longrightarrow\\gamma_{_{s a t}}\\int k k N\\\\cdot m^{3}J=\\left(1-\\frac{n\\ \\%}{100}\\right)\\cdot\\boldsymbol{\\gamma}{}_{s}+\\frac{n\\%}{100}\\cdot\\boldsymbol{\\gamma}{}_{w}}\\\\ \\end{aligned}",
+   "\\begin{array}{c}{\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ }{\\ }}\\\\ \\ \\ \\ {\\ }}{\\begin{\\gamma{ ",
+   "Y^{\\prime}=\\underbrace{G,-V_{},\\gamma_{w_}}_{V}\\Longrightarrow\\quad\\gamma^{\\prime}=\\left(1-\\frac{n^{0}\\phi}{100}\\right)\\cdot\\gamma_{_s}-\\left(1-\\frac{n^{0}\\phi}{100}\\right)\\cdot\\gamma_{_w}\\Longrightarrow\\gamma^{'prime}\\not\\int N N\\cdot m^{3}J=\\left(1-\\frac{n^{0}\\phi}{100}\\right)\\cdot\\left(\\gamma_{_s}-\\gamma_{_w}\\right)",
+   "S_{r}=\\frac{V_{w}}{V_{p}}"
+  ]
+ },
+ "59": {
+  "formulas": [
+   "n_{\\mathrm{m a x}}=47,6\\",
+   "n_{_{m i n}}=25,9\\",
+   "n_{\\mathrm{m a x}}=0.50\\quad\\mathrm{s a u}\\quad e_{\\mathrm{m a x}}=1.00\\quad\\mathrm{s i}\\quad n_{\\mathrm{m i n}}=0.30\\quad\\mathrm{s a u}\\quad e_{\\mathrm{m i n}}=0.43",
+   "\\begin{aligned}{\\overbrace{I_{D}=}&{{}\\frac{e_{\\operatorname*{m a x}}-e}{\\overline{{e_{\\operatorname*{m a x}}}}-e}}^{\\operatorname{a t m m a n e l e e t}}}\\\\ {\\overbrace{_{{D}==}}^{}}&{{}\\frac{gamma{{}_{{d,\\operatorname*{m a x}}}-{}e_{\\operatorname*{m i n}}}}{\\ }\\frac{\\gamma_{_{d,\\operatorname*{m a x}}}\\cdot\\left(\\gamma_{_{d}\\right}-\\gamma_{_{d,\\operatorname*{m i n}}}\\ }{\\gamma_{_{d}}\\cdot\\left(\\gamma_{_{d,\\operatorname*{m a x}}}-\\gamma_{_{d,\\operatorname*{m i n}}}\\right)}}\\\\ \\end{aligned}",
+   "I_{_D}[\\sqrt[[object Object]]]{\\displaystyle}=\\frac{\\left(n_{_{mathrm\\ x m}}[left\\sqrt\\[[object Object]]{\\displaystyle}-n[\\sqrt[[object Object]]{\\displaystyle}\\right]\\right)\\{cdot\\displaystyle}\\left(100-n_{_{\\mathrm m{m n}}}[\\sqrt[[object Object]]{\\displaystyle}\\ \\right)}{\\left(n_{_{\\mathrm m x x}}[\\sqrt[[object Object]]{\\displaystyle}\\right-n_{_{\\mathrm{m i n}}}[\\sqrt[[object Object]]{\\displaystyle}\\right\\]\\cdot\\left(100-n[\\sqrt[[object Object]]{\\displaystyle}\\right)}\\cdot100]"
+  ]
+ },
+ "73": {
+  "formulas": [
+   "\\begin{aligned}{}&{{}\\ {begin}{&{{{}}{}}\\\\ {}&{{}{}{}}\\\\ {end{}}{\\ }}{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }\\sqrt{{}}{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }\\sqrt{{}}{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }\\sqrt{{}}{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }}{\\ }{\\ }}{\\ }{\\ }}\\\\ {}&{{}{\\begin{}{}begin}{{}&{{\\}{\\ }frac{\\ {115}}{\\left{}\\ right{}{{}}{\\ }\\left{}}{\\\\ {}}\\{{\\ }}{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }\\frac{185{\\ \\}}{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }}{{\\ }\\frac{{\\ }{\\\\ }{\\\\ }{\\\\ }{\\\\ }{\\\\ }{\\\\ }{\\\\ }{{\\ }}{\\ }{\\}{{\\ }}{\\ }{\\}}{\\frac{{\\ }{\\\\ }}{\\ }{\\ }{\\\\ }{\\ }{\\ }{\\ {\\ }{{}\\ }{\\}}{\\scriptsize{\\\\}}{{\\}}{\\scriptsize{}{\\scriptsize}{{\\ }}{{\\}}{\\scriptsize}{",
+   "\\begin{aligned}{}&{{}{cal}mathrm P r e m\\ {o c k n}\\ {}mathrm o s n\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\  ",
+   "\\begin{array}{c}{{c e c~t i m e i v i e t~(3))}}\\\\ {{S_{r}=\\c{{\\overover{{{S0}\\cdot}}}\\cdot{\\gamma_{s}}}{100\\cdot e{cdot\\cdot}\\ \\ _w}=\\cc{{\\\\frac{8.82\\cdot26,7}{100\\cdot0,57\\cdot10}}}=0,413}}\\\\ \\end{array}",
+   "\\begin{aligned}{}&{{}\\ {begin}{&{{{}}{}}\\\\ {}&{{}{}{}}\\\\ {end{}}{\\ }}{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }\\sqrt{{}}{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }\\sqrt{{}}{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }\\sqrt{{}}{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }}{\\ }{\\ }}{\\ }{\\ }}\\\\ {}&{{}{\\begin{}{}begin}{{}&{{\\}{\\ }frac{\\ {115}}{\\left{}\\ right{}{{}}{\\ }\\left{}}{\\\\ {}}\\{{\\ }}{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }\\frac{185{\\ \\}}{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }{\\ }}{{\\ }\\frac{{\\ }{\\\\ }{\\\\ }{\\\\ }{\\\\ }{\\\\ }{\\\\ }{\\\\ }{{\\ }}{\\ }{\\}{{\\ }}{\\ }{\\}}{\\frac{{\\ }{\\\\ }}{\\ }{\\ }{\\\\ }{\\ }{\\ }{\\ {\\ }{{}\\ }{\\}}{\\scriptsize{\\\\}}{{\\}}{\\scriptsize{}{\\scriptsize}{{\\ }}{{\\}}{\\scriptsize}{",
+   "\\begin{aligned}{}&{{}\\underset{}{sub{{e=}\\ \\ }}{\\substack{M_{}}}\\{{}}\\\\ {}&{{}\\underset{{sub}}{undersetstack}M_{s}100=\\frac{M_M_M}{M_{s}}=\\frac{185-170}{M_{s}}\\ 00=\\overline{{8.82\\mathcal}}\\left(\\overline{M M_{d}}=\\overline{M_{s}}\\right)}}\\ {aligned}}\\\\ \\end{aligned}",
+   "\\begin{aligned}{}&{{}{mathit R r e w}(\\ \\ theta}}\\\\ {}}{{}&&{{}{=}\\frac{V_{p_p}}{V}100=\\frac{V-V_{s_s}}{V}100=\\frac{100-63,67}{100}100=36,33\\ \\varphi}\\\\ \\end{aligned}",
+   "V_{s}=\\frac{M_{s}}{\\rho_{s}}=\\frac{170}{2,67}=63,67\\ c m^{3}",
+   "\\begin{aligned}{P o}r i o t&{{}\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\  ",
+   "V_{s}=\\frac{M_{s}}{\\rho_{s}}=\\frac{170}{2,67}=6underbrace33,7\\\\ {c m}^{3}",
+   "\\begin{aligned}{}&{{}\\ C\\ {mathit e}r a r o m i c a l\\ n\\ S\\ \\ {emathit n}c C c o\\ r n t r\\ {mathit e}\\\\{{}}&{{}}\\gamma_{s u}=\\c{frac_G_{_w}+G_{_s}}{V}=\\cfrac{V_{_p}\\cdot\\gamma_{_w}+V_{_s}\\cdot\\gamma_{_r}}{V}=\\cfrac{36.33\\cdot10^{-6}\\cdot10+63.67\\cdot10^{-6}\\cdot26,7}{100\\cdot10^{-6}}=20,63\\ mathrm k k N/m^{3}}\\\\ \\end{aligned}",
+   "\\begin{aligned}{}&{{}\\ c\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\\\\\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\\\\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ }\\ {\\ \\ \\ \\ }\\\\ {}&{{}}}\\\\ {\\"
+  ]
+ },
+ "79": {
+  "formulas": [
+   "2\\cdot\\pi\\cdot\\left(\\boldsymbol{r_{_{1}}}\\cdot\\overline{{\\operatorname{c o s}\\theta_{_{u}}}}\\right)\\cdot T_{_{s}}\\cdot\\operatorname{c o s}\\theta_{_{u}}-\\int_{0}^{\\theta0-\\theta_{_{u}}}\\Delta u\\cdot d boldsymbol d d\\cdot\\operatorname{c o s}\\alpha=0",
+   "\\Longrightarrow\\Delta u=\\cfrac{2\\cdot T_{s_s}}{r_{_1}}\\cdot\\cfrac{2\\cdot\\operatorname{c o s}^{2}\\theta_{_u}}{1+\\operatorname{c o s}2\\theta_{_u}}\\Rightarrow\\theta_{_u}=0\\quad(\\mathrm{t u b~\\ {e s i c l}\\breve{a}/a/a}\\mathrm{p p}breve)",
+   "\\implies\\Delta u=\\frac{2\\cdot T_{s.}}{r_{1}}",
+   "\\begin array}}{r r r}}&&}\\\\\\\\ \\&array{}\\\\ {\\pi\\cdot r^{2}\\cdot\\Delta u=\\pi\\cdot r^{2}\\cdot h_{c_}\\cdot\\ g\\cdot\\ g\\cdot\\left[g\\cdot\\left(\\rho_{w}-\\rho_{v}\\right)\\right]\\Rightarrow}\\\\ \\end{array}",
+   "\\begin{aligned}{}&{{}\\Delta u=\\frac{2\\cdot T_{s}\\cdot\\operatorname{c o s}\\theta_{u_}}}{r}Longrightarrow h_{_c}=\\frac{2\\cdot T_{s}\\cdot\\operatorname{c o s}\\theta_{_u}}{r\\cdot g\\cdot\\left(\\rho_{_w}-\\rho_{_v}\\right)}}\\\\ {}&{{}\\Longrightarrow h_{_c}=\\frac{2\\cdot T_{s}\\cdot\\operatorname{c o s}\\theta_{_u}}{r\\cdot\\gamma_{_w}}\\Longrightarrow h_{_c}=\\frac{0,154\\cdot\\operatorname{c o s}\\theta_{_u}}{}}\\\\ \\end{aligned}",
+   "\\begin{aligned}{}&{{}\\Delta u=\\frac{2\\cdot T_{s}\\cdot\\operatorname{c o s}\\theta_{u_}}}{r}Longrightarrow h_{_c}=\\frac{2\\cdot T_{s}\\cdot\\operatorname{c o s}\\theta_{_u}}{r\\cdot g\\cdot\\left(\\rho_{_w}-\\rho_{_v}\\right)}}\\\\ {}&{{}\\Longrightarrow h_{_c}=\\frac{2\\cdot T_{s}\\cdot\\operatorname{c o s}\\theta_{_u}}{r\\cdot\\gamma_{_w}}\\Longrightarrow h_{_c}=\\frac{0,154\\cdot\\operatorname{c o s}\\theta_{_u}}{}}\\\\ \\end{aligned}",
+   "h_{_c}(c m)=\\frac{0,154}{r}"
+  ]
+ },
+ "81": {
+  "formulas": [
+   "\\dot{\\boldsymbol{\\sigma}_{k}}=\\var\\ {}boldsymbol\\\\\\ {u}=\\boldsymbol{h}_{c}\\cdot\\boldsymbol{\\gamma}_{w_{}}",
+   "p_{k}\\cdot A_{s}=\\sigma_{k}\\cdot A_{g}\\Rightarrow p_{k}\\cdot\\left(1-n\\right)=\\sigma_{k}\\cdot\\\\ !p p_{k}=\\left(1+e\\right)\\cdot\\sigma_{k}"
+  ]
+ },
+ "82": {
+  "formulas": [
+   "\\boldsymbol{\\sigma}^{\\prime}=\\underbrace{\\underbrace{\\sigma_{p z}}_{\\sub r{s e e i u m e a\\;d i n}}}_{\\substack{a c l i u n e a\\;e x t e r i o o r tilde a}}+underbrace\\\\ {{\\\\sigma_{\\gamma z}}}_{\\substack{s a r c i n g\\;g e o\\operatorname{l o g}i c\\tilde{a}}}+\\underbrace{p_{k}}_{\\substack{p r e s i u u a a\\;c c\\\\ a{^^\\\\\\prime}}}+\\underbrace{p_{k}}_{\\substack{p c e s i u u a a\\;c a\\,c a\\,c a p i l a a r\\tilde{a}}}"
+  ]
+ },
+ "88": {
+  "formulas": [
+   "\\begin{aligned}{a}&{{}t i i t i t a a i t a}{{}d\\ =a{\\ t}}\\\\ {}&{{}E N\\",
+   "N\\",
+   "I_{c}=\\frac{w_{L}-w}{w_{L}-w_{p}}",
+   "I_{c}<0,0",
+   "\\ stackrel{1}{1,0<I_{c}<0,0}",
+   "\\begin{aligned}{a r c a\\;s e m i s o o i d a}\\\\ {1\\leq I_{c_}\\leq}&{{}\\left[\\left(w_{_L}-w_{_s}\\right)\\ I_{_p}\\right]}\\\\ \\end{aligned}",
+   "\\left[\\left(w_{_L}-w_{_s}\\right)\\ /I_{_p}\\right]\\leq I_{_c}\\leq w_{_L}\\left/_..I_{_p}\\right."
+  ]
+ },
+ "95": {
+  "formulas": [
+   "\\ {_I{_{c u}}}=\\frac{{{w_{s a t}}-w}}{{{w_{s a t}}-{w_{s}}}}=\\frac{{{V_{_{s a t}}}-V}}{{{V_{_{s a t}}}-V_{_{I S}}}}",
+   "I_{_A}=\\frac{I_{p}}{A_{2}}"
+  ]
+ }
+}

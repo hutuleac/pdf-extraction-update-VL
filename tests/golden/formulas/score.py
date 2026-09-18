@@ -27,40 +27,55 @@ from extractor.vlm.doctag import formula_is_balanced
 
 HERE = Path(__file__).parent
 
-_DROP = [r"\\left", r"\\right", r"\\,", r"\\;", r"\\!", r"\\quad", r"\\qquad",
-         r"\\tt", r"\\mathrm", r"\\operatorname", r"\\displaystyle", r"\\ "]
+_DROP = [r"\\left", r"\\right", r"\\tt", r"\\mathrm", r"\\operatorname", r"\\displaystyle",
+         r"\\scriptscriptstyle", r"\\scriptstyle", r"\\textstyle", r"\\boldsymbol", r"\\mathbf",
+         r"\\big", r"\\Big", r"\\cal", r"\\mathcal", r"\\bullet", r"\\pmb"]
 _MAP = {r"\nu": "v", r"\varepsilon": r"\epsilon", r"\cong": r"\approx", r"\to": r"\rightarrow",
         r"\le ": r"\leq ", r"\ge ": r"\geq ", r"\varphi": r"\phi", r"\times": r"\cdot",
+        r"\varDelta": r"\Delta", r"\cfrac": r"\frac", r"\dfrac": r"\frac",
+        r"\Longrightarrow": r"\Rightarrow", r"\longrightarrow": r"\rightarrow",
         "\u00b0": r"^\circ"}
 
 
-_GLUE = [r"\\S\s*i", r"ș\s*i", r"ş\s*i",  # "și" as granite mangles it
-         r"(?<![A-Za-z\\])s\s*a\s*u(?![A-Za-z])", r"(?<![A-Za-z\\])s\s*i(?![A-Za-z])",
-         r"(?<![A-Za-z\\])c\s*u(?![A-Za-z])", r"(?<![A-Za-z\\])d\s*e\s*c\s*i(?![A-Za-z])"]
+# Romanian connectors between two formulas on one line ("și", "sau", "cu").
+# Matched as words: the character before them, skipping spaces, is not a
+# letter and not ``{`` or ``_`` (so ``I_{cu}`` keeps its name), and the character
+# after is not a letter (so a spaced-out ``i e s i r e`` keeps its ``s i``).
+_GLUE_WORDS = {"si", "sau", "cu", "deci", "și", "şi"}
+_GLUE = re.compile(
+    r"\\S\s*i|ș\s*i|ş\s*i|(?<=[^A-Za-z\\{_\s])\s*(?:s\s*a\s*u|s\s*i|c\s*u|d\s*e\s*c\s*i)(?=\s|[^A-Za-z]|$)"
+)
+_SPACING = [r"\\quad", r"\\qquad", r"\\,", r"\\;", r"\\!", r"\\ ", "~"]
 
 
 def _text(m: re.Match) -> str:
     """``\\text{sat}`` is a subscript, ``\\text{presiunea din}`` is a label."""
     inner = m.group(1).strip()
-    return inner if len(inner) <= 3 and " " not in inner else ""
+    if " " in inner or len(inner) > 3 or inner.lower() in _GLUE_WORDS:
+        return ""
+    return inner
 
 
 def normalize(latex: str) -> str:
     s = latex.replace("\\\\", " ").replace("&", " ")  # alignment is layout, not content
-    s = re.sub(r"\\text\s*\{([^{}]*)\}", _text, s)
+    s = re.sub(r"\\(?:text|mathrm|operatorname)\s*\{([^{}]*)\}", _text, s)
     s = s.replace(r"\underbrace", "")
     s = re.sub(r"\^\s*\{?\s*\\prime\s*\}?", "'", s)
     s = s.replace(r"\prime", "'")
     for k, v in _MAP.items():
         s = s.replace(k, v)
-    for pat in _DROP + _GLUE:
+    for pat in _SPACING:
+        s = re.sub(pat, " ", s)
+    for pat in _DROP:
         s = re.sub(pat, "", s)
+    s = re.sub(r"\s*([{}_^])\s*", r"\1", s)
+    s = _GLUE.sub("", s)
     s = re.sub(r"\s+", "", s)
     s = s.replace("{", "").replace("}", "")  # brace style is not content
     s = re.sub(r"\^(0|o|\\circ)(?![0-9A-Za-z])", r"^\\circ", s)  # 27,2^0 == 27,2°
     s = re.sub(r"_+", "_", s)  # granite's _{_{a}}
     s = re.sub(r"\+\++", "+", s)  # "... + \\ & + ..." continues a sum, once
-    s = s.replace("~", "")
+    s = re.sub(r"(?<=\d)\.(?=\d)", ",", s)  # 1.85 for 1,85 is a decimal mark, not a digit
     return s
 
 
