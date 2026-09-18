@@ -31,7 +31,7 @@ _DROP = [r"\\left", r"\\right", r"\\tt", r"\\mathrm", r"\\operatorname", r"\\dis
          r"\\scriptscriptstyle", r"\\scriptstyle", r"\\textstyle", r"\\boldsymbol", r"\\mathbf",
          r"\\big", r"\\Big", r"\\cal", r"\\mathcal", r"\\bullet", r"\\pmb"]
 _MAP = {r"\nu": "v", r"\varepsilon": r"\epsilon", r"\cong": r"\approx", r"\to": r"\rightarrow",
-        r"\le ": r"\leq ", r"\ge ": r"\geq ", r"\varphi": r"\phi", r"\times": r"\cdot",
+        r"\le ": r"\leq ", r"\ge ": r"\geq ", r"\leqq": r"\leq", r"\geqq": r"\geq", r"\varphi": r"\phi", r"\times": r"\cdot",
         r"\varDelta": r"\Delta", r"\cfrac": r"\frac", r"\dfrac": r"\frac",
         r"\Longrightarrow": r"\Rightarrow", r"\longrightarrow": r"\rightarrow",
         "\u00b0": r"^\circ"}

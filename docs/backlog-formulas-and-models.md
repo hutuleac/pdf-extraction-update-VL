@@ -120,7 +120,7 @@ Do these in order. Each one has a stop condition. Nothing ships until step
 - README warning table, CLAUDE.md OCR section, `test_ocr_apply.py` with a
   stub engine.
 
-### Step 5: only if steps 2-3 fail
+### Step 5: only if steps 2-3 fail (ran 2026-09-18, see below: both out)
 
 - Try GOT-OCR2 on the Windows box on the same 20 pages. If it is usable
   under ~10 s/page on CPU, add it as a `--vlm-model` entry with its own
@@ -313,15 +313,95 @@ PP-FormulaNet variants and pix2tex, and with them the region-finder work
 of step 2 (no recognizer to feed). Two things still stand:
 
 1. granite-docling remains the only measured path to formulas, and it is
-   Mac-only. The Windows gap is now a step-5 question: GOT-OCR2 as a page
+   Mac-only. The Windows gap was a step-5 question: GOT-OCR2 as a page
    model on CPU, or Docling's CodeFormula, on these same 20 pages with
-   this same scorer.
+   this same scorer. Both ran 2026-09-18 and both are out (section below).
 2. granite's own 18 wrong-but-balanced formulas concentrate in worked
    examples with long numeric fractions (page 209, page 315). A gate for
    that class — a formula whose numbers do not appear in the page's native
    text — is cheap to test against this set and would catch most of the
    18 without a second model. That is the next experiment before any
    Windows work.
+
+## Step 5: page models on CPU (run 2026-09-18)
+
+Same 20 pages, same scorer, same ground truth. Both candidates were run on
+this Mac's CPU (torch 2.14, no MPS) to stand in for the Windows laptop; a
+Windows CPU will be slower, not faster. Harnesses:
+`tests/golden/formulas/run_got_ocr2.py` and `run_docling.py`; raw output is
+committed under `results/` so the table regenerates without the models.
+
+| | granite-docling (mlx, Mac) | GOT-OCR2 (CPU) | Docling + CodeFormula (CPU) |
+|---|---|---|---|
+| recovered | 106/136 (78%) | 57/136 (42%) | 0/136 |
+| wrong-but-balanced | 18 | 29 | 0 |
+| unbalanced | 1 | 1 | 0 |
+| mismapped pages | 40/47 | 22/47 | 0/47 |
+| scattered pages | 66/89 | 35/89 | 0/89 |
+| pages hitting the token cap | 0 of 20 | 0 of 20 | n/a |
+| seconds per page | ~14 (mlx, Apple GPU) | median 53, range 14-150 (CPU) | 3.8 (CPU) |
+| weights | 258M, mlx | 580M, PyTorch | ~1.5 GB, PyTorch |
+
+**GOT-OCR2** (`stepfun-ai/GOT-OCR-2.0-hf`, transformers 5.16, `format=True`,
+greedy, 4096-token cap, whole page at 200 DPI): the first CPU model to read
+this corpus at all. It recovers 54% of what granite does, never loops or
+caps (median 1,061 tokens per page, 0.048 s per token), and its Markdown is
+clean — zero `p ă mânt`-style split diacritics, the defect granite needed
+`join_split_diacritics` for, though it writes `ă`/`â` as a macron `ā` 66 times. Of the 79 misses, 15
+are near-misses over 0.85 similarity, mostly per-character subscript
+spacing (`\gamma_{s a t}`, `E_{o o d_{00}}`) and merged worked-example
+lines. Only display spans (`\[...\]`) are scored; counting its 281 inline
+spans as well rescues 5 more formulas and adds 275 wrong-but-balanced
+units and variable names, which is the reason the harness keeps them
+apart. Overlap with granite: 51 formulas both read, 55 granite only, 6 GOT
+only, 24 neither. It does not beat granite anywhere; the 6 are page 41 and
+page 141 mismapped equations granite merged with their neighbours.
+
+It fails the step-5 bar on speed by five times: 53 s per page on an
+Apple CPU against the ~10 s ceiling, and the 388-page course has ~180
+formula-bearing pages. That is ~2.5 hours on this machine and longer on
+the target. It also fails the step-3 recovery bar (60% of granite) by six
+points, and its 29 wrong-but-balanced outputs are the dangerous class at
+1.6 times granite's rate. Page 315 alone (a worked example with numeric
+fractions) produced 7 of them: the same page class that holds most of
+granite's 18.
+
+**Docling** (2.129, `do_formula_enrichment=True`, native text layer, no
+OCR, no tables): 0 formulas on all 20 pages, in 3.8 s per page. Not a
+recognizer failure — CodeFormula never ran. Docling only invokes it on
+regions its layout model labels `formula`, and the default `heron` layout
+model labelled every one of the 136 ground-truth boxes `text` (page 41:
+34 text items, 1 table, 1 picture; the formula cells came through as
+one-glyph text items, `I`, `p`, `\uf0a3`, exactly as the native layer
+holds them). The alternate layout specs (`EGRET_*`, `HERON_101`) do not
+load under 2.129's engine factory (`LayoutModelConfig` has no
+`get_engine_config`), so the larger layout models could not be tried
+without pinning an older Docling. This is the region-finder problem of
+step 2 again: Word Equation Editor output is not a formula block to a
+layout model trained on LaTeX-rendered papers. Docling's table and reading
+order were not measured; formulas were the question and the answer was
+zero.
+
+**Decision: neither closes the Windows gap.** GOT-OCR2 is the only CPU
+model that reads these formulas and it is too slow and too wrong to ship
+by the bars this file set. Docling's formula path is dead on this corpus
+unless a formula region finder is put in front of it, and step 2 already
+showed the model-free finder covers 91% — so the honest combination would
+be *our* region finder feeding *its* CodeFormula, a crop recognizer, which
+step 3 measured at 25-26% for that class of model. Not worth the torch
+dependency to confirm.
+
+What would change this: a Windows box with a GPU (GOT-OCR2 at ~2 s per
+page is usable), or accepting an overnight run per course. Neither is a
+pipeline decision; both are a hardware decision for the person who owns
+the Windows target. Until then the Windows build ships formula pages as
+scattered glyphs with `MISMAPPED_GLYPHS`, as it does today.
+
+Cleanup if this is never revisited: the two `run_*.py` harnesses and the
+two result files under `tests/golden/formulas/`, the `docling` venv in the
+session scratchpad, and `stepfun-ai/GOT-OCR-2.0-hf` (1.4 GB) plus
+`docling-project/*` under `~/.cache/huggingface/hub`. Nothing in
+`extractor/` changed.
 
 ## Parked
 

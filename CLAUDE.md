@@ -489,8 +489,10 @@ understates it.
   (136 display formulas from the geotechnics course, expected LaTeX plus
   boxes). Not a pytest suite: `score.py` ranks a recognizer's
   `results/<model>.json` by wrong-but-balanced count, then recovery;
-  `region_probe.py` measures the model-free region finder. Assumptions and
-  the granite baseline are in `docs/backlog-formulas-and-models.md`.
+  `region_probe.py` measures the model-free region finder; `run_got_ocr2.py`
+  and `run_docling.py` are the step-5 page-model harnesses (results
+  committed, models not). Assumptions, the granite baseline and every
+  candidate measured so far are in `docs/backlog-formulas-and-models.md`.
 - `tests/baseline/` guards against regressing v1.1 (pre-OCR) output —
   `generate.py` rebuilds `snapshot.json` from the `v1.1-pre-ocr` tag if it
   ever needs to change intentionally.

@@ -1,0 +1,557 @@
+{
+ "34": {
+  "formulas": [
+   "U_{n}=\\frac{d_{60}}{d_{10}}",
+   "C_{c}=\\frac{\\left(d_{30}\\right)^{2}}{d_{10} \\cdot d_{60}}",
+   "C_{c}=1 \\div 3",
+   "d_{e}=\\sqrt{\\frac{6 \\cdot V}{\\pi}}"
+  ],
+  "inline": [
+   "\\rightarrow",
+   "\\quad U_{n} \\leq 5",
+   "\\quad 5<U_{n} \\leq 15",
+   "\\quad U_{n}>15",
+   "\\rightarrow",
+   "(S p)",
+   "S_{\\text {Krumbein }}=\\sqrt{\\frac{A \\cdot B \\cdot C}{A^{2}}}",
+   "S_{\\text {Sneed-Profek }}=\\sqrt{\\frac{C}{A \\cdot B}}",
+   "(V)",
+   "(F)",
+   "(C / B) /(",
+   ")",
+   "A>B>C",
+   "\\mathrm{d}_{\\text {cchivalent }}",
+   "d_{e}"
+  ],
+  "seconds": 23.1,
+  "capped": false,
+  "tokens": 664,
+  "raw": "\\title{\nCoefficienti de caracterizare ai granulozitāti\n}\n\\section*{\\(\\rightarrow\\) coefficientul de neuniformitate (coeficientul lui Hazen)}\n\\[\nU_{n}=\\frac{d_{60}}{d_{10}}\n\\]\nUrmärind valorile coeficientului de neuniformitate, pāmānturile se pot impārti in urmātoarele categorii (STAS 1243-88):\n- pāmānturi cu granulozitate foarte uniformă \\(\\quad U_{n} \\leq 5\\)\n- pāmānturi cu granulozitate uniformă \\(\\quad 5<U_{n} \\leq 15\\)\n- pāmānturi cu granulozitate neuniformă \\(\\quad U_{n}>15\\)\n\\section*{\\(\\rightarrow\\) coefficientul de curbură}\n\\[\nC_{c}=\\frac{\\left(d_{30}\\right)^{2}}{d_{10} \\cdot d_{60}}\n\\]\nSe apreciază că un pământ este bun pentru construcția terasamentelor atunci când:\n\\[\nC_{c}=1 \\div 3\n\\]\nForma particulelor solide. indici ai geometriei particulelor - cu caracter informativ\n- indicele de sfericitate \\((S p)\\), ce apreciază măsura în care forma unei particule, cu dimensiunile A; B; C, se aprople de cea a unei sfere și se calculează cu una din relațiile:\n- \\(S_{\\text {Krumbein }}=\\sqrt{\\frac{A \\cdot B \\cdot C}{A^{2}}}\\)\n- \\(S_{\\text {Sneed-Profek }}=\\sqrt{\\frac{C}{A \\cdot B}}\\)\n- coefficientul volumetric, ce exprimă raportul dintre volumul particulei \\((V)\\) și volumul unei sfere ce include particula:\n- factorul formei \\((F)\\) definit ca raport \\((C / B) /(\\) B/A \\()\\)\n- diametrul echivalent al particulei:\n\\[\nd_{e}=\\sqrt{\\frac{6 \\cdot V}{\\pi}}\n\\]\na) dimensiunile unei particule: \\(A>B>C\\)\n\n\\(\\mathrm{d}_{\\text {cchivalent }}\\)\nc) diametrul echivalent al particulelor\nDiametrul echivalent al unei particule, \\(d_{e}\\), este considerat fie latura minimă a ochiului sitei prin care trece particula (în cazul cernerii) fie diametrul unei sfere de aceeași masă (în cazul sedimentării) ce cade cu aceeași viteză la sedimentarea în apă."
+ },
+ "41": {
+  "formulas": [
+   "\\eta=\\frac{s_{i}}{s_{n}}>5 \\quad \\text { si } \\quad s=s_{i}-s_{n} \\geqq 3 \\mathrm{~cm}",
+   "I=\\frac{e_{L}-e}{1+e}",
+   "e_{L}=\\frac{w_{L} \\cdot \\gamma_{s}}{\\gamma_{w} \\cdot 100}"
+  ],
+  "inline": [
+   "\\rightarrow",
+   "\\quad l_{m 3}>2 \\mathrm{~cm} / \\mathrm{m}=2 \\%",
+   "\\mathrm{cm}^{2}",
+   "s_{i}",
+   "300 \\mathrm{kPa} ; s_{n}",
+   "300 \\mathrm{kPa}",
+   "S_{r} \\leq 0,80",
+   "I",
+   "e",
+   "e_{L}",
+   "\\left(w_{L} \\%\\right)",
+   "I_{p}[\\%]",
+   "0,01 \\leq I_{p} \\leq 0,10",
+   "0,1 \\leq I_{p} \\leq 0,14",
+   "0,14 \\leq I_{p} \\leq 0,22",
+   "I_{p}>0,22",
+   "\\tau_{f}=(\\sigma-u) \\cdot t g \\theta^{\\prime}"
+  ],
+  "seconds": 28.0,
+  "capped": false,
+  "tokens": 835,
+  "raw": "\\title{\nPāmānturi macroporice - NP 125-2010\n}\n\\section*{\\(\\rightarrow\\) Pāmānturi sensibile la umezire - PSU}\nsunt pāmānturile care, sub acțiunea încărcărilor transmise de fundație, sau numai sub greutate proprie, se tasează suplimentar odată cu creșterea umidității.\n- Criteriul I: \\(\\quad l_{m 3}>2 \\mathrm{~cm} / \\mathrm{m}=2 \\%\\),\n- Criteriul II : la încărcările pe placă, STAS 8942/3 - 90, (cu suprafața minimă de 5000 \\(\\mathrm{cm}^{2}\\) ) rezultă:\n\\[\n\\eta=\\frac{s_{i}}{s_{n}}>5 \\quad \\text { si } \\quad s=s_{i}-s_{n} \\geqq 3 \\mathrm{~cm}\n\\]\nîn care: \\(s_{i}\\) - tasarea terenului inundat la presiunea de \\(300 \\mathrm{kPa} ; s_{n}\\) - tasarea terenului în condiții de umiditate naturală, la presiunea de \\(300 \\mathrm{kPa}\\);\n- Criteriul III : gradul de umiditate \\(S_{r} \\leq 0,80\\) iarvaloarea indicelui \\(I\\) dat de relația:\n\\[\nI=\\frac{e_{L}-e}{1+e}\n\\]\nîn care: \\(e\\) - indicele porilor la un pāmānt cu structură și umiditate naturală; \\(e_{L}\\) - indicele porilor corespunzător umidității la limita de curgere \\(\\left(w_{L} \\%\\right)\\) a pământului;\n\\[\ne_{L}=\\frac{w_{L} \\cdot \\gamma_{s}}{\\gamma_{w} \\cdot 100}\n\\]\nsă fie inferioră valorilor din tabelul de mai jos:\n\\begin{tabular}{|c|c|c|c|c|}\n\\hline \\begin{tabular}{c} \nIndicele de plasticitate \\\\\n\\(I_{p}[\\%]\\)\n\\end{tabular} & \\(0,01 \\leq I_{p} \\leq 0,10\\) & \\(0,1 \\leq I_{p} \\leq 0,14\\) & \\(0,14 \\leq I_{p} \\leq 0,22\\) & \\(I_{p}>0,22\\) \\\\\n\\hline Indicele I & 0,1 & 0,17 & 0,24 & 0,30 \\\\\n\\hline\n\\end{tabular}\n\\section*{Lichefierea pāmānturilor}\nPierderea temporară a capacității unui pământ de a suporta sarcini, când este submersat și supus unor acțiuni dinamice.\nDe ce? .... Ca urmare a creșterii presiunii apei din pori (u), ce are drept consecință anularea rezistenței la forfecare, \\(\\tau_{f}=(\\sigma-u) \\cdot t g \\theta^{\\prime}\\), a pământului, și prin urmare transformarea acestuia într-o masă fluidă.\n"
+ },
+ "57": {
+  "formulas": [
+   "n[\\%]=\\left(V_{p} / V\\right) \\cdot 100 \\rightarrow n[\\%]=\\left(V_{p} / 1\\right) \\cdot 100=V_{p} \\cdot 100",
+   "e=V_{p} / V_{s} \\Rightarrow e=(n \\% / 100) /(1-n \\% / 100)",
+   "\\begin{array}{l}\nv=1+e \\\\\n\\quad \\text { - compactitatea (c) este raportul dintre volumul scheletului și volumul total al probe: } \\\\\nc=V_{s} / V=1 / V \\Rightarrow e=1 /(1+e)\n\\end{array}",
+   "\\gamma_{s a t}=\\left(V_{s} \\cdot \\gamma_{s}+V_{p} \\cdot \\gamma_{w}\\right) / V \\Rightarrow \\gamma_{s a t}\\left[k N / m^{3}\\right]=\\left(1-\\frac{n \\circ \\%}{100}\\right) \\cdot \\gamma_{s}+\\frac{n \\circ \\%}{100} \\cdot \\gamma_{w}",
+   "\\gamma_{d}=G_{s} / V \\Rightarrow \\quad \\gamma_{d}\\left[k N / m^{3}\\right]=\\left(1-\\frac{n \\circ \\%}{100}\\right) \\cdot \\gamma_{s}",
+   "\\gamma^{\\prime}=\\frac{G_{s}-V_{s} \\cdot \\gamma_{w}}{V} \\Rightarrow \\quad \\gamma^{\\prime}=\\left(1-\\frac{n \\circ \\%}{100}\\right) \\cdot \\gamma_{s}-\\left(1-\\frac{n \\circ \\%}{100}\\right) \\cdot \\gamma_{w} \\Rightarrow \\gamma^{\\prime}\\left[k N / m^{3}\\right]=\\left(1-\\frac{n \\circ \\%}{100}\\right) \\cdot\\left(\\gamma_{s}-\\gamma_{w}\\right)",
+   "S_{r}=\\frac{V_{w}}{V_{p}}"
+  ],
+  "inline": [
+   "\\hat{i}",
+   "\\left(V_{p}\\right)",
+   "V",
+   "V_{p}",
+   "V_{s}",
+   "{ }^{\\mathrm{i}}",
+   "\\left(\\gamma_{s a t} / \\gamma_{y y}\\right)",
+   "\\left(\\gamma_{d}-d r y\\right)",
+   "\\left(\\gamma^{\\prime}\\right)",
+   "\\left(S_{w}\\right."
+  ],
+  "seconds": 36.8,
+  "capped": false,
+  "tokens": 1023,
+  "raw": "\\title{\nIndici de structurâ derivat \\(\\hat{i}\\)\n}\n- porozitatea pământurilor (n), definită ca raportul dintre volumul porilor \\(\\left(V_{p}\\right)\\), dintr-o probă de pământ și volumul aparent (volumul total al pământului inclusiv golarile) \\(V\\), al acelei cantități, deci (fig. a):\n\\[\nn[\\%]=\\left(V_{p} / V\\right) \\cdot 100 \\rightarrow n[\\%]=\\left(V_{p} / 1\\right) \\cdot 100=V_{p} \\cdot 100\n\\]\n- indicele porilor (e), reprezintă raportul dintre volumul porilor \\(V_{p}\\) , dintr-o cantitate de pământ și volumul particulelor solide \\(V_{s}\\) din acea cantitate de pământ, și rezultă:\n\\[\ne=V_{p} / V_{s} \\Rightarrow e=(n \\% / 100) /(1-n \\% / 100)\n\\]\n- volumul specific ca reprezentând volumul unei probe de pământ al cărei volum al scheletului solid este unitar (fig. b):\n\\[\n\\begin{array}{l}\nv=1+e \\\\\n\\quad \\text { - compactitatea (c) este raportul dintre volumul scheletului și volumul total al probe: } \\\\\nc=V_{s} / V=1 / V \\Rightarrow e=1 /(1+e)\n\\end{array}\n\\]\n\na) probă cu volumul total unitar\nb) probă cu volumul de solid unitar\n\\section*{Indici de structură derivat \\({ }^{\\mathrm{i}}\\)}\n- greutatea volumică a pământului în stare saturată \\(\\left(\\gamma_{s a t} / \\gamma_{y y}\\right)\\), definită ca raport dintre greutatea probei saturate (porii fiind în întregime plini cu apă) și volumul acesteia (inclusiv golarile):\n\\[\n\\gamma_{s a t}=\\left(V_{s} \\cdot \\gamma_{s}+V_{p} \\cdot \\gamma_{w}\\right) / V \\Rightarrow \\gamma_{s a t}\\left[k N / m^{3}\\right]=\\left(1-\\frac{n \\circ \\%}{100}\\right) \\cdot \\gamma_{s}+\\frac{n \\circ \\%}{100} \\cdot \\gamma_{w}\n\\]\n- greutatea volumică a pământului în stare uscată \\(\\left(\\gamma_{d}-d r y\\right)\\) reprezintă raportul dintre greutatea probei în stare uscată și volumul acesteia:\n\\[\n\\gamma_{d}=G_{s} / V \\Rightarrow \\quad \\gamma_{d}\\left[k N / m^{3}\\right]=\\left(1-\\frac{n \\circ \\%}{100}\\right) \\cdot \\gamma_{s}\n\\]\n- greutatea volumică în stare submersată \\(\\left(\\gamma^{\\prime}\\right)\\), definită ca raport dintre greutatea probei în stare submersată (sub apă) și volumul acesteia (inclusiv golarile):\n\\[\n\\gamma^{\\prime}=\\frac{G_{s}-V_{s} \\cdot \\gamma_{w}}{V} \\Rightarrow \\quad \\gamma^{\\prime}=\\left(1-\\frac{n \\circ \\%}{100}\\right) \\cdot \\gamma_{s}-\\left(1-\\frac{n \\circ \\%}{100}\\right) \\cdot \\gamma_{w} \\Rightarrow \\gamma^{\\prime}\\left[k N / m^{3}\\right]=\\left(1-\\frac{n \\circ \\%}{100}\\right) \\cdot\\left(\\gamma_{s}-\\gamma_{w}\\right)\n\\]\n- gradul de umiditate \\(\\left(S_{w}\\right.\\), water-saturation ratio), este definit ca raportul dintre volumul apei continută în porii probei de pământ și volumul total al porilor din acea probă, dat de relația:\n\\[\nS_{r}=\\frac{V_{w}}{V_{p}}\n\\]"
+ },
+ "59": {
+  "formulas": [
+   "\\begin{array}{l}\nn_{\\max }=47,6 \\% \\quad \\text { si } \\quad e_{\\max } \\cong 0,91 \\\\\n\\text { pentru starea de indesare maximă (aranjare hexagonală) (fig. c), } \\\\\nn_{\\min }=25,9 \\%, \\quad \\text { si } \\quad e_{\\min } \\cong 0,35\n\\end{array}",
+   "\\begin{array}{l}\ne_{\\max }-e \\\\\ne_{\\min } e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapfty \\\\\n\\cdot\n\\end{array}"
+  ],
+  "inline": [
+   "\\quad",
+   "n_{\\max }=0,50",
+   "e_{\\max }=1,00",
+   "n_{\\min }=0,30",
+   "e_{\\min }=0,43"
+  ],
+  "seconds": 149.6,
+  "capped": false,
+  "tokens": 2953,
+  "raw": "\\title{\nStāri extreme de indesare sau de afánare a nisipurilor\n}\nÍn cazul asimilārii particuelor de nisip cu sfere de același diametru, stările extreme sunt caracterizate prin următorii indici:\n- \\(\\quad\\) pentru starea de afánare maximă (aranjare cubică) (fig.a),\n\\[\n\\begin{array}{l}\nn_{\\max }=47,6 \\% \\quad \\text { si } \\quad e_{\\max } \\cong 0,91 \\\\\n\\text { pentru starea de indesare maximă (aranjare hexagonală) (fig. c), } \\\\\nn_{\\min }=25,9 \\%, \\quad \\text { si } \\quad e_{\\min } \\cong 0,35\n\\end{array}\n\\]\n\na) afânare maximă\n\nb) indesare medie Stare naturală\n\nc) indesare maximă\n\\section*{Stāri extreme de indesare sau de afánare a nisipurilor}\nPractic, indiferent de granulozitate și sfericitate, pentru nisipurile curate se obțin valori cuprinse între:\n\\(n_{\\max }=0,50\\) sau \\(e_{\\max }=1,00\\) și \\(n_{\\min }=0,30\\) sau \\(e_{\\min }=0,43\\)\nCum porozitatea absolută nu indică starea în care se găsțește pământul între cele două stări extreme și nici calitatea lui ca teren de fundare, s-a definit gradul de indesare sau densitatea relativă (fig.d):\n\\[\n\\begin{array}{l}\ne_{\\max }-e \\\\\ne_{\\min } e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapsto e_{\\max }-e_{\\min } \\\\\n\\mapfty \\\\\n\\cdot\n\\end{array}\n\\]"
+ },
+ "73": {
+  "formulas": [
+   "\\begin{array}{l}\n\\rho=\\frac{M}{V}=\\frac{185}{100}=1.85 \\mathrm{~g} / \\mathrm{cm}^{3} \\\\\n\\gamma=\\frac{G}{V}=\\frac{M \\cdot g}{V}=\\rho \\cdot g=\\frac{185 \\cdot 10^{-3} \\cdot 10}{100 \\cdot 10^{-6}} \\frac{\\mathrm{kg} \\cdot \\mathrm{m}}{\\mathrm{m}^{3} \\cdot \\mathrm{s}^{2}}=18,50 \\mathrm{kN} / \\mathrm{m}^{3} \\\\\n2 . \\text { umiditatea }(\\mathrm{w}) \\\\\nw=\\frac{M_{w}}{M_{s}} 100=\\frac{M-M_{d}}{M_{s}}=\\frac{185-170}{170} 100=8,82 \\% \\quad\\left(M_{d}=M_{s}\\right) \\\\\n3 . \\text { porozitatea }(n) \\\\\nn=\\frac{V_{p}}{V} 100=\\frac{V-V_{s}}{V} 100=\\frac{100-63,67}{100} 100=36,33 \\% \\\\\n\\text { unde } \\\\\nV_{s}=\\frac{M_{s}}{\\rho_{s}}=\\frac{170}{2,67}=63,67 \\mathrm{~cm}^{3}\n\\end{array}",
+   "e=\\frac{V_{p}}{V_{s}}=\\frac{V-V_{s}}{V}=\\frac{100-63,67}{63,67}=0.57",
+   "V_{s}=\\frac{M_{s}}{\\rho_{s}}=\\frac{170}{2,67}=63,67 \\mathrm{~cm}^{3}",
+   "\\gamma_{\\text {sat }}=\\frac{G_{w}+G_{s}}{V}=\\frac{V_{p} \\cdot \\gamma_{w}+V_{s} \\cdot \\gamma_{s}}{V}=\\frac{36.33 \\cdot 10^{-6} \\cdot 10+63.67 \\cdot 10^{-6} \\cdot 26.7}{100 \\cdot 10^{-6}}=20.63 \\mathrm{kN} / \\mathrm{m}^{3}",
+   "\\gamma_{\\mathrm{d}}=\\frac{G_{s}}{V}=\\frac{M_{s} \\cdot g}{V}=\\frac{170 \\cdot 10^{-3} \\cdot 10 \\mathrm{~kg} \\cdot \\mathrm{m}}{100 \\cdot 10^{-6} \\mathrm{~m}^{3} \\cdot \\mathrm{s}^{2}}=17 \\mathrm{kN} / \\mathrm{m}^{3}",
+   "\\gamma^{\\prime}=V_{s} \\cdot \\gamma_{s}-V_{s} \\cdot \\gamma_{w}=\\left(1-\\frac{n}{100}\\right)\\left(\\gamma_{s}-\\gamma_{w}\\right)=\\left(1-\\frac{36.33}{100}\\right)(26.7-10)=10,63 \\mathrm{kN} / \\mathrm{m}^{3}",
+   "S_{r}=\\frac{w \\% \\cdot \\gamma_{s}}{100 \\cdot e \\cdot \\gamma_{w}}=\\frac{8.82 \\cdot 26.7}{100 \\cdot 0.57 \\cdot 10}=0,413"
+  ],
+  "inline": [
+   "\\mathrm{O}",
+   "\\left(\\rho_{s}=2,67 \\mathrm{~g} / \\mathrm{cm}^{3}\\right)-\\mathrm{cu}",
+   "V=100 \\mathrm{~cm}^{3}",
+   "M=185 \\mathrm{~g}",
+   "105^{\\circ} \\mathrm{C}",
+   "M_{d}=170 \\mathrm{~g}",
+   "\\gamma, w",
+   "\\gamma_{s a t}, \\gamma_{d}, \\gamma^{\\prime}, S, ?",
+   "10 \\mathrm{~m} / \\mathrm{s}^{3}",
+   "(\\gamma)",
+   "\\left(\\gamma_{\\text {sat }}\\right)",
+   "(\\gamma d)",
+   "(\\gamma)",
+   "\\left(S_{r}\\right)",
+   "\\mathrm{e}_{\\max }=0.82",
+   "\\mathrm{e}_{\\min }=0,51",
+   "\\gamma=18,4 \\mathrm{kN} / \\mathrm{m}^{3}",
+   "\\mathrm{w}=14.3 \\%",
+   "\\gamma_{s}=26,5 \\mathrm{kN} / \\mathrm{m}^{3}"
+  ],
+  "seconds": 78.4,
+  "capped": false,
+  "tokens": 1491,
+  "raw": "\\title{\nA.3.1\n}\n\\(\\mathrm{O}\\) probă de pământ - argilă \\(\\left(\\rho_{s}=2,67 \\mathrm{~g} / \\mathrm{cm}^{3}\\right)-\\mathrm{cu}\\) volumul \\(V=100 \\mathrm{~cm}^{3}\\) are, prin cântărire în stare năturală, \\(M=185 \\mathrm{~g}\\) iar după uscare în etuvă, la \\(105^{\\circ} \\mathrm{C}\\) până la masă constantă, \\(M_{d}=170 \\mathrm{~g}\\). Care sunt valorile pentru \\(\\gamma, w\\), e, n, \\(\\gamma_{s a t}, \\gamma_{d}, \\gamma^{\\prime}, S, ?\\) Se consideră accelerația gravitațională g ≈ \\(10 \\mathrm{~m} / \\mathrm{s}^{3}\\).\n\\section*{Rezolvare:}\n1. greutatea volumică a pământului în stare naturală \\((\\gamma)\\)\n\\[\n\\begin{array}{l}\n\\rho=\\frac{M}{V}=\\frac{185}{100}=1.85 \\mathrm{~g} / \\mathrm{cm}^{3} \\\\\n\\gamma=\\frac{G}{V}=\\frac{M \\cdot g}{V}=\\rho \\cdot g=\\frac{185 \\cdot 10^{-3} \\cdot 10}{100 \\cdot 10^{-6}} \\frac{\\mathrm{kg} \\cdot \\mathrm{m}}{\\mathrm{m}^{3} \\cdot \\mathrm{s}^{2}}=18,50 \\mathrm{kN} / \\mathrm{m}^{3} \\\\\n2 . \\text { umiditatea }(\\mathrm{w}) \\\\\nw=\\frac{M_{w}}{M_{s}} 100=\\frac{M-M_{d}}{M_{s}}=\\frac{185-170}{170} 100=8,82 \\% \\quad\\left(M_{d}=M_{s}\\right) \\\\\n3 . \\text { porozitatea }(n) \\\\\nn=\\frac{V_{p}}{V} 100=\\frac{V-V_{s}}{V} 100=\\frac{100-63,67}{100} 100=36,33 \\% \\\\\n\\text { unde } \\\\\nV_{s}=\\frac{M_{s}}{\\rho_{s}}=\\frac{170}{2,67}=63,67 \\mathrm{~cm}^{3}\n\\end{array}\n\\]\n4. indicele porilor (e)\n\\[\ne=\\frac{V_{p}}{V_{s}}=\\frac{V-V_{s}}{V}=\\frac{100-63,67}{63,67}=0.57\n\\]\nunde\n\\[\nV_{s}=\\frac{M_{s}}{\\rho_{s}}=\\frac{170}{2,67}=63,67 \\mathrm{~cm}^{3}\n\\]\n5. greutatea volumică în stare saturată \\(\\left(\\gamma_{\\text {sat }}\\right)\\)\n\\[\n\\gamma_{\\text {sat }}=\\frac{G_{w}+G_{s}}{V}=\\frac{V_{p} \\cdot \\gamma_{w}+V_{s} \\cdot \\gamma_{s}}{V}=\\frac{36.33 \\cdot 10^{-6} \\cdot 10+63.67 \\cdot 10^{-6} \\cdot 26.7}{100 \\cdot 10^{-6}}=20.63 \\mathrm{kN} / \\mathrm{m}^{3}\n\\]\n6. greutatea volumică în stare uscată \\((\\gamma d)\\)\n\\[\n\\gamma_{\\mathrm{d}}=\\frac{G_{s}}{V}=\\frac{M_{s} \\cdot g}{V}=\\frac{170 \\cdot 10^{-3} \\cdot 10 \\mathrm{~kg} \\cdot \\mathrm{m}}{100 \\cdot 10^{-6} \\mathrm{~m}^{3} \\cdot \\mathrm{s}^{2}}=17 \\mathrm{kN} / \\mathrm{m}^{3}\n\\]\n7. greutatea volumică în stare submersată \\((\\gamma)\\)\n\\[\n\\gamma^{\\prime}=V_{s} \\cdot \\gamma_{s}-V_{s} \\cdot \\gamma_{w}=\\left(1-\\frac{n}{100}\\right)\\left(\\gamma_{s}-\\gamma_{w}\\right)=\\left(1-\\frac{36.33}{100}\\right)(26.7-10)=10,63 \\mathrm{kN} / \\mathrm{m}^{3}\n\\]\n8. gradul de umiditate \\(\\left(S_{r}\\right)\\)\n\\[\nS_{r}=\\frac{w \\% \\cdot \\gamma_{s}}{100 \\cdot e \\cdot \\gamma_{w}}=\\frac{8.82 \\cdot 26.7}{100 \\cdot 0.57 \\cdot 10}=0,413\n\\]\n\\section*{A.3.2}\nÎn urma determinărilor de laborator pentru un pământ granular, s-au stabilit, corespunzător stărilor de afănare şi îndesare, valorile indicilor porilor \\(\\mathrm{e}_{\\max }=0.82\\) respectiv \\(\\mathrm{e}_{\\min }=0,51\\). De asemenea, pentru greutatea volumică în stare nuturulă s-a determinat o valoare \\(\\gamma=18,4 \\mathrm{kN} / \\mathrm{m}^{3}\\) iar pentru umiditate o valoare \\(\\mathrm{w}=14.3 \\%\\). Greutatea volumică a scheletului mineral, \\(\\gamma_{s}=26,5 \\mathrm{kN} / \\mathrm{m}^{3}\\). Să se caracterizeze starea de îndesare şi să se aprecizeze capacitatea de îndesare ale pământului."
+ },
+ "79": {
+  "formulas": [
+   "2 \\cdot \\pi \\cdot\\left(r_{1} \\cdot \\cos \\theta_{r}\\right) \\cdot T_{s} \\cdot \\cos \\theta_{u}-\\int_{0}^{90-\\Delta_{u}} \\Delta u \\cdot d A \\cdot \\cos \\alpha=0",
+   "\\begin{array}{l}\n\\pi \\cdot r^{2} \\cdot \\Delta u=\\pi \\cdot r^{2} \\cdot h_{c} \\cdot\\left[g \\cdot\\left(\\rho_{w}-\\rho_{v}\\right)\\right] \\Rightarrow \\\\\n\\Delta u=\\frac{2 \\cdot T_{s} \\cdot \\cos \\theta_{u}}{r} \\Rightarrow h_{c}=\\frac{2 \\cdot T_{s} \\cdot \\cos \\theta_{u}}{r} \\\\\n\\Rightarrow h_{c}=\\frac{2 \\cdot T_{s} \\cdot \\cos \\theta_{u}}{r} \\Rightarrow h_{c}=\\frac{0,154 \\cdot \\cos \\theta_{u}}{r}\n\\end{array}",
+   "h_{c}(c m)=\\frac{0,154}{r}"
+  ],
+  "inline": [
+   "\\left(\\Delta u\\right)",
+   "p_{a r}",
+   "\\Delta p=\\Delta u",
+   "T_{s}\\left(T_{v} \\mathrm{si}\\right.",
+   "T_{o}",
+   "\\Delta u",
+   "72,8 \\cdot 10^{-5}",
+   "514,6 \\cdot 10^{-5}",
+   "486,8 \\cdot 10^{-5}",
+   "26,8 \\cdot 10^{-5}",
+   "22,3 \\cdot 10^{-5}",
+   "36,6 \\cdot 10^{-5}",
+   "\\Rightarrow \\Delta u=\\frac{2 \\cdot T_{s}}{r_{1}} \\cdot \\frac{2 \\cdot \\cos ^{2} \\theta_{u}}{1+\\cos 2 \\theta_{u}} \\Rightarrow \\theta_{u}=0",
+   "\\Rightarrow \\Delta u=\\frac{2 \\cdot T_{s}}{r_{1}}",
+   "\\left(r=r_{1} \\cdot \\cos \\theta_{u}\\right)",
+   "h_{c}",
+   "h_{c}",
+   "(-A \\cup)",
+   "h_{c}",
+   "\\theta u=0"
+  ],
+  "seconds": 53.5,
+  "capped": false,
+  "tokens": 1111,
+  "raw": "\\title{\nAscensiunea capilarà\n}\n- Prin similitudine, curbarea unei membrane, elastic fixată de pereltii unui tub deschis la ambele capete, ar avea loc prin aparitia deficitului de presiune \\(\\left(\\Delta u\\right)\\), in rapport cu presiunea atmosficiă, \\(p_{a r}\\).\n- Determinarea deficitului de presiune, \\(\\Delta p=\\Delta u\\), asemenea unei suctijuni, se poate face prin calculul reacțiunilor asupra membranei, \\(T_{s}\\left(T_{v} \\mathrm{si}\\right.\\) \\(T_{o}\\) ), sub deficitul de presiune \\(\\Delta u\\) şi exprimarea conditiei de echilibru a forțelor pe direcție verticală.\n- Pentru apă, comparativ cu alte lichide, valorile tensiuni superficale sunt prezentate in tabelul de mai jos:\n\\begin{tabular}{|l|l|}\n\\hline Lichid & \\begin{tabular}{c} \nTensiunea superficială \\\\\nN/cm\n\\end{tabular} \\\\\n\\hline Apă & \\(72,8 \\cdot 10^{-5}\\) \\\\\n\\hline Mercur & \\\\\n- în aer & \\(514,6 \\cdot 10^{-5}\\) \\\\\n\\hline - în vacuum & \\(486,8 \\cdot 10^{-5}\\) \\\\\n\\hline Carbon tetraclorid & \\(26,8 \\cdot 10^{-5}\\) \\\\\n\\hline Alcool, etil & \\(22,3 \\cdot 10^{-5}\\) \\\\\n\\hline Ulei & \\(36,6 \\cdot 10^{-5}\\) \\\\\n\\hline\n\\end{tabular}\n\\section*{Similitudinea meniscurilor capillare cu membrana elastică}\n\\[\n2 \\cdot \\pi \\cdot\\left(r_{1} \\cdot \\cos \\theta_{r}\\right) \\cdot T_{s} \\cdot \\cos \\theta_{u}-\\int_{0}^{90-\\Delta_{u}} \\Delta u \\cdot d A \\cdot \\cos \\alpha=0\n\\]\n\\(\\Rightarrow \\Delta u=\\frac{2 \\cdot T_{s}}{r_{1}} \\cdot \\frac{2 \\cdot \\cos ^{2} \\theta_{u}}{1+\\cos 2 \\theta_{u}} \\Rightarrow \\theta_{u}=0\\) (tub de sticlă/apă)\n\\(\\Rightarrow \\Delta u=\\frac{2 \\cdot T_{s}}{r_{1}}\\)\n- valoarea deficitului de presiune, din interiorul apei situată sub meniscul concav, în imediata sa vecinătate, este invers proporțională cu raza tubului capilar \\(\\left(r=r_{1} \\cdot \\cos \\theta_{u}\\right)\\).\n\\section*{Înălțimea capilară}\n- Acest deficit de presiune, această sorbție, rezultat al fenomenelor de interfață, menține meniscul curbat și totodată determină ridicarea apei prin tubul capilar din poziția (1) în poziția (2), la o înălțime numită înălțime capilară \\(h_{c}\\) deasupra nivelului apei din vas.\n\nDeterminarea valorii înălțimii capillare \\(h_{c}\\) se face din condiția ca forța ascensională dată de sorbție \\((-A \\cup)\\) să fie egalată de greutatea coloanei de apă din tub de înălțime \\(h_{c}\\).\n\\[\n\\begin{array}{l}\n\\pi \\cdot r^{2} \\cdot \\Delta u=\\pi \\cdot r^{2} \\cdot h_{c} \\cdot\\left[g \\cdot\\left(\\rho_{w}-\\rho_{v}\\right)\\right] \\Rightarrow \\\\\n\\Delta u=\\frac{2 \\cdot T_{s} \\cdot \\cos \\theta_{u}}{r} \\Rightarrow h_{c}=\\frac{2 \\cdot T_{s} \\cdot \\cos \\theta_{u}}{r} \\\\\n\\Rightarrow h_{c}=\\frac{2 \\cdot T_{s} \\cdot \\cos \\theta_{u}}{r} \\Rightarrow h_{c}=\\frac{0,154 \\cdot \\cos \\theta_{u}}{r}\n\\end{array}\n\\]\niar pentru tuburile de sticlă și apă curată, pentru care \\(\\theta u=0\\), rezultă:\n\\[\nh_{c}(c m)=\\frac{0,154}{r}\n\\]"
+ },
+ "81": {
+  "formulas": [
+   "\\sigma_{k}=\\Delta u=h_{c} \\cdot \\gamma_{w}",
+   "p_{k} \\cdot A_{s}=\\sigma_{k} \\cdot A_{g} \\Rightarrow p_{k} \\cdot(1-n)=\\sigma_{k} \\cdot 1 \\Rightarrow p_{k}=(1+e) \\cdot \\sigma_{k}"
+  ],
+  "inline": [
+   "a-",
+   "\\quad b",
+   "\\quad c",
+   "\\sigma_{k}",
+   "\\left(A_{g}=1\\right)",
+   "\\left(\\sigma_{k}\\right)",
+   "\\sigma_{k}",
+   "\\left(p_{k}\\right)",
+   "A_{s} \\rightarrow",
+   "\\left(A_{g}\\right)",
+   "\\left(A_{g}\\right)"
+  ],
+  "seconds": 34.0,
+  "capped": false,
+  "tokens": 698,
+  "raw": "\\title{\nZone de apà capilarà observate in pàmânturi\n}\n\nDeasupra nivelului apei subterane iau nastere:\n- \\(a-\\) zona de saturare capilarà, se caracterizează prin existența continuă a coloanelor capilare ce umplu complet golurile dintre particule deasupra nivelului hidrostatic. Înălțimea acestei zone este dependentă de fluctuațiile nivelului hidrostatic.\n- \\(\\quad b\\) - zona de saturare partială capilară, situață deasupra zonei de saturare, în care, coloanele de apă capilară pot fi continui sau întrerupte (apa capilară suspendată). În această zonă, gradul de saturație este variabil și în general se constată o scădere acesteia pe verticală, odată cu îndepărtarea de nivelul hidrostatic;\n- \\(\\quad c\\) - zona de apă capilară de contact, cuprinde apa capilară localizată în jurul contactelor dintre particule. Apa capilară provine în principal din infiltrajile apei din precipitații, condensări ale vaporilor de apă din pori, la variații de temperatură și în mai mică măsură prin scăerea nivelului hidrostatic. Porii capilari în această zonă sunt de regulă continui și, în majoritate, în contact cu atmosfera.\n\\section*{Presiunea capilară}\n\n- rezultanta forţelor de compresiune \\(\\sigma_{k}\\), pe unitatea de suprafaţă a meniscului \\(\\left(A_{g}=1\\right)\\), egală cu forţa ascensională a meniscurilor, se numeşte presiune capilară \\(\\left(\\sigma_{k}\\right)\\) :\n- \\(\\sigma_{k}\\) - distribuiită pe unitatea de suprafaţă determină presiunea capilară asupra scheletului solid \\(\\left(p_{k}\\right)\\), distribuită pe \\(A_{s} \\rightarrow\\) în cazul unui pământ necoeziv (b) rezultă,\n\\[\n\\sigma_{k}=\\Delta u=h_{c} \\cdot \\gamma_{w}\n\\]\n- Considerând, în secţiune, că aceasta este reprezentată de aria g carefully \\(\\left(A_{g}\\right)\\) şi respectiv a plinurilor \\(\\left(A_{g}\\right)\\), presiunea care ar determina indesarea/ tasarea scheletul mineral ar fi:\n\\[\np_{k} \\cdot A_{s}=\\sigma_{k} \\cdot A_{g} \\Rightarrow p_{k} \\cdot(1-n)=\\sigma_{k} \\cdot 1 \\Rightarrow p_{k}=(1+e) \\cdot \\sigma_{k}\n\\]"
+ },
+ "82": {
+  "formulas": [
+   "\\sigma^{\\prime}=\\frac{\\sigma_{p z}}{\\text { presiunea } \\operatorname{din}}+\\frac{\\sigma_{y z}}{\\text { acitume exteriora }}+\\frac{p_{k}}{\\text { aciculatā cu }\\left(y^{\\prime}\\right)} \\frac{\\text { previunea }}{\\text { capilarā }}"
+  ],
+  "inline": [
+   "\\left(p_{k}\\right)",
+   "<100",
+   "<1,0",
+   "100 \\div 150",
+   "1 \\div 1,5",
+   "150 \\div 300",
+   "1,5 \\div 3,0",
+   "300 \\div 1000",
+   "3,0 \\div 10,0",
+   "1000 \\div 10000",
+   "10,0 \\div 100,0",
+   ">10000",
+   ">100,0",
+   "\\sigma^{\\prime}=\\sigma-u_{s}",
+   "z \\leq h_{c}",
+   "\\left(p_{k}\\right)",
+   "\\left(\\sigma_{y z}=y^{\\prime} \\cdot D_{f}\\right)",
+   "5-6 \\%",
+   "50 \\mathrm{~cm}"
+  ],
+  "seconds": 49.8,
+  "capped": false,
+  "tokens": 1024,
+  "raw": "- pentru zona de saturare capilarā a unui pāmānt necoeziv, presiunea capilarā pe scheletul solid \\(\\left(p_{k}\\right)\\) trebuie consideratā, la nivelul respectiv, ca o sarcinā exterioraā continuā, uniform repartizatā (valori orientative date in tabelul de mai jos), care induc tasāri suplimentare celor determinate pe cale experimentală.\n\\begin{tabular}{|l|c|c|}\n\\hline Tipul de pāmānt & \\begin{tabular}{c} \nīnāltimea capilarā \\\\\n(mm)\n\\end{tabular} & \\begin{tabular}{c} \nPresiunea capilarā \\\\\n(kN/m²)\n\\end{tabular} \\\\\n\\hline pietriș mic & \\(<100\\) & \\(<1,0\\) \\\\\n\\hline nisip mare & \\(100 \\div 150\\) & \\(1 \\div 1,5\\) \\\\\n\\hline nisip miljociu & \\(150 \\div 300\\) & \\(1,5 \\div 3,0\\) \\\\\n\\hline nisip fin & \\(300 \\div 1000\\) & \\(3,0 \\div 10,0\\) \\\\\n\\hline praf & \\(1000 \\div 10000\\) & \\(10,0 \\div 100,0\\) \\\\\n\\hline argilā & \\(>10000\\) & \\(>100,0\\) \\\\\n\\hline\n\\end{tabular}\n- presiunea/ tensiunea efectivă \\(\\sigma^{\\prime}=\\sigma-u_{s}\\) la o anumitā cotā \\(z \\leq h_{c}\\), va fi suma a trei presiuni:.\n\\[\n\\sigma^{\\prime}=\\frac{\\sigma_{p z}}{\\text { presiunea } \\operatorname{din}}+\\frac{\\sigma_{y z}}{\\text { acitume exteriora }}+\\frac{p_{k}}{\\text { aciculatā cu }\\left(y^{\\prime}\\right)} \\frac{\\text { previunea }}{\\text { capilarā }}\n\\]\n- pentru fundatjile de suprafață, la care talpa se pleazează sub nivelul liniei de saturare capilarā, dar deasupra nivelului apei subterane, presiunea capilară pe schelet \\(\\left(p_{k}\\right)\\) se va considera asemenea sarcinii geologice \\(\\left(\\sigma_{y z}=y^{\\prime} \\cdot D_{f}\\right)\\) de la nivelul tāpii uniform 3 continuu distribuită.\n\\section*{Apa capilarā de contact}\n\n- Aceasta, prin tensiunile superficiale ale meniscurilor, induce presiuni capilare apreciable,dotarița razelor micí ale meniscurilor, ce tid să impiedice desprinderea a două pláci de sticlă (a) (adeziunea) sau să preseze granulele unui pāmānt necoeziv unele în altele (b și c), determinând o anumită legatură între granule, similară ca efect unor forte de atractie, ceea ce a determinat introducerea noțunii de coeziune aparentă, ce caracterizează acest fenomen.\n- Coeziunea aparentă se manifestă atata timp cât există meniscuri capilare în masa de pāmānt necoeziv și dispare odată cu disparijția meniscurilor de contact, prin uscarea pāmāntului sau saturarea lui (umplerea tuturor porilor cu apă).\n- Prin valorile importante ale coeziunii aparente, nisipurile (pāmānturi necoezeiv), la valori ale umidității de cca. \\(5-6 \\%\\), prezintă rezistențe la întindere și forfecare sporite și chiar se mențin în taluz vertical pe cca. \\(50 \\mathrm{~cm}\\) și totodată prezintă o înfoiere caracterizată printr-o porozitate maximă."
+ },
+ "88": {
+  "formulas": [
+   "\\begin{array}{l}\nE N \\%=\\frac{H_{2}}{H_{1}} \\cdot 100 \\\\\n\\mathrm{EN} \\leq 20 \\rightarrow \\text { pāmānturi plasticise; } 20<\\mathrm{EN} \\leq 30 \\rightarrow \\text { pāmānturi } \\\\\n\\text { cu plasticitate miljoicie; EN }>30 \\rightarrow \\text { pāmānturi neplastice }\n\\end{array}",
+   "\\begin{array}{l}\n\\text { N\\% }=100 . \\frac{I_{\\text {um }}}{A_{2}} \\cdot \\quad \\text { N } \\leq 1-\\text { inactive, } \\text { fără fracțiunea } \\text { argilă; } 1<\\mathrm{N} \\leq 3-\\text { inactive, } \\text { cu minerale argiloase; } \\\\\n\\text { 1 } \\times \\mathrm{N} \\leq 5-\\text { puin active, } \\mathrm{cu} 0-10 \\% \\text { montmorillonist; } 5 \\times \\mathrm{N} \\leq 8-\\text { activitate medie, } \\text { pământuri } \\\\\n\\text { normale cu } 10-50 \\% \\text { montmorillonist; } 8<\\mathrm{N} \\leq 18-\\text { activitate mare, } \\text { pământuri nocive cu } 50-\\text { 90\\% montmorillonist; } \\mathrm{N}>18-\\text { foarte active } 5 \\mathrm{i} \\text { foarte nocive cu } 90-100 \\% \\text { montmorillonit. }\n\\end{array}",
+   "I_{\\mathrm{c}}=\\frac{w_{L}-w}{w_{L}-w_{p}}",
+   "\\begin{array}{l}\n1,0<I_{\\mathrm{e}}<0,0 \\\\\n\\text { starea semisolidă } \\\\\n1 \\leq I_{\\mathrm{e}} \\leq\\left[\\left(w_{L}-w_{s}\\right) / I_{p}\\right] \\\\\n\\text { starea solidă } \\\\\n{\\left[\\left(w_{L}-w_{s}\\right) / I_{p}\\right] \\leq I_{\\mathrm{c}} \\leq w_{L} / I_{p}}\n\\end{array}"
+  ],
+  "inline": [
+   "\\cdot",
+   "\\cdot",
+   "\\cdot",
+   "\\quad(l p<5 \\%)",
+   "P_{74} \\approx 5-12 \\%",
+   "E N \\approx 85 \\%",
+   "\\alpha_{\\mathrm{m}}",
+   "\\rightarrow",
+   "\\left(I_{\\mathrm{e}}\\right)",
+   "\\left(I_{\\mathrm{L}}=I-I_{\\mathrm{e}}\\right)",
+   "\\quad I_{\\mathrm{e}}<0,0"
+  ],
+  "seconds": 61.9,
+  "capped": false,
+  "tokens": 1320,
+  "raw": "\\title{\nStanciu A. \\(\\cdot\\) Lungu I. \\(\\cdot\\) Teodoru I.B. \\(\\cdot\\) Anculāesi M.\n}\n\n\\begin{abstract}\n- pentru pāmānturile cu plasticitate redusă \\(\\quad(l p<5 \\%)\\) și cu fracțiunea \\(P_{74} \\approx 5-12 \\%\\), unde limitele de plasticitate nu se pot determina cu suficientă exactitate, laboratorul rutier din California a pus la punct o încercare de masurare a elementelor fine (argiloase) dintr-o masă de nisip.\n- Indicele numit echivalentul de nisip (EN) este definit ca raportul dintre volumul părtilor silicoase sedimentate (nisip) și volumul total al materialului spălat și floclat.\n\\end{abstract}\n\\[\n\\begin{array}{l}\nE N \\%=\\frac{H_{2}}{H_{1}} \\cdot 100 \\\\\n\\mathrm{EN} \\leq 20 \\rightarrow \\text { pāmānturi plasticise; } 20<\\mathrm{EN} \\leq 30 \\rightarrow \\text { pāmānturi } \\\\\n\\text { cu plasticitate miljoicie; EN }>30 \\rightarrow \\text { pāmānturi neplastice }\n\\end{array}\n\\]\nEchivalentul de nisip, încercare complementară indicelui de plasticitate, poate fi utilizat și pentru studiul materialelor destinate construcției drumurilor, respectiv a agregatorel din betoanele de ciment și din mixurile bituminosea (un agregat bun trebuie să aibă \\(E N \\approx 85 \\%\\) ).\nÎncercarea cu abastru de metilen - Valoarea de abastru de metilen (VA), sau indicele de albastru de metilen (I \\(\\alpha_{\\mathrm{m}}\\) ) reprezintă cantitatea de albastru de metilen adsorbita pe suprafața specifică totală (înternă și externă), a particulelor de pământ \\(\\rightarrow\\) indice de nocivitate al pământului, din punct de vedere al foosirii ca material de construcție pentru terasamente.\n\\[\n\\begin{array}{l}\n\\text { N\\% }=100 . \\frac{I_{\\text {um }}}{A_{2}} \\cdot \\quad \\text { N } \\leq 1-\\text { inactive, } \\text { fără fracțiunea } \\text { argilă; } 1<\\mathrm{N} \\leq 3-\\text { inactive, } \\text { cu minerale argiloase; } \\\\\n\\text { 1 } \\times \\mathrm{N} \\leq 5-\\text { puin active, } \\mathrm{cu} 0-10 \\% \\text { montmorillonist; } 5 \\times \\mathrm{N} \\leq 8-\\text { activitate medie, } \\text { pământuri } \\\\\n\\text { normale cu } 10-50 \\% \\text { montmorillonist; } 8<\\mathrm{N} \\leq 18-\\text { activitate mare, } \\text { pământuri nocive cu } 50-\\text { 90\\% montmorillonist; } \\mathrm{N}>18-\\text { foarte active } 5 \\mathrm{i} \\text { foarte nocive cu } 90-100 \\% \\text { montmorillonit. }\n\\end{array}\n\\]\n\\section*{Indicele de consistență}\n- Cum proprietățile mecanice sunt dictate de rigiditatea structurii pământurilor (cu cât un pământ are o umiditate mai reduși, structura sa este mai rigidă și indicii mecanici au valori mai ridicate) este necesar a se preciza starea sa fizică (de consistență) în raport cu umidițățile limită în mod similar ca starea de îndesare la pământurile necoezive.\n- Pentru a determina cantitativ poziția unui pământ pe axa umidițăților și a stabili starea de consistență, s-a definit indicele de consistență \\(\\left(I_{\\mathrm{e}}\\right)\\), respectiv de lichiditate \\(\\left(I_{\\mathrm{L}}=I-I_{\\mathrm{e}}\\right)\\)\n\\[\nI_{\\mathrm{c}}=\\frac{w_{L}-w}{w_{L}-w_{p}}\n\\]\nÎn consecință, stările fizice ale pământului în raport de valorile indicelui de consistentă vor fi:\n- starea lichidă sau curgătoare\n- \\(\\quad I_{\\mathrm{e}}<0,0\\)\n- starea plastică\n\\[\n\\begin{array}{l}\n1,0<I_{\\mathrm{e}}<0,0 \\\\\n\\text { starea semisolidă } \\\\\n1 \\leq I_{\\mathrm{e}} \\leq\\left[\\left(w_{L}-w_{s}\\right) / I_{p}\\right] \\\\\n\\text { starea solidă } \\\\\n{\\left[\\left(w_{L}-w_{s}\\right) / I_{p}\\right] \\leq I_{\\mathrm{c}} \\leq w_{L} / I_{p}}\n\\end{array}\n\\]"
+ },
+ "95": {
+  "formulas": [
+   "I_{c u}=\\frac{w_{s u t}-w}{w_{s u t}-w_{s}}=\\frac{V_{s u t}-V}{V_{s a t}-V_{l s}}"
+  ],
+  "inline": [
+   "\\rightarrow",
+   "B",
+   "w_{s}",
+   "\\mathrm{V}\\left(\\mathrm{w}=\\mathrm{w}_{\\mathrm{i}}\\right)",
+   "\\rightarrow",
+   "-w_{s}",
+   "\\left(w_{t} \\%\\right)",
+   "15-20",
+   "20-30",
+   "30-40",
+   "40-150",
+   "\\left(w_{r} \\%\\right)",
+   "17-20",
+   "20-25",
+   "25-50",
+   "\\left(I_{p} \\%\\right)",
+   "3-10",
+   "10-15",
+   "10-100",
+   "\\left(w_{s} \\% \\%\\right)",
+   "12-18",
+   "12-20",
+   "14-25",
+   "8-35",
+   "I_{c u}=0",
+   "0<I_{c u}<1",
+   "I_{c u}=1",
+   "I_{\\mathrm{A}}",
+   "q_{u . \\max }",
+   "[J / g]",
+   "W_{15}",
+   "[\\%]",
+   "\\leq 0,75",
+   "\\leq 12",
+   "<5",
+   "0,76 \\ldots 1,25",
+   "13 \\ldots, 25",
+   "5 \\ldots, 10",
+   "26 \\ldots, 37",
+   ">1,25",
+   ">37",
+   ">10"
+  ],
+  "seconds": 42.5,
+  "capped": false,
+  "tokens": 951,
+  "raw": "\\title{\nCarcaterizarea P.U.C.M.\n}\n\\section*{\\(\\rightarrow\\) Curba de contractie}\nIndicii geotehnici prin care urmeaza să se identifice și caracterizeze P.U.C.M. se stabilesc în principal pe baza curbei de contractiqe a pământurilor, ca expresie grafică a variatiei volumului în funcție de umiditatea pământurilor.\nLa intersecția celor două segmente de dreapță, racordate între ele printr-o curbă ca în figura alăturată, se găsește punctul \\(B\\), având ca abscisă umiditatea \\(w_{s}\\) ca limită de contractiei, umiditatea pământului sub care nu mai au loc variații importante de \\(\\mathrm{V}\\left(\\mathrm{w}=\\mathrm{w}_{\\mathrm{i}}\\right)\\) volum la variații de umiditate.\n\n\\section*{Carcaterizarea P.U.C.M.}\n\\section*{\\(\\rightarrow\\) Indici specifici}\nLimita de contractiqe \\(-w_{s}\\) - valori orientative prezentate in tabelul de mai jos\n\\begin{tabular}{|l|c|c|c|c|}\n\\hline \\begin{tabular}{c} \nNatura \\\\\npământului \\\\\nLimita\n\\end{tabular} & nisip & nisip prăfos & praf & argilă \\\\\n\\hline superioară de plasticitate \\(\\left(w_{t} \\%\\right)\\) & \\(15-20\\) & \\(20-30\\) & \\(30-40\\) & \\(40-150\\) \\\\\n\\hline inferioară de plasticitate \\(\\left(w_{r} \\%\\right)\\) & - & \\(17-20\\) & \\(20-25\\) & \\(25-50\\) \\\\\n\\hline indicele de plasticitate \\(\\left(I_{p} \\%\\right)\\) & 0 & \\(3-10\\) & \\(10-15\\) & \\(10-100\\) \\\\\n\\hline limita de contractiqe \\(\\left(w_{s} \\% \\%\\right)\\) & \\(12-18\\) & \\(12-20\\) & \\(14-25\\) & \\(8-35\\) \\\\\n\\hline\n\\end{tabular}\n- Indicele de umflare - contractie\n\\[\nI_{c u}=\\frac{w_{s u t}-w}{w_{s u t}-w_{s}}=\\frac{V_{s u t}-V}{V_{s a t}-V_{l s}}\n\\]\n- posibile numai fenomene de contractiqe, \\(I_{c u}=0\\);\n- posibile atât fenomene de contractiqe, cât și fenomene de umflare, \\(0<I_{c u}<1\\);\n- posibile numai fenomene de umflare, \\(I_{c u}=1\\).\n\\begin{tabular}{|l|c|c|c|c|}\n\\hline & Activitatea pământurilor & \\(I_{\\mathrm{A}}\\) & \\begin{tabular}{c}\n\\(q_{u . \\max }\\) \\\\\n{\\([J / g]\\)}\n\\end{tabular} & \\begin{tabular}{c}\n\\(W_{15}\\) \\\\\n{\\([\\%]\\)}\n\\end{tabular} \\\\\n\\hline Putin activ & \\(\\leq 0,75\\) & \\(\\leq 12\\) & \\(<5\\) \\\\\n\\hline Cu activitate medie & \\(0,76 \\ldots 1,25\\) & \\(13 \\ldots, 25\\) & \\(5 \\ldots, 10\\) \\\\\n\\hline Activ & - & \\(26 \\ldots, 37\\) & - \\\\\n\\hline Foarte activ & \\(>1,25\\) & \\(>37\\) & \\(>10\\) \\\\\n\\hline\n\\end{tabular}"
+ },
+ "111": {
+  "formulas": [
+   "\\vec{v}=k \\cdot \\vec{i}_{g r}",
+   "\\Rightarrow k=\\frac{c_{\\mathrm{v}} \\cdot d_{\\mathrm{v}} \\cdot T_{\\mathrm{w}}}{(1+e)}"
+  ],
+  "inline": [
+   "\\quad",
+   "\\left(d_{g}\\right)",
+   "\\Rightarrow k_{\\mathrm{r}}=\\frac{V \\cdot L}{T \\cdot A \\cdot h}",
+   "\\Rightarrow k_{\\mathrm{r}}=2,3 \\cdot \\frac{L}{T \\cdot \\log \\left(\\frac{h_{1}}{h_{2}}\\right)}",
+   "\\cdot"
+  ],
+  "seconds": 27.8,
+  "capped": false,
+  "tokens": 638,
+  "raw": "\\title{\nLagea lui Darcy - coefficient de proportionnalitate\n}\n\n- \\(\\quad\\) Prin mâsurarea pierderilor de sarcină (dH) la cele două capete ale conductei și a debitului de filtrație \\(\\left(d_{g}\\right)\\), corespunzător regimului permanent de curgere, Darcy a ajuns la următorul rezultat, formulat în anul 1865: \"debitul pe unitatea de suprafață este proportional cu pierderea de sarcină și invers proporțional cu înălțimea conductet\".\n- Coeficientul de proporționalitate (k) a fost denumit coeficient de permeabilitate sau de hidroconductivitate. Acesta reprezinită o caracteristică a unui pământ față de un fluid (apa) și are dimensiunile unei viteze (m/s).\n\\[\n\\vec{v}=k \\cdot \\vec{i}_{g r}\n\\]\n\\section*{Determinarea experimentală a coeficientului de permeabilitate}\n- Determinarea permeabilității în laborator se face conform metodologiilor prezentate în STAS 1913/6-76, STAS 1913/8-82, prin:\n- Metoda permeametrului cu gradient constant cu sau fără sucțiune: \\(\\Rightarrow k_{\\mathrm{r}}=\\frac{V \\cdot L}{T \\cdot A \\cdot h}\\)\n- Metoda permeametrului cu gradient variabil: \\(\\Rightarrow k_{\\mathrm{r}}=2,3 \\cdot \\frac{L}{T \\cdot \\log \\left(\\frac{h_{1}}{h_{2}}\\right)}\\)\n- \\(\\cdot\\) Incarcerea de compresiune-consolidare, în edometru (STAS 8942/1-89):\n\\[\n\\Rightarrow k=\\frac{c_{\\mathrm{v}} \\cdot d_{\\mathrm{v}} \\cdot T_{\\mathrm{w}}}{(1+e)}\n\\]\n- Determinarea permeabilității prin încercări în situ prin:\n- măsurarea vitezei de curgere cu ajutorul trasorilor;\n- turnări experimentale de apă (Bolīrev - Nestaroy);\n- metoda sferelor de infiltratie;\n- metoda Lafrane;\n- metoda permeametrului (cu vacuum sau Brillant);\n- turnări și pompară în foraje.\nTumările și pomparile experimentale de apă în foraje sau puțuri furnizează cele mai veridice date ale parametrilor hidrogeologici ai unui strat acvifer."
+ },
+ "115": {
+  "formulas": [
+   "\\frac{\\partial v_{x}}{\\partial x}+\\frac{\\partial v_{y}}{\\partial y}+\\frac{\\partial v_{z}}{\\partial z}=0",
+   "\\frac{\\partial^{2} H}{\\partial x^{2}}+\\frac{\\partial^{2} H}{\\partial y^{2}}=0 \\quad \\text { sau } \\quad \\Delta H=0"
+  ],
+  "inline": [
+   "\\left(V_{1}=V_{2}\\right)"
+  ],
+  "seconds": 14.0,
+  "capped": false,
+  "tokens": 272,
+  "raw": "\\title{\nEcuatia de continuitate\n}\n\n- Ecuatia mișcārii apei subterane este descrișă de ecuația lui Laplace care se obține prin asocierea ecuației de continuitate \\(\\left(V_{1}=V_{2}\\right)\\) cu legea lui Darcy.\n- ecuația de continuitate:\n- Legea lui Laplace:\n- Legea lui Darcy:\n\\[\n\\frac{\\partial v_{x}}{\\partial x}+\\frac{\\partial v_{y}}{\\partial y}+\\frac{\\partial v_{z}}{\\partial z}=0\n\\]\n- In cazul curgerii bidimensionale, legea lui Laplace devine:\n\\[\n\\frac{\\partial^{2} H}{\\partial x^{2}}+\\frac{\\partial^{2} H}{\\partial y^{2}}=0 \\quad \\text { sau } \\quad \\Delta H=0\n\\]\n\na) peret i de palplanse\nb) dig de pământ\nCondiții de contur pentru două tipuri de lucrări - pereți de palplanse (a) și dig de pământ (b)"
+ },
+ "141": {
+  "formulas": [
+   "\\begin{array}{c}\n\\varepsilon_{z}=\\frac{\\sigma_{z}}{M} \\\\\n\\text { - }\\left.\\operatorname{in}_{\\text {funcție de modulul de deformație liniară }}\\right) \\\\\n\\varepsilon_{z}=\\frac{1}{E} \\cdot\\left[\\sigma_{z}-v \\cdot\\left(\\sigma_{x}+\\sigma_{y}\\right)\\right]\n\\end{array}",
+   "\\begin{array}{l}\n\\frac{\\sigma_{z}}{M}=\\frac{1}{E} \\cdot\\left(\\sigma_{z}-2 \\cdot v \\cdot \\sigma_{x}\\right) \\Rightarrow E=M \\cdot\\left(1-2 \\cdot v \\cdot \\frac{\\sigma_{x}}{\\sigma_{z}}\\right) \\\\\n\\Rightarrow E=M \\cdot\\left(1-2 \\cdot v \\cdot K_{o}\\right)\n\\end{array}",
+   "\\varepsilon_{x}=\\varepsilon_{y}=\\frac{1}{E} \\cdot\\left[\\sigma_{x}-v \\cdot\\left(\\sigma_{x}+\\sigma_{y}\\right)\\right] \\Rightarrow \\sigma_{x}-v \\cdot \\sigma_{x}+v \\cdot \\sigma_{y}=0 \\Rightarrow K_{0}=\\frac{v}{1-v}"
+  ],
+  "inline": [
+   "\\quad",
+   "\\bar{\\epsilon}=\\bar{f}(\\sigma)",
+   "(E)",
+   "\\sigma=",
+   "\\varepsilon \\cdot E",
+   "E_{0}=c t g \\alpha_{0}",
+   "E_{S}=c t g \\alpha_{S}",
+   "E_{h}=c t g \\alpha_{h}",
+   "{ }_{0}",
+   "E-M",
+   "\\left(\\varepsilon_{z}\\right)",
+   "\\sigma_{z} \\neq \\sigma_{x}=\\sigma_{y}",
+   "\\sigma_{x}=\\sigma_{y}",
+   "E=M_{0} \\cdot M",
+   "M_{0}",
+   "\\left(K_{0}\\right)",
+   "\\left(\\sigma_{x}\\right)",
+   "\\left(\\sigma_{z}\\right)",
+   "\\varepsilon_{x}=\\varepsilon_{y}=0"
+  ],
+  "seconds": 39.8,
+  "capped": false,
+  "tokens": 845,
+  "raw": "- \\(\\quad\\) incercarea monoaxialâ, respectiv curba\ncartaristici \\(\\bar{\\epsilon}=\\bar{f}(\\sigma)\\) constituie, pentru\ncelelalte materiale modalitatea practică de\ndefinire a modulului de elasticitate \\((E)\\), ce\nservește la definirea ecuației constitutive \\(\\sigma=\\)\n\\(\\varepsilon \\cdot E\\) (legea lui Hooke).\n- Prin similitudine, în baza curbei caracteristice\n(a) a pământului se definesc modulii de\ndeformție liniară ai pământului, ca\nreprezentând:\n- Modulul tangent sau inițial: \\(E_{0}=c t g \\alpha_{0}\\);\n- Modulul secant sau mediu: \\(E_{S}=c t g \\alpha_{S}\\);\n- Modulul histerezis: \\(E_{h}=c t g \\alpha_{h}\\);\n\\section*{Corelala E-M și coeficientul presiunii laterale K \\({ }_{0}\\)}\n\n- Corelăția \\(E-M\\) se obține prin exprimarea aceleiași deformații edometrice \\(\\left(\\varepsilon_{z}\\right)\\) prin intermediul celor doi moduli, determinată de tensiunile \\(\\sigma_{z} \\neq \\sigma_{x}=\\sigma_{y}\\) (a)\n- în funcție de modulul de deformație edometrică:\n\\[\n\\begin{array}{c}\n\\varepsilon_{z}=\\frac{\\sigma_{z}}{M} \\\\\n\\text { - }\\left.\\operatorname{in}_{\\text {funcție de modulul de deformație liniară }}\\right) \\\\\n\\varepsilon_{z}=\\frac{1}{E} \\cdot\\left[\\sigma_{z}-v \\cdot\\left(\\sigma_{x}+\\sigma_{y}\\right)\\right]\n\\end{array}\n\\]\n- Egalând cele două expresii ale deformației specifice șiținând seama că \\(\\sigma_{x}=\\sigma_{y}\\), se obține:\n\\[\n\\begin{array}{l}\n\\frac{\\sigma_{z}}{M}=\\frac{1}{E} \\cdot\\left(\\sigma_{z}-2 \\cdot v \\cdot \\sigma_{x}\\right) \\Rightarrow E=M \\cdot\\left(1-2 \\cdot v \\cdot \\frac{\\sigma_{x}}{\\sigma_{z}}\\right) \\\\\n\\Rightarrow E=M \\cdot\\left(1-2 \\cdot v \\cdot K_{o}\\right)\n\\end{array}\n\\]\nsau \\(E=M_{0} \\cdot M\\), cu \\(M_{0}\\) din STAS 3300/2-85.\n- Coeficientul presiunii laterale \\(\\left(K_{0}\\right)\\) se definește ca raport între tensiunea orizontață \\(\\left(\\sigma_{x}\\right)\\) și tensiunea verticală \\(\\left(\\sigma_{z}\\right)\\), când \\(\\varepsilon_{x}=\\varepsilon_{y}=0\\) (deformatție laterală complet împiedicată).\n\\[\n\\varepsilon_{x}=\\varepsilon_{y}=\\frac{1}{E} \\cdot\\left[\\sigma_{x}-v \\cdot\\left(\\sigma_{x}+\\sigma_{y}\\right)\\right] \\Rightarrow \\sigma_{x}-v \\cdot \\sigma_{x}+v \\cdot \\sigma_{y}=0 \\Rightarrow K_{0}=\\frac{v}{1-v}\n\\]"
+ },
+ "146": {
+  "formulas": [
+   "\\sigma_{x, M}=\\sigma_{y, M}=K_{0} \\cdot \\sigma_{z, M}",
+   "\\mathrm{cu} K_{0}=v /(1-v), \\text { coefficienti impingerii in stare de repaos }",
+   "\\sigma_{z}=\\gamma_{1} \\cdot h_{1}+\\gamma_{2} \\cdot h_{2}+\\ldots+\\gamma_{n} \\cdot h_{n}"
+  ],
+  "inline": [
+   "\\mathbf{a}",
+   "\\checkmark",
+   "\\quad",
+   "\\sigma_{x}=\\sigma_{y}",
+   "\\rightarrow",
+   "0_{2}(b)",
+   "(P)",
+   "(\\gamma)",
+   "\\sigma_{x}",
+   "(I)",
+   "\\left(\\gamma_{w}, h\\right)"
+  ],
+  "seconds": 20.1,
+  "capped": false,
+  "tokens": 442,
+  "raw": "\\title{\nTensiuni de naturà gravitational \\(\\mathbf{a}\\) - primarâ\n}\n\\section*{\\(\\checkmark\\) In cazul masivelor omogene}\n\n- \\(\\quad\\) Tensiunile \\(\\sigma_{x}=\\sigma_{y}\\), stare de tensiune axial simetrică, rezultă:\n\\[\n\\sigma_{x, M}=\\sigma_{y, M}=K_{0} \\cdot \\sigma_{z, M}\n\\]\n\\[\n\\mathrm{cu} K_{0}=v /(1-v), \\text { coefficienti impingerii in stare de repaos }\n\\]\n\\section*{Tensiuni de natură gravitatională - primară}\n\\section*{\\(\\rightarrow\\) Teren stratificat și teren sub influența apei subterane}\n- Teren stratificat (a), apar frângeri de pantă în diagramă\n\\[\n\\sigma_{z}=\\gamma_{1} \\cdot h_{1}+\\gamma_{2} \\cdot h_{2}+\\ldots+\\gamma_{n} \\cdot h_{n}\n\\]\n- Teren omogen cu apă subterană (b)\nSarcina geologică pentru verticala \\(0_{2}(b)\\) se calculează deasupra nivelului apei subterane, în stratul permeabil \\((P)\\) cu greutatea volumică în stare naturală \\((\\gamma)\\) și sub nivelul hidrostatic cu greutatea volumică în stare submersată. La calculul tensiunii \\(\\sigma_{x}\\) (sarcină geologică) în stratul impermeabil \\((I)\\) se va adăuga și greutatea coloanei de apă \\(\\left(\\gamma_{w}, h\\right)\\) ce reazemă pe acesta.\n\na)\n\nTeren stratificat\nStrat omogen cu apă subterană"
+ },
+ "150": {
+  "formulas": [
+   "e_{i}=e_{0}-\\left(\\frac{\\Delta h_{i}}{h_{0}}\\right)_{p_{i}} \\cdot\\left(1+e_{0}\\right)",
+   "\\begin{array}{l}\nn_{0}=\\left(1-\\frac{\\rho_{d}}{\\rho_{s}}\\right) \\cdot 100=\\left(1-\\frac{1,13}{2,7}\\right) \\cdot 100=58,15(\\%) \\\\\ne_{0}=\\frac{n_{0} / 100}{1-n_{0} / 100}=\\frac{58,15 / 100}{1-58,15 / 100}=1,38\n\\end{array}",
+   "a_{v}=\\frac{\\Delta e}{\\Delta p}=\\frac{1,3-1,19}{300-100}=0,00055(1 / k P a)",
+   "a_{v}=\\frac{\\Delta e}{\\Delta p}=\\frac{1,25-1,19}{300-200}=0,0006(1 / k P a)",
+   "m_{v}=\\frac{1}{E_{o o d_{00}-300}}=\\frac{1}{4597,701}=0,00022(1 / k P a)",
+   "m_{v}=\\frac{1}{E_{o d_{00}-300}}=\\frac{1}{5405,405}=0,00018(1 / k P a)"
+  ],
+  "inline": [
+   "\\bullet",
+   "\\bullet",
+   "\\bullet",
+   "e_{i}",
+   "e_{0}",
+   "h_{0}",
+   "\\Delta h_{i}",
+   "\\left(e_{0}\\right)",
+   "\\left(n_{0}\\right)",
+   "p_{i}(k P a)",
+   "e_{i}",
+   "a_{v}=\\frac{\\Delta e}{\\Delta p}",
+   "\\Delta p_{i}=100 \\div 300 k P a",
+   "\\Delta p_{i}=200 \\div 300 k P a",
+   "m_{v}=\\frac{1}{E_{o e d_{00}-300}}",
+   "\\Delta p_{i}=100 \\div 300 k P a",
+   "\\Delta p_{i}=200 \\div 300 k P a"
+  ],
+  "seconds": 54.5,
+  "capped": false,
+  "tokens": 1171,
+  "raw": "\\title{\nStanciu A. \\(\\bullet\\) Lungu I. \\(\\bullet\\) Teodoru I.B. \\(\\bullet\\) Anciculēsi M.\n}\n\\section*{Rezolvare:}\nTrecerea de la curba de compresiune - tasare la curba de compresiune porozitate se realizează cu ajutorul relatiei:\n\\[\ne_{i}=e_{0}-\\left(\\frac{\\Delta h_{i}}{h_{0}}\\right)_{p_{i}} \\cdot\\left(1+e_{0}\\right)\n\\]\nunde: \\(e_{i}\\) - indicele polilor pentru fiecare treaptă de încărcare; \\(e_{0}\\) - indicile polilor în stare naturală; \\(h_{0}\\) - înălțimea inițială a probei; \\(\\Delta h_{i}\\) - deformația probei sub treapta i de încărcare.\n- Indicele polilor inițial \\(\\left(e_{0}\\right)\\) se calculează cu ajutorul valorii porozității inițiale \\(\\left(n_{0}\\right)\\) :\n\\[\n\\begin{array}{l}\nn_{0}=\\left(1-\\frac{\\rho_{d}}{\\rho_{s}}\\right) \\cdot 100=\\left(1-\\frac{1,13}{2,7}\\right) \\cdot 100=58,15(\\%) \\\\\ne_{0}=\\frac{n_{0} / 100}{1-n_{0} / 100}=\\frac{58,15 / 100}{1-58,15 / 100}=1,38\n\\end{array}\n\\]\nValorile indicelui polilor sub fiecare treaptă de încărcare - descărcare calculate cu ajutorul relației de mai sus, sunt centralizate în Tabel A.6.4.\nTabel A.6.4. Valorile rezultate de pe curba ce compresiune - tasarea a indicelui polilor\n\\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}\n\\hline \\begin{tabular}{c} \nPresiunea \\\\\n\\(p_{i}(k P a)\\)\n\\end{tabular} & 10 & 20 & 50 & 100 & 200 & 300 & 500 & 300 & 200 & 100 & 50 & 20 & 10 \\\\\n\\hline \\begin{tabular}{c} \nIndicele \\\\\nporilor \\(e_{i}\\)\n\\end{tabular} & 1,38 & 1,37 & 1,33 & 1,30 & 1,25 & 1,19 & 1,08 & 1,08 & 1,08 & 1,1 & 1,11 & 1,13 & 1,15 \\\\\n\\hline\n\\end{tabular}\nPe baza valorilor din Tabel A.6.4 se trasează curba ce compresiune-porozitate (Figura A.6.2).\na) coefficientul de compresibilitate \\(a_{v}=\\frac{\\Delta e}{\\Delta p}\\),\n- pentru intervalul de presiuni \\(\\Delta p_{i}=100 \\div 300 k P a\\) :\n\\[\na_{v}=\\frac{\\Delta e}{\\Delta p}=\\frac{1,3-1,19}{300-100}=0,00055(1 / k P a)\n\\]\n- pentru intervalul de presiuni \\(\\Delta p_{i}=200 \\div 300 k P a\\) :\n\\[\na_{v}=\\frac{\\Delta e}{\\Delta p}=\\frac{1,25-1,19}{300-200}=0,0006(1 / k P a)\n\\]\nb) coeficientul de compresibilitate volumică \\(m_{v}=\\frac{1}{E_{o e d_{00}-300}}\\) :\n- pentru intervalul de presiuni \\(\\Delta p_{i}=100 \\div 300 k P a\\) :\n\\[\nm_{v}=\\frac{1}{E_{o o d_{00}-300}}=\\frac{1}{4597,701}=0,00022(1 / k P a)\n\\]\n- pentru intervalul de presiuni \\(\\Delta p_{i}=200 \\div 300 k P a\\) :\n\\[\nm_{v}=\\frac{1}{E_{o d_{00}-300}}=\\frac{1}{5405,405}=0,00018(1 / k P a)\n\\]"
+ },
+ "209": {
+  "formulas": [
+   "\\begin{array}{l}\n\\tan \\phi=\\frac{n \\cdot \\sum \\sigma_{i} \\cdot \\tau_{i}-\\sum \\sigma_{i} \\cdot \\sum \\tau_{i}}{n \\cdot \\sum \\sigma_{i}^{2}-\\left(\\sum \\sigma_{i}\\right)^{2}} \\\\\nc=\\frac{n \\cdot \\sum \\sigma_{i}^{2} \\cdot \\sum \\tau_{i}-\\sum \\sigma_{i} \\cdot \\sum \\sigma_{i} \\cdot \\tau_{i}}{n \\cdot \\sum \\sigma_{i}^{2}-\\left(\\sum \\sigma_{i}\\right)^{2}}\n\\end{array}",
+   "\\begin{array}{l}\n\\tan \\phi_{\\max }=\\frac{3 \\cdot(100 \\cdot 90+200 \\cdot 145,83+300 \\cdot 181,39)-(100+200+300) \\cdot(90+145,83+181,39)}{3 \\cdot\\left(100^{2}+200^{2}+300^{2}\\right)-(100+200+300)^{2}} \\\\\n\\tan \\phi_{\\max }=0,457 \\Rightarrow \\phi_{\\max }=27,2^{0}\n\\end{array}",
+   "\\begin{array}{l}\nc_{\\max }=\\frac{3 \\cdot\\left(100^{2}+200^{2}+300^{2}\\right) \\cdot(90+145,83+181,39)-(600) \\cdot(100 \\cdot 90+200 \\cdot 145,83+300 \\cdot 181,39)}{3 \\cdot\\left(100^{2}+200^{2}+300^{2}\\right)-(100+200+300)^{2}} \\\\\nc_{\\max }=47,68 k P a \\\\\n\\text { - valori reziduale (stare critică): } \\\\\n\\tan \\phi_{\\text {ac }}=\\frac{3 \\cdot(100 \\cdot 37,5+200 \\cdot 58,89+300 \\cdot 88)-(100+200+300) \\cdot(37,5+58,89+88)}{3 \\cdot\\left(100^{2}+200^{2}+300^{2}\\right)-(100+200+300)^{2}} \\\\\n\\tan \\phi_{\\max }=0,253 \\Rightarrow \\phi_{\\max }=14,6^{0} \\\\\nc_{\\text {ac }}=\\frac{3 \\cdot\\left(100^{2}+200^{2}+300^{2}\\right) \\cdot(37,5+58,89+88)-(600) \\cdot(100 \\cdot 37,5+200 \\cdot 58,89+300 \\cdot 88)}{3 \\cdot\\left(100^{2}+200^{2}+300^{2}\\right)-(100+200+300)^{2}} \\\\\nc_{\\text {ac }}=10,96 k P a\n\\end{array}"
+  ],
+  "inline": [
+   "d_{0}=3,8 \\mathrm{~cm}",
+   "h_{0}=7,55 \\mathrm{~cm}",
+   "\\alpha=65^{\\circ}",
+   "P_{\\max }=434 \\mathrm{~N}",
+   "\\Delta h=1,05 \\mathrm{~mm}",
+   "S_{u}"
+  ],
+  "seconds": 56.7,
+  "capped": false,
+  "tokens": 1151,
+  "raw": "Figura A.8.3. Dreapta intrinsecà a pământului pentru valori maxime și reziduale ale rezistenței la forfecare\nDeterminarea parametrilor rezistenței la forfecare, pentru cele două stări, se pot calcula și analitic cu relațiile (STAS 300/1-85):\n\\[\n\\begin{array}{l}\n\\tan \\phi=\\frac{n \\cdot \\sum \\sigma_{i} \\cdot \\tau_{i}-\\sum \\sigma_{i} \\cdot \\sum \\tau_{i}}{n \\cdot \\sum \\sigma_{i}^{2}-\\left(\\sum \\sigma_{i}\\right)^{2}} \\\\\nc=\\frac{n \\cdot \\sum \\sigma_{i}^{2} \\cdot \\sum \\tau_{i}-\\sum \\sigma_{i} \\cdot \\sum \\sigma_{i} \\cdot \\tau_{i}}{n \\cdot \\sum \\sigma_{i}^{2}-\\left(\\sum \\sigma_{i}\\right)^{2}}\n\\end{array}\n\\]\n- valori maxime:\n\\[\n\\begin{array}{l}\n\\tan \\phi_{\\max }=\\frac{3 \\cdot(100 \\cdot 90+200 \\cdot 145,83+300 \\cdot 181,39)-(100+200+300) \\cdot(90+145,83+181,39)}{3 \\cdot\\left(100^{2}+200^{2}+300^{2}\\right)-(100+200+300)^{2}} \\\\\n\\tan \\phi_{\\max }=0,457 \\Rightarrow \\phi_{\\max }=27,2^{0}\n\\end{array}\n\\]\n\\[\n\\begin{array}{l}\nc_{\\max }=\\frac{3 \\cdot\\left(100^{2}+200^{2}+300^{2}\\right) \\cdot(90+145,83+181,39)-(600) \\cdot(100 \\cdot 90+200 \\cdot 145,83+300 \\cdot 181,39)}{3 \\cdot\\left(100^{2}+200^{2}+300^{2}\\right)-(100+200+300)^{2}} \\\\\nc_{\\max }=47,68 k P a \\\\\n\\text { - valori reziduale (stare critică): } \\\\\n\\tan \\phi_{\\text {ac }}=\\frac{3 \\cdot(100 \\cdot 37,5+200 \\cdot 58,89+300 \\cdot 88)-(100+200+300) \\cdot(37,5+58,89+88)}{3 \\cdot\\left(100^{2}+200^{2}+300^{2}\\right)-(100+200+300)^{2}} \\\\\n\\tan \\phi_{\\max }=0,253 \\Rightarrow \\phi_{\\max }=14,6^{0} \\\\\nc_{\\text {ac }}=\\frac{3 \\cdot\\left(100^{2}+200^{2}+300^{2}\\right) \\cdot(37,5+58,89+88)-(600) \\cdot(100 \\cdot 37,5+200 \\cdot 58,89+300 \\cdot 88)}{3 \\cdot\\left(100^{2}+200^{2}+300^{2}\\right)-(100+200+300)^{2}} \\\\\nc_{\\text {ac }}=10,96 k P a\n\\end{array}\n\\]\n\\section*{A.8.3}\nPe o probă de pământ cu dimensiunile inițiale: diametrul \\(d_{0}=3,8 \\mathrm{~cm}\\) și înălțime \\(h_{0}=7,55 \\mathrm{~cm}\\) s-a realizat o încercare de compresiune monoaxială. Cedarea probei a fost de tip casant, planul de rupere având o înclinare față de orizontală egală cu \\(\\alpha=65^{\\circ}\\). Forța axială maximă înregistrată în momentul ruperii are valoarea \\(P_{\\max }=434 \\mathrm{~N}\\) la o deplasare a presei de \\(\\Delta h=1,05 \\mathrm{~mm}\\).\nSe cere să se determine:\na) rezistența la forfecare monoaxială \\(S_{u}\\);"
+ },
+ "315": {
+  "formulas": [
+   "p_{a p}^{\\text {out }}=y_{1} \\cdot H_{1} \\cdot K_{a 1}+q \\cdot K_{a 1}=18,0 \\cdot 4,3 \\cdot 0,406+25 \\cdot 0,406=41,57 \\mathrm{kN} / \\mathrm{m}^{2} .",
+   "P_{a 1}=\\frac{H_{1}\\left(p_{a b}^{\\text {out }}+p_{a d}\\right)}{2}=\\frac{4,3(41,57+10,15)}{2}=111,20 \\mathrm{kN} / \\mathrm{m} .",
+   "z_{1}=\\frac{2 \\cdot p_{a d}+p_{a b}^{\\text {out }}}{p_{a d}+p_{a b}^{\\text {out }}} \\cdot H_{1}=\\frac{2 \\cdot 10,15+41,57}{3} \\cdot \\frac{4,3}{3}=1,71 \\mathrm{~m} .",
+   "K_{a 2}=\\operatorname{tg}^{2}\\left(45^{\\circ}-\\frac{\\phi_{2}}{2}\\right)=\\operatorname{tg}^{2}\\left(45^{\\circ}-\\frac{20^{\\circ}}{2}\\right)=0,490",
+   "\\begin{aligned}\np_{a b}^{\\text {out }}=\\left(q+\\gamma_{1} \\cdot H_{1}\\right) \\cdot K_{a 2}-2 \\cdot c \\cdot \\sqrt{K_{a 2}} & = \\\\\n& =(25+18 \\cdot 4,3) 0,490-2 \\cdot 10 \\cdot \\sqrt{0,490}=36,18 \\mathrm{kN} / \\mathrm{m}^{2}, \\\\\n- & \\text { pentru } z=H_{2}\\left(\\text { punctul } C\\right), \\\\\np_{a c}^{\\text {out }}=y_{2} \\cdot H_{2} \\cdot K_{a 2}+\\left(q+\\gamma_{1} \\cdot H_{1}\\right) \\cdot K_{a 2}-2 \\cdot c \\cdot \\sqrt{K_{a 2}} & \\\\\n=19,0 \\cdot 1,2 \\cdot 0,490+(25+18 \\cdot 4,3) \\cdot 0,490-2 \\cdot 10 \\cdot \\sqrt{0,490}=47,35 \\mathrm{kN} / \\mathrm{m}^{2} .\n\\end{aligned}",
+   "P_{a 2}=\\frac{H_{2}\\left(p_{a c}+p_{a b}^{\\text {out }}\\right)}{2}=1,2(47,35+36,18)=50,12 \\mathrm{kN} / \\mathrm{m} .",
+   "z_{2}=\\frac{2 \\cdot p_{a b}^{\\text {out }}+p_{a c}}{p_{a b}^{\\text {out }}+p_{a c}} \\cdot \\frac{H_{2}}{3}=\\frac{2 \\cdot 36,18+47,35}{36,18+47,35} \\cdot \\frac{1,2}{3}=0,57 \\mathrm{~m} .",
+   "K_{p}=\\operatorname{tg}^{2}\\left(45^{\\circ}+\\frac{\\phi_{2}}{2}\\right)=\\operatorname{tg}^{2}\\left(45^{\\circ}+\\frac{20^{\\circ}}{2}\\right)=2,04",
+   "p_{p c 1}=\\gamma \\cdot H_{2} \\cdot K_{p}+2 \\cdot c \\cdot \\sqrt{K_{p}}=19 \\cdot 1,2 \\cdot 2,04+2 \\cdot 10 \\cdot \\sqrt{2,04}=75,08 \\mathrm{kN} / \\mathrm{m}^{2} ."
+  ],
+  "inline": [
+   "z=0",
+   "A",
+   "p_{a d}=q \\cdot K_{a 1}=25 \\cdot 0,406=10,15 \\mathrm{kN} / \\mathrm{m}^{2}",
+   "z=H_{1}",
+   "B",
+   "A B",
+   "B",
+   "\\left(p_{a c}=\\gamma \\cdot z \\cdot K_{a}+q \\cdot K_{a}\\right)",
+   "B",
+   "C",
+   "z=H_{1}",
+   "B",
+   "B C",
+   "C",
+   "B 1",
+   "C 1",
+   "\\quad",
+   "z=0",
+   "B 1",
+   "p_{p a 1}=2 \\cdot c \\cdot \\sqrt{K_{p}}=2 \\cdot 10 \\cdot \\sqrt{2,04}=28,56 \\mathrm{kN} / \\mathrm{m}^{2}",
+   "\\quad",
+   "z=H_{2}",
+   "C 1"
+  ],
+  "seconds": 83.6,
+  "capped": false,
+  "tokens": 1649,
+  "raw": "Se evaluazeă impingerea activă a pământului în punctele extreme ale paramentului, A şi B, rezultând:\n- pentru \\(z=0\\) (punctul \\(A\\) ), \\(p_{a d}=q \\cdot K_{a 1}=25 \\cdot 0,406=10,15 \\mathrm{kN} / \\mathrm{m}^{2}\\),\n- pentru \\(z=H_{1}\\) (punctul \\(B\\) ),\n\\[\np_{a p}^{\\text {out }}=y_{1} \\cdot H_{1} \\cdot K_{a 1}+q \\cdot K_{a 1}=18,0 \\cdot 4,3 \\cdot 0,406+25 \\cdot 0,406=41,57 \\mathrm{kN} / \\mathrm{m}^{2} .\n\\]\nImpingerea activă rezultantă pe stratul 1 va fi, ca mărime, egală cu aria diagramei de distribuţie pe parametul \\(A B\\) :\n\\[\nP_{a 1}=\\frac{H_{1}\\left(p_{a b}^{\\text {out }}+p_{a d}\\right)}{2}=\\frac{4,3(41,57+10,15)}{2}=111,20 \\mathrm{kN} / \\mathrm{m} .\n\\]\nPunctul de aplicaţie al rezultantei impingerii active pe stratul 1, va fi, în raport cu punctul \\(B\\), la distanţa:\n\\[\nz_{1}=\\frac{2 \\cdot p_{a d}+p_{a b}^{\\text {out }}}{p_{a d}+p_{a b}^{\\text {out }}} \\cdot H_{1}=\\frac{2 \\cdot 10,15+41,57}{3} \\cdot \\frac{4,3}{3}=1,71 \\mathrm{~m} .\n\\]\nDiagrama de distribuţie a impingerii active a pământului este trasată în Figura A.11.11.\n\\section*{Stratul 2}\nSe determină coeficientii impingerii active:\n\\[\nK_{a 2}=\\operatorname{tg}^{2}\\left(45^{\\circ}-\\frac{\\phi_{2}}{2}\\right)=\\operatorname{tg}^{2}\\left(45^{\\circ}-\\frac{20^{\\circ}}{2}\\right)=0,490\n\\]\nSe evaluazeă impingerea activă a pământului \\(\\left(p_{a c}=\\gamma \\cdot z \\cdot K_{a}+q \\cdot K_{a}\\right)\\) in punctele extreme ale paramentului, \\(B\\) şi \\(C\\), rezultând:\n- pentru \\(z=H_{1}\\) (punctul \\(B\\) ),\n\\[\n\\begin{aligned}\np_{a b}^{\\text {out }}=\\left(q+\\gamma_{1} \\cdot H_{1}\\right) \\cdot K_{a 2}-2 \\cdot c \\cdot \\sqrt{K_{a 2}} & = \\\\\n& =(25+18 \\cdot 4,3) 0,490-2 \\cdot 10 \\cdot \\sqrt{0,490}=36,18 \\mathrm{kN} / \\mathrm{m}^{2}, \\\\\n- & \\text { pentru } z=H_{2}\\left(\\text { punctul } C\\right), \\\\\np_{a c}^{\\text {out }}=y_{2} \\cdot H_{2} \\cdot K_{a 2}+\\left(q+\\gamma_{1} \\cdot H_{1}\\right) \\cdot K_{a 2}-2 \\cdot c \\cdot \\sqrt{K_{a 2}} & \\\\\n=19,0 \\cdot 1,2 \\cdot 0,490+(25+18 \\cdot 4,3) \\cdot 0,490-2 \\cdot 10 \\cdot \\sqrt{0,490}=47,35 \\mathrm{kN} / \\mathrm{m}^{2} .\n\\end{aligned}\n\\]\nImpingerea activă rezultantă pe stratul 2 va fi, ca mărime, egală cu aria diagramei de distribuţie pe parametul \\(B C\\) :\n\\[\nP_{a 2}=\\frac{H_{2}\\left(p_{a c}+p_{a b}^{\\text {out }}\\right)}{2}=1,2(47,35+36,18)=50,12 \\mathrm{kN} / \\mathrm{m} .\n\\]\nPunctul de aplicaţie al rezultantei impingerii active pe stratul 2, va fi, în raport cu punctul \\(C\\), la distanţa:\n\\[\nz_{2}=\\frac{2 \\cdot p_{a b}^{\\text {out }}+p_{a c}}{p_{a b}^{\\text {out }}+p_{a c}} \\cdot \\frac{H_{2}}{3}=\\frac{2 \\cdot 36,18+47,35}{36,18+47,35} \\cdot \\frac{1,2}{3}=0,57 \\mathrm{~m} .\n\\]\nDiagrama de distribuţie a impingerii active a pământului este trasată în Figura A.11.11.\n\\section*{b) Evaluarea rezistenţei passive}\n1. Se determină coeficientii impingerii pasive:\n\\[\nK_{p}=\\operatorname{tg}^{2}\\left(45^{\\circ}+\\frac{\\phi_{2}}{2}\\right)=\\operatorname{tg}^{2}\\left(45^{\\circ}+\\frac{20^{\\circ}}{2}\\right)=2,04\n\\]\n2. Se evaluazeă impingerea pasivă a pământului în faţa zidului de sprijin, în punctele extreme ale paramentului, \\(B 1\\) şi \\(C 1\\), rezultând:\n- \\(\\quad\\) pentru \\(z=0\\) (punctul \\(B 1\\) ), \\(p_{p a 1}=2 \\cdot c \\cdot \\sqrt{K_{p}}=2 \\cdot 10 \\cdot \\sqrt{2,04}=28,56 \\mathrm{kN} / \\mathrm{m}^{2}\\),\n- \\(\\quad\\) pentru \\(z=H_{2}\\) (punctul \\(C 1\\) ),\n\\[\np_{p c 1}=\\gamma \\cdot H_{2} \\cdot K_{p}+2 \\cdot c \\cdot \\sqrt{K_{p}}=19 \\cdot 1,2 \\cdot 2,04+2 \\cdot 10 \\cdot \\sqrt{2,04}=75,08 \\mathrm{kN} / \\mathrm{m}^{2} .\n\\]"
+ },
+ "329": {
+  "formulas": [
+   "\\sin \\phi=\\frac{\\sigma_{1}-\\sigma_{2}}{\\sigma_{1}+\\sigma_{2}+2 \\cdot c \\cdot \\operatorname{ctg} \\phi}",
+   "2 \\cdot \\frac{p-q}{\\pi} \\cdot \\sin \\omega \\cdot \\sin \\phi=2 \\cdot\\left(\\gamma^{\\prime} \\cdot z+q^{\\prime}\\right) \\cdot \\sin \\phi+2 \\cdot \\frac{p-q}{\\pi} \\cdot \\omega \\cdot \\sin \\phi+2 \\cdot c \\cdot \\cos \\phi",
+   "\\left(\\begin{array}{ll}\n\\mathrm{e}_{i} & p_{i}=c \\cdot \\\\\n\\quad & \\left(\\begin{array}{ll}\n\\mathrm{e}_{i} & p=\\mathbf{c}^{\\prime}\n\\end{array}\\right) \\quad-\\frac{\\pi \\cdot \\operatorname{ctg} \\phi}{\\operatorname{ctg} \\phi-\\frac{\\pi}{2}+\\phi}+\\gamma^{\\prime} \\cdot D_{f} \\cdot\\left[\\begin{array}{ll}\n\\pi & \\frac{\\text { respectiv expresia presiunii limită după Puzirevski }}{\\text {- Ghersevanov }- \\text { Fröhlich: }} \\\\\n& \\text { \\(\\quad \\mathrm{p}_{i}=q \\cdot \\mathrm{N}_{2}+c \\cdot \\mathrm{N}_{3}(\\mathrm{f})\n\\end{array}\\right.\n\\end{array}\\right.",
+   "p_{p l}=\\gamma \\cdot D_{f} \\cdot\\left[1+\\frac{\\pi}{\\operatorname{ctg} \\phi-\\frac{\\pi}{2}+\\phi}\\right]+c \\cdot\\left[\\frac{\\pi \\cdot \\operatorname{ctg} \\phi}{\\operatorname{ctg} \\phi-\\frac{\\pi}{2}+\\phi}\\right]+c \\cdot \\left[\\frac{0.25 \\cdot \\pi}{\\operatorname{ctg} \\phi-\\frac{\\pi}{2}+\\phi}\\right] \\quad\\left(g\\right)",
+   "\\begin{array}{l}\np_{p l}=m_{l} \\cdot\\left(\\bar{y} \\cdot B \\cdot N_{1}+q \\cdot N_{2}+c \\cdot N_{3}\\right)\\left[\\mathrm{kPa}\\right] \\\\\n\\text { pentru construcţii cu subsol: } \\\\\np_{p l}=m_{l} \\cdot\\left(\\bar{y} \\cdot B \\cdot N_{1}+\\frac{2 \\cdot q_{s}+q_{s}}{3} \\cdot N_{2}+c \\cdot N_{3}\\right)\\left[\\mathrm{kPa}\\right]\n\\end{array}",
+   "\\begin{array}{l}\n\\mathrm{N}_{1} \\quad \\mathrm{~N}_{2} \\quad \\mathrm{~N}_{3} \\\\\n\\mathrm{D}^{0} \\quad 0.00 \\quad 1,00 \\quad 3,14 \\\\\n\\mathrm{D}^{2} \\quad 0.03 \\quad 1,12 \\quad 3,32 \\\\\n\\mathrm{D}^{4} \\quad 0.06 \\quad 1,25 \\quad 3,51 \\\\\n\\mathrm{D}^{6} \\quad 0.07 \\quad 1,15 \\quad 3,93 \\\\\n\\mathrm{D}^{8} \\quad 0.14 \\quad 1,55 \\quad 3,93 \\\\\n\\mathrm{D}^{10} \\quad 0.18 \\quad 1,73 \\quad 4,17 \\\\\n\\mathrm{D}^{12} \\quad 0.23 \\quad 1,94 \\quad 4,42 \\\\\n\\mathrm{D}^{14} \\quad 0.29 \\quad 2,17 \\quad 4,69 \\\\\n\\mathrm{D}^{16} \\quad 0.36 \\quad 2,43 \\quad 5,00 \\\\\n\\mathrm{D}^{17} \\quad 0.37 \\quad 2,43 \\quad 5,00 \\\\\n\\mathrm{D}^{20} \\quad 0.51 \\quad 3,06 \\quad 5,66 \\\\\n\\mathrm{D}^{22} \\quad 0.61 \\quad 3,44 \\quad 6,04 \\\\\n\\mathrm{D}^{24} \\quad 0.72 \\quad 3,84 \\quad 6,45 \\\\\n\\mathrm{D}^{26} \\quad 0.84 \\quad 4,37 \\quad 6,90 \\\\\n\\mathrm{D}^{28} \\quad 0.98 \\quad 4,93 \\quad 7,40 \\\\\n\\mathrm{D}^{30} \\quad 1,15 \\quad 5,59 \\quad 7,95\n\\end{array}"
+  ],
+  "inline": [
+   "\\left(r=\\tau_{f}\\right)",
+   "\\sigma_{i}^{\\prime}, \\sigma_{2}^{\\prime}",
+   "q=\\gamma \\cdot D_{p}",
+   "\\quad z=\\frac{p-\\gamma \\cdot D_{p}}{\\pi \\cdot \\gamma}\\left(\\frac{\\sin \\omega}{\\sin \\phi} \\omega\\right)-\\frac{c}{\\gamma^{\\prime} \\cdot \\operatorname{tg} \\phi}-D_{f}",
+   "(\\tau=\\tau_{f})",
+   "\\frac{d z}{d \\omega}=0 \\Rightarrow \\frac{p-\\gamma \\cdot D_{f}}{\\pi \\cdot \\gamma} \\cdot\\left(\\frac{\\cos \\omega}{\\sin \\phi}-1\\right)=0",
+   "\\Rightarrow \\cos \\omega=\\sin \\phi \\quad \\hat{\\jmath}",
+   "\\omega=\\frac{\\pi}{2}-\\phi \\quad",
+   "(c) \\quad \\Rightarrow",
+   "\\Rightarrow z_{\\max }=\\frac{p-\\gamma \\cdot D_{f}}{\\pi \\cdot \\gamma} \\cdot\\left[\\operatorname{ctg} \\phi-\\left(\\frac{\\pi}{2}-\\phi\\right)\\right]-\\frac{c}{\\gamma} \\cdot \\operatorname{ctg} \\phi-D_{f}",
+   "z_{\\max }=o",
+   "\\mathrm{p}_{i}",
+   "\\quad \\mathrm{p}_{i}=q \\cdot \\mathrm{N}_{2}+c \\cdot \\mathrm{N}_{3}(\\mathrm{f})\n\\end{array}\\right.\n\\end{array}\\right.\n\\]\n\\section*{Metoda directă - SLE - calculul presiunii plastice}\n\\section*{→ Normele româneşti (STAS 3300/2-85; N.P. 112-2012)}\n- După normele româneşti, STAS 3300/2-85, N.P. 112-2012, se admite o extindere limitată a zonelor plastice corespunzătoare unei adăncimî de maxim z max \\(=B / 4",
+   "(d)",
+   "\\mathrm{p}_{p l}=\\gamma \\cdot \\mathrm{B} \\cdot \\mathrm{N}_{1}+\\mathrm{q} \\cdot \\mathrm{N}_{2}+c \\cdot \\mathrm{N}_{3} \\quad(\\mathrm{~h})"
+  ],
+  "seconds": 113.4,
+  "capped": false,
+  "tokens": 2034,
+  "raw": "\\title{\nMetoda directá - SLE - calculul presiunii plastice\n}\n\\section*{Teoria Puzirevski - Ghersevanov - Fröhlich}\nDacă se admite criteriul de cedare plastică Mohr - Coulomb, respectiv conditia de cedare plastică \\(\\left(r=\\tau_{f}\\right)\\) sub forma:\n\\[\n\\sin \\phi=\\frac{\\sigma_{1}-\\sigma_{2}}{\\sigma_{1}+\\sigma_{2}+2 \\cdot c \\cdot \\operatorname{ctg} \\phi}\n\\]\natunci prin înlocuirea tensiunilor principale \\(\\sigma_{i}^{\\prime}, \\sigma_{2}^{\\prime}\\) : cu expresiile date anterior se obţine:\n\\[\n2 \\cdot \\frac{p-q}{\\pi} \\cdot \\sin \\omega \\cdot \\sin \\phi=2 \\cdot\\left(\\gamma^{\\prime} \\cdot z+q^{\\prime}\\right) \\cdot \\sin \\phi+2 \\cdot \\frac{p-q}{\\pi} \\cdot \\omega \\cdot \\sin \\phi+2 \\cdot c \\cdot \\cos \\phi\n\\]\nşi rezolvând ecutația, în report cu z şi prin înlocuirca \\(q=\\gamma \\cdot D_{p}\\) rezultă: \\(\\quad z=\\frac{p-\\gamma \\cdot D_{p}}{\\pi \\cdot \\gamma}\\left(\\frac{\\sin \\omega}{\\sin \\phi} \\omega\\right)-\\frac{c}{\\gamma^{\\prime} \\cdot \\operatorname{tg} \\phi}-D_{f}\\)\nce recepiziat ecuția liniei marginale a domeniului de echilibrui lumîă sau controlur extrem al zonelor plastice.\nPrin zonă plastică se înţelegez ona pentru şi în interioul căreia este îndeplint criteriul de ruprer e (cedare plastică) pentru terenul de fundare, \\((\\tau=\\tau_{f})\\).\nAdăncimea maximă de extindere a zonerol plastice se obţine din anularea derivaței: \\(\\frac{d z}{d \\omega}=0 \\Rightarrow \\frac{p-\\gamma \\cdot D_{f}}{\\pi \\cdot \\gamma} \\cdot\\left(\\frac{\\cos \\omega}{\\sin \\phi}-1\\right)=0\\)\n\\(\\Rightarrow \\cos \\omega=\\sin \\phi \\quad \\hat{\\jmath}\\) respectiv \\(\\omega=\\frac{\\pi}{2}-\\phi \\quad\\) care introfuse din \\((c) \\quad \\Rightarrow\\)\n\\(\\Rightarrow z_{\\max }=\\frac{p-\\gamma \\cdot D_{f}}{\\pi \\cdot \\gamma} \\cdot\\left[\\operatorname{ctg} \\phi-\\left(\\frac{\\pi}{2}-\\phi\\right)\\right]-\\frac{c}{\\gamma} \\cdot \\operatorname{ctg} \\phi-D_{f}\\)\nPunând în ecuaţia de mai sus condiţia ca \\(z_{\\max }=o\\) şi \\(\\mathrm{p}_{i}\\) se obţine:\n\\[\n\\left(\\begin{array}{ll}\n\\mathrm{e}_{i} & p_{i}=c \\cdot \\\\\n\\quad & \\left(\\begin{array}{ll}\n\\mathrm{e}_{i} & p=\\mathbf{c}^{\\prime}\n\\end{array}\\right) \\quad-\\frac{\\pi \\cdot \\operatorname{ctg} \\phi}{\\operatorname{ctg} \\phi-\\frac{\\pi}{2}+\\phi}+\\gamma^{\\prime} \\cdot D_{f} \\cdot\\left[\\begin{array}{ll}\n\\pi & \\frac{\\text { respectiv expresia presiunii limită după Puzirevski }}{\\text {- Ghersevanov }- \\text { Fröhlich: }} \\\\\n& \\text { \\(\\quad \\mathrm{p}_{i}=q \\cdot \\mathrm{N}_{2}+c \\cdot \\mathrm{N}_{3}(\\mathrm{f})\n\\end{array}\\right.\n\\end{array}\\right.\n\\]\n\\section*{Metoda directă - SLE - calculul presiunii plastice}\n\\section*{→ Normele româneşti (STAS 3300/2-85; N.P. 112-2012)}\n- După normele româneşti, STAS 3300/2-85, N.P. 112-2012, se admite o extindere limitată a zonelor plastice corespunzătoare unei adăncimî de maxim z max \\(=B / 4\\), care introdusă în relația \\((d)\\) conduce la:\n\\[\np_{p l}=\\gamma \\cdot D_{f} \\cdot\\left[1+\\frac{\\pi}{\\operatorname{ctg} \\phi-\\frac{\\pi}{2}+\\phi}\\right]+c \\cdot\\left[\\frac{\\pi \\cdot \\operatorname{ctg} \\phi}{\\operatorname{ctg} \\phi-\\frac{\\pi}{2}+\\phi}\\right]+c \\cdot \\left[\\frac{0.25 \\cdot \\pi}{\\operatorname{ctg} \\phi-\\frac{\\pi}{2}+\\phi}\\right] \\quad\\left(g\\right)\n\\]\n\\(\\mathrm{p}_{p l}=\\gamma \\cdot \\mathrm{B} \\cdot \\mathrm{N}_{1}+\\mathrm{q} \\cdot \\mathrm{N}_{2}+c \\cdot \\mathrm{N}_{3} \\quad(\\mathrm{~h})\\)\nrelație corectată printr-un coeficient al condiţilor de lucru:\n- pentru construcţii fără subsol:\n\\[\n\\begin{array}{l}\np_{p l}=m_{l} \\cdot\\left(\\bar{y} \\cdot B \\cdot N_{1}+q \\cdot N_{2}+c \\cdot N_{3}\\right)\\left[\\mathrm{kPa}\\right] \\\\\n\\text { pentru construcţii cu subsol: } \\\\\np_{p l}=m_{l} \\cdot\\left(\\bar{y} \\cdot B \\cdot N_{1}+\\frac{2 \\cdot q_{s}+q_{s}}{3} \\cdot N_{2}+c \\cdot N_{3}\\right)\\left[\\mathrm{kPa}\\right]\n\\end{array}\n\\]\n\\[\n\\begin{array}{l}\n\\mathrm{N}_{1} \\quad \\mathrm{~N}_{2} \\quad \\mathrm{~N}_{3} \\\\\n\\mathrm{D}^{0} \\quad 0.00 \\quad 1,00 \\quad 3,14 \\\\\n\\mathrm{D}^{2} \\quad 0.03 \\quad 1,12 \\quad 3,32 \\\\\n\\mathrm{D}^{4} \\quad 0.06 \\quad 1,25 \\quad 3,51 \\\\\n\\mathrm{D}^{6} \\quad 0.07 \\quad 1,15 \\quad 3,93 \\\\\n\\mathrm{D}^{8} \\quad 0.14 \\quad 1,55 \\quad 3,93 \\\\\n\\mathrm{D}^{10} \\quad 0.18 \\quad 1,73 \\quad 4,17 \\\\\n\\mathrm{D}^{12} \\quad 0.23 \\quad 1,94 \\quad 4,42 \\\\\n\\mathrm{D}^{14} \\quad 0.29 \\quad 2,17 \\quad 4,69 \\\\\n\\mathrm{D}^{16} \\quad 0.36 \\quad 2,43 \\quad 5,00 \\\\\n\\mathrm{D}^{17} \\quad 0.37 \\quad 2,43 \\quad 5,00 \\\\\n\\mathrm{D}^{20} \\quad 0.51 \\quad 3,06 \\quad 5,66 \\\\\n\\mathrm{D}^{22} \\quad 0.61 \\quad 3,44 \\quad 6,04 \\\\\n\\mathrm{D}^{24} \\quad 0.72 \\quad 3,84 \\quad 6,45 \\\\\n\\mathrm{D}^{26} \\quad 0.84 \\quad 4,37 \\quad 6,90 \\\\\n\\mathrm{D}^{28} \\quad 0.98 \\quad 4,93 \\quad 7,40 \\\\\n\\mathrm{D}^{30} \\quad 1,15 \\quad 5,59 \\quad 7,95\n\\end{array}\n\\]"
+ },
+ "381": {
+  "formulas": [
+   "P_{p \\gamma}=\\gamma \\cdot H \\cdot K_{p} \\cdot \\frac{\\sin \\theta}{\\cos \\delta} \\quad P_{p}=\\frac{1}{2} \\cdot \\gamma \\cdot H^{2} \\cdot K_{p}",
+   "p_{a z}=\\gamma \\cdot z \\cdot K_{a}+q \\cdot K_{a}-2 \\cdot c \\cdot \\sqrt{K_{a}} \\quad K_{a}=\\operatorname{tg}^{2}(45-\\phi / 2)",
+   "p_{p z}=\\gamma \\cdot z \\cdot K_{p}+q \\cdot K_{p}+2 \\cdot c \\cdot \\sqrt{K_{p}} \\quad K_{p}=\\operatorname{tg}^{2}(45+\\phi / 2)"
+  ],
+  "inline": [
+   "H_{e}",
+   "\\left(H_{e}\\right)",
+   "\\left(K_{\\alpha i}\\right)",
+   "\\left(\\delta_{i}\\right.",
+   "-K_{p}",
+   "\\delta_{i}",
+   "K_{a}",
+   "K_{a i}",
+   "-K_{p}"
+  ],
+  "seconds": 57.8,
+  "capped": false,
+  "tokens": 1166,
+  "raw": "\\title{\nAplicarea teoriei Coulomb in calculul įmpingerilor\n}\nPentru cazul unei suprasarcini pe suprafața terenului din spatele zidului, acea suprasarcină se consideră echivalență cu un strat de pământ cu o înălime fictivă \\(H_{e}\\) care se adaugă stratului de pământ real de sprijinit, suplimentând valoarea įmpingerii.\nÎn cazul terenului stratificat, fiecare strat superior (i-1) se consideră suprasarcină pentru stratul care urmează (i) și este înlocuit cu un strat din acel pământ (i) de înălime echivalență \\(\\left(H_{e}\\right)\\), calculându-se įmpingerile active pe parament, între cele două puncte de la începutul și sfarsțitul stratului, cu coeficientul \\(\\left(K_{\\alpha i}\\right)\\) și înclinarea \\(\\left(\\delta_{i}\\right.\\) - unghiul frecării pământ-zid) caracteristice acelui strat (i).\nÎn cazul împingerii/rezistenței pasive, atât pentru teren neomogen cât și pentru teren stratificat, ipotezele și abordarea de calcul rămân valabile ca și în cazul impingerii active, schimbându-se valoarea coeficientului \\(-K_{p}\\) și înclinarea diagramei prin ordonate sub normala la paramentul din spatele zidului, cu unghiul frecării pământ-zid \\(\\delta_{i}\\).\n\\[\nP_{p \\gamma}=\\gamma \\cdot H \\cdot K_{p} \\cdot \\frac{\\sin \\theta}{\\cos \\delta} \\quad P_{p}=\\frac{1}{2} \\cdot \\gamma \\cdot H^{2} \\cdot K_{p}\n\\]\nFolosind aceleași ipoteze și abordări de calcul ale teoriei Coulomb, pentru evaluarea împingerilor active și pasive, se pot utiliza două metode grafo-analitice, atât pentru teren omogen și stratificat, cu sau fără suprasarcină: metoda Poncelet și metoda Culmann.\n\\section*{Aplicarea teoriei Rankine în calculul împingerilor}\nÎn teoria Rankine, pământul este considerat și prin frecare și cu coeziune, dar fără frecare între pământ și zid, paramentul din spatele zidului fiind numai vertical iar suprafața terenului din spatele zidului orizontală. Împingerea activă ca presiune generată de un teren omogen variază după o diagramă triughulară, cu ordonatele normale la parametul din spate al zidului în cazul fără suprasarcină, altfel variația fiind trapezoidală. Ca forță concentrată, împingerea activă este aria diagramei, acţionând în centrul de greutate al triughiului. \\(K_{a}\\) este coeficientul împingerii active, depinzând numai de unghiul frecării interioare.\n\\[\np_{a z}=\\gamma \\cdot z \\cdot K_{a}+q \\cdot K_{a}-2 \\cdot c \\cdot \\sqrt{K_{a}} \\quad K_{a}=\\operatorname{tg}^{2}(45-\\phi / 2)\n\\]\nÎn cazul terenului stratificat, fiecare strat superior (i-1) se consideră suprasarcină pentru stratul care urmează (i), calculându-se împingerile active pe parament, între cele două puncte de la începutul și sfarsțitul stratului, cu coeficientul \\(K_{a i}\\)\nÎn cazul împingerii/rezistenței pasive, atât pentru teren neomogen cât și pentru teren stratificat, ipotezele și abordarea de calcul rămân valabile ca și în cazul împingerii active, schimbându-se valoarea coeficientului \\(-K_{p}\\), înclinarea diagramei fiind după normala la paramentul din spatele zidului.\n\\[\np_{p z}=\\gamma \\cdot z \\cdot K_{p}+q \\cdot K_{p}+2 \\cdot c \\cdot \\sqrt{K_{p}} \\quad K_{p}=\\operatorname{tg}^{2}(45+\\phi / 2)\n\\]\nSe poate folosi și metoda grafo-analitică numită metoda spiralei logaritmice, atât pentru cazul terenului omogen cât și stratificat."
+ },
+ "384": {
+  "formulas": [
+   "\\begin{array}{l}\np_{\\mathrm{ef}, \\max }=\\frac{N}{B \\cdot L}+\\frac{6 \\cdot M_{y}}{B^{2} \\cdot L} \\\\\np_{\\mathrm{ef}, \\min }=\\frac{N}{B \\cdot L}-\\frac{6 \\cdot M_{y}}{B^{2} \\cdot L} \\\\\np_{\\mathrm{ef}, \\min }=\\frac{N}{B \\cdot L}-\\frac{6 \\cdot M_{y}}{B^{2} \\cdot L}\n\\end{array}",
+   "\\begin{array}{l}\np_{\\mathrm{ef}, \\max }=\\frac{N}{B \\cdot L}+\\frac{6 \\cdot M_{y}}{B^{2} \\cdot L}+\\frac{6 \\cdot M_{x}}{B \\cdot L^{2}} \\\\\n\\text { si } \\\\\n\\text { sau } \\\\\np_{\\mathrm{ef}, \\min }=\\frac{N}{B \\cdot L}-\\frac{6 \\cdot M_{y}}{B^{2} \\cdot L}-\\frac{6 \\cdot M_{x}}{B \\cdot L^{2}}\n\\end{array}",
+   "E_{d} \\leq C_{d} \\text { cu }\\left\\{\\begin{array}{l}\nE_{d}=\\Delta_{s} \\text { sau } E_{d}=\\Delta_{t} \\\\\nC_{d}=\\Delta_{s} \\text { sau } C_{d}=\\Delta_{t}\n\\end{array}\\right."
+  ],
+  "inline": [
+   "p_{d}=\\frac{N}{B \\cdot L}",
+   "E_{d}=\\Delta_{s}",
+   "E_{d}=\\Delta_{s}",
+   "E_{d}=\\Delta_{y}",
+   "C_{d}=\\Delta_{s}",
+   "C_{d}=\\Delta_{y}"
+  ],
+  "seconds": 53.2,
+  "capped": false,
+  "tokens": 1061,
+  "raw": "Pentru a evita instalarea stārii limită de serviciu (SLS). presiunile efective pe talpa fundației (cu care se va calcula tasarea probabilă) se calculează admitând ipoteza variației plane (liniare) a distribuției pe talpa fundației cu următoarele relații de calcul:\nPentru încăarce centrică: \\(p_{d}=\\frac{N}{B \\cdot L}\\).\nPentru încărări cu excentricitate după o direcție:\n\\[\n\\begin{array}{l}\np_{\\mathrm{ef}, \\max }=\\frac{N}{B \\cdot L}+\\frac{6 \\cdot M_{y}}{B^{2} \\cdot L} \\\\\np_{\\mathrm{ef}, \\min }=\\frac{N}{B \\cdot L}-\\frac{6 \\cdot M_{y}}{B^{2} \\cdot L} \\\\\np_{\\mathrm{ef}, \\min }=\\frac{N}{B \\cdot L}-\\frac{6 \\cdot M_{y}}{B^{2} \\cdot L}\n\\end{array}\n\\]\nPentru încărări cu excentricitate pe două direcții:\n\\[\n\\begin{array}{l}\np_{\\mathrm{ef}, \\max }=\\frac{N}{B \\cdot L}+\\frac{6 \\cdot M_{y}}{B^{2} \\cdot L}+\\frac{6 \\cdot M_{x}}{B \\cdot L^{2}} \\\\\n\\text { si } \\\\\n\\text { sau } \\\\\np_{\\mathrm{ef}, \\min }=\\frac{N}{B \\cdot L}-\\frac{6 \\cdot M_{y}}{B^{2} \\cdot L}-\\frac{6 \\cdot M_{x}}{B \\cdot L^{2}}\n\\end{array}\n\\]\nin care: B, L, Df - dimensiunile în plan ale tațpii fundației (lățime / lungime) și respectiv adâncimea de fundare.\nAceste presiuni calculate cu încăcărî provenite din gruparea fundamentală, trebuie să fie sub valoarea presiunilor acceptabile derivate din presiunea convențională, respectiv presiunea plastică, multiplicate cu coeficienți ce îin cont de excentricitatea încăcărilor pe talpa fundației.\n\\section*{Restrictia de tasare aplicabilă pentru starea limită de serviciu}\nDimensiunile tațiii fundației și poziționarea acesteia la adâncimea de fundare se stabilesc cu valori finale verificând restricția de tasare:\n\\[\nE_{d} \\leq C_{d} \\text { cu }\\left\\{\\begin{array}{l}\nE_{d}=\\Delta_{s} \\text { sau } E_{d}=\\Delta_{t} \\\\\nC_{d}=\\Delta_{s} \\text { sau } C_{d}=\\Delta_{t}\n\\end{array}\\right.\n\\]\nîn care:\n\\(E_{d}=\\Delta_{s}\\) este valoarea de calculu ilecutiui unei acțiuni sau combinațiilor de acțiuni, respectiv deplașări sau deformații posibile ale construcției datorate tașărilor terenului de fundare\n\\(E_{d}=\\Delta_{s}\\) aceeași semnificație ca și \\(E_{d}=\\Delta_{y}\\), dar în cazul construcțiilor cu restricții în exploatoare (CRE).\n\\(C_{d}=\\Delta_{s}\\) este valoarea de calcul limită a efectului unei acțiuni sau combinațiilor de acțiuni, respectiv valori limită ale deplașărilor fundațiilor și deformațiilor structurilor, stabilite de proiectantul structurii sau determinate conform Anexei H fin NP112-2012\n\\(C_{d}=\\Delta_{y}\\) este valoarea de calcul limită a efectului unei acțiuni sau combinațiilor de acțiuni, respectiv valori limită ale deplașărilor fundațiilor și deformațiilor structurilor admise din punct de vedere tehnologic, specificate de proiectantul tehnolog, in cazul construcțiilor cu restricții de deformații în exploatare normală (CRE)."
+ }
+}
