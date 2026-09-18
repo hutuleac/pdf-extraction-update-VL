@@ -1,0 +1,96 @@
+{
+ "page": 34,
+ "reason": "scattered",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "34-1",
+   "latex": "U_n = \\frac{d_{60}}{d_{10}}",
+   "bbox": [
+    216.7,
+    97.7,
+    270.3,
+    138.1
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "34-2",
+   "latex": "C_c = \\frac{(d_{30})^2}{d_{10} \\cdot d_{60}}",
+   "bbox": [
+    209.5,
+    272.8,
+    283.4,
+    319.9
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "34-3",
+   "latex": "C_c = 1 \\div 3",
+   "bbox": [
+    223.8,
+    357.0,
+    273.8,
+    377.2
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "34-4",
+   "latex": "S_{Krumbein} = \\sqrt[3]{\\frac{A \\cdot B \\cdot C}{A^2}}",
+   "bbox": [
+    103.6,
+    506.8,
+    222.6,
+    538.8
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "34-5",
+   "latex": "S_{Sneed-Folx} = \\sqrt[3]{\\frac{C^2}{A \\cdot B}}",
+   "bbox": [
+    103.6,
+    543.9,
+    214.3,
+    575.9
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "34-6",
+   "latex": "V_c = \\left(\\frac{6 \\cdot V}{\\pi \\cdot A^3}\\right)",
+   "bbox": [
+    127.4,
+    626.4,
+    203.6,
+    661.7
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "34-7",
+   "latex": "(C/B)/(B/A)",
+   "bbox": [
+    134.5,
+    693.7,
+    202.4,
+    710.6
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "34-8",
+   "latex": "d_e = \\sqrt[3]{\\frac{6 \\cdot V}{\\pi}}",
+   "bbox": [
+    134.5,
+    737.5,
+    195.3,
+    779.6
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

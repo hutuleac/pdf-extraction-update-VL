@@ -1,0 +1,30 @@
+{
+ "page": 81,
+ "reason": "scattered",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "81-1",
+   "latex": "\\sigma_k = \\Delta u = h_c \\cdot \\gamma_w",
+   "bbox": [
+    256.0,
+    681.9,
+    326.2,
+    695.4
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "81-2",
+   "latex": "p_k \\cdot A_s = \\sigma_k \\cdot A_g \\Rightarrow p_k \\cdot (1-n) = \\sigma_k \\cdot 1 \\Rightarrow p_k = (1+e) \\cdot \\sigma_k",
+   "bbox": [
+    169.1,
+    730.8,
+    421.5,
+    745.9
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

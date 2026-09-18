@@ -1,0 +1,140 @@
+{
+ "page": 315,
+ "reason": "scattered",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "315-1",
+   "latex": "p_{aA} = q \\cdot K_{a1} = 25 \\cdot 0,406 = 10,15\\,kN/m^2",
+   "bbox": [
+    196.4,
+    85.1,
+    451.6,
+    104.7
+   ],
+   "bbox_source": "estimated"
+  },
+  {
+   "id": "315-2",
+   "latex": "p_{aB}^{\\sup} = \\gamma_1 \\cdot H_1 \\cdot K_{a1} + q \\cdot K_{a1} = 18,0 \\cdot 4,3 \\cdot 0,406 + 25 \\cdot 0,406 = 41,57\\,kN/m^2",
+   "bbox": [
+    136.9,
+    116.2,
+    461.9,
+    131.3
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "315-3",
+   "latex": "P_{a1} = \\frac{H_1 (p_{aB}^{\\sup} + p_{aA})}{2} = \\frac{4,3 (41,57 + 10,15)}{2} = 111,20\\,kN/m",
+   "bbox": [
+    120.2,
+    158.3,
+    381.0,
+    190.3
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "315-4",
+   "latex": "z_1 = \\frac{2 \\cdot p_{aA} + p_{aB}^{\\sup}}{p_{aA} + p_{aB}^{\\sup}} \\cdot \\frac{H_1}{3} = \\frac{2 \\cdot 10,15 + 41,57}{10,15 + 41,57} \\cdot \\frac{4,3}{3} = 1,71\\,m",
+   "bbox": [
+    120.2,
+    218.9,
+    364.3,
+    249.2
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "315-5",
+   "latex": "K_{a2} = tg^2\\left(45^\\circ - \\frac{\\phi_2}{2}\\right) = tg^2\\left(45^\\circ - \\frac{20^\\circ}{2}\\right) = 0,490",
+   "bbox": [
+    120.2,
+    314.9,
+    326.2,
+    345.2
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "315-6",
+   "latex": "p_{aB}^{\\inf} = (q + \\gamma_1 \\cdot H_1) \\cdot K_{a2} - 2 \\cdot c \\cdot \\sqrt{K_{a2}} = (25 + 18 \\cdot 4,3) 0,490 - 2 \\cdot 10 \\cdot \\sqrt{0,490} = 36,18\\,kN/m^2",
+   "bbox": [
+    138.1,
+    389.0,
+    400.0,
+    420.9
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "315-7",
+   "latex": "p_{aC} = \\gamma_2 \\cdot H_2 \\cdot K_{a2} + (q + \\gamma_1 \\cdot H_1) \\cdot K_{a2} - 2 \\cdot c \\cdot \\sqrt{K_{a2}} = 19,0 \\cdot 1,2 \\cdot 0,490 + (25 + 18 \\cdot 4,3) \\cdot 0,490 - 2 \\cdot 10 \\cdot \\sqrt{0,490} = 47,35\\,kN/m^2",
+   "bbox": [
+    137.5,
+    392.7,
+    468.0,
+    474.5
+   ],
+   "bbox_source": "estimated"
+  },
+  {
+   "id": "315-8",
+   "latex": "P_{a2} = \\frac{H_2 (p_{aC} + p_{aB}^{\\inf})}{2} = \\frac{1,2 (47,35 + 36,18)}{2} = 50,12\\,kN/m",
+   "bbox": [
+    120.2,
+    503.5,
+    378.6,
+    533.8
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "315-9",
+   "latex": "z_2 = \\frac{2 \\cdot p_{aB}^{\\inf} + p_{aC}}{p_{aB}^{\\inf} + p_{aC}} \\cdot \\frac{H_2}{3} = \\frac{2 \\cdot 36,18 + 47,35}{36,18 + 47,35} \\cdot \\frac{1,2}{3} = 0,57\\,m",
+   "bbox": [
+    119.1,
+    562.4,
+    370.3,
+    594.4
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "315-10",
+   "latex": "K_p = tg^2\\left(45^\\circ + \\frac{\\phi_2}{2}\\right) = tg^2\\left(45^\\circ + \\frac{20^\\circ}{2}\\right) = 2,04",
+   "bbox": [
+    120.2,
+    666.8,
+    317.9,
+    695.4
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "315-11",
+   "latex": "p_{pB1} = 2 \\cdot c \\cdot \\sqrt{K_p} = 2 \\cdot 10 \\cdot \\sqrt{2,04} = 28,56\\,kN/m^2",
+   "bbox": [
+    196.4,
+    720.0,
+    484.4,
+    739.6
+   ],
+   "bbox_source": "estimated"
+  },
+  {
+   "id": "315-12",
+   "latex": "p_{pC1} = \\gamma \\cdot H_2 \\cdot K_p + 2 \\cdot c \\cdot \\sqrt{K_p} = 19 \\cdot 1,2 \\cdot 2,04 + 2 \\cdot 10 \\cdot \\sqrt{2,04} = 75,08\\,kN/m^2",
+   "bbox": [
+    136.9,
+    757.7,
+    473.8,
+    774.5
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

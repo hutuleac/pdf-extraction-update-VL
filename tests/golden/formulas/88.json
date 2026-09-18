@@ -1,0 +1,85 @@
+{
+ "page": 88,
+ "reason": "mismapped",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "88-1",
+   "latex": "EN\\% = \\frac{H_2}{H_1} \\cdot 100",
+   "bbox": [
+    351.2,
+    197.0,
+    426.2,
+    223.9
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "88-2",
+   "latex": "N\\% = 100 \\cdot \\frac{I_{am}}{A_2}",
+   "bbox": [
+    67.9,
+    362.0,
+    136.9,
+    404.1
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "88-3",
+   "latex": "I_c = \\frac{w_L - w}{w_L - w_p}",
+   "bbox": [
+    367.9,
+    533.8,
+    433.4,
+    565.8
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "88-4",
+   "latex": "I_c < 0,0",
+   "bbox": [
+    403.6,
+    639.8,
+    435.7,
+    653.3
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "88-5",
+   "latex": "1,0 < I_c < 0,0",
+   "bbox": [
+    405.8,
+    674.2,
+    458.2,
+    684.0
+   ],
+   "bbox_source": "estimated"
+  },
+  {
+   "id": "88-6",
+   "latex": "1 \\leq I_c \\leq [(w_L - w_s)/I_p]",
+   "bbox": [
+    403.6,
+    705.5,
+    500.0,
+    722.3
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "88-7",
+   "latex": "[(w_L - w_s)/I_p] \\leq I_c \\leq w_L/I_p",
+   "bbox": [
+    392.7,
+    746.2,
+    523.6,
+    759.3
+   ],
+   "bbox_source": "estimated"
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+{
+ "page": 82,
+ "reason": "mismapped",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "82-1",
+   "latex": "\\sigma' = \\underbrace{\\sigma_{pz}}_{} + \\underbrace{\\sigma_{\\gamma z}}_{} + \\underbrace{p_k}_{}",
+   "bbox": [
+    177.4,
+    328.3,
+    367.9,
+    362.0
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

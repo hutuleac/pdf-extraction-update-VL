@@ -485,6 +485,12 @@ understates it.
   committed for the common case).
 - `tests/golden/` holds a curated edge-case corpus with semantic metric
   threshold assertions (`tests/metrics.py`), not exact-output assertions.
+- `tests/golden/formulas/` is the hand-checked 20-page formula benchmark
+  (136 display formulas from the geotechnics course, expected LaTeX plus
+  boxes). Not a pytest suite: `score.py` ranks a recognizer's
+  `results/<model>.json` by wrong-but-balanced count, then recovery;
+  `region_probe.py` measures the model-free region finder. Assumptions and
+  the granite baseline are in `docs/backlog-formulas-and-models.md`.
 - `tests/baseline/` guards against regressing v1.1 (pre-OCR) output —
   `generate.py` rebuilds `snapshot.json` from the `v1.1-pre-ocr` tag if it
   ever needs to change intentionally.

@@ -1,0 +1,74 @@
+{
+ "page": 381,
+ "reason": "mismapped",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "381-1",
+   "latex": "p_{p\\gamma} = \\gamma \\cdot H \\cdot K_p \\cdot \\frac{\\sin\\theta}{\\cos\\delta}",
+   "bbox": [
+    138.1,
+    272.8,
+    390.5,
+    301.4
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "381-2",
+   "latex": "P_p = \\frac{1}{2} \\cdot \\gamma \\cdot H^2 \\cdot K_p",
+   "bbox": [
+    138.1,
+    272.8,
+    390.5,
+    301.4
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "381-3",
+   "latex": "p_{az} = \\gamma \\cdot z \\cdot K_a + q \\cdot K_a - 2 \\cdot c \\cdot \\sqrt{K_a}",
+   "bbox": [
+    107.1,
+    543.9,
+    416.7,
+    562.4
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "381-4",
+   "latex": "K_a = tg^2(45 - \\phi/2)",
+   "bbox": [
+    107.1,
+    543.9,
+    416.7,
+    562.4
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "381-5",
+   "latex": "p_{pz} = \\gamma \\cdot z \\cdot K_p + q \\cdot K_p + 2 \\cdot c \\cdot \\sqrt{K_p}",
+   "bbox": [
+    115.5,
+    668.5,
+    410.7,
+    683.6
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "381-6",
+   "latex": "K_p = tg^2(45 + \\phi/2)",
+   "bbox": [
+    115.5,
+    668.5,
+    410.7,
+    683.6
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

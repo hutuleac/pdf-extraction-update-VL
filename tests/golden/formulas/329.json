@@ -1,0 +1,140 @@
+{
+ "page": 329,
+ "reason": "scattered",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "329-1",
+   "latex": "\\sin\\phi = \\frac{\\sigma_1 - \\sigma_2}{\\sigma_1 + \\sigma_2 + 2 \\cdot c \\cdot ctg\\phi}",
+   "bbox": [
+    216.7,
+    117.9,
+    354.8,
+    143.1
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "329-2",
+   "latex": "2 \\cdot \\frac{p - q}{\\pi} \\cdot \\sin\\omega \\cdot \\sin\\phi = 2 \\cdot (\\gamma \\cdot z + q) \\cdot \\sin\\phi + 2 \\cdot \\frac{p - q}{\\pi} \\cdot \\omega \\cdot \\sin\\phi + 2 \\cdot c \\cdot \\cos\\phi",
+   "bbox": [
+    145.2,
+    168.4,
+    452.4,
+    193.6
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "329-3",
+   "latex": "z = \\frac{p - \\gamma \\cdot D_f}{\\pi \\cdot \\gamma} \\cdot \\left(\\frac{\\sin\\omega}{\\sin\\phi} - \\omega\\right) - \\frac{c}{\\gamma \\cdot tg\\phi} - D_f",
+   "bbox": [
+    340.4,
+    196.4,
+    520.4,
+    225.8
+   ],
+   "bbox_source": "estimated"
+  },
+  {
+   "id": "329-4",
+   "latex": "\\frac{dz}{d\\omega} = 0 \\Rightarrow \\frac{p - \\gamma \\cdot D_f}{\\pi \\cdot \\gamma} \\cdot \\left(\\frac{\\cos\\omega}{\\sin\\phi} - 1\\right) = 0",
+   "bbox": [
+    363.3,
+    252.0,
+    520.4,
+    274.9
+   ],
+   "bbox_source": "estimated"
+  },
+  {
+   "id": "329-5",
+   "latex": "\\Rightarrow \\cos\\omega = \\sin\\phi \\quad \\omega = \\frac{\\pi}{2} - \\phi",
+   "bbox": [
+    78.6,
+    277.8,
+    356.0,
+    304.8
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "329-6",
+   "latex": "\\Rightarrow z_{\\max} = \\frac{p - \\gamma \\cdot D_f}{\\pi \\cdot \\gamma} \\cdot \\left[ctg\\phi - \\left(\\frac{\\pi}{2} - \\phi\\right)\\right] - \\frac{c}{\\gamma} \\cdot ctg\\phi - D_f",
+   "bbox": [
+    94.1,
+    304.8,
+    345.3,
+    333.4
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "329-7",
+   "latex": "p_l = c \\cdot \\left[\\frac{\\pi \\cdot ctg\\phi}{ctg\\phi - \\frac{\\pi}{2} + \\phi}\\right] + \\gamma \\cdot D_f \\cdot \\left[1 + \\frac{\\pi}{ctg\\phi - \\frac{\\pi}{2} + \\phi}\\right]",
+   "bbox": [
+    97.6,
+    358.6,
+    302.4,
+    407.5
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "329-8",
+   "latex": "p_l = q \\cdot N_2 + c \\cdot N_3",
+   "bbox": [
+    392.7,
+    392.7,
+    504.0,
+    412.4
+   ],
+   "bbox_source": "estimated"
+  },
+  {
+   "id": "329-9",
+   "latex": "p_{pl} = \\gamma \\cdot D_f \\cdot \\left[1 + \\frac{\\pi}{ctg\\phi - \\frac{\\pi}{2} + \\phi}\\right] + c \\cdot \\left[\\frac{\\pi \\cdot ctg\\phi}{ctg\\phi - \\frac{\\pi}{2} + \\phi}\\right] + \\gamma \\cdot B \\cdot \\left[\\frac{0,25 \\cdot \\pi}{ctg\\phi - \\frac{\\pi}{2} + \\phi}\\right]",
+   "bbox": [
+    113.1,
+    501.8,
+    378.6,
+    564.1
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "329-10",
+   "latex": "p_{pl} = \\gamma \\cdot B \\cdot N_1 + q \\cdot N_2 + c \\cdot N_3",
+   "bbox": [
+    75.0,
+    592.7,
+    238.1,
+    611.2
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "329-11",
+   "latex": "p_{pl} = m_l \\cdot (\\bar{\\gamma} \\cdot B \\cdot N_1 + q \\cdot N_2 + c \\cdot N_3)",
+   "bbox": [
+    97.6,
+    666.8,
+    283.4,
+    683.6
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "329-12",
+   "latex": "p_{pl} = m_l \\cdot (\\bar{\\gamma} \\cdot B \\cdot N_1 + \\frac{2 \\cdot q_e + q_i}{3} \\cdot N_2 + c \\cdot N_3)",
+   "bbox": [
+    97.6,
+    712.2,
+    286.9,
+    732.4
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

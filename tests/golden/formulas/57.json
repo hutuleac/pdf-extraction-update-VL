@@ -1,0 +1,96 @@
+{
+ "page": 57,
+ "reason": "scattered",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "57-1",
+   "latex": "n[\\%] = (V_p/V) \\cdot 100 \\to n[\\%] = (V_p/1) \\cdot 100 = V_p \\cdot 100",
+   "bbox": [
+    188.1,
+    116.2,
+    439.3,
+    131.3
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "57-2",
+   "latex": "e = V_p/V_s \\Rightarrow e = (n\\%/100)/(1 - n\\%/100)",
+   "bbox": [
+    188.1,
+    158.3,
+    397.6,
+    171.7
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "57-3",
+   "latex": "v = 1 + e",
+   "bbox": [
+    188.1,
+    198.7,
+    231.0,
+    212.2
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "57-4",
+   "latex": "c = V_s/V = 1/V \\Rightarrow e = 1/(1+e)",
+   "bbox": [
+    188.1,
+    223.9,
+    346.5,
+    239.1
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "57-5",
+   "latex": "\\gamma_{sat} = (V_s \\cdot \\gamma_s + V_p \\cdot \\gamma_w)/V \\Rightarrow \\gamma_{sat}[kN/m^3] = \\left(1 - \\frac{n\\%}{100}\\right) \\cdot \\gamma_s + \\frac{n\\%}{100} \\cdot \\gamma_w",
+   "bbox": [
+    139.3,
+    496.7,
+    472.6,
+    525.3
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "57-6",
+   "latex": "\\gamma_d = G_s/V \\Rightarrow \\gamma_d[kN/m^3] = \\left(1 - \\frac{n\\%}{100}\\right) \\cdot \\gamma_s",
+   "bbox": [
+    107.1,
+    564.1,
+    351.2,
+    597.7
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "57-7",
+   "latex": "\\gamma' = \\frac{G_s - V_s \\cdot \\gamma_w}{V} \\Rightarrow \\gamma' = \\left(1 - \\frac{n\\%}{100}\\right) \\cdot \\gamma_s - \\left(1 - \\frac{n\\%}{100}\\right) \\cdot \\gamma_w \\Rightarrow \\gamma'[kN/m^3] = \\left(1 - \\frac{n\\%}{100}\\right) \\cdot (\\gamma_s - \\gamma_w)",
+   "bbox": [
+    92.9,
+    631.4,
+    517.9,
+    661.7
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "57-8",
+   "latex": "S_r = \\frac{V_w}{V_p}",
+   "bbox": [
+    254.8,
+    708.9,
+    298.8,
+    745.9
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

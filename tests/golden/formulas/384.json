@@ -1,0 +1,118 @@
+{
+ "page": 384,
+ "reason": "scattered",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "384-1",
+   "latex": "p_{ef} = \\frac{N}{B \\cdot L}",
+   "bbox": [
+    104.8,
+    124.6,
+    263.1,
+    149.9
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "384-2",
+   "latex": "p_{ef.\\max} = \\frac{N}{B \\cdot L} + \\frac{6 \\cdot M_y}{B^2 \\cdot L}",
+   "bbox": [
+    98.8,
+    163.3,
+    272.6,
+    217.2
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "384-3",
+   "latex": "p_{ef.\\min} = \\frac{N}{B \\cdot L} - \\frac{6 \\cdot M_y}{B^2 \\cdot L}",
+   "bbox": [
+    117.8,
+    196.4,
+    216.0,
+    225.8
+   ],
+   "bbox_source": "estimated"
+  },
+  {
+   "id": "384-4",
+   "latex": "p_{ef.\\max} = \\frac{N}{B \\cdot L} \\cdot \\left(1 + \\frac{6 \\cdot e_x}{B}\\right)",
+   "bbox": [
+    296.4,
+    163.3,
+    406.0,
+    217.2
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "384-5",
+   "latex": "p_{ef.\\min} = \\frac{N}{B \\cdot L} \\cdot \\left(1 - \\frac{6 \\cdot e_x}{B}\\right)",
+   "bbox": [
+    296.4,
+    163.3,
+    406.0,
+    217.2
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "384-6",
+   "latex": "p_{ef.\\max} = \\frac{N}{B \\cdot L} + \\frac{6 \\cdot M_y}{B^2 \\cdot L} + \\frac{6 \\cdot M_x}{B \\cdot L^2}",
+   "bbox": [
+    98.8,
+    255.9,
+    273.8,
+    301.4
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "384-7",
+   "latex": "p_{ef.\\min} = \\frac{N}{B \\cdot L} - \\frac{6 \\cdot M_y}{B^2 \\cdot L} - \\frac{6 \\cdot M_x}{B \\cdot L^2}",
+   "bbox": [
+    103.6,
+    301.4,
+    234.5,
+    328.3
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "384-8",
+   "latex": "p_{ef.\\max} = \\frac{N}{B \\cdot L} + \\frac{6 \\cdot M_y}{B^2 \\cdot L} + \\frac{6 \\cdot M_x}{B \\cdot L^2}",
+   "bbox": [
+    296.4,
+    255.9,
+    404.8,
+    284.6
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "384-9",
+   "latex": "p_{ef.\\min} = \\frac{N}{B \\cdot L} \\cdot \\left(1 - \\frac{6 \\cdot e_x}{B} - \\frac{6 \\cdot e_y}{L}\\right)",
+   "bbox": [
+    279.8,
+    301.4,
+    421.5,
+    330.0
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "384-10",
+   "latex": "E_d \\leq C_d \\begin{cases} E_d = \\Delta_s \\, sau \\, E_d = \\Delta_t \\\\ C_d = \\overline{\\Delta_s} \\, sau \\, C_d = \\overline{\\Delta_t} \\end{cases}",
+   "bbox": [
+    183.3,
+    488.3,
+    320.3,
+    523.7
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

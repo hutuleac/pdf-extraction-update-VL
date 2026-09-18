@@ -1,0 +1,129 @@
+{
+ "page": 73,
+ "reason": "scattered",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "73-1",
+   "latex": "\\rho = \\frac{M}{V} = \\frac{185}{100} = 1,85\\,g/cm^3",
+   "bbox": [
+    121.4,
+    160.0,
+    367.9,
+    215.5
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "73-2",
+   "latex": "\\gamma = \\frac{G}{V} = \\frac{M \\cdot g}{V} = \\rho \\cdot g = \\frac{185 \\cdot 10^{-3} \\cdot 10}{100 \\cdot 10^{-6}}\\,\\frac{kg \\cdot m}{m^3 \\cdot s^2} = 18,50\\,kN/m^3",
+   "bbox": [
+    121.4,
+    160.0,
+    367.9,
+    215.5
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "73-3",
+   "latex": "w = \\frac{M_w}{M_s} 100 = \\frac{M - M_d}{M_s} 100 = \\frac{185 - 170}{170} 100 = 8,82\\% \\,(M_d = M_s)",
+   "bbox": [
+    122.6,
+    237.4,
+    389.3,
+    266.0
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "73-4",
+   "latex": "n = \\frac{V_p}{V} 100 = \\frac{V - V_s}{V} 100 = \\frac{100 - 63,67}{100} 100 = 36,33\\%",
+   "bbox": [
+    121.4,
+    282.9,
+    348.8,
+    311.5
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "73-5",
+   "latex": "V_s = \\frac{M_s}{\\rho_s} = \\frac{170}{2,67} = 63,67\\,cm^3",
+   "bbox": [
+    125.0,
+    330.0,
+    251.2,
+    360.3
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "73-6",
+   "latex": "e = \\frac{V_p}{V_s} = \\frac{V - V_s}{V} = \\frac{100 - 63,67}{63,67} = 0,57",
+   "bbox": [
+    121.4,
+    382.2,
+    283.4,
+    414.2
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "73-7",
+   "latex": "V_s = \\frac{M_s}{\\rho_s} = \\frac{170}{2,67} = 63,67\\,cm^3",
+   "bbox": [
+    125.0,
+    432.7,
+    251.2,
+    464.7
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "73-8",
+   "latex": "\\gamma_{sat} = \\frac{G_w + G_s}{V} = \\frac{V_p \\cdot \\gamma_w + V_s \\cdot \\gamma_s}{V} = \\frac{36,33 \\cdot 10^{-6} \\cdot 10 + 63,67 \\cdot 10^{-6} \\cdot 26,7}{100 \\cdot 10^{-6}} = 20,63\\,kN/m^3",
+   "bbox": [
+    121.4,
+    484.9,
+    488.1,
+    515.2
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "73-9",
+   "latex": "\\gamma_d = \\frac{G_s}{V} = \\frac{M_s \\cdot g}{V} = \\frac{170 \\cdot 10^{-3} \\cdot 10}{100 \\cdot 10^{-6}} \\frac{kg \\cdot m}{m^3 \\cdot s^2} = 17\\,kN/m^3",
+   "bbox": [
+    114.3,
+    535.4,
+    340.5,
+    565.8
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "73-10",
+   "latex": "\\gamma' = V_s \\cdot \\gamma_s - V_s \\cdot \\gamma_w = \\left(1 - \\frac{n}{100}\\right)(\\gamma_s - \\gamma_w) = \\left(1 - \\frac{36,33}{100}\\right)(26,7 - 10) = 10,63\\,kN/m^3",
+   "bbox": [
+    121.4,
+    586.0,
+    472.6,
+    616.3
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "73-11",
+   "latex": "S_r = \\frac{w\\% \\cdot \\gamma_s}{100 \\cdot e \\cdot \\gamma_w} = \\frac{8,82 \\cdot 26,7}{100 \\cdot 0,57 \\cdot 10} = 0,413",
+   "bbox": [
+    121.4,
+    638.2,
+    294.1,
+    668.5
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

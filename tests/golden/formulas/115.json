@@ -1,0 +1,107 @@
+{
+ "page": 115,
+ "reason": "scattered",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "115-1",
+   "latex": "V_1(intrare) = V_2(iesire)",
+   "bbox": [
+    352.4,
+    175.1,
+    442.9,
+    188.6
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "115-2",
+   "latex": "V_1 = \\left(v_x + \\frac{\\partial v_x}{\\partial x} \\frac{dx}{2}\\right) dydzdt + \\left(v_y + \\frac{\\partial v_y}{\\partial y} \\cdot \\frac{dy}{2}\\right) dxdzdt + \\left(v_z + \\frac{\\partial v_z}{\\partial z} \\cdot \\frac{dz}{2}\\right) dxdydt",
+   "bbox": [
+    340.5,
+    242.5,
+    509.6,
+    293.0
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "115-3",
+   "latex": "V_2 = \\left(v_x - \\frac{\\partial v_x}{\\partial x} \\cdot \\frac{dx}{2}\\right) dzdydt + \\left(v_y - \\frac{\\partial v_y}{\\partial y} \\cdot \\frac{dy}{2}\\right) dxdzdt + \\left(v_z - \\frac{\\partial v_z}{\\partial z} \\cdot \\frac{dz}{2}\\right) dxdydt",
+   "bbox": [
+    304.8,
+    301.4,
+    497.7,
+    348.5
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "115-4",
+   "latex": "\\frac{\\partial v_x}{\\partial x} + \\frac{\\partial v_y}{\\partial y} + \\frac{\\partial v_z}{\\partial z} = 0",
+   "bbox": [
+    346.5,
+    375.5,
+    426.2,
+    404.1
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "115-5",
+   "latex": "\\frac{\\partial v_x}{\\partial x} + \\frac{\\partial v_y}{\\partial y} + \\frac{\\partial v_z}{\\partial z} = 0",
+   "bbox": [
+    104.8,
+    498.4,
+    197.6,
+    533.8
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "115-6",
+   "latex": "\\frac{\\partial^2 H}{\\partial x^2} + \\frac{\\partial^2 H}{\\partial y^2} + \\frac{\\partial^2 H}{\\partial y^2} = 0",
+   "bbox": [
+    267.9,
+    500.1,
+    371.5,
+    533.8
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "115-7",
+   "latex": "\\{v\\} = [k] \\cdot \\{i_{gr}\\}",
+   "bbox": [
+    431.0,
+    501.8,
+    494.1,
+    528.7
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "115-8",
+   "latex": "\\frac{\\partial^2 H}{\\partial x^2} + \\frac{\\partial^2 H}{\\partial y^2} = 0",
+   "bbox": [
+    222.5,
+    572.7,
+    301.1,
+    598.9
+   ],
+   "bbox_source": "estimated"
+  },
+  {
+   "id": "115-9",
+   "latex": "\\Delta H = 0",
+   "bbox": [
+    340.4,
+    579.3,
+    376.4,
+    592.4
+   ],
+   "bbox_source": "estimated"
+  }
+ ]
+}

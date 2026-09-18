@@ -1,0 +1,52 @@
+{
+ "page": 111,
+ "reason": "mismapped",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "111-1",
+   "latex": "\\vec{v} = k \\cdot \\vec{i}_{gr}",
+   "bbox": [
+    247.6,
+    375.5,
+    297.6,
+    395.7
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "111-2",
+   "latex": "\\Rightarrow k_T = \\frac{V \\cdot L}{T \\cdot A \\cdot h}",
+   "bbox": [
+    425.5,
+    468.0,
+    507.3,
+    490.9
+   ],
+   "bbox_source": "estimated"
+  },
+  {
+   "id": "111-3",
+   "latex": "\\Rightarrow k_t = 2,3 \\cdot \\frac{L}{T} \\cdot \\log\\left(\\frac{h_1}{h_2}\\right)",
+   "bbox": [
+    340.4,
+    497.5,
+    458.2,
+    523.6
+   ],
+   "bbox_source": "estimated"
+  },
+  {
+   "id": "111-4",
+   "latex": "\\Rightarrow k = \\frac{c_v \\cdot a_v \\cdot \\gamma_w}{(1+e)} \\cdot 100",
+   "bbox": [
+    338.1,
+    548.9,
+    440.5,
+    580.9
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

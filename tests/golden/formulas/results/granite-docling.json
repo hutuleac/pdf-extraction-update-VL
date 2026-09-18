@@ -1,0 +1,219 @@
+{
+ "41": {
+  "capped": false,
+  "formulas": [
+   "\\eta = \\frac { s _ { i } } { s _ { n } } > 5 \\quad \\text {si} \\quad s = s _ { i } - s _ { n } \\geq 3 \\, c m",
+   "I = \\frac { e _ { L } - e } { 1 + e }",
+   "e _ { L } = \\frac { w _ { L } \\cdot \\gamma _ { s } } { \\gamma _ { w } \\cdot 1 0 0 }"
+  ]
+ },
+ "59": {
+  "capped": false,
+  "formulas": [
+   "n _ { \\max } = 4 7 , 6 \\% \\ \\, \\S i \\ e _ { \\max } \\cong 0 , 9 1",
+   "n _ { \\min } = 2 5 , 9 \\% \\ \\, \\S i \\ e _ { \\min } \\cong 0 , 3 5",
+   "n _ { \\max } = 0 , 5 0 \\quad s a u \\ e _ { \\max } = 1 , 0 0 \\quad \\S i \\quad n _ { \\min } = 0 , 3 0 \\ s a u \\ e _ { \\min } = 0 , 4 3",
+   "I _ { D } = \\frac { e _ { \\max } - e } { e _ { \\max } - e _ { \\min } } = \\frac { \\gamma _ { d . \\max } \\cdot \\left ( \\gamma _ { d } - \\gamma _ { d . \\min } \\right ) } { \\gamma _ { d } \\cdot \\left ( \\gamma _ { d . \\max } - \\gamma _ { d . \\min } \\right ) }",
+   "I _ { D } [ \\% ] = \\frac { \\left ( n _ { \\max } [ \\% ] - n [ \\% ] \\right ) \\cdot \\left ( 1 0 0 - n _ { \\min } [ \\% ] \\right ) } { \\left ( n _ { \\max } [ \\% ] - n _ { \\min } [ \\% ] \\right ) \\cdot \\left ( 1 0 0 - n [ \\% ] \\right ) } \\cdot 1 0 0"
+  ]
+ },
+ "79": {
+  "capped": false,
+  "formulas": [
+   "2 \\cdot \\pi \\cdot ( r _ { 1 } \\cdot \\cos u _ { \\theta } ) \\cdot T _ { s } \\cdot \\cos \\theta _ { u } - \\int _ { 0 } ^ { 9 0 - \\theta _ { u } } \\Delta u \\cdot d A \\cdot \\cos \\alpha = 0",
+   "\\Rightarrow \\Delta u = \\frac { 2 \\cdot T _ { s } } { r _ { 1 } } \\cdot \\frac { 2 \\cdot \\cos ^ { 2 } \\theta _ { u } } { 1 + \\cos 2 \\theta _ { u } } \\Rightarrow \\theta _ { u } = 0 \\ ( t u b d e s t i c l a / a p a )",
+   "\\Rightarrow \\Delta u = \\frac { 2 \\cdot T _ { s } } { r _ { 1 } }",
+   "\\pi \\cdot r ^ { 2 } \\cdot \\Delta u = \\pi \\cdot r ^ { 2 } \\cdot h _ { c } \\cdot [ g \\cdot ( \\rho _ { w } - \\rho _ { v } ) ] \\Rightarrow",
+   "\\Delta u = \\frac { 2 \\cdot T _ { s } \\cdot \\cos \\theta _ { u } } { r } \\Rightarrow h _ { c } = \\frac { 2 \\cdot T _ { s } \\cdot \\cos \\theta _ { u } } { r \\cdot g \\cdot ( \\rho _ { w } - \\rho _ { v } ) } \\\\ \\Rightarrow h _ { c } = \\frac { 2 \\cdot T _ { s } \\cdot \\cos \\theta _ { u } } { r \\cdot \\gamma _ { w } } \\Rightarrow h _ { c } = \\frac { 0 , 1 5 4 \\cdot \\cos \\theta _ { u } } { r }",
+   "h _ { c } ( c m ) = \\frac { 0 , 1 5 4 } { r }"
+  ]
+ },
+ "82": {
+  "capped": false,
+  "formulas": [
+   "\\sigma ^ { \\prime } = \\underbrace { \\sigma _ { p z } } _ { \\text {presiunea din} } + \\underbrace { \\sigma _ { \\gamma z } } _ { \\text {sarcina geologica} } + \\underbrace { p _ { k } } _ { \\text {presiunea} }"
+  ]
+ },
+ "88": {
+  "capped": false,
+  "formulas": [
+   "E N \\% = \\frac { H ^ { 2 } } { H ^ { 1 } } \\cdot 1 0 0",
+   "N \\% = 1 0 0 \\cdot \\frac { I _ { a m } } { A _ { 2 } }",
+   "I _ { c } = \\frac { w _ { L } - w } { w _ { L } - w _ { p } }",
+   "I _ { c } < 0 , 0",
+   "1 \\leq I _ { c } \\leq \\left [ \\left ( w _ { L } - w _ { s } \\right ) / I _ { p } \\right ]"
+  ]
+ },
+ "95": {
+  "capped": false,
+  "formulas": [
+   "I _ { c u } = \\frac { w _ { s a t } - w } { w _ { s a t } - w _ { s } } = \\frac { V _ { s a t } - V } { V _ { s a t } - V _ { I S } }",
+   "I _ { A } = \\frac { I _ { p } } { A _ { 2 } }"
+  ]
+ },
+ "111": {
+  "capped": false,
+  "formulas": [
+   "\\vec { \\nabla } = k \\cdot \\vec { i } _ { g r . }",
+   "\\Rightarrow k = \\frac { c _ { v } \\cdot a _ { v } \\cdot \\gamma _ { w } } { \\left ( 1 + e \\right ) } \\cdot 1 0 0"
+  ]
+ },
+ "141": {
+  "capped": false,
+  "formulas": [
+   "\\varepsilon _ { z } = \\frac { \\sigma _ { z } } { M }",
+   "\\varepsilon _ { z } = \\frac { 1 } { E } \\cdot \\left [ \\sigma _ { z } - v \\cdot \\left ( \\sigma _ { x } + \\sigma _ { y } \\right ) \\right ]",
+   "\\frac { \\sigma _ { z } } { M } = \\frac { 1 } { E } \\cdot \\left ( \\sigma _ { z } - 2 \\cdot v \\cdot \\sigma _ { x } \\right ) \\ \\Rightarrow \\ E = M \\cdot \\left ( 1 - 2 \\cdot v \\cdot \\frac { \\sigma _ { x } } { \\sigma _ { z } } \\right )",
+   "\\Rightarrow \\ E = M \\cdot \\left ( 1 - 2 \\cdot v \\cdot K _ { o } \\right )",
+   "\\varepsilon _ { x } = \\varepsilon _ { y } = \\frac { 1 } { E } \\cdot \\left [ \\sigma _ { x } - v \\cdot \\left ( \\sigma _ { x } + \\sigma _ { y } \\right ) \\right ] \\Rightarrow \\sigma _ { x } - v \\cdot \\sigma _ { x } + v \\cdot \\sigma _ { y } = 0 \\Rightarrow K _ { 0 } = \\frac { v } { 1 - v }"
+  ]
+ },
+ "146": {
+  "capped": false,
+  "formulas": [
+   "G _ { i } = m _ { i } \\cdot g \\Rightarrow G _ { i } = A \\cdot \\sum _ { i } ^ { n } ( h _ { i } \\cdot \\rho \\cdot g ) \\Rightarrow",
+   "G _ { i } = A \\cdot \\gamma \\cdot \\sum _ { i } ^ { n } h _ { i }",
+   "G = \\sum _ { 1 } ^ { n } G _ { i } = g \\times \\sum _ { 1 } ^ { n } m _ { i } = g \\times \\sum _ { 1 } ^ { n } V _ { i } \\times \\rho \\\\ \\text {si deci} \\colon",
+   "\\sigma _ { z , M } = G / A = ( A \\cdot \\gamma \\cdot \\sum _ { 1 } ^ { n } h _ { i } ) / A = \\gamma \\cdot H \\\\ \\text {rezultand o variaie liniar} \\, \\text {cu adancimea.}",
+   "\\sigma _ { x , M } = \\sigma _ { y , M } = K _ { 0 } \\cdot \\sigma _ { z , M }",
+   "\\sigma _ { z } = \\gamma _ { 1 } \\cdot h _ { 1 } + \\gamma _ { 2 } \\cdot h _ { 2 } + \\dots + \\gamma _ { n } \\cdot h _ { n } \\quad \\Rightarrow \\quad \\sigma _ { z } = \\sum _ { 1 } ^ { n } \\gamma _ { i } \\cdot h _ { i }"
+  ]
+ },
+ "381": {
+  "capped": false,
+  "formulas": [
+   "p _ { p \\gamma } = \\gamma \\cdot H \\cdot K _ { p } \\cdot \\frac { \\sin \\theta } { \\cos \\delta } \\quad P _ { p } = \\frac { 1 } { 2 } \\cdot \\gamma \\cdot H ^ { 2 } \\cdot K _ { p }",
+   "p _ { _ { a z } } = \\gamma \\cdot z \\cdot K _ { _ { a } } + q \\cdot K _ { _ { a } } - 2 \\cdot c \\cdot \\sqrt { K _ { _ { a } } } \\quad K _ { _ { a } } = t g ^ { 2 } \\, ( 4 5 - \\phi / 2 )",
+   "p _ { p z } = \\gamma \\cdot z \\cdot K _ { p } + q \\cdot K _ { p } + 2 \\cdot c \\cdot \\sqrt { K _ { p } } \\quad K _ { p } = t g ^ { 2 } \\, ( 4 5 + \\phi / 2 )"
+  ]
+ },
+ "34": {
+  "capped": false,
+  "formulas": [
+   "U _ { n } = \\frac { d _ { 6 0 } } { d _ { 1 0 } }",
+   "C _ { c } = \\frac { \\left ( d _ { 3 0 } \\right ) ^ { 2 } } { d _ { 1 0 } \\cdot d _ { 6 0 } }",
+   "C _ { c } = 1 \\div 3",
+   "\\begin{array} { r l } { \\bullet } & S _ { K r u m b e i n } = } & \\sqrt { \\frac { A \\cdot B \\cdot C } { A ^ { 2 } } } } \\\\ { \\bullet } & S _ { S n e e d - F o l x } = - } \\end{array}",
+   "\\bullet \\quad S _ { S n e e d - F o l x } = - \\sqrt { \\frac { C ^ { 2 } } { A \\cdot B } }",
+   "V _ { c } = \\left ( \\frac { 6 \\cdot V } { \\pi \\cdot A ^ { 3 } } \\right )",
+   "( C / B ) / ( B / A )",
+   "d _ { e } = \\sqrt { \\frac { 6 \\cdot V } { \\pi } }"
+  ]
+ },
+ "57": {
+  "capped": false,
+  "formulas": [
+   "n [ \\% ] = ( V _ { p } / V ) \\cdot 1 0 0 \\to n [ \\% ] = ( V _ { p } / 1 ) \\cdot 1 0 0 = V _ { p } \\cdot 1 0 0",
+   "e = V _ { p } / V _ { s } \\Rightarrow e = ( n \\% / 1 0 0 ) / ( 1 - n \\% / 1 0 0 )",
+   "v = 1 + e",
+   "c = V _ { s } / V = 1 / V \\Rightarrow e = 1 / ( 1 + e )",
+   "\\gamma _ { s a t } = ( V _ { s } \\cdot \\gamma _ { s } + V _ { p } \\cdot \\gamma _ { w } ) \\, / \\, V \\Rightarrow \\gamma _ { s a t } \\, \\left [ k N / m ^ { 3 } \\right ] = \\left ( 1 - \\frac { n \\% } { 1 0 0 } \\right ) \\cdot \\gamma _ { s } + \\frac { n \\% } { 1 0 0 } \\cdot \\gamma _ { w }",
+   "\\gamma _ { d } = G _ { s } / V \\Rightarrow \\gamma _ { d } \\left [ k N / m ^ { 3 } \\right ] = \\left ( 1 - \\frac { n \\% } { 1 0 0 } \\right ) \\cdot \\gamma _ { s }",
+   "\\gamma ^ { \\prime } = \\frac { G _ { s } - V _ { s } \\cdot \\gamma _ { w } } { V } \\Rightarrow \\gamma ^ { \\prime } = \\left ( 1 - \\frac { n \\% } { 1 0 0 } \\right ) \\cdot \\gamma _ { s } - \\left ( 1 - \\frac { n \\% } { 1 0 0 } \\right ) \\cdot \\gamma _ { w } \\Rightarrow \\gamma ^ { \\prime } \\, [ k N / m ^ { 3 } \\, J = \\left ( 1 - \\frac { n \\% } { 1 0 0 } \\right ) \\cdot ( \\gamma _ { s } - \\gamma _ { w } )",
+   "S _ { r } = \\frac { V _ { w } } { V _ { p } }"
+  ]
+ },
+ "73": {
+  "capped": false,
+  "formulas": [
+   "\\rho = \\frac { M } { V } = \\frac { 1 8 5 } { 1 0 0 } = 1 , 8 5 \\, g / c m ^ { 3 } \\\\ \\gamma = \\frac { G } { V } = \\frac { M \\cdot g } { V } = \\rho \\cdot g = \\frac { 1 8 5 \\cdot 1 0 ^ { - 3 } \\cdot 1 0 } { 1 0 0 \\cdot 1 0 ^ { - 6 } } \\, \\frac { k g \\cdot m } { m ^ { 3 } \\cdot s ^ { 2 } } = 1 8 , 5 0 \\, k N / m ^ { 3 }",
+   "w = \\frac { M _ { w } } { M _ { s } } 1 0 0 = \\frac { M - M _ { d } } { M _ { s } } = \\frac { 1 8 5 - 1 7 0 } { 1 7 0 } 1 0 0 = 8 , 8 2 \\% \\, \\left ( M _ { d } = M _ { s } \\right )",
+   "n = \\frac { V _ { p } } { V } 1 0 0 = \\frac { V - V _ { s } } { V } 1 0 0 = \\frac { 1 0 0 - 6 3 , 6 7 } { 1 0 0 } 1 0 0 = 3 6 , 3 3 \\%",
+   "V _ { s } = \\frac { M _ { s } } { \\rho _ { s } } = \\frac { 1 7 0 } { 2 , 6 7 } = 6 3 , 6 7 \\, c m ^ { 3 }",
+   "e = \\frac { V _ { p } } { V _ { s } } = \\frac { V - V _ { s } } { V } = \\frac { 1 0 0 - 6 3 , 6 7 } { 6 3 , 6 7 } = 0 , 5 7",
+   "V _ { s } = \\frac { M _ { s } } { \\rho _ { s } } = \\frac { 1 7 0 } { 2 , 6 7 } = 6 3 , 6 7 \\, c m ^ { 3 }",
+   "\\gamma _ { \\text {sat} } = \\frac { G _ { w } + G _ { s } } { V } = \\frac { V _ { p } \\cdot \\gamma _ { w } + V _ { s } \\cdot \\gamma _ { s } } { V } = \\frac { 3 6 , 3 3 \\cdot 1 0 ^ { - 6 } \\cdot 1 0 + 6 3 , 6 7 \\cdot 1 0 ^ { - 6 } \\cdot 2 6 , 7 } { 1 0 0 \\cdot 1 0 ^ { - 6 } } = 2 0 , 6 3 \\ k N / m ^ { 3 }",
+   "\\gamma _ { \\text {d} } = \\frac { G _ { s } } { V } = \\frac { M _ { s } \\cdot g } { V } = \\frac { 1 7 0 \\cdot 1 0 ^ { - 3 } \\cdot 1 0 } { 1 0 0 \\cdot 1 0 ^ { - 6 } } \\frac { k g \\cdot m } { m ^ { 3 } \\cdot s ^ { 2 } } = 1 7 \\ k N / m ^ { 3 }",
+   "\\gamma ^ { \\prime } = V _ { s } \\cdot \\gamma _ { s } - V _ { s } \\cdot \\gamma _ { w } = \\left ( 1 - \\frac { n } { 1 0 0 } \\right ) \\left ( \\gamma _ { s } - \\gamma _ { w } \\right ) = \\left ( 1 - \\frac { 3 6 , 3 3 } { 1 0 0 } \\right ) \\left ( 2 6 , 7 - 1 0 \\right ) = 1 0 , 6 3 \\ k N / m ^ { 3 }",
+   "S _ { r } = \\frac { w \\% \\cdot \\gamma _ { s } } { 1 0 0 \\cdot e \\cdot \\gamma _ { w } } = \\frac { 8 , 8 2 \\cdot 2 6 , 7 } { 1 0 0 \\cdot 0 , 5 7 \\cdot 1 0 } = 0 , 4 1 3"
+  ]
+ },
+ "81": {
+  "capped": false,
+  "formulas": [
+   "\\sigma _ { k } = \\Delta u = h _ { c } \\cdot \\gamma _ { w }",
+   "p _ { k } \\cdot A _ { s } = \\sigma _ { k } \\cdot A _ { g } \\Rightarrow p _ { k } \\cdot ( 1 - n ) = \\sigma _ { k } \\cdot 1 \\Rightarrow p _ { k } = ( 1 + e ) \\cdot \\sigma _ { k }",
+   "\\sigma _ { k } = \\Delta u = h _ { c } \\cdot \\gamma _ { w }"
+  ]
+ },
+ "115": {
+  "capped": false,
+  "formulas": [
+   "V _ { 1 } ( i n t r a r e ) = V _ { 2 } ( i e s i r e )",
+   "V _ { 1 } & = \\left ( v _ { x } + \\frac { \\partial v _ { x } } { \\partial x } \\frac { d x } { 2 } \\right ) d y d z d t + \\\\ & + \\left ( v _ { y } + \\frac { \\partial v _ { y } } { \\partial y } \\cdot \\frac { d y } { 2 } \\right ) d x d z d t + \\left ( v _ { z } + \\frac { \\partial v _ { z } } { \\partial z } \\cdot \\frac { d z } { 2 } \\right ) d x d y d t",
+   "V _ { 2 } & = \\left ( v _ { x } - \\frac { \\partial v _ { x } } { \\partial x } \\cdot \\frac { d x } { 2 } \\right ) d z d y d t + \\left ( v _ { y } - \\frac { \\partial v _ { y } } { \\partial y } \\cdot \\frac { d y } { 2 } \\right ) d x d z d t + \\\\ & + \\left ( v _ { z } - \\frac { \\partial v _ { z } } { \\partial z } \\cdot \\frac { d z } { 2 } \\right ) d x d y d t",
+   "\\frac { \\partial v _ { x } } { \\partial x } + \\frac { \\partial v _ { y } } { \\partial y } + \\frac { \\partial v _ { z } } { \\partial z } = 0",
+   "\\frac { \\partial v _ { x } } { \\partial x } + \\frac { \\partial v _ { y } } { \\partial y } + \\frac { \\partial v _ { z } } { \\partial z } = 0",
+   "\\frac { \\partial ^ { 2 } H } { \\partial x ^ { 2 } } + \\frac { \\partial ^ { 2 } H } { \\partial y ^ { 2 } } + \\frac { \\partial ^ { 2 } H } { \\partial y ^ { 2 } } = 0",
+   "\\{ v \\} = [ k ] \\cdot \\{ i _ { g r } \\}"
+  ]
+ },
+ "150": {
+  "capped": false,
+  "formulas": [
+   "e _ { i } = e _ { 0 } - \\left ( \\frac { \\Delta h _ { i } } { h _ { 0 } } \\right ) _ { p _ { i } } \\cdot ( 1 + e _ { 0 } )",
+   "n _ { 0 } = \\left ( 1 - \\frac { \\rho _ { d } } { \\rho _ { s } } \\right ) \\cdot 1 0 0 = \\left ( 1 - \\frac { 1 , 1 3 } { 2 , 7 } \\right ) \\cdot 1 0 0 = 5 8 , 1 5 ( \\% )",
+   "e _ { 0 } = \\frac { n _ { 0 } / 1 0 0 } { 1 - n _ { 0 } / 1 0 0 } = \\frac { 5 8 , 1 5 / 1 0 0 } { 1 - 5 8 , 1 5 / 1 0 0 } = 1 , 3 8",
+   "a _ { v } = \\frac { \\Delta e } { \\Delta p } = \\frac { 1 , 3 - 1 , 1 9 } { 3 0 0 - 1 0 0 } = 0 , 0 0 0 5 5 \\ ( 1 / k P a )",
+   "a _ { v } = \\frac { \\Delta e } { \\Delta p } = \\frac { 1 , 2 5 - 1 , 1 9 } { 3 0 0 - 2 0 0 } = 0 , 0 0 0 6 \\ ( 1 / k P a )",
+   "m _ { v } = \\frac { 1 } { E _ { o e d } 1 0 0 - 3 0 0 } = \\frac { 1 } { 4 5 9 7 , 7 0 1 } = 0 , 0 0 0 2 2 \\ ( 1 / k P a )",
+   "m _ { v } = \\frac { 1 } { E _ { o e d } 2 0 0 - 3 0 0 } = \\frac { 1 } { 5 4 0 , 4 0 5 } = 0 , 0 0 0 1 8 \\ ( 1 / k P a )"
+  ]
+ },
+ "209": {
+  "capped": false,
+  "formulas": [
+   "\\tan \\phi = \\frac { n \\cdot \\sum \\sigma _ { i } \\cdot \\tau _ { i } - \\sum \\sigma _ { i } \\cdot \\sum \\tau _ { i } } { n \\cdot \\sum \\sigma _ { i } ^ { 2 } - ( \\sum \\sigma _ { i } ) ^ { 2 } } \\\\ c = \\frac { n \\cdot \\sum \\sigma _ { i } ^ { 2 } \\cdot \\sum \\tau _ { i } - \\sum \\sigma _ { i } \\cdot \\sum \\sigma _ { i } \\cdot \\tau _ { i } } { n \\cdot \\sum \\sigma _ { i } ^ { 2 } - ( \\sum \\sigma _ { i } ) ^ { 2 } }",
+   "\\tan \\phi _ { \\max } = \\frac { 3 \\cdot ( 1 0 0 \\cdot 9 0 + 2 0 0 \\cdot 1 4 5 , 8 3 + 3 0 0 \\cdot 1 8 1 , 3 9 ) - ( 1 0 0 + 2 0 0 \\cdot 3 0 0 ) - ( 1 0 0 + 9 4 5 , 8 3 + 1 8 1 , 3 9 ) } { 3 \\cdot ( 1 0 0 ^ { 2 } + 2 0 0 ^ { 2 } + 3 0 0 ^ { 2 } ) - ( 1 0 0 + 2 0 0 ^ { 2 } ) ^ { 2 } } \\Rightarrow",
+   "\\tan \\phi _ { \\max } = 0 , 4 5 7 \\Rightarrow \\phi _ { \\max } = 2 7 , 0 ^ { 2 }",
+   "c _ { \\max } = \\frac { 3 \\cdot ( 1 0 0 ^ { 2 } + 2 0 0 ^ { 2 } + 3 0 0 ) \\cdot ( 9 0 + 1 4 5 , 8 3 + 1 8 1 , 3 9 ) - ( 6 0 0 ) \\cdot ( 1 0 0 \\cdot 9 0 + 2 0 0 \\cdot 1 4 5 , 8 3 + 3 0 0 \\cdot 1 8 1 , 3 9 ) } { 3 \\cdot ( 1 0 0 ^ { 2 } + 2 0 0 ^ { 2 } + 3 0 0 ^ { 2 } ) - ( 1 0 0 + 2 0 0 ^ { 2 } ) ^ { 2 } } \\Rightarrow",
+   "c _ { \\max } = 4 7 , 6 8 k P a",
+   "\\tan \\phi _ { s c } = \\frac { 3 \\cdot ( 1 0 0 \\cdot 3 7 , 5 + 2 0 0 \\cdot 5 8 , 8 9 + 3 0 0 \\cdot 8 8 ) - ( 1 0 0 + 2 0 0 \\cdot 3 0 0 ) \\cdot ( 3 7 , 5 + 5 8 , 8 9 + 8 8 ) } { 3 \\cdot ( 1 0 0 ^ { 2 } + 2 0 0 ^ { 2 } + 3 0 0 ^ { 2 } ) - ( 1 0 0 + 2 0 0 ^ { 2 } ) ^ { 2 } } \\Rightarrow",
+   "\\tan \\phi _ { \\max } = 0 , 2 5 3 \\Rightarrow \\phi _ { \\max } = 1 4 , 6 ^ { 0 }",
+   "c _ { s c } = \\frac { 3 \\cdot ( 1 0 0 ^ { 2 } + 2 0 0 ^ { 2 } + 3 0 0 ) \\cdot ( 3 7 , 5 + 5 8 , 8 9 + 8 8 ) - ( 6 0 0 ) \\cdot ( 1 0 0 \\cdot 3 7 , 5 + 2 0 0 \\cdot 5 8 , 8 9 + 3 0 0 \\cdot 8 8 ) } { 3 \\cdot ( 1 0 0 ^ { 2 } + 2 0 0 ^ { 2 } + 3 0 0 ^ { 2 } ) - ( 1 0 0 + 2 0 0 ^ { 2 } ) ^ { 2 } } \\Rightarrow",
+   "c _ { s c } = 1 0 , 9 6 k P a"
+  ]
+ },
+ "315": {
+  "capped": false,
+  "formulas": [
+   "p _ { a B } ^ { \\sup } = \\gamma _ { 1 } \\cdot H _ { 1 } + q \\cdot K _ { a 1 } = 1 8 , 0 \\cdot 4 , 3 \\cdot 0 , 4 0 6 + 2 5 \\cdot 0 , 4 0 6 = 4 1 , 5 7 \\ k N / m ^ { 2 } \\, .",
+   "P _ { a 1 } = \\frac { H _ { 1 } \\left ( p _ { a B } ^ { \\sup } + p _ { a A } \\right ) } { 2 } = \\frac { 4 , 3 \\left ( 4 1 , 5 7 + 1 0 , 1 5 \\right ) } { 2 } = 1 1 1 , 2 0 \\ k N / m \\, .",
+   "z _ { 1 } = \\frac { 2 \\cdot p _ { a A } + p _ { a B } ^ { \\sup } } { p _ { a A } + p _ { a B } ^ { \\sup } } \\cdot \\frac { H _ { 1 } } { 3 } = \\frac { 2 \\cdot 1 0 , 1 5 + 4 1 , 5 7 } { 1 0 , 1 5 + 4 1 , 5 7 } \\cdot \\frac { 4 , 3 } { 3 } = 1 , 7 1 \\, m \\, .",
+   "K _ { a 2 } = \\tt t g ^ { 2 } \\left ( 4 5 ^ { \\circ } - \\frac { \\phi _ { 2 } } { 2 } \\right ) = \\tt t g ^ { 2 } \\left ( 4 5 ^ { \\circ } - \\frac { 2 0 ^ { \\circ } } { 2 } \\right ) = 0 , 4 9 0",
+   "p _ { a B } ^ { \\inf } & = \\left ( q + \\gamma _ { 1 } \\cdot H _ { 1 } \\right ) \\cdot K _ { a 2 } - 2 \\cdot c \\cdot \\sqrt { K _ { a 2 } } = \\\\ & = \\left ( 2 5 + 1 8 \\cdot 4 , 3 \\cdot 0 , 4 9 0 - 2 \\cdot 1 0 \\cdot \\sqrt { 0 , 4 9 0 } = 3 6 8 , 1 0 \\ k N / m ^ { 2 } \\right )",
+   "p _ { a C } = \\gamma _ { 2 } \\cdot H _ { 2 } \\cdot K _ { a 2 } + \\left ( q + \\gamma _ { 1 } \\cdot H _ { 1 } \\right ) \\cdot K _ { a 2 } - 2 \\cdot c \\cdot \\sqrt { K _ { a 2 } }",
+   "P _ { a 2 } = \\frac { H _ { 2 } \\left ( p _ { a C } + p _ { a B } ^ { \\inf } \\right ) } { 2 } = \\frac { 1 , 2 \\left ( 4 7 , 3 5 + 3 6 , 1 8 \\right ) } { 2 } = 5 0 , 1 2 \\ k N / m \\, .",
+   "z _ { 2 } = \\frac { 2 \\cdot p _ { a B } ^ { \\inf } + p _ { a C } } { p _ { a B } ^ { \\inf } + p _ { a C } } \\cdot \\frac { H _ { 2 } } { 3 } = \\frac { 2 \\cdot 3 6 , 1 8 + 4 7 , 3 5 } { 3 6 , 1 8 + 4 7 , 3 5 } \\cdot \\frac { 1 , 2 } { 3 } = 0 , 5 7 \\ m \\ .",
+   "K _ { p } = \\tt t g ^ { 2 } \\left ( 4 5 ^ { \\circ } + \\frac { \\phi _ { 2 } } { 2 } \\right ) = \\tt t g ^ { 2 } \\left ( 4 5 ^ { \\circ } + \\frac { 2 0 ^ { \\circ } } { 2 } \\right ) = 2 , 0 4",
+   "p _ { p C 1 } = \\gamma \\cdot H _ { 2 } \\cdot K _ { p } + 2 \\cdot c \\cdot \\sqrt { K _ { p } } = 1 9 , 2 \\cdot 2 , 0 4 + 2 \\cdot 1 0 \\cdot \\sqrt { 2 , 0 4 } = 7 5 , 0 8 \\ k N / m ^ { 2 } \\, ."
+  ]
+ },
+ "329": {
+  "capped": false,
+  "formulas": [
+   "\\sin \\phi = \\frac { \\sigma _ { 1 } - \\sigma _ { 2 } } { \\sigma _ { 1 } + \\sigma _ { 2 } + 2 \\cdot c \\cdot c t g \\phi } \\quad ( a )",
+   "2 \\cdot \\frac { p - q } { \\pi } \\cdot \\sin \\omega \\cdot \\sin \\phi = 2 \\cdot ( \\gamma \\cdot z + q ) \\cdot \\sin \\phi + 2 \\cdot \\frac { p - q } { \\pi } \\cdot \\omega \\cdot \\sin \\phi + 2 \\cdot c \\cdot \\cos \\phi \\quad ( b )",
+   "\\Rightarrow \\cos \\omega = \\sin \\phi \\quad \\text {si respectively} \\quad \\omega = \\frac { \\pi } { 2 } - \\phi \\quad \\text {care introduce in } ( c ) \\ \\Rightarrow",
+   "\\Rightarrow \\ z _ { \\max } = \\frac { p - \\gamma \\cdot D _ { f } } { \\pi \\cdot \\gamma } \\cdot \\left [ c t g \\phi - \\left ( \\frac { \\pi } { 2 } - \\phi \\right ) \\right ] - \\frac { c } { \\gamma } \\cdot c t g \\phi - D _ { f } \\quad ( d )",
+   "( e ) \\quad p _ { l } = c \\cdot \\left [ \\frac { \\pi \\cdot c t g \\phi } { c t g \\phi - \\frac { \\pi } { 2 } + \\phi } \\right ] + \\gamma \\cdot D _ { f } \\cdot \\left [ 1 + \\frac { \\pi } { c t g \\phi - \\frac { \\pi } { 2 } + \\phi } \\right ]",
+   "p _ { p l } = \\gamma \\cdot D _ { f } \\cdot \\left [ 1 + \\frac { \\pi } { c t g \\phi - \\frac { \\pi } { 2 } + \\phi } \\right ] + c \\cdot \\left [ \\frac { \\pi \\cdot c t g \\phi } { c t g \\phi - \\frac { \\pi } { 2 } + \\phi } \\right ] + \\gamma \\cdot B \\cdot \\left [ \\frac { 0 , 2 5 \\cdot \\pi } { c t g \\phi - \\frac { \\pi } { 2 } + \\phi } \\right ] \\, ( g )",
+   "p _ { p l } = \\gamma \\cdot B \\cdot N _ { 1 } + q \\cdot N _ { 2 } + c \\cdot N _ { 3 } \\ ( h )",
+   "p _ { p l } = m _ { l } \\cdot ( \\bar { \\gamma } \\cdot B \\cdot N _ { 1 } + q \\cdot N _ { 2 } + c \\cdot N _ { 3 } ) \\ [ k P a ]",
+   "p _ { p l } = m _ { l } \\cdot ( \\bar { \\gamma } \\cdot B \\cdot N _ { 1 } + \\frac { 2 \\cdot q _ { e } + q _ { i } } { 3 } \\cdot N _ { 2 } + c \\cdot N _ { 3 } ) \\ [ k P a ]"
+  ]
+ },
+ "384": {
+  "capped": false,
+  "formulas": [
+   "\\text {Pentru incărcare centrică: } p _ { \\text {ef} } = \\frac { N } { B \\cdot L }",
+   "p _ { e f . \\max } = & \\frac { N } { B \\cdot L } + \\frac { 6 \\cdot M _ { y } } { B ^ { 2 } \\cdot L } \\\\ \\text {si} & \\quad \\text {sau}",
+   "p _ { e f . \\max } = & \\frac { N } { B \\cdot L } \\cdot \\left ( 1 + \\frac { 6 \\cdot e _ { x } } { B } \\right ) \\\\ p _ { e f . \\min } = & \\frac { N } { B \\cdot L } \\cdot \\left ( 1 - \\frac { 6 \\cdot e _ { x } } { B } \\right )",
+   "p _ { e f . \\max } = & \\frac { N } { B \\cdot L } + \\frac { 6 \\cdot M _ { y } } { B ^ { 2 } \\cdot L } + \\frac { 6 \\cdot M _ { x } } { B \\cdot L ^ { 2 } } \\\\ \\text {si}",
+   "p _ { e f . \\min } = \\frac { N } { B \\cdot L } - \\frac { 6 \\cdot M _ { y } } { B ^ { 2 } \\cdot L } - \\frac { 6 \\cdot M _ { x } } { B \\cdot L ^ { 2 } }",
+   "p _ { e f . \\max } = & \\frac { N } { B \\cdot L } + \\frac { 6 \\cdot M _ { y } } { B ^ { 2 } \\cdot L } + \\frac { 6 \\cdot M _ { x } } { B \\cdot L ^ { 2 } } \\\\ s a u",
+   "p _ { e f . \\min } = & \\frac { N } { B \\cdot L } \\cdot \\left ( 1 - \\frac { 6 \\cdot e _ { x } } { B } - \\frac { 6 \\cdot e _ { y } } { L } \\right )",
+   "E _ { d } \\leq C _ { d } \\, c u \\begin{cases} E _ { d } = \\Delta _ { s } \\, s a u \\, E _ { d } = \\Delta _ { t } \\\\ C _ { d } = \\overline { \\Delta _ { s } } \\, s a u \\, C _ { d } = \\overline { \\Delta _ { t } } \\end{cases}"
+  ]
+ }
+}

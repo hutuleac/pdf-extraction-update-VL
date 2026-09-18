@@ -1,0 +1,118 @@
+{
+ "page": 209,
+ "reason": "scattered",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "209-1",
+   "latex": "\\tan\\phi = \\frac{n \\cdot \\sum \\sigma_i \\cdot \\tau_i - \\sum \\sigma_i \\cdot \\sum \\tau_i}{n \\cdot \\sum \\sigma_i^2 - (\\sum \\sigma_i)^2}",
+   "bbox": [
+    179.8,
+    291.3,
+    336.9,
+    370.4
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "209-2",
+   "latex": "c = \\frac{n \\cdot \\sum \\sigma_i^2 \\cdot \\sum \\tau_i - \\sum \\sigma_i \\cdot \\sum \\sigma_i \\cdot \\tau_i}{n \\cdot \\sum \\sigma_i^2 - (\\sum \\sigma_i)^2}",
+   "bbox": [
+    179.8,
+    291.3,
+    336.9,
+    370.4
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "209-3",
+   "latex": "\\tan\\phi_{\\max} = \\frac{3 \\cdot (100 \\cdot 90 + 200 \\cdot 145,83 + 300 \\cdot 181,39) - (100 + 200 + 300) \\cdot (90 + 145,83 + 181,39)}{3 \\cdot (100^2 + 200^2 + 300^2) - (100 + 200 + 300)^2} \\Rightarrow",
+   "bbox": [
+    66.7,
+    387.3,
+    485.7,
+    420.9
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "209-4",
+   "latex": "\\tan\\phi_{\\max} = 0,457 \\Rightarrow \\phi_{\\max} = 27,2^\\circ",
+   "bbox": [
+    123.8,
+    424.3,
+    259.5,
+    439.5
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "209-5",
+   "latex": "c_{\\max} = \\frac{3 \\cdot (100^2 + 200^2 + 300^2) \\cdot (90 + 145,83 + 181,39) - (600) \\cdot (100 \\cdot 90 + 200 \\cdot 145,83 + 300 \\cdot 181,39)}{3 \\cdot (100^2 + 200^2 + 300^2) - (100 + 200 + 300)^2} \\Rightarrow",
+   "bbox": [
+    65.5,
+    456.3,
+    514.3,
+    486.6
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "209-6",
+   "latex": "c_{\\max} = 47,68 kPa",
+   "bbox": [
+    122.6,
+    490.0,
+    195.3,
+    505.1
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "209-7",
+   "latex": "\\tan\\phi_{sc} = \\frac{3 \\cdot (100 \\cdot 37,5 + 200 \\cdot 58,89 + 300 \\cdot 88) - (100 + 200 + 300) \\cdot (37,5 + 58,89 + 88)}{3 \\cdot (100^2 + 200^2 + 300^2) - (100 + 200 + 300)^2} \\Rightarrow",
+   "bbox": [
+    66.7,
+    537.1,
+    452.4,
+    572.5
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "209-8",
+   "latex": "\\tan\\phi_{\\max} = 0,253 \\Rightarrow \\phi_{\\max} = 14,6^\\circ",
+   "bbox": [
+    122.6,
+    574.2,
+    258.3,
+    591.0
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "209-9",
+   "latex": "c_{sc} = \\frac{3 \\cdot (100^2 + 200^2 + 300^2) \\cdot (37,5 + 58,89 + 88) - (600) \\cdot (100 \\cdot 37,5 + 200 \\cdot 58,89 + 300 \\cdot 88)}{3 \\cdot (100^2 + 200^2 + 300^2) - (100 + 200 + 300)^2} \\Rightarrow",
+   "bbox": [
+    66.7,
+    592.7,
+    481.0,
+    626.4
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "209-10",
+   "latex": "c_{sc} = 10,96 kPa",
+   "bbox": [
+    66.7,
+    628.0,
+    131.0,
+    643.2
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

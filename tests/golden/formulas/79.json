@@ -1,0 +1,85 @@
+{
+ "page": 79,
+ "reason": "mismapped",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "79-1",
+   "latex": "2 \\cdot \\pi \\cdot (r_1 \\cdot \\cos\\theta_u) \\cdot T_s \\cdot \\cos\\theta_u - \\int_0^{90-\\theta_u} \\Delta u \\cdot dA \\cdot \\cos\\alpha = 0",
+   "bbox": [
+    323.8,
+    255.9,
+    529.8,
+    274.5
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "79-2",
+   "latex": "\\Rightarrow \\Delta u = \\frac{2 \\cdot T_s}{r_1} \\cdot \\frac{2 \\cdot \\cos^2\\theta_u}{1 + \\cos 2\\theta_u} \\Rightarrow \\theta_u = 0",
+   "bbox": [
+    301.2,
+    282.9,
+    531.0,
+    313.2
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "79-3",
+   "latex": "\\Rightarrow \\Delta u = \\frac{2 \\cdot T_s}{r_1}",
+   "bbox": [
+    301.2,
+    319.9,
+    360.7,
+    348.5
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "79-4",
+   "latex": "\\pi \\cdot r^2 \\cdot \\Delta u = \\pi \\cdot r^2 \\cdot h_c \\cdot [g \\cdot (\\rho_w - \\rho_v)] \\Rightarrow",
+   "bbox": [
+    306.0,
+    570.8,
+    478.6,
+    586.0
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "79-5",
+   "latex": "\\Delta u = \\frac{2 \\cdot T_s \\cdot \\cos\\theta_u}{r} \\Rightarrow h_c = \\frac{2 \\cdot T_s \\cdot \\cos\\theta_u}{r \\cdot g \\cdot (\\rho_w - \\rho_v)}",
+   "bbox": [
+    306.0,
+    599.4,
+    490.5,
+    666.8
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "79-6",
+   "latex": "\\Rightarrow h_c = \\frac{2 \\cdot T_s \\cdot \\cos\\theta_u}{r \\cdot \\gamma_w} \\Rightarrow h_c = \\frac{0,154 \\cdot \\cos\\theta_u}{r}",
+   "bbox": [
+    306.0,
+    599.4,
+    490.5,
+    666.8
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "79-7",
+   "latex": "h_c (cm) = \\frac{0,154}{r}",
+   "bbox": [
+    357.2,
+    710.6,
+    432.2,
+    739.2
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

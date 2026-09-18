@@ -1,0 +1,52 @@
+{
+ "page": 41,
+ "reason": "mismapped",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "41-1",
+   "latex": "\\eta = \\frac{s_i}{s_n} > 5",
+   "bbox": [
+    210.7,
+    149.9,
+    388.1,
+    176.8
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "41-2",
+   "latex": "s = s_i - s_n \\geq 3\\,cm",
+   "bbox": [
+    210.7,
+    149.9,
+    388.1,
+    176.8
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "41-3",
+   "latex": "I = \\frac{e_L - e}{1+e}",
+   "bbox": [
+    250.0,
+    227.3,
+    295.3,
+    255.9
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "41-4",
+   "latex": "e_L = \\frac{w_L \\cdot \\gamma_s}{\\gamma_w \\cdot 100}",
+   "bbox": [
+    250.0,
+    287.9,
+    309.5,
+    316.6
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

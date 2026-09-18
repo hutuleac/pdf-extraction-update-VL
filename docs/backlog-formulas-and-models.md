@@ -131,6 +131,122 @@ Do these in order. Each one has a stop condition. Nothing ships until step
   for the course. Passing all three is the case for replacing the PDF
   path; it is a rewrite, plan it separately.
 
+## Benchmark: the 20-page formula set (step 1, built 2026-09-18)
+
+Lives in `tests/golden/formulas/`: one `<page>.json` per page, a
+`results/<model>.json` per candidate, `score.py` to compare them, and
+`region_probe.py` for step 2. Nothing in it runs under pytest; it is a
+measurement, not a regression guard.
+
+### Assumptions the numbers rest on
+
+- **Display formulas only.** An expression standing on its own line, set
+  apart from prose, is in scope. Inline maths (`τ_f = (σ − u)·tg φ'` inside
+  a sentence, `E_0 = ctg α_0` in a bullet) is not: a crop-based recognizer
+  cannot be handed a sentence, and a page-level model already returns
+  inline maths as text. 136 formulas across 20 pages.
+- **A formula that continues on a second line is two entries** when the
+  document breaks it visually (page 79's Δu → h_c chain, page 315's
+  p_aC), one when it is one typeset block. Adjacent one-line formulas are
+  separate entries even where granite merges them (page 41's η/s pair,
+  page 381's p/K pairs); the scorer counts a merged candidate for every
+  expected formula it contains, so merging is neither rewarded nor
+  penalized.
+- **Ground truth is what the page prints, typos included.** Page 115's
+  Laplace equation has ∂y² twice in the book; the expected LaTeX has it
+  twice. Page 57's `c = V_s/V = 1/V ⇒ e = 1/(1+e)` is transcribed as
+  printed. A model that "corrects" the page scores a miss.
+- **Notation is not content.** `ν` and `v`, `\left(` and `(`, `27,2^0`
+  and `27,2^\circ`, `\tt tg` and `tg`, `_{i}` and `_i`, Romanian glue
+  words (`și`, `sau`, `cu`) between two formulas — all folded by
+  `score.normalize`. Digits, operators, subscripts and structure are
+  compared exactly. Decimal commas stay commas.
+- **Boxes come from two sources and are not equally good.** 123 boxes
+  are granite's own `<loc>` coordinates for the formula it read
+  (`bbox_source: granite-loc`); 13 are hand-estimated off a 110-dpi render
+  for the formulas granite missed (`estimated`, accurate to ~5 pt). Both
+  are used only for the region-finder metric, never for scoring LaTeX.
+- **Transcription was one pass, by eye, against a 110-dpi render.** It
+  was checked formula by formula and every one of granite's 19 rejected
+  outputs was confirmed wrong by hand, but a second reader would be
+  cheap insurance before a model is chosen on a margin of a few formulas.
+
+### Page selection
+
+| Half | Pages | Why |
+|---|---|---|
+| `mismapped` (10) | 41, 59, 79, 82, 88, 95, 111, 141, 146, 381 | Carry `MISMAPPED_GLYPHS`; chosen from the 21 flagged pages for having at least one display formula (24, 61, 86, 99, 142, 211 have none). 78 was skipped: granite hit the token cap there. |
+| `scattered` (10) | 34, 57, 73, 81, 115, 150, 209, 315, 329, 384 | No warning, but the native text holds the formula as one glyph per line. Picked from 100 candidates (≥6 lines of ≤3 chars *and* ≥2 granite formulas) to cover definitions, worked examples with numbers (73, 150, 209, 315) and multi-line alignments (115, 384). 315 is in because it holds the wrong-but-balanced equation CLAUDE.md records. |
+
+### Scoring
+
+`python3 tests/golden/formulas/score.py tests/golden/formulas/results/<model>.json`
+
+Per expected formula: **recovered** if its normalized form is a substring
+of any candidate's, else **missing**. Per unmatched candidate:
+**wrong-but-balanced** if it passes `formula_is_balanced` (it would ship
+and render), **unbalanced** otherwise (the existing gate drops it). The
+decision metric is wrong-but-balanced, then recovery, then weights —
+exactly as step 3 says.
+
+### Baseline: granite-docling (from the cache, `--vlm-pages all`, 4096 tokens, penalty 1.05)
+
+| | mismapped half | scattered half | total |
+|---|---|---|---|
+| expected | 47 | 89 | 136 |
+| recovered | 39 (83%) | 67 (75%) | **106 (78%)** |
+| missing | 8 | 22 | 30 |
+| wrong-but-balanced | 5 | 13 | **18** |
+| unbalanced (gated) | 0 | 1 | 1 |
+
+What the 18 wrong ones are, since the recognizer must beat this list, not
+the percentage:
+
+- **Digits changed or dropped** (9): page 209's four regression
+  fractions (`(100+200·300)`, `(100+945,83+…)`, `(100+200²)²` for
+  `(100+200+300)²`), `27,0^2` for `27,2°`; page 315's `368,10` for
+  `36,18`, `19,2·2,04` for `19·1,2·2,04`, a dropped `·K_a1`; page 150's
+  `540,405` for `5405,405`. Worked examples with long numeric fractions
+  are where it fails.
+- **Structure changed** (5): `\sqrt` for `\sqrt[3]` twice (page 34),
+  `H^2/H^1` for `H_2/H_1` (page 88), `\vec{\nabla}` for `\vec{v}` (page
+  111), `\cos u_\theta` for `\cos\theta_u` (page 79).
+- **Half a formula** (2): page 315's p_aC without its numeric line; page
+  73's w with one `·100` missing.
+- **Renders wrong or not at all** (2): `\kN` (undefined control sequence,
+  page 73) and `[kN/m^3 J` for `[kN/m^3]` (page 57). Neither is caught
+  by `formula_is_balanced`.
+
+The 30 missing split into 15 granite never emitted (page 111's two
+permeability formulas, page 329's three, page 315's two bullet-line
+results, the second half of several chains) and 15 that are the wrong
+outputs above counted from the other side.
+
+### Region finder without a model (step 2, measured 2026-09-18)
+
+`python3 tests/golden/formulas/region_probe.py` — PyMuPDF text blocks
+flagged by any of: median line length under 4 chars, a maths font name,
+a script `_unexpected_scripts` rejects; then merged within 6 pt.
+
+| metric | result | stop condition |
+|---|---|---|
+| expected formulas with a region at IoU > 0.5 | 85 / 136 (62%) | 80% — **not met** |
+| expected formulas ≥ 80% inside some region | 124 / 136 (91%) | — |
+| regions emitted | 161 on 20 pages | |
+| regions holding no formula | 58 (36%) | |
+
+Read together: the blocks *contain* the formulas (91%) but do not
+*delimit* them (62%) — a region typically spans two or three stacked
+equations plus the "unde:" line between them, and one in three regions is
+a bullet list or a short-line caption with no maths at all. For a
+recognizer that means multi-formula crops (which granite's merged output
+shows is survivable) and 58 crops of prose that will each come back as a
+confident, balanced, wrong equation. The literal stop condition fails, so
+by the plan step 3 runs with PP-DocLayout in front; the cheaper
+alternative worth one more probe is tightening the 6 pt merge and
+requiring a maths-font *or* script signal, not short lines alone, to cut
+the 36% empties.
+
 ## Parked
 
 - `--vlm-describe-figures` stays off and untouched until formulas are

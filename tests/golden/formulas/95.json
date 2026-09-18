@@ -1,0 +1,30 @@
+{
+ "page": 95,
+ "reason": "mismapped",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "95-1",
+   "latex": "I_{cu} = \\frac{w_{sat} - w}{w_{sat} - w_s} = \\frac{V_{sat} - V}{V_{sat} - V_{IS}}",
+   "bbox": [
+    272.6,
+    596.1,
+    392.9,
+    628.0
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "95-2",
+   "latex": "I_A = \\frac{I_p}{A_2}",
+   "bbox": [
+    148.8,
+    712.2,
+    191.7,
+    751.0
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

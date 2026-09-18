@@ -1,0 +1,63 @@
+{
+ "page": 59,
+ "reason": "mismapped",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "59-1",
+   "latex": "n_{\\max} = 47,6\\% \\quad e_{\\max} \\cong 0,91",
+   "bbox": [
+    221.4,
+    136.4,
+    342.9,
+    151.5
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "59-2",
+   "latex": "n_{\\min} = 25,9\\% \\quad e_{\\min} \\cong 0,35",
+   "bbox": [
+    221.4,
+    175.1,
+    348.8,
+    188.6
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "59-3",
+   "latex": "n_{\\max} = 0,50 \\quad e_{\\max} = 1,00 \\quad n_{\\min} = 0,30 \\quad e_{\\min} = 0,43",
+   "bbox": [
+    89.3,
+    488.3,
+    364.3,
+    501.8
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "59-4",
+   "latex": "I_D = \\frac{e_{\\max} - e}{e_{\\max} - e_{\\min}} = \\frac{\\gamma_{d.\\max} \\cdot (\\gamma_d - \\gamma_{d.\\min})}{\\gamma_d \\cdot (\\gamma_{d.\\max} - \\gamma_{d.\\min})}",
+   "bbox": [
+    181.0,
+    660.0,
+    354.8,
+    697.1
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "59-5",
+   "latex": "I_D[\\%] = \\frac{(n_{\\max}[\\%] - n[\\%]) \\cdot (100 - n_{\\min}[\\%])}{(n_{\\max}[\\%] - n_{\\min}[\\%]) \\cdot (100 - n[\\%])} \\cdot 100",
+   "bbox": [
+    169.1,
+    719.0,
+    378.6,
+    752.6
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

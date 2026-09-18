@@ -1,0 +1,74 @@
+{
+ "page": 146,
+ "reason": "mismapped",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "146-1",
+   "latex": "G_i = m_i \\cdot g \\Rightarrow G_i = A \\cdot \\sum_i^n (h_i \\cdot \\rho \\cdot g) \\Rightarrow",
+   "bbox": [
+    325.0,
+    141.4,
+    507.2,
+    178.5
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "146-2",
+   "latex": "G_i = A \\cdot \\gamma \\cdot \\sum_i^n h_i",
+   "bbox": [
+    325.0,
+    178.5,
+    404.8,
+    210.5
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "146-3",
+   "latex": "G = \\sum_1^n G_i = g \\times \\sum_1^n m_i = g \\times \\sum_1^n V_i \\times \\rho",
+   "bbox": [
+    319.1,
+    229.0,
+    510.7,
+    276.1
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "146-4",
+   "latex": "\\sigma_{z,M} = G/A = (A \\cdot \\gamma \\cdot \\sum_1^n h_i)/A = \\gamma \\cdot H",
+   "bbox": [
+    317.9,
+    281.2,
+    501.2,
+    319.9
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "146-5",
+   "latex": "\\sigma_{x,M} = \\sigma_{y,M} = K_0 \\cdot \\sigma_{z,M}",
+   "bbox": [
+    233.3,
+    362.0,
+    350.0,
+    377.2
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "146-6",
+   "latex": "\\sigma_z = \\gamma_1 \\cdot h_1 + \\gamma_2 \\cdot h_2 + \\dots + \\gamma_n \\cdot h_n \\quad \\Rightarrow \\quad \\sigma_z = \\sum_1^n \\gamma_i \\cdot h_i",
+   "bbox": [
+    144.1,
+    474.8,
+    403.6,
+    498.4
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}

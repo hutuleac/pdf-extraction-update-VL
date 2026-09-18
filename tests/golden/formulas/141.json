@@ -1,0 +1,63 @@
+{
+ "page": 141,
+ "reason": "mismapped",
+ "page_width": 595.2760009765625,
+ "page_height": 841.8900146484375,
+ "formulas": [
+  {
+   "id": "141-1",
+   "latex": "\\varepsilon_z = \\frac{\\sigma_z}{M}",
+   "bbox": [
+    361.9,
+    518.6,
+    401.2,
+    547.2
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "141-2",
+   "latex": "\\varepsilon_z = \\frac{1}{E} \\cdot [\\sigma_z - \\nu \\cdot (\\sigma_x + \\sigma_y)]",
+   "bbox": [
+    328.6,
+    565.8,
+    452.4,
+    594.4
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "141-3",
+   "latex": "\\frac{\\sigma_z}{M} = \\frac{1}{E} \\cdot (\\sigma_z - 2 \\cdot \\nu \\cdot \\sigma_x) \\Rightarrow E = M \\cdot \\left(1 - 2 \\cdot \\nu \\cdot \\frac{\\sigma_x}{\\sigma_z}\\right)",
+   "bbox": [
+    263.1,
+    624.7,
+    495.3,
+    660.0
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "141-4",
+   "latex": "\\Rightarrow E = M \\cdot (1 - 2 \\cdot \\nu \\cdot K_o)",
+   "bbox": [
+    265.5,
+    661.7,
+    386.9,
+    676.9
+   ],
+   "bbox_source": "granite-loc"
+  },
+  {
+   "id": "141-5",
+   "latex": "\\varepsilon_x = \\varepsilon_y = \\frac{1}{E} \\cdot [\\sigma_x - \\nu \\cdot (\\sigma_x + \\sigma_y)] \\Rightarrow \\sigma_x - \\nu \\cdot \\sigma_x + \\nu \\cdot \\sigma_y = 0 \\Rightarrow K_0 = \\frac{\\nu}{1 - \\nu}",
+   "bbox": [
+    111.9,
+    740.9,
+    460.7,
+    767.8
+   ],
+   "bbox_source": "granite-loc"
+  }
+ ]
+}
