@@ -320,8 +320,8 @@ of step 2 (no recognizer to feed). Two things still stand:
    examples with long numeric fractions (page 209, page 315). A gate for
    that class — a formula whose numbers do not appear in the page's native
    text — is cheap to test against this set and would catch most of the
-   18 without a second model. That is the next experiment before any
-   Windows work.
+   18 without a second model. Measured 2026-09-18 (section below): it
+   catches 5 of the 18, all on `scattered` pages, at no cost there.
 
 ## Step 5: page models on CPU (run 2026-09-18)
 
@@ -402,6 +402,55 @@ two result files under `tests/golden/formulas/`, the `docling` venv in the
 session scratchpad, and `stepfun-ai/GOT-OCR-2.0-hf` (1.4 GB) plus
 `docling-project/*` under `~/.cache/huggingface/hub`. Nothing in
 `extractor/` changed.
+
+## Numeric gate for granite's wrong-but-balanced formulas (run 2026-09-18)
+
+Hypothesis from step 3: a formula the model invented carries numbers the
+page does not hold, so checking a formula's numbers against the native
+text layer would catch most of granite's 18 without a second model.
+`tests/golden/formulas/numeric_gate_probe.py` measures it on the granite
+result file. A formula is flagged when any numeric token of at least two
+digits (whitespace collapsed first, because granite emits `0 , 4 5 7`; decimal
+point folded to comma) does not appear in the page's digit stream (all
+non-digits removed, Unicode digits folded to ASCII). Cost is a recovered
+ground-truth formula whose every holding candidate is flagged.
+
+| | caught of 18 wrong | would drop of 106 recovered |
+|---|---|---|
+| all pages, exact token match | 6 | 12 |
+| all pages, digit-substring match | 5 | 2 |
+| `scattered` pages only, digit-substring | 5 of 15 | 0 of 66 |
+| `mismapped` pages only, digit-substring | 0 of 3 | 2 of 40 |
+
+**The hypothesis is mostly wrong.** Of the 18, 3 carry no number at all
+(symbolic errors: a wrong subscript, a merged neighbour), and 8 carry
+numbers that *are* on the page: granite transcribed the digits right and
+got the structure wrong (page 209's `c_{\max}` and `\tan\phi_{sc}`, page
+315's `p_{aB}^{\sup}`). The 5 it catches are digit-level misreads, which is
+the class worth catching: `540,405` for `5405,405` (p150), `19,2` for
+`19 \cdot 1,2` (p315), `945,83` invented on p209.
+
+**Where it works is decided by the page class, not the threshold.** Every
+catch is on a `scattered` page, whose native layer holds digits intact
+and only spreads them one per line. Both false positives are on page 59, a
+`mismapped` page where `47,6`, `0,91`, `0,30`, `0,50` are simply not in the
+native text: the symbol font mapped them into letters, not into another
+script's digits (digit folding rescued nothing). On such a page the gate
+tests the model against a text layer that is itself the damage, and
+`MISMAPPED_GLYPHS` is exactly the signal that says so.
+
+The same gate on GOT-OCR2's 29 wrong catches 1 and drops 1: its errors are
+structural too.
+
+**Decision: worth shipping, small, and only on pages without
+`MISMAPPED_GLYPHS`.** 5 of 18 caught at zero measured cost is a quarter of
+the dangerous class for a regex and a set lookup, and CLAUDE.md's rule
+(a wrong equation that renders is worse than a missing one) values the 5
+above the 0. It is not the "most of the 18" the step-3 note hoped for; the
+other 13 need structure checking, which no cheap signal gives. Placement
+when built: `vlm/apply.py` beside `formula_is_balanced`, reported as
+`VLM_FORMULA_REJECTED` with the missing number, so the page says which
+equation was dropped and why. Not built in this pass.
 
 ## Parked
 
