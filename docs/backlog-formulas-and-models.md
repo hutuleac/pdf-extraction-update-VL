@@ -448,9 +448,11 @@ the dangerous class for a regex and a set lookup, and CLAUDE.md's rule
 (a wrong equation that renders is worse than a missing one) values the 5
 above the 0. It is not the "most of the 18" the step-3 note hoped for; the
 other 13 need structure checking, which no cheap signal gives. Placement
-when built: `vlm/apply.py` beside `formula_is_balanced`, reported as
-`VLM_FORMULA_REJECTED` with the missing number, so the page says which
-equation was dropped and why. Not built in this pass.
+`doctag.unsupported_numbers` beside `formula_is_balanced`, applied by
+`doctag.parse` when `vlm/apply.py` hands it the native text, which it does
+only on additive pages without `MISMAPPED_GLYPHS`; reported as
+`VLM_FORMULA_REJECTED` with the missing numbers. Built 2026-09-18; the
+probe now calls the shipped helper, so its table is the gate's own numbers.
 
 ## Parked
 

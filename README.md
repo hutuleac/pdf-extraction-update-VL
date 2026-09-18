@@ -579,6 +579,7 @@ Fatal extraction categories are reported separately from warnings:
 | `VLM_DESCRIBE_TRUNCATED` | Some descriptions hit the token cap and stop mid-sentence — they are kept, since a description cut after two figures still describes two, but the cut is reported because prose that stopped looks like prose that ended |
 | `VLM_DESCRIBE_FAILED` | Some figure pages raised during description and were skipped; the rest are unaffected |
 | `VLM_DESCRIBE_UNAVAILABLE` | The describing model could not be loaded — `detail` names the reason, and the run is otherwise unchanged |
+| `VLM_FORMULA_REJECTED` | A formula carried a number the page's own text does not hold (a digit-level misread such as `540,405` for `5405,405`) and was dropped — `numbers` lists them; checked only on pages whose text layer is sound, never on `scanned`/`garbled` or `MISMAPPED_GLYPHS` pages |
 | `FORMULA_REVIEW_REQUIRED` | A formula came back with unmatched `\left`/`\right` and was dropped rather than published wrong — check the source page |
 | `VLM_URL_UNVERIFIED` | A URL in the visual model's text is not confirmed by native text or OCR on the same page — carries the URL, and the closest one from another source when there is one close enough to guess it's the same link misread |
 

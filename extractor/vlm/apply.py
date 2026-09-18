@@ -131,6 +131,7 @@ def vlm_pages(
     path: Path, page_classes: list[str], native_texts: list[str],
     native_table_pages: frozenset[int] = frozenset(),
     candidates: frozenset[int] | None = None,
+    mismapped_pages: frozenset[int] = frozenset(),
 ) -> tuple[dict[int, ParsedPage], list[dict]]:
     """Read the pages of *path* the visual model is wanted on.
 
@@ -148,6 +149,10 @@ def vlm_pages(
     tables" contributes nothing at all — and without this it would still be
     reported as ``VLM_APPLIED`` and stay out of the duplicate tally. On a
     table-heavy document that is the common case, not an edge.
+
+    *mismapped_pages* (1-based) are exempt from the numeric formula gate, as
+    are the replaced classes: on both the text layer is the damage, not the
+    judge. See ``doctag.unsupported_numbers``.
     """
     if not get_config().enabled:
         return {}, []
@@ -194,7 +199,10 @@ def vlm_pages(
                     max_tokens=get_config().max_tokens,
                     penalty=get_config().repetition_penalty,
                 )
-                parsed = parser.parse(raw)
+                # Additive page with a sound text layer: its digits judge the
+                # model's. Anywhere else there is nothing to judge against.
+                trusted = not replacing and page_number not in mismapped_pages
+                parsed = parser.parse(raw, native_texts[index] if trusted else None)
                 # The cap is evidence the answer was cut off; the parser's own
                 # check is whatever extra its format can prove.
                 truncated = capped or parser.is_truncated(raw)
@@ -244,6 +252,11 @@ def vlm_pages(
                 warnings.append({
                     "code": "FORMULA_REVIEW_REQUIRED", "page": page_number,
                     "count": parsed.rejected_formulas,
+                })
+            if parsed.unsupported_numbers:
+                warnings.append({
+                    "code": "VLM_FORMULA_REJECTED", "page": page_number,
+                    "numbers": parsed.unsupported_numbers,
                 })
 
     if duplicates:

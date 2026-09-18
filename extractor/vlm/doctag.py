@@ -61,6 +61,9 @@ class ParsedPage:
     formulas: list[str] = field(default_factory=list)
     formula_count: int = 0
     rejected_formulas: int = 0
+    # Numbers the dropped formulas carried that the page does not; see
+    # unsupported_numbers. One entry per number, not per formula.
+    unsupported_numbers: list[str] = field(default_factory=list)
     has_picture: bool = False
 
 
@@ -125,6 +128,39 @@ def formula_is_balanced(latex: str) -> bool:
         len(_LEFT.findall(latex)) == len(_RIGHT.findall(latex))
         and _braces_balanced(latex)
     )
+
+
+_NUMBER = re.compile(r"\d+(?:[.,]\d+)?")
+
+
+def unsupported_numbers(latex: str, native_text: str) -> list[str]:
+    r"""Numbers of two or more digits in *latex* that *native_text* does not hold.
+
+    The model's digit-level misreads are the wrong formulas that render most
+    convincingly: ``540,405`` for ``5405,405``, ``19,2`` for ``19 \cdot 1,2``.
+    A page's native layer keeps its digits even where it scatters an equation
+    one glyph per line, so a number the layer lacks is a number the model
+    made up. Compared as digit strings against the page's digit stream:
+    granite spaces every character (``0 , 4 5 7``) and the layer may break a
+    number across lines, so token equality flags real numbers — 12 of 106
+    correct formulas on the benchmark, against 2 for this form.
+
+    Only for a page whose text layer is sound. On a ``MISMAPPED_GLYPHS`` page
+    the symbol font swallows digits with the operators, and the check tests the
+    model against the very damage it is repairing: measured on the 20-page
+    formula set it caught 5 of 15 wrong formulas on `scattered` pages at no
+    cost, and 0 of 3 on `mismapped` pages while dropping 2 correct ones. The
+    other 13 wrong formulas carry real numbers in a wrong structure, which no
+    number check can see (docs/backlog-formulas-and-models.md).
+    """
+    page_digits = re.sub(r"\D", "", native_text)
+    compact = re.sub(r"\s+", "", latex)
+    missing = []
+    for number in _NUMBER.findall(compact):
+        digits = re.sub(r"\D", "", number)
+        if len(digits) >= 2 and digits not in page_digits:
+            missing.append(number)
+    return missing
 
 
 # Whole commands only: a plain substring count read ``\rightarrow`` as a
@@ -224,8 +260,13 @@ def _parse_otsl(body: str) -> list[list[str]]:
     return [r for r in rows if r]
 
 
-def parse(raw: str) -> ParsedPage:
-    """Translate one page of doctag output into prose, tables and counts."""
+def parse(raw: str, native_text: str | None = None) -> ParsedPage:
+    """Translate one page of doctag output into prose, tables and counts.
+
+    With *native_text*, a formula carrying a number the page does not hold is
+    dropped too (``unsupported_numbers``); the caller passes it only where the
+    text layer is trustworthy enough to be the judge.
+    """
     result = ParsedPage()
     body = strip_locations(raw)
 
@@ -247,15 +288,19 @@ def parse(raw: str) -> ParsedPage:
         if not content:
             continue
         if tag == "formula":
-            if formula_is_balanced(content):
-                result.formula_count += 1
-                result.formulas.append(content)
-                pieces.append(as_display_math(content))
-            else:
+            if not formula_is_balanced(content):
                 # Dropped, not emitted broken: a wrong equation that renders is
                 # worse than a missing one, because nothing flags it. The caller
                 # turns this count into FORMULA_REVIEW_REQUIRED.
                 result.rejected_formulas += 1
+                continue
+            missing = unsupported_numbers(content, native_text) if native_text is not None else []
+            if missing:
+                result.unsupported_numbers.extend(missing)
+                continue
+            result.formula_count += 1
+            result.formulas.append(content)
+            pieces.append(as_display_math(content))
         elif tag in _PROSE_TAGS:
             pieces.append(content)
 

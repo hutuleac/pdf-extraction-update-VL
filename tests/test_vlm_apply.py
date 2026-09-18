@@ -319,3 +319,40 @@ def test_changing_max_tokens_invalidates_the_cache(two_page_pdf, monkeypatch, tm
     apply.vlm_pages(two_page_pdf, ["garbled", "native-text"], [NATIVE * 10, NATIVE * 900])
 
     assert engine.calls == 4
+
+
+# --- numeric formula gate ----------------------------------------------------
+
+# A worked-example misread: the page holds 5405,405, the model wrote 540,405.
+MISREAD = ("<doctag><text><loc_1><loc_1><loc_1><loc_1>"
+           "Prose long enough to clear the yield floor comfortably.</text>"
+           "<formula>m _ { v } = \\frac { 1 } { 5 4 0 , 4 0 5 }</formula></doctag>")
+PAGE_WITH_NUMBER = "E_oed = 5405,405 kPa " + NATIVE * 10
+
+
+def test_formula_with_a_number_the_page_lacks_is_dropped(two_page_pdf, monkeypatch, tmp_path):
+    _install(monkeypatch, StubEngine([MISREAD, EMPTY]), tmp_path)
+
+    pages, warnings = apply.vlm_pages(
+        two_page_pdf, ["native-text", "native-text"], [PAGE_WITH_NUMBER, NATIVE * 900],
+    )
+
+    assert pages[1].formulas == []
+    assert "540" not in pages[1].text
+    assert {"code": "VLM_FORMULA_REJECTED", "page": 1, "numbers": ["540,405"]} in warnings
+    applied = next(w for w in warnings if w["code"] == "VLM_APPLIED")
+    assert applied["formulas"] == 0
+
+
+def test_numeric_gate_skips_pages_whose_text_layer_is_damaged(two_page_pdf, monkeypatch, tmp_path):
+    """On a MISMAPPED_GLYPHS page or a replaced class the layer lost its digits
+    with its operators, so the same formula must survive there."""
+    _install(monkeypatch, StubEngine([MISREAD, MISREAD]), tmp_path)
+
+    pages, warnings = apply.vlm_pages(
+        two_page_pdf, ["native-text", "garbled"], [PAGE_WITH_NUMBER, NATIVE * 10],
+        mismapped_pages=frozenset({1}),
+    )
+
+    assert [len(pages[n].formulas) for n in (1, 2)] == [1, 1]
+    assert not [w for w in warnings if w["code"] == "VLM_FORMULA_REJECTED"]

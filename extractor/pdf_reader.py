@@ -419,6 +419,10 @@ def extract_pdf(path: Path | str, *, images_dir: Path | str | None = None) -> di
         # on, where the model's tables are still taken.
         frozenset(page for page, entries in tables.items() if entries),
         candidates=_vlm_candidates(reader_data["page_classes"], reader_data["page_warnings"]),
+        mismapped_pages=frozenset(
+            index + 1 for index, warnings in enumerate(reader_data["page_warnings"])
+            if any(w["code"] == "MISMAPPED_GLYPHS" for w in warnings)
+        ),
     )
     # Only a reading that actually carries text displaces OCR. A page accepted
     # for its tables alone replaces nothing, and skipping OCR there would leave

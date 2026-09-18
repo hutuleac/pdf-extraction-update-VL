@@ -285,6 +285,18 @@ just `\left`/`\right`: a stray `}` inside a valid `array` renders as nothing
 and the delimiter count cannot see it — 1 of 479 formulas on the reference
 course, and that one was the bug.
 
+**`doctag.unsupported_numbers` is the second formula gate, and it runs only
+where the text layer can judge.** A formula carrying a two-digit-or-longer
+number absent from the page's native digit stream is dropped as
+`VLM_FORMULA_REJECTED`: the model's digit-level misreads (`540,405` for
+`5405,405`) are the wrong formulas that render most convincingly. Measured on
+the 20-page formula benchmark it catches 5 of granite's 18 wrong-but-balanced
+formulas on `scattered` pages at no cost, and would drop 2 correct ones on
+`mismapped` pages where the symbol font swallowed the digits — so `apply.py`
+passes the native text to the parser only on additive pages without
+`MISMAPPED_GLYPHS`. The other 13 wrong formulas carry real numbers in a wrong
+structure, which no number check can see.
+
 **Truncation is proved by the token cap, not inferred from the text.**
 `engine.convert` returns `(raw, capped)` from the model's own
 `finish_reason == "length"`. Prose cut mid-sentence looks exactly like prose

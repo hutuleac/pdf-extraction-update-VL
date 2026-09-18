@@ -1,21 +1,20 @@
-"""Would a numeric gate catch granite's wrong-but-balanced formulas?
+"""Measure the numeric formula gate against the hand-checked 20-page set.
 
     python3 tests/golden/formulas/numeric_gate_probe.py [results/<model>.json]
 
-Hypothesis: a formula the model *invented* carries numbers the page does not
-hold, while a formula it *read* carries numbers the native text layer also
-holds (digits survive symbol-font damage; only the operators are mismapped).
-For every candidate formula: pull its numeric tokens, look each up in the
-page's native text, flag the formula when any is absent. Report, per variant,
-how many of the scorer's wrong-but-balanced candidates are flagged (caught)
-and how many recovered ground-truth formulas would be flagged too (cost).
+Runs ``doctag.unsupported_numbers`` — the shipped gate — over every candidate
+formula in a result file, against the page's native text layer. Reports, per
+page class, how many of the scorer's wrong-but-balanced candidates it flags
+(caught) and how many recovered ground-truth formulas it would drop (cost: a
+recovered formula whose every holding candidate is flagged). The split by
+class is the finding: on `scattered` pages the layer keeps its digits and the
+gate is free; on `mismapped` pages the symbol font swallowed them and the gate
+rejects correct formulas, which is why the pipeline exempts those pages.
 """
 from __future__ import annotations
 
 import json
-import re
 import sys
-import unicodedata
 from pathlib import Path
 
 import pymupdf
@@ -23,66 +22,41 @@ import pymupdf
 sys.path.insert(0, str(Path(__file__).parent))
 from score import HERE, normalize, score
 
+sys.path.insert(0, str(HERE.parents[2]))
+from extractor.vlm.doctag import unsupported_numbers
+
 PDF = HERE.parents[2] / "input" / "Geotehnica - note de curs.pdf"
-_NUM = re.compile(r"\d+(?:[.,]\d+)?")
-
-
-def numbers(latex: str, min_digits: int) -> set[str]:
-    latex = re.sub(r"\s+", "", latex)  # granite spaces out every character: "0 , 4 5 7"
-    return {n.replace(".", ",") for n in _NUM.findall(latex) if len(re.sub(r"\D", "", n)) >= min_digits}
-
-
-def flagged(latex: str, native_tokens: set[str], native_digits: str, min_digits: int, loose: bool) -> bool:
-    nums = numbers(latex, min_digits)
-    if not nums:
-        return False
-    if loose:
-        return any(re.sub(r"\D", "", n) not in native_digits for n in nums)
-    return any(n not in native_tokens for n in nums)
 
 
 def main(result_path: Path) -> None:
     results = json.loads(result_path.read_text(encoding="utf-8"))
     report = score(results)["pages"]
-    doc = pymupdf.open(PDF)
-    pages = {}
-    for page in report:
-        # a mismapped font hits digits too (page 59 holds "5516" as Odia ୫୫୧୬): fold every
-        # Unicode decimal digit to ASCII before looking anything up
-        text = "".join(str(unicodedata.decimal(ch)) if ch.isdecimal() else ch for ch in doc[int(page) - 1].get_text())
-        pages[page] = ({n.replace(".", ",") for n in _NUM.findall(text)}, re.sub(r"\D", "", text))
     gt = {p.stem: json.loads(p.read_text(encoding="utf-8")) for p in HERE.glob("[0-9]*.json")}
+    with pymupdf.open(PDF) as doc:
+        native = {page: doc[int(page) - 1].get_text() for page in report}
+
+    def flagged(latex: str, page: str) -> bool:
+        return bool(unsupported_numbers(latex, native[page]))
 
     print(f"{result_path.stem}: wrong-but-balanced {sum(len(r['wrong_balanced']) for r in report.values())}, "
           f"recovered {sum(r['recovered'] for r in report.values())}")
-    for min_digits in (1, 2, 3):
-        for loose in (False, True):
-            caught = cost = has_nums = 0
-            missed = []
-            for page, r in report.items():
-                toks, digs = pages[page]
-                for w in r["wrong_balanced"]:
-                    if numbers(w, min_digits):
-                        has_nums += 1
-                    if flagged(w, toks, digs, min_digits, loose):
-                        caught += 1
-                    else:
-                        missed.append(f"p{page}: {w[:70]}")
-                # cost: a recovered expected formula is lost if every candidate holding it is flagged
-                cands = results.get(page, {}).get("formulas", [])
-                for f in gt[page]["formulas"]:
-                    if f["id"] in r["missing"]:
-                        continue
-                    n = normalize(f["latex"])
-                    holders = [c for c in cands if n in normalize(c)]
-                    if holders and all(flagged(c, toks, digs, min_digits, loose) for c in holders):
-                        cost += 1
-            mode = "loose" if loose else "token"
-            print(f"  min_digits={min_digits} {mode:<5}: caught {caught} (of {has_nums} carrying numbers), "
-                  f"would drop {cost} recovered")
-            if min_digits == 2 and not loose:
-                for m in missed:
-                    print(f"      not caught: {m}")
+    for reason in ("scattered", "mismapped"):
+        caught = wrong = cost = recovered = 0
+        for page, r in report.items():
+            if r["reason"] != reason:
+                continue
+            wrong += len(r["wrong_balanced"])
+            caught += sum(flagged(w, page) for w in r["wrong_balanced"])
+            cands = results.get(page, {}).get("formulas", [])
+            for f in gt[page]["formulas"]:
+                if f["id"] in r["missing"]:
+                    continue
+                recovered += 1
+                holders = [c for c in cands if normalize(f["latex"]) in normalize(c)]
+                if holders and all(flagged(c, page) for c in holders):
+                    cost += 1
+                    print(f"      would drop {f['id']}: {unsupported_numbers(holders[0], native[page])}")
+        print(f"  {reason:<10} caught {caught}/{wrong} wrong, would drop {cost}/{recovered} recovered")
 
 
 if __name__ == "__main__":
