@@ -37,11 +37,7 @@ def _missing_modules() -> list[str]:
 
 
 def host_failure() -> VlmUnavailable | None:
-    """Why this host cannot run any mlx model, or None. No weights are loaded.
-
-    Shared by the describing pass, which has its own engine and must not load
-    the reading model's weights just to learn that the host is a Windows box.
-    """
+    """Why this host cannot run any mlx model, or None. No weights are loaded."""
     # mlx is Apple-Silicon only. Checked before the import so a Windows box
     # gets the useful reason rather than "module not found".
     if platform.system() != "Darwin" or platform.machine() != "arm64":

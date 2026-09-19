@@ -3,11 +3,6 @@
 Without OCR the file still produces a valid JSON + Markdown pair: zero text
 blocks plus a warning naming what could not be read and how to fix it. It never
 crashes and never writes a silently empty file.
-
-Under ``--vlm-describe-figures`` the picture is also described, because a
-screenshot or an infographic is exactly the case where the glyphs are only half
-the content: OCR read a reference card's 148 lines at 0.99 confidence and said
-nothing about the diagram they surround.
 """
 import logging
 from pathlib import Path
@@ -18,25 +13,6 @@ from extractor.model import make_document, make_unit
 logger = logging.getLogger(__name__)
 
 IMAGE_EXTENSIONS = (".png", ".jpg", ".jpeg", ".tiff", ".tif", ".webp")
-
-
-def _describe_figures(image) -> tuple[dict | None, list[dict]]:
-    """Describe the picture's figures, or return nothing when that is off.
-
-    Kept out of ``extract_image`` so the visual import stays where it is used:
-    the module has to import cleanly on a host with no mlx at all.
-    """
-    import pymupdf
-
-    from extractor.model import make_vlm_text_block
-    from extractor.vlm.describe import describe_image
-
-    height, width = image.shape[:2]
-    png = pymupdf.Pixmap(
-        pymupdf.csRGB, width, height, image.tobytes(), False,
-    ).tobytes("png")
-    text, warnings = describe_image(png)
-    return make_vlm_text_block(text or "", source="vlm-figure"), warnings
 
 
 def extract_image(path: Path | str) -> dict:
@@ -66,11 +42,6 @@ def extract_image(path: Path | str) -> dict:
     if block:
         blocks.append(block)
     warnings.extend(ocr_warnings or [unavailable_warning(1)])
-
-    figure_block, describe_warnings = _describe_figures(image)
-    if figure_block:
-        blocks.append(figure_block)
-    warnings.extend(describe_warnings)
 
     return make_document(
         path.name, "image", 1,

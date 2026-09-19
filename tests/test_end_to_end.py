@@ -24,7 +24,6 @@ def test_file_stats_counts():
         "ocr_pages": 0,
         "vlm_pages": 0,
         "vlm_formulas": 0,
-        "vlm_figures": 0,
         "unreadable_pages": 0,
         "warnings": [],
         "ok": True,

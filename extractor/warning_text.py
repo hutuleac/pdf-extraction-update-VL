@@ -48,21 +48,12 @@ _TEMPLATES = {
     # Carries a reason (truncated / low-yield / empty / error) in describe().
     "VLM_OUTPUT_REJECTED": "the visual model's reading of this page was discarded",
     "VLM_UNAVAILABLE": "the visual model could not run",
-    # Aggregated per document: a line per described page would be most of the
-    # document on an illustrated one, and says nothing the count does not.
-    "VLM_FIGURES_DESCRIBED": "figures were described in prose",
-    "VLM_DESCRIBE_FAILED": "some figure pages could not be described",
-    # Kept rather than discarded — a description cut short still describes what
-    # it reached — but said out loud, because prose that stopped and prose that
-    # ended look identical.
-    "VLM_DESCRIBE_TRUNCATED": "some figure descriptions ran out of tokens and stop mid-sentence",
-    "VLM_DESCRIBE_UNAVAILABLE": "the describing model could not run",
     # An equation the model returned unbalanced is never published as math: a
     # wrong formula that renders is worse than a missing one.
     "FORMULA_REVIEW_REQUIRED": "a formula on this page was dropped as malformed — check the source",
-    # Carries the URL (and, when close enough to guess at, what the other
-    # source read instead) in describe() — flags disagreement, picks no side.
-    "VLM_URL_UNVERIFIED": "a URL read by the visual model is not confirmed by this page's other text — check it before trusting it",
+    # The model invents URLs, so every one it reads is removed; the count says
+    # the page held links the output does not.
+    "VLM_URLS_DROPPED": "URLs read by the visual model were removed — the model invents them; check the source for links",
 }
 
 # Codes whose sentence ends in a percentage, so the raw detail would repeat it.
@@ -106,11 +97,6 @@ def describe(warning: dict) -> str:
         if notes:
             text = f"{text} ({'; '.join(notes)})"
 
-    if code in (
-        "VLM_FIGURES_DESCRIBED", "VLM_DESCRIBE_FAILED", "VLM_DESCRIBE_TRUNCATED",
-    ) and warning.get("pages"):
-        text = f"{text} ({warning['pages']} page(s))"
-
     if code == "VLM_OUTPUT_REJECTED":
         if warning.get("pages"):
             text = (
@@ -120,18 +106,12 @@ def describe(warning: dict) -> str:
         elif warning.get("reason"):
             text = f"{text} ({warning['reason']})"
 
-    if code == "FORMULA_REVIEW_REQUIRED" and warning.get("count"):
+    if code in ("FORMULA_REVIEW_REQUIRED", "VLM_URLS_DROPPED") and warning.get("count"):
         text = f"{text} ({warning['count']})"
 
     if code == "OCR_NOISE_FILTERED" and warning.get("sample"):
         quoted = ", ".join(repr(fragment) for fragment in warning["sample"])
         text = f"{text} ({warning.get('dropped', len(warning['sample']))}: {quoted})"
-
-    if code == "VLM_URL_UNVERIFIED" and warning.get("model_url"):
-        if warning.get("other_url"):
-            text = f"{text} ({warning['model_url']!r} vs {warning['other_url']!r})"
-        else:
-            text = f"{text} ({warning['model_url']!r})"
 
     detail = warning.get("detail")
     if detail and code not in _CONFIDENCE_CODES:

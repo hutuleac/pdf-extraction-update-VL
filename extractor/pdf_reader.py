@@ -32,9 +32,8 @@ from extractor.rotated_text import (
     skewed_words_and_text,
 )
 from extractor.table_reader import extract_tables
-from extractor.url_check import check_page_urls
+from extractor.url_check import drop_model_urls
 from extractor.vlm.apply import vlm_pages
-from extractor.vlm.describe import describe_pages
 
 logger = logging.getLogger(__name__)
 
@@ -432,11 +431,6 @@ def extract_pdf(path: Path | str, *, images_dir: Path | str | None = None) -> di
         if reader_data["page_classes"][page - 1] in FULL_PAGE_OCR_CLASSES
         and parsed.text.strip()
     }
-    # Independent of the reading pass: a different model answering a different
-    # question, on the figure-bearing pages the reading pass has no answer for.
-    figure_by_page, describe_warnings = describe_pages(
-        path, reader_data["page_classes"], reader_data["page_image_counts"],
-    )
     ocr_by_page = _ocr_pages(
         path,
         reader_data["page_classes"],
@@ -447,7 +441,7 @@ def extract_pdf(path: Path | str, *, images_dir: Path | str | None = None) -> di
 
     total_images = sum(reader_data["page_image_counts"])
     units: list[dict] = []
-    doc_warnings: list[dict] = list(vlm_warnings) + describe_warnings
+    doc_warnings: list[dict] = list(vlm_warnings)
 
     rotated_warning = _rotated_text_warning(reader_data["page_rotated_text"])
     if rotated_warning:
@@ -536,16 +530,6 @@ def extract_pdf(path: Path | str, *, images_dir: Path | str | None = None) -> di
             blocks.append(ocr_block)
         if vlm_block:
             blocks.append(vlm_block)
-        # After the page's own text, because it describes what the page shows
-        # rather than what it says — a reader (or a chunker) wants the source
-        # first and the commentary on it second.
-        figure_block = make_vlm_text_block(
-            figure_by_page.get(page_number, ""), source="vlm-figure",
-        )
-        if figure_block:
-            blocks.append(figure_block)
-
-        doc_warnings.extend(check_page_urls(blocks, page_number))
 
         native_tables = tables.get(page_number, [])
         for table in native_tables:
@@ -555,6 +539,7 @@ def extract_pdf(path: Path | str, *, images_dir: Path | str | None = None) -> di
         if parsed and not native_tables:
             for rows in parsed.tables:
                 blocks.append(make_table_block(rows, source="vlm"))
+        doc_warnings.extend(drop_model_urls(blocks, page_number))
 
         # ponytail: appended after text/tables rather than interleaved at
         # their true position on the page — upgrade to position-based

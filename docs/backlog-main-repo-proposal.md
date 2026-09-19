@@ -1,5 +1,20 @@
 # Main Repository Improvement Proposal
 
+## Status (2026-09-19)
+
+- **Phase A: done.** Fatal-error taxonomy (`errors.py`), strong-signature
+  validation (`format_detection.py`), JSON/XML/image/table/workbook limits
+  (`limits.py`).
+- **Phase B: partly done.** DOCX headings and style-based lists are in.
+  Still open: native numbering (`numPr`/`ilvl`), hyperlink display text, text
+  boxes / `AlternateContent`, OMML equations, and cross-format table quality.
+  Measure the gaps on real DOCX files before building anything.
+- **Phase C and Phase 3: deferred to Phase 2.** Build them when chunking
+  shows a concrete need.
+- **Image pixel cap (25 MP):** still refuses rather than shrinks. No file in
+  `input/` exceeds it, and PDF pages already lower their DPI to fit. Add a
+  resize policy, tested for OCR quality, once a real file hits the cap.
+
 ## Scope
 
 This proposal adapts only the valuable ideas from the backlog to the existing

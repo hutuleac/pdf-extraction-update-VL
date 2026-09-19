@@ -20,15 +20,6 @@ DEFAULT_MAX_TOKENS = 4096
 # repeated numeric cells are exactly that. Set 1.0 to disable.
 DEFAULT_REPETITION_PENALTY = 1.05
 
-# Figure description is a second, additive model: a paragraph saying what a
-# chart or diagram *shows*, which neither the native text nor OCR can produce.
-# A general instruct model, not a document-conversion one — the output is prose
-# for Phase 2 to embed, so there is nothing to parse.
-DEFAULT_DESCRIBE_MODEL = "mlx-community/Qwen3-VL-8B-Instruct-4bit"
-# Descriptions of the pages measured ran 900-1300 characters; 512 tokens leaves
-# headroom without paying for a model that decides to transcribe the page.
-DEFAULT_DESCRIBE_MAX_TOKENS = 512
-
 
 @dataclass(frozen=True)
 class VlmConfig:
@@ -45,11 +36,6 @@ class VlmConfig:
     dpi: int = DEFAULT_DPI
     max_tokens: int = DEFAULT_MAX_TOKENS
     repetition_penalty: float = DEFAULT_REPETITION_PENALTY
-    # Independent of `model`: the describing model runs *beside* the reading
-    # one, on figure-bearing pages only, and does not replace it.
-    describe: bool = False
-    describe_model: str = DEFAULT_DESCRIBE_MODEL
-    describe_max_tokens: int = DEFAULT_DESCRIBE_MAX_TOKENS
     # On by default: a 388-page run is ~90 minutes, and an interruption must
     # not cost all of it. None disables caching entirely.
     cache_dir: str | None = None
@@ -81,7 +67,6 @@ def reset() -> VlmConfig:
 
 def _reset_probe() -> None:
     """Drop the cached engine so the next call re-probes with new settings."""
-    from extractor.vlm import describe, registry
+    from extractor.vlm import registry
 
     registry.reset()
-    describe.reset()

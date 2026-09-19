@@ -56,7 +56,7 @@ def make_ocr_text_block(raw_text: str, confidence: float) -> dict | None:
     }
 
 
-def make_vlm_text_block(raw_text: str, source: str = "vlm") -> dict | None:
+def make_vlm_text_block(raw_text: str) -> dict | None:
     """Normalize visual-model output into a text block that records its source.
 
     Same reasoning as ``make_ocr_text_block``: the ``text`` type is reused so
@@ -67,7 +67,7 @@ def make_vlm_text_block(raw_text: str, source: str = "vlm") -> dict | None:
     normalized = normalize(raw_text)
     if not normalized:
         return None
-    return {"type": "text", "content": normalized, "source": source}
+    return {"type": "text", "content": normalized, "source": "vlm"}
 
 
 def make_header_block(raw_text: str) -> dict | None:

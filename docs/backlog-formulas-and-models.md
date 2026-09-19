@@ -4,6 +4,18 @@ Written 2026-09-17 after the run on the 388-page geotechnics course
 (`docs/extraction-findings-2026-09-07.md` and CLAUDE.md hold the earlier
 measurements this builds on).
 
+## Status (2026-09-19): closed
+
+- Steps 1, 2, 3 and 5 ran; the numeric formula gate shipped.
+- **Step 4 is closed without building.** The best recognizer on crops
+  recovers 43 of 136 formulas against granite's 106, well under step 3's 60%
+  stop line. Windows has no formula path and no visual path.
+- PaddleOCR-VL: rejected both ways (whole-page, then two-stage on CPU).
+  Reopen only if a batched CPU backend ships or the target gains a GPU.
+- Granite's remaining 13 wrong-but-balanced formulas: no cheap signal catches
+  them. Accepted.
+- Figure description (`--vlm-describe-figures`): removed from the code.
+
 ## The problem in one paragraph
 
 Formulas are the one content type the pipeline cannot read without the
@@ -105,7 +117,7 @@ Do these in order. Each one has a stop condition. Nothing ships until step
 - Stop if the best recovers under 60% of what granite does: then the
   answer is GOT-OCR2 on Windows (step 5) and formula OCR is dropped.
 
-### Step 4: integrate the winner (two days)
+### Step 4: integrate the winner (closed 2026-09-19: no winner cleared the step 3 bar)
 
 - New engine under `extractor/ocr/formula_*.py`, glued in through
   `ocr/apply.py` like everything else. Readers do not talk to it.
@@ -454,12 +466,11 @@ only on additive pages without `MISMAPPED_GLYPHS`; reported as
 `VLM_FORMULA_REJECTED` with the missing numbers. Built 2026-09-18; the
 probe now calls the shipped helper, so its table is the gate's own numbers.
 
-## Parked
+## Cut
 
-- `--vlm-describe-figures` stays off and untouched until formulas are
-  solved. It is the largest budget in the pipeline (~45 s/page, 330 of 388
-  pages on the course) and its output cannot be verified. No optimization
-  work on it before step 4 above ships.
+- `--vlm-describe-figures` was removed on 2026-09-19. It was the largest
+  budget in the pipeline (~45 s/page, 330 of 388 pages on the course) and
+  its output could not be verified.
 
 ## Decision pending: PaddleOCR-VL
 

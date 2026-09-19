@@ -1,49 +1,32 @@
-from extractor.url_check import check_page_urls
+from extractor.url_check import drop_model_urls
 
 
-def test_model_url_confirmed_by_native_text_is_not_flagged():
+def test_model_urls_are_dropped_and_counted():
+    blocks = [{"type": "text", "source": "vlm", "content": "Visit https://fabricated.example/x  or www.b.example today"}]
+    assert drop_model_urls(blocks, page_number=3) == [
+        {"code": "VLM_URLS_DROPPED", "page": 3, "count": 2},
+    ]
+    assert blocks[0]["content"] == "Visit or today"
+
+
+def test_native_and_ocr_urls_are_kept():
     blocks = [
         {"type": "text", "content": "See https://example.com/login"},
-        {"type": "text", "source": "vlm-figure", "content": "Visit https://example.com/login"},
+        {"type": "text", "source": "ocr", "content": "https://acme.example/login"},
     ]
-    assert check_page_urls(blocks, page_number=1) == []
+    assert drop_model_urls(blocks, page_number=1) == []
+    assert blocks[0]["content"] == "See https://example.com/login"
+    assert blocks[1]["content"] == "https://acme.example/login"
 
 
-def test_model_url_with_no_other_source_is_flagged_unverified():
-    blocks = [{"type": "text", "source": "vlm", "content": "https://fabricated.example/x"}]
-    warnings = check_page_urls(blocks, page_number=3)
-    assert warnings == [{
-        "code": "VLM_URL_UNVERIFIED",
-        "page": 3,
-        "model_url": "https://fabricated.example/x",
-    }]
-
-
-def test_model_url_close_to_a_trusted_url_names_it():
-    # The real-world case this exists for: OCR misreads "login" as "loqin",
-    # the model reads it correctly. Flag the disagreement either direction.
+def test_model_table_cells_are_stripped_and_empty_text_removed():
     blocks = [
-        {"type": "text", "source": "ocr", "content": "https://acme.example/loqin"},
-        {"type": "text", "source": "vlm-figure", "content": "https://acme.example/login"},
+        {"type": "text", "source": "vlm", "content": "https://only.example"},
+        {"type": "table", "source": "vlm", "content": [["Site", "https://x.example"]]},
+        {"type": "table", "content": [["https://native.example"]]},
     ]
-    warnings = check_page_urls(blocks, page_number=5)
-    assert warnings == [{
-        "code": "VLM_URL_UNVERIFIED",
-        "page": 5,
-        "model_url": "https://acme.example/login",
-        "other_url": "https://acme.example/loqin",
-    }]
-
-
-def test_non_text_blocks_are_ignored():
-    blocks = [{"type": "table", "content": [["https://example.com"]]}]
-    assert check_page_urls(blocks, page_number=1) == []
-
-
-if __name__ == "__main__":
-    # ponytail self-check: run without pytest, e.g. `python tests/test_url_check.py`
-    test_model_url_confirmed_by_native_text_is_not_flagged()
-    test_model_url_with_no_other_source_is_flagged_unverified()
-    test_model_url_close_to_a_trusted_url_names_it()
-    test_non_text_blocks_are_ignored()
-    print("ok")
+    assert drop_model_urls(blocks, page_number=2)[0]["count"] == 2
+    assert blocks == [
+        {"type": "table", "source": "vlm", "content": [["Site", ""]]},
+        {"type": "table", "content": [["https://native.example"]]},
+    ]

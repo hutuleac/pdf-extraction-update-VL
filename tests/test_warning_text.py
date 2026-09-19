@@ -74,21 +74,6 @@ def test_vlm_applied_with_neither_note_is_unembellished():
     assert describe({"code": "VLM_APPLIED"}) == "the visual model read this page"
 
 
-def test_vlm_figures_described_counts_pages():
-    text = describe({"code": "VLM_FIGURES_DESCRIBED", "pages": 7})
-    assert "(7 page(s))" in text
-
-
-def test_vlm_describe_failed_counts_pages():
-    text = describe({"code": "VLM_DESCRIBE_FAILED", "pages": 2})
-    assert "(2 page(s))" in text
-
-
-def test_vlm_describe_truncated_counts_pages():
-    text = describe({"code": "VLM_DESCRIBE_TRUNCATED", "pages": 1})
-    assert "(1 page(s))" in text
-
-
 def test_vlm_output_rejected_with_page_count_names_the_duplicate_case():
     text = describe({"code": "VLM_OUTPUT_REJECTED", "pages": 4})
     assert text == (

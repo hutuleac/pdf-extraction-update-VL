@@ -124,9 +124,3 @@ def test_heading_block_nests_under_the_unit_heading(tmp_path):
     assert "\n#### Scope\n" in text
     assert "\n###### Deep\n" in text  # Markdown stops at six
 
-
-def test_figure_description_is_labelled(tmp_path):
-    """A model's account of a chart must never read as the document's own claim."""
-    model = _one_unit({"type": "text", "content": "A bar chart of X", "source": "vlm-figure"})
-    text = write_markdown(model, tmp_path).read_text(encoding="utf-8")
-    assert "> Figure description by the visual model\n\nA bar chart of X" in text

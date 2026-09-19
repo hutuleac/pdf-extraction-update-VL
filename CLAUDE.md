@@ -255,11 +255,7 @@ by its own `apply.py` exactly as OCR is.** Same shape throughout: `config.py`
 `scanned`, `garbled`, and pages carrying `MISMAPPED_GLYPHS`
 (`pdf_reader._vlm_candidates`). With no candidate the model is never loaded, so
 `--vlm` on a healthy document costs nothing — the whole-document read that
-`all` restores kept almost nothing from healthy pages at ~14 s each. The
-describing pass asks `registry.host_failure()` (platform + deps, no weights)
-rather than the reading probe, for the same reason: under `auto` there may be
-no reading engine to consult, and loading granite to decide whether Qwen can
-run would be the cost `auto` exists to avoid.
+`all` restores kept almost nothing from healthy pages at ~14 s each.
 
 **One model, one table.** `--vlm-model` selects the prompt that makes a model
 emit its format *and* the parser that reads it back — one choice, so it lives
@@ -353,18 +349,21 @@ carries text: a page kept for its tables alone replaces nothing, so OCR still
 gets a shot at the garbled prose standing beside them. Native tables always win
 over the model's: pdfplumber reads ruling lines, the model infers them.
 
-**The reading model fabricates URLs, and nothing in the pipeline catches it.**
+**The reading model fabricates URLs, so `url_check.drop_model_urls` removes every one.**
 Measured on the 388-page course: of the URLs appearing in the model's kept text,
 granite invented 11 of 13 and PaddleOCR-VL 8 of 9. They are not garbled — they
 are plausible, well-formed and wrong: `jrbengineering.com` came back as
 `thiborgineering.com`, `pilingindustrycanada.com` as `sgcengincovering.com`.
-These shipped into the Markdown. It is the `formula_is_balanced` problem in a
+It is the `formula_is_balanced` problem in a
 form no balance check sees — a wrong equation that renders is worse than a
 missing one, and a wrong URL is worse still, because it looks like a citation
 and Phase 2 will embed it as one. That it appears in both models at the same
 rate makes it a property of the reading path, not a reason to prefer one model.
-No gate exists for this yet; a page carrying model-read URLs is worth
-distrusting by hand until one does.
+So every URL in a `source: "vlm"` text or table block is stripped, not checked:
+a link is not needed to read the text, and verifying against native text/OCR
+buys nothing on the scanned pages where the model is the only reader. Native
+and OCR URLs are untouched. The page reports `VLM_URLS_DROPPED` with a count, so
+the loss is visible.
 
 `MIN_YIELD_RATIO` guards only the replacing case. Applied to an additive page
 it would reject a reading that returned one clean formula plus a paragraph,
@@ -374,53 +373,10 @@ that renders is worse than a missing one — nothing flags it. `is_truncated`
 excludes `<other>`: the model emits it bare inside `<picture>`, and counting it
 as a paired tag reported every illustrated page as truncated.
 
-**Figure description (`vlm/describe.py`) is a third reader, not a third
-format.** `--vlm-describe-figures` loads a second model beside the reading one
-and asks a different question: not what the page says, but what its charts,
-maps and schematics *show*. The answer is prose, so there is no parser and no
-entry in `models.py` — that table maps a model to a page-conversion prompt and
-the parser for its format, and `--vlm-model` picks one model for the whole
-reading path. Description is additive and runs beside granite, so a second
-dispatch axis inside that table would buy nothing.
-
-It reads whole pages, not figure crops. Cropping was the obvious design and the
-corpus refuted it: `raster.page_image_regions` returns zero regions on 16 of 17
-pages of the reference deck (vector art, no embedded raster), and granite's own
-`<picture>` boxes there are 12x11-unit logos, absent entirely on two pages that
-do have figures. Both region sources fail on the half of the corpus that
-motivates the feature.
-
-The page set is `FIGURE_CLASSES` **or** a non-zero image count, not the class
-alone: the course's seismic-zoning page — a full-page contoured map of Romania,
-the most describable page measured — classifies `native-text`, so gating on
-class alone silently skipped it. The image count is the signal `_ocr_pages`
-already uses for its figure pass.
-
-`describe_image` is the same pass for a standalone image file, called from
-`image_reader`. It is additive only and has no reading model beside it: an
-image's text comes from OCR, which is *trusted*, unlike a `scanned` page's
-native text that the model may replace — so pairing a conversion model with it
-would bet verified text against an unmeasured reading and would duplicate
-`pdf_reader`'s merge rule in a second place. It also skips `registry`
-deliberately: that probe is for the reading model, and consulting it here would
-load granite's weights only to decide whether a different model can run.
-
-A figureless page is refused by the model (`NONE`), not by an output heuristic —
-there is no region signal to threshold. That is a prompt instruction, so it was
-measured rather than trusted: 26 pages sampled across the course gave 8 bare
-sentinels, 18 descriptions (median 1,420 chars), 0 refusals phrased as prose,
-and 0 hitting the 512-token cap. The prose form is the one that matters — it
-would publish as a figure block reading "there are no figures on this page" —
-so re-measure it before changing the prompt or the model.
-
-Cost is ~45 s per page sent and a second set of resident weights (7.4 GB peak
-for granite + the 4-bit Qwen3-VL), which is why it is a flag and off by default.
-The page count is the number that matters and it is large: the widened gate
-sends 330 of the course's 388 pages (the class alone would send 181, and would
-miss the seismic map). Roughly four hours for that document — quote the page
-count, not the per-page seconds, when anyone asks what it costs.
-`apply._infer`'s cache keys on the model, so the describing pass never collides
-with the reading pass over identical pixels.
+**Figure description was removed on 2026-09-19.** `--vlm-describe-figures`
+(Qwen3-VL beside granite) cost ~45 s/page on 330 of the course's 388 pages,
+about four hours, and its prose could not be verified against anything. Don't
+rebuild it without a way to check what it says.
 
 **Warnings are structured and travel everywhere.** Every recoverable quality issue the
 pipeline detects (garbled text, scanned page, encoding fallback, OCR outcome,
@@ -541,5 +497,3 @@ image handling before concluding "model limitation".
 Legacy binary `.doc`/`.xls`/`.ppt` are not supported. OCR targets printed
 text, not handwriting. Embeddings, vector DB, semantic search, and LLM
 integration are Phase 2+.
-
-Now the real verification — Run full pipeline on all three documents.
