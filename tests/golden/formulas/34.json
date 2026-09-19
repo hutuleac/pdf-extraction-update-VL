@@ -50,7 +50,7 @@
   },
   {
    "id": "34-5",
-   "latex": "S_{Sneed-Folx} = \\sqrt[3]{\\frac{C^2}{A \\cdot B}}",
+   "latex": "S_{Sneed-Folx} = -\\sqrt[3]{\\frac{C^2}{A \\cdot B}}",
    "bbox": [
     103.6,
     543.9,

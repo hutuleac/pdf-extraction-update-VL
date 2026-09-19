@@ -515,3 +515,69 @@ the official two-stage `PaddleOCRVL` pipeline in PaddleOCR 3.x (layout +
 element recognition, PyTorch or Paddle, CPU or CUDA, Windows), is the
 candidate for step 5 above, and is the only route by which this model
 comes back.
+
+### Result: the two-stage pipeline, full weights (run 2026-09-19)
+
+The route named above, measured. PaddleOCR 3.7 / PaddleX 3.7.2, `PaddleOCRVL(pipeline_version="v1.6")`:
+PP-DocLayoutV3 finds regions, `PaddleOCR-VL-1.6-0.9B` (full weights, not the
+mlx 4-bit quant) reads each one with the prompt for its label. Paddle CPU
+backend on an M5, the path a Windows laptop takes. Harness:
+`tests/golden/formulas/run_paddleocr_vl.py`, results
+`results/paddleocr-vl-1.6-2stage.json`.
+
+**Formula benchmark (20 pages, 136 formulas).**
+
+| | granite (mlx) | PaddleOCR-VL-1.6 two-stage (CPU) |
+|---|---|---|
+| recovered, `score.py` as committed | 106 | 91 |
+| recovered, notation folds applied to both | **106** | **110** |
+| wrong-but-balanced, notation folds | 18, all real misreads | 21: 4 correct (truth incomplete), 8 notation, 4 trivial, **5 real** |
+| formulas carrying a number absent from the page (`unsupported_numbers`, p59 false positives excluded) | **5** | **0** |
+| seconds per page | ~14 | ~108 |
+
+`score.py` was tuned on granite's output and scores other notations as
+misses: `max` for `\max`, `\overline` for `\bar`, letter-spaced
+`\mathrm{s a t}` (dropped as a text label, which erases the subscript), and a
+comma inside a subscript. That last one zeroed page 384 on its own:
+`p_{ef,max}` for `p_{ef.max}` failed all 10 formulas. Applied symmetrically, the
+folds leave granite at 106 and lift PaddleOCR-VL to 110. They are now in
+`score.py`, and the other candidates move with them (GOT-OCR2 57 -> 62, pix2tex
+36 -> 43, PP-FormulaNet-S 34 -> 36, plus-S 29 -> 37); every one stays far below
+granite, so no earlier decision changes. Folding `\cdots` was tried and
+dropped: with spaces gone it also matches `\cdot s`, so `m^3 \cdot s^2`
+stopped matching. Ground truth 34-5 was also wrong (the page has
+`S_{Sneed-Folx} = -\sqrt[3]{...}`, the minus was missing) and is fixed.
+
+**Normal documents (23 pages outside the course).** No ground truth, so the
+reference is the text layer on native pages and PP-OCRv6 on scanned ones;
+multiset word recall/precision. `Aviz de Racordare.pdf` and `DELGAZ ...pdf`
+turned out to be the same scan, so the scanned set is 6 unique pages, run
+twice.
+
+| page class | granite rec / prec | PaddleOCR-VL rec / prec | granite s/page | PaddleOCR-VL s/page |
+|---|---|---|---|---|
+| scanned (12) | 0.77 / 0.72 | 0.78 / 0.82 | 11 | **508** |
+| URL-heavy native (6) | 0.70 / 0.96 | 0.99 / 0.92 | 5 | 50 |
+| native (5) | 0.92 / 0.94 | 0.97 / 0.97 | 11 | 91 |
+
+It is the better reader everywhere, but not by much on the class that matters:
+`--vlm-pages auto` sends only scanned/garbled/mismapped pages, and there the
+recall is a tie. It also **fabricates URLs**: `skool.com/robonuggets` came back
+as `skool4.com/robotnuggets` (1 of 14; granite 0 of 7 on the same pages). The
+hope that reading crops rather than whole pages would stop this is refuted, and
+the URL caveat in CLAUDE.md applies to both models.
+
+**Cost is the finding that decides it.** It scales with *layout blocks*, not
+pages: every block is a separate generation, and PaddleX's local backend
+hard-codes batch size 1 for this model (`PADDLEOCR_VL_LOCAL_BATCH_SIZE = 1`,
+float32 on CPU). A dense scanned form page is 20-46 blocks and took 11-19
+minutes; a near-empty stamp page took 11 s. The 6-page scan costs ~50
+minutes, and the 388-page course would take days. The batched backends
+are GPU inference servers, which the Windows target does not have.
+
+**Decision: not adopted.** On quality it is a real candidate: it matches or
+beats granite on formulas and makes a quarter as many real errors, with no
+invented numbers. On a CPU it is 50-100x granite's cost on exactly the dense
+scanned pages the visual path exists for. Windows keeps no visual path.
+Reconsider only if a batched CPU backend for it ships (ONNX/llama.cpp) or the
+target gains a GPU. Re-measure cost first, since quality is already known.

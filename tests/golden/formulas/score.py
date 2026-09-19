@@ -33,6 +33,7 @@ _DROP = [r"\\left", r"\\right", r"\\tt", r"\\mathrm", r"\\operatorname", r"\\dis
 _MAP = {r"\nu": "v", r"\varepsilon": r"\epsilon", r"\cong": r"\approx", r"\to": r"\rightarrow",
         r"\le ": r"\leq ", r"\ge ": r"\geq ", r"\leqq": r"\leq", r"\geqq": r"\geq", r"\varphi": r"\phi", r"\times": r"\cdot",
         r"\varDelta": r"\Delta", r"\cfrac": r"\frac", r"\dfrac": r"\frac",
+        r"\overline": r"\bar", r"\ldots": r"\dots",
         r"\Longrightarrow": r"\Rightarrow", r"\longrightarrow": r"\rightarrow",
         "\u00b0": r"^\circ"}
 
@@ -51,6 +52,8 @@ _SPACING = [r"\\quad", r"\\qquad", r"\\,", r"\\;", r"\\!", r"\\ ", "~"]
 def _text(m: re.Match) -> str:
     """``\\text{sat}`` is a subscript, ``\\text{presiunea din}`` is a label."""
     inner = m.group(1).strip()
+    if re.fullmatch(r"(?:\w )+\w", inner):  # PaddleOCR-VL's letter-spaced \mathrm{s a t}
+        inner = inner.replace(" ", "")
     if " " in inner or len(inner) > 3 or inner.lower() in _GLUE_WORDS:
         return ""
     return inner
@@ -75,7 +78,10 @@ def normalize(latex: str) -> str:
     s = re.sub(r"\^(0|o|\\circ)(?![0-9A-Za-z])", r"^\\circ", s)  # 27,2^0 == 27,2°
     s = re.sub(r"_+", "_", s)  # granite's _{_{a}}
     s = re.sub(r"\+\++", "+", s)  # "... + \\ & + ..." continues a sum, once
-    s = re.sub(r"(?<=\d)\.(?=\d)", ",", s)  # 1.85 for 1,85 is a decimal mark, not a digit
+    # 1.85 for 1,85 is a decimal mark, and p_{ef,max} for p_{ef.max} a subscript
+    # separator; neither is content. Folding only decimals zeroed page 384.
+    s = s.replace(".", ",")
+    s = re.sub(r"\\(max|min)(?![A-Za-z])", r"\1", s)  # \max and max render alike
     return s
 
 
